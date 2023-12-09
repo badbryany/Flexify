@@ -4,6 +4,7 @@ import 'package:flexify/pages/dashboardStatistics.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:flexify/pages/dashboardWorkout.dart';
+import 'package:flutter/services.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -15,67 +16,93 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   int _selectedIndex = 0;
 
-  final List<Widget> dashboardOptions = [
-    const DashboardWorkout(),
-    const DashboardFood(),
-    const DashboardStatistics(),
-    const DashboardProfile(),
+  final List<dynamic> dashboardOptions = [
+    {
+      'title': 'Workout',
+      'widget': const DashboardWorkout(),
+      'icon': Icons.fitness_center_rounded,
+    },
+    {
+      'title': 'Food',
+      'widget': const DashboardFood(),
+      'icon': Icons.restaurant_rounded,
+    },
+    {
+      'title': 'Statistics',
+      'widget': const DashboardStatistics(),
+      'icon': Icons.bar_chart_rounded,
+    },
+    {
+      'title': 'Profile',
+      'widget': const DashboardProfile(),
+      'icon': Icons.person,
+    },
   ];
+
+  Duration duration = const Duration(milliseconds: 300);
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        systemNavigationBarColor: Theme.of(context).colorScheme.background,
+        systemNavigationBarIconBrightness: Brightness.dark,
+      ),
+    );
     return Scaffold(
       body: Center(
-        child: dashboardOptions.elementAt(_selectedIndex),
+        child: AnimatedSwitcher(
+          duration: duration,
+          child: SizedBox(
+            key: ValueKey(_selectedIndex),
+            child: dashboardOptions[_selectedIndex]['widget'],
+          ),
+          transitionBuilder: (child, animation) => FadeTransition(
+            opacity: animation,
+            child: ScaleTransition(
+              scale: animation,
+              child: child,
+            ),
+          ),
+        ),
       ),
       // SPACING
       bottomNavigationBar: Container(
-        color: const Color.fromRGBO(29, 29, 29, 1),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: GNav(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            padding: const EdgeInsets.only(top: 8, bottom: 8, left: 5, right: 5),
-
-            // COLOURS
-            backgroundColor: const Color.fromRGBO(29, 29, 29, 1),
-            tabBackgroundColor: const Color.fromARGB(255, 37, 37, 37),
-            color: Colors.white54,
-            activeColor: Colors.white,
-
-            // CONTENT
-            tabs: const [
-              GButton(
-                icon: Icons.anchor,
-                gap: 10,
-                text: 'Workout',
-              ),
-              GButton(
-                icon: Icons.free_breakfast,
-                gap: 10,
-                text: 'Food',
-              ),
-              GButton(
-                icon: Icons.data_exploration,
-                gap: 10,
-                text: 'Statistics',
-              ),
-              GButton(
-                icon: Icons.face,
-                gap: 10,
-                text: 'Profile',
-              ),
-            ],
-
-            // FUNCTIONALITY
-            selectedIndex: 0,
-            onTabChange: (index) {
-              setState(() {
-                _selectedIndex = index;
-              });
-            },
-            
+        padding: const EdgeInsets.symmetric(vertical: 20),
+        decoration: const BoxDecoration(
+          color: Color.fromRGBO(29, 29, 29, 1),
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(35),
+            topRight: Radius.circular(35),
           ),
+        ),
+        child: GNav(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          padding: const EdgeInsets.only(top: 8, bottom: 8, left: 5, right: 5),
+
+          // COLORS
+          tabBackgroundColor: Theme.of(context).colorScheme.onSurface,
+          color: Theme.of(context).focusColor.withOpacity(0.4),
+          activeColor: Theme.of(context).focusColor,
+
+          // CONTENT
+          gap: 10,
+          tabs: dashboardOptions
+              .map(
+                (e) => GButton(
+                  icon: e['icon'],
+                  text: e['title'],
+                  padding: const EdgeInsets.all(15),
+                ),
+              )
+              .toList(),
+
+          // FUNCTIONALITY
+          selectedIndex: 0,
+          duration: duration,
+          onTabChange: (index) => setState(() {
+            _selectedIndex = index;
+          }),
         ),
       ),
     );
