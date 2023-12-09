@@ -1,3 +1,6 @@
+import 'package:flexify/pages/dashboardFood.dart';
+import 'package:flexify/pages/dashboardProfile.dart';
+import 'package:flexify/pages/dashboardStatistics.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:flexify/pages/dashboardWorkout.dart';
@@ -14,24 +17,9 @@ class _DashboardState extends State<Dashboard> {
 
   final List<Widget> dashboardOptions = [
     const DashboardWorkout(),
-    const Center(
-      child: Text(
-        'Food',
-        style: TextStyle(fontSize: 50),
-      ),
-    ),
-    const Center(
-      child: Text(
-        'Statistics',
-        style: TextStyle(fontSize: 50),
-      ),
-    ),
-    const Center(
-      child: Text(
-        'Profile',
-        style: TextStyle(fontSize: 50),
-      ),
-    ),
+    const DashboardFood(),
+    const DashboardStatistics(),
+    const DashboardProfile(),
   ];
 
   @override
@@ -50,8 +38,8 @@ class _DashboardState extends State<Dashboard> {
             padding: const EdgeInsets.only(top: 8, bottom: 8, right: 10),
 
             // COLOURS
-            backgroundColor: Color.fromRGBO(29, 29, 29, 1),
-            tabBackgroundColor: Color.fromARGB(255, 37, 37, 37),
+            backgroundColor: const Color.fromRGBO(29, 29, 29, 1),
+            tabBackgroundColor: const Color.fromARGB(255, 37, 37, 37),
             color: Colors.white54,
             activeColor: Colors.white,
 
