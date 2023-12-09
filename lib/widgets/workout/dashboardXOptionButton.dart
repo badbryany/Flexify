@@ -2,19 +2,14 @@ import 'package:flexify/pages/workout/workoutCreator.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
-class DashboardXOptionButton extends StatefulWidget {
-  Widget targetPage;
-
-  DashboardXOptionButton({
+class DashboardXOptionButton extends StatelessWidget {
+  const DashboardXOptionButton({
     super.key,
     required this.targetPage,
   });
 
-  @override
-  State<DashboardXOptionButton> createState() => _DashboardXOptionButtonState();
-}
+  final Widget targetPage;
 
-class _DashboardXOptionButtonState extends State<DashboardXOptionButton> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

@@ -13,7 +13,6 @@ dependencies:
   cupertino_icons: ^1.0.2
   google_nav_bar: ^5.0.6
   shared_preferences: ^2.2.2
-  animations: ^2.0.10
   page_transition: "^2.1.0"
 
 dev_dependencies:
