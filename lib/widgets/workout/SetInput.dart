@@ -31,7 +31,7 @@ class SetInput extends StatelessWidget {
   String subtract(String text) {
     double? num = double.tryParse(text.replaceAll(',', '.'));
 
-    if (num! <= 1) {
+    if (num != null && num <= 1) {
       return num.toString().replaceAll(regex, '');
     }
 
