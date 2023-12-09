@@ -3,7 +3,8 @@ import 'package:flexify/pages/dashboardProfile.dart';
 import 'package:flexify/pages/dashboardStatistics.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:flexify/pages/dashboardWorkout.dart';
+
+import 'package:flexify/pages/workout/dashboardWorkout.dart';
 import 'package:flutter/services.dart';
 
 class Dashboard extends StatefulWidget {

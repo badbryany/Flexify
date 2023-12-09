@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flexify/widgets/workout/weight.dart';
 
 class WeightRepWheel extends StatefulWidget {
   const WeightRepWheel({super.key});
@@ -19,7 +18,7 @@ class _WeightRepWheelState extends State<WeightRepWheel> {
         childDelegate: ListWheelChildBuilderDelegate(
           childCount: 10,
           builder: (context, index) {
-            return Weight();
+            return Text('weight');
           },
         ),
       ),

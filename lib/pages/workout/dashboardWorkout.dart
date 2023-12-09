@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flexify/widgets/workout/dashboardXOptionButton.dart';
 
 class DashboardWorkout extends StatefulWidget {
   const DashboardWorkout({super.key});
@@ -10,11 +11,11 @@ class DashboardWorkout extends StatefulWidget {
 class _DashboardWorkoutState extends State<DashboardWorkout> {
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text(
-        'Workout',
-        style: TextStyle(fontSize: 50),
-      ),
+    return ListView.builder(
+      itemCount: 3,
+      itemBuilder: (context, index) {
+        return const DashboardXOptionButton();
+      },
     );
   }
 }
