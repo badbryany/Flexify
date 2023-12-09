@@ -49,7 +49,7 @@ class SetInput extends StatelessWidget {
         Padding(
           padding:
               EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.05),
-          child: Text(title + ':'),
+          child: Text('$title:'),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,

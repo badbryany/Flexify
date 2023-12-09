@@ -35,7 +35,7 @@ class _DashboardState extends State<Dashboard> {
           padding: const EdgeInsets.symmetric(vertical: 10),
           child: GNav(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            padding: const EdgeInsets.only(top: 8, bottom: 8, right: 10),
+            padding: const EdgeInsets.only(top: 8, bottom: 8, left: 5, right: 5),
 
             // COLOURS
             backgroundColor: const Color.fromRGBO(29, 29, 29, 1),
