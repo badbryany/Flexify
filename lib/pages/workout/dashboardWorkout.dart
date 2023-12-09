@@ -1,3 +1,4 @@
+import 'package:flexify/pages/workout/workoutCreator.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/widgets/workout/dashboardXOptionButton.dart';
 
@@ -14,7 +15,7 @@ class _DashboardWorkoutState extends State<DashboardWorkout> {
     return ListView.builder(
       itemCount: 3,
       itemBuilder: (context, index) {
-        return const DashboardXOptionButton();
+        return DashboardXOptionButton(targetPage: WorkoutCreator(),);
       },
     );
   }
