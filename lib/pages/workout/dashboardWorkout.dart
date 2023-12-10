@@ -19,13 +19,13 @@ class _DashboardWorkoutState extends State<DashboardWorkout> {
         WorkoutDashboard(),
         SizedBox(height: 10),
         DashboardXOptionButton(
-          title: 'recommended workout',
+          title: 'Recommended Workout',
           targetPage: WorkoutPage(),
           content: Text(''),
         ),
         SizedBox(height: 10),
         DashboardXOptionButton(
-          title: 'start workout',
+          title: 'Custom Workout',
           targetPage: WorkoutPage(),
           content: Text(''),
         ),
@@ -180,8 +180,7 @@ class _WorkoutDashboardState extends State<WorkoutDashboard> {
                 style: TextStyle(
                   fontSize: 16,
                   color: Theme.of(context)
-                      .scaffoldBackgroundColor
-                      .withOpacity(0.8),
+                      .scaffoldBackgroundColor,
                 ),
               ),
               Text(
@@ -211,18 +210,20 @@ class _WorkoutDashboardState extends State<WorkoutDashboard> {
                       child: Text(
                         '${intensityPerDay[selectedIintensity]}',
                         key: ValueKey(selectedIintensity),
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.bold,
+                          color: Theme.of(context).scaffoldBackgroundColor
                         ),
                       ),
                     ),
                   ),
-                  const Text(
+                  Text(
                     ' sets',
                     style: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
+                      color: Theme.of(context).scaffoldBackgroundColor
                     ),
                   ),
                 ],
