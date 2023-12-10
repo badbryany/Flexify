@@ -12,11 +12,6 @@ class SetInput extends StatelessWidget {
   final TextEditingController controller;
   final double calcInterval;
 
-  final TextStyle textStyle = const TextStyle(
-    fontWeight: FontWeight.bold,
-    fontSize: 60,
-  );
-
   final RegExp regex = RegExp(r'([.]*0)(?!.*\d)');
 
   String add(String text) {
@@ -43,13 +38,23 @@ class SetInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextStyle textStyle = TextStyle(
+      fontWeight: FontWeight.bold,
+      color: Theme.of(context).focusColor,
+      fontSize: 60,
+    );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding:
               EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.05),
-          child: Text('$title:'),
+          child: Text(
+            '$title:',
+            style: TextStyle(
+              color: Theme.of(context).focusColor,
+            ),
+          ),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -79,7 +84,8 @@ class SetInput extends StatelessWidget {
               width: MediaQuery.of(context).size.width * 0.42,
               height: MediaQuery.of(context).size.height * 0.1,
               child: TextFormField(
-                style: const TextStyle(
+                style: TextStyle(
+                  color: Theme.of(context).focusColor,
                   fontSize: 60,
                 ),
                 textAlign: TextAlign.center,

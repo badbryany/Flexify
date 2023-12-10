@@ -54,11 +54,15 @@ class _EditSetState extends State<EditSet> {
                   children: [
                     IconButton(
                       onPressed: () => Navigator.pop(context),
-                      icon: const Icon(Icons.arrow_back_ios_new_rounded),
+                      icon: Icon(
+                        Icons.arrow_back_ios_new_rounded,
+                        color: Theme.of(context).focusColor,
+                      ),
                     ),
-                    const Text(
+                    Text(
                       'Edit Set',
                       style: TextStyle(
+                        color: Theme.of(context).focusColor,
                         fontWeight: FontWeight.bold,
                         fontSize: 40,
                       ),
