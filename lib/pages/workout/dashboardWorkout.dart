@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:flexify/data/exerciseModels.dart';
+import 'package:flexify/widgets/dashboardXOptionButton.dart';
+import 'package:flexify/pages/workout/workoutPage.dart';
 
 class DashboardWorkout extends StatefulWidget {
   const DashboardWorkout({super.key});
@@ -15,16 +17,19 @@ class _DashboardWorkoutState extends State<DashboardWorkout> {
     return const Column(
       children: [
         WorkoutDashboard(),
-        /* DashboardXOptionButton(
-          title: 'start workout',
+        SizedBox(height: 10),
+        DashboardXOptionButton(
+          title: 'recommended workout',
           targetPage: WorkoutPage(),
           content: Text(''),
         ),
+        SizedBox(height: 10),
         DashboardXOptionButton(
           title: 'start workout',
           targetPage: WorkoutPage(),
           content: Text(''),
-        ), */
+        ),
+        SizedBox(height: 10),
       ],
     );
   }
@@ -39,8 +44,6 @@ class WorkoutDashboard extends StatefulWidget {
 
 class _WorkoutDashboardState extends State<WorkoutDashboard> {
   List<DateTime> dates = [
-    // DateTime.now().subtract(const Duration(days: 5)),
-    // DateTime.now().subtract(const Duration(days: 4)),
     DateTime.now().subtract(const Duration(days: 3)),
     DateTime.now().subtract(const Duration(days: 2)),
     DateTime.now().subtract(const Duration(days: 1)),

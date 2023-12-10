@@ -1,4 +1,3 @@
-import 'package:flexify/pages/workout/workoutCreator.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -16,7 +15,7 @@ class DashboardXOptionButton extends StatelessWidget {
       onTap: () => Navigator.push(
           context,
           PageTransition(
-            child: const WorkoutCreator(),
+            child: targetPage,
             type: PageTransitionType.fade,
           )),
       child: Padding(

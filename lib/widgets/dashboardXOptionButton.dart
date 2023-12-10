@@ -24,22 +24,29 @@ class DashboardXOptionButton extends StatelessWidget {
         ),
       ),
       child: Container(
-        margin: const EdgeInsets.all(15),
-        padding: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.background,
-          borderRadius: BorderRadius.circular(30),
+        padding: const EdgeInsets.only(
+          top: 10,
+          left: 25,
+          right: 10,
+          bottom: 10,
         ),
-        width: MediaQuery.of(context).size.width * 0.9,
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.surface,
+          borderRadius: BorderRadius.circular(35),
+        ),
+        width: MediaQuery.of(context).size.width * 0.95,
         height: MediaQuery.of(context).size.height * 0.3,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          // mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 20),
             Text(
               title,
-              style: TextStyle(fontSize: 20),
+              style: TextStyle(
+                fontSize: 20,
+                color: Theme.of(context).focusColor,
+              ),
             ),
             content,
           ],
