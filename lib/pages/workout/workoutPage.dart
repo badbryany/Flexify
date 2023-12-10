@@ -58,10 +58,11 @@ class _WorkoutPageState extends State<WorkoutPage> {
                       left: 0,
                       child: GestureDetector(
                         onTap: () => Navigator.pop(context),
-                        child: const Padding(
+                        child: Padding(
                           padding: EdgeInsets.all(40),
                           child: Icon(
                             Icons.arrow_back_ios_new_rounded,
+                            color: Theme.of(context).colorScheme.background,
                           ),
                         ),
                       ),
@@ -102,7 +103,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
                           ),
                           icon: const Icon(Icons.add_rounded),
                         )
-                      : const SizedBox(),
+                      : const SizedBox()
                 ],
               ),
             ],
