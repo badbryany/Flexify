@@ -1,45 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flexify/widgets/workout/SetInput.dart';
-import 'package:flexify/widgets/workout/Button.dart';
-import 'package:flexify/data/exerciseModels.dart';
+import 'package:flexify/widgets/Button.dart';
+import 'package:flexify/widgets/InputField.dart';
+import '../../data/exerciseModels.dart';
 
-class AddSet extends StatefulWidget {
-  const AddSet({
+class AddExercise extends StatelessWidget {
+  AddExercise({
     super.key,
-    required this.exerciseName,
+    required this.refresh,
   });
+  final Function refresh;
 
-  final String exerciseName;
-
-  @override
-  State<AddSet> createState() => _AddSetState();
-}
-
-class _AddSetState extends State<AddSet> {
-  final TextEditingController repsController = TextEditingController(
-    text: '10',
-  );
-  final TextEditingController weightController = TextEditingController(
-    text: '10',
-  );
-
-  getData() async {
-    List<String> stringSets = await Save.setSetIfNull();
-    List<Set> sets = stringSets.map((e) => Set.fromStringToObject(e)).toList();
-
-    for (int i = 0; i < sets.length; i++) {
-      if (sets[i].exerciseName == widget.exerciseName) {
-        repsController.text = sets[i].reps.toString();
-        weightController.text = sets[i].weight.toString();
-      }
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getData();
-  }
+  final TextEditingController exerciseNameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +43,7 @@ class _AddSetState extends State<AddSet> {
                     ),
                     const Center(
                       child: Text(
-                        'Add set',
+                        'Add exercise',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 50,
@@ -84,32 +55,19 @@ class _AddSetState extends State<AddSet> {
               ),
               Column(
                 children: [
-                  SetInput(
-                    title: 'reps',
-                    controller: repsController,
-                    calcInterval: 1,
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.1),
-                  SetInput(
-                    title: 'weight',
-                    controller: weightController,
-                    calcInterval: 2.5,
+                  InputField(
+                    controller: exerciseNameController,
+                    labelText: 'Name of the exercise',
                   ),
                   Button(
                     text: 'save',
                     filled: true,
                     borderRadius: 40,
                     onPressed: () async {
-                      await Save.safeSet(
-                        Set(
-                          setId: await Set.getNewSetId(),
-                          date: DateTime.now(),
-                          exerciseName: widget.exerciseName,
-                          reps: int.parse(repsController.text),
-                          weight: double.tryParse(weightController.text)!,
-                        ),
+                      await Save.safeExercise(
+                        Exercise(name: exerciseNameController.text),
                       );
-
+                      await refresh();
                       Navigator.pop(context);
                     },
                   ),

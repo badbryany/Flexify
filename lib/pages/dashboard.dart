@@ -51,28 +51,67 @@ class _DashboardState extends State<Dashboard> {
       ),
     );
     return Scaffold(
-      body: Center(
-        child: AnimatedSwitcher(
-          duration: duration,
-          child: SizedBox(
-            key: ValueKey(_selectedIndex),
-            child: dashboardOptions[_selectedIndex]['widget'],
-          ),
-          transitionBuilder: (child, animation) => FadeTransition(
-            opacity: animation,
-            child: ScaleTransition(
-              scale: animation,
-              child: child,
-            ),
+      body: SafeArea(
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height * 1,
+          child: ListView(
+            physics: const BouncingScrollPhysics(),
+            children: [
+              // HEADER
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.1,
+                padding: EdgeInsets.only(
+                  left: MediaQuery.of(context).size.width * 0.1,
+                  right: MediaQuery.of(context).size.width * 0.1,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                      onPressed: () {},
+                      icon: Icon(Icons.logo_dev),
+                    ),
+                    Text(
+                      'Flexify',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30,
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {},
+                      icon: Icon(Icons.more_horiz_rounded),
+                    ),
+                  ],
+                ),
+              ),
+
+              AnimatedSwitcher(
+                duration: duration,
+                child: SizedBox(
+                  key: ValueKey(_selectedIndex),
+                  child: dashboardOptions[_selectedIndex]['widget'],
+                ),
+                transitionBuilder: (child, animation) => FadeTransition(
+                  opacity: animation,
+                  child: ScaleTransition(
+                    scale: animation,
+                    child: child,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
       // SPACING
       bottomNavigationBar: Container(
         padding: const EdgeInsets.symmetric(vertical: 20),
-        decoration: const BoxDecoration(
-          color: Color.fromRGBO(29, 29, 29, 1),
-          borderRadius: BorderRadius.only(
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.background,
+          borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(35),
             topRight: Radius.circular(35),
           ),
