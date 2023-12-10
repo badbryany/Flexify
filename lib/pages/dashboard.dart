@@ -171,7 +171,7 @@ class _DashboardState extends State<Dashboard> {
       ),
       // SPACING
       bottomNavigationBar: Container(
-        padding: const EdgeInsets.symmetric(vertical: 15),
+        padding: const EdgeInsets.symmetric(vertical: 25),
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.background,
           borderRadius: const BorderRadius.only(
