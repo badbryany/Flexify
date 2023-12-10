@@ -41,6 +41,36 @@ class _DashboardState extends State<Dashboard> {
   ];
 
   Duration duration = const Duration(milliseconds: 300);
+  double imageSize = 0.125;
+
+  String dateString() {
+    DateTime now = DateTime.now();
+    String day = [
+      'Mon',
+      'Tue',
+      'Wed',
+      'Thu',
+      'Fri',
+      'Sat',
+      'Sun',
+    ][now.weekday - 1];
+    String month = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec'
+    ][now.month - 1];
+
+    return '$day, $month ${now.day}';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,20 +99,53 @@ class _DashboardState extends State<Dashboard> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.logo_dev),
-                    ),
-                    Text(
-                      'Flexify',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30,
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(100),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * imageSize,
+                        height: MediaQuery.of(context).size.width * imageSize,
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.background,
+                        ),
+                        child: Image.network(
+                          'https://pxbar.com/wp-content/uploads/2023/09/profile-picture-girl.jpg',
+                          height: MediaQuery.of(context).size.width * imageSize,
+                        ),
                       ),
                     ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.more_horiz_rounded),
+                    Text(
+                      dateString(),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        color: Theme.of(context).focusColor,
+                      ),
+                    ),
+                    Stack(
+                      children: [
+                        IconButton(
+                          onPressed: () {},
+                          icon: Icon(
+                            Icons.notifications,
+                            color: Theme.of(context).focusColor,
+                          ),
+                        ),
+                        Visibility(
+                          visible: true,
+                          child: Positioned(
+                            top: 15,
+                            right: 15,
+                            child: Container(
+                              width: 6,
+                              height: 6,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(100),
+                                color: const Color(0xff1564fd),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -108,7 +171,7 @@ class _DashboardState extends State<Dashboard> {
       ),
       // SPACING
       bottomNavigationBar: Container(
-        padding: const EdgeInsets.symmetric(vertical: 20),
+        padding: const EdgeInsets.symmetric(vertical: 15),
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.background,
           borderRadius: const BorderRadius.only(
@@ -118,11 +181,10 @@ class _DashboardState extends State<Dashboard> {
         ),
         child: GNav(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          padding: const EdgeInsets.only(top: 8, bottom: 8, left: 5, right: 5),
+          padding: const EdgeInsets.only(top: 8, left: 5, right: 5),
 
           // COLORS
-          tabBackgroundColor: Theme.of(context).colorScheme.onSurface,
-          color: Theme.of(context).focusColor.withOpacity(0.4),
+          tabBackgroundColor: Theme.of(context).scaffoldBackgroundColor,
           activeColor: Theme.of(context).focusColor,
 
           // CONTENT
@@ -133,6 +195,8 @@ class _DashboardState extends State<Dashboard> {
                   icon: e['icon'],
                   text: e['title'],
                   padding: const EdgeInsets.all(15),
+                  iconColor: Theme.of(context).scaffoldBackgroundColor,
+                  iconActiveColor: Theme.of(context).focusColor,
                 ),
               )
               .toList(),
