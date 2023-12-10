@@ -21,7 +21,7 @@ class DashboardXOptionButton extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(10),
         child: Container(
-          color: const Theme.of(context).colorScheme.background,
+          color: Theme.of(context).colorScheme.background,
           height: 200,
         ),
       ),

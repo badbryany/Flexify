@@ -14,7 +14,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        brightness: Brightness.dark,
         focusColor: Colors.black,
         scaffoldBackgroundColor: Colors.white,
         colorScheme: const ColorScheme(
@@ -25,10 +24,10 @@ class MyApp extends StatelessWidget {
           onSecondary: Colors.red,
           error: Colors.red,
           onError: Colors.red,
-          background: const Color(0xff27272d),
+          background: Color(0xff27272d),
           onBackground: Colors.red,
           surface: Color(0xfff5f5fb),
-          onSurface: const Color.fromARGB(255, 37, 37, 37),
+          onSurface: Color.fromARGB(255, 37, 37, 37),
         ),
         fontFamily: 'JosefinSans',
       ),
