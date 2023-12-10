@@ -129,7 +129,10 @@ class _ExerciseSetsState extends State<ExerciseSets> {
               children: [
                 IconButton(
                   onPressed: () => Navigator.pop(context),
-                  icon: const Icon(Icons.arrow_back_ios_new_rounded),
+                  icon: Icon(
+                    Icons.arrow_back_ios_new_rounded,
+                    color: Theme.of(context).focusColor,
+                  ),
                 ),
                 IconButton(
                   onPressed: () {
@@ -137,7 +140,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                       context: context,
                       builder: (context) => AlertDialog(
                         backgroundColor:
-                            Theme.of(context).scaffoldBackgroundColor,
+                            Theme.of(context).colorScheme.background,
                         content: const Text('Are you sure?'),
                         actions: [
                           TextButton(
@@ -158,7 +161,10 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                       ),
                     );
                   },
-                  icon: const Icon(Icons.delete_outlined),
+                  icon: Icon(
+                    Icons.delete_outlined,
+                    color: Theme.of(context).focusColor,
+                  ),
                 ),
                 IconButton(
                   onPressed: () => Navigator.push(
@@ -168,7 +174,10 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                       type: PageTransitionType.bottomToTop,
                     ),
                   ).then((value) => getData()),
-                  icon: const Icon(Icons.add_rounded),
+                  icon: Icon(
+                    Icons.add_rounded,
+                    color: Theme.of(context).focusColor,
+                  ),
                 ),
               ],
             ),
@@ -180,7 +189,8 @@ class _ExerciseSetsState extends State<ExerciseSets> {
             child: Text(
               widget.name,
               textAlign: TextAlign.center,
-              style: const TextStyle(
+              style: TextStyle(
+                color: Theme.of(context).focusColor,
                 fontWeight: FontWeight.bold,
                 fontSize: 40,
               ),
@@ -195,8 +205,6 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                     ? setList([
                         Theme.of(context).colorScheme.primary,
                         Theme.of(context).colorScheme.onPrimary,
-                        Theme.of(context).colorScheme.secondary,
-                        Theme.of(context).colorScheme.onSecondary,
                       ])
                     : [
                         Center(
@@ -208,7 +216,12 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                         )
                       ]),
                 loadingDone && sets.isEmpty
-                    ? const Text('no sets')
+                    ? Text(
+                        'no sets',
+                        style: TextStyle(
+                          color: Theme.of(context).focusColor,
+                        ),
+                      )
                     : const SizedBox(),
               ],
             ),

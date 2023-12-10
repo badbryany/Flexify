@@ -33,18 +33,20 @@ class AddExercise extends StatelessWidget {
                       left: -30,
                       child: GestureDetector(
                         onTap: () => Navigator.pop(context),
-                        child: const Padding(
-                          padding: EdgeInsets.all(40),
+                        child: Padding(
+                          padding: const EdgeInsets.all(40),
                           child: Icon(
                             Icons.arrow_back_ios_new_rounded,
+                            color: Theme.of(context).focusColor,
                           ),
                         ),
                       ),
                     ),
-                    const Center(
+                    Center(
                       child: Text(
                         'Add exercise',
                         style: TextStyle(
+                          color: Theme.of(context).focusColor,
                           fontWeight: FontWeight.bold,
                           fontSize: 50,
                         ),
