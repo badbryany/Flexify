@@ -1,6 +1,6 @@
-import 'package:flexify/pages/dashboardFood.dart';
-import 'package:flexify/pages/dashboardProfile.dart';
-import 'package:flexify/pages/dashboardStatistics.dart';
+import 'package:flexify/pages/food/dashboardFood.dart';
+import 'package:flexify/pages/profile/dashboardProfile.dart';
+import 'package:flexify/pages/measurements/dashboardMeasurements.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
@@ -30,7 +30,7 @@ class _DashboardState extends State<Dashboard> {
     },
     {
       'title': 'Statistics',
-      'widget': const DashboardStatistics(),
+      'widget': const DashboardMeasurements(),
       'icon': Icons.bar_chart_rounded,
     },
     {
@@ -40,7 +40,7 @@ class _DashboardState extends State<Dashboard> {
     },
   ];
 
-  Duration duration = const Duration(milliseconds: 300);
+  Duration duration = const Duration(milliseconds: 250);
   double imageSize = 0.125;
 
   String dateString() {
@@ -184,7 +184,7 @@ class _DashboardState extends State<Dashboard> {
           padding: const EdgeInsets.only(top: 8, left: 5, right: 5),
 
           // COLORS
-          tabBackgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          tabBackgroundColor: Theme.of(context).colorScheme.surface,
           activeColor: Theme.of(context).focusColor,
 
           // CONTENT
