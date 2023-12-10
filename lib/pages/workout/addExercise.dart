@@ -30,7 +30,7 @@ class AddExercise extends StatelessWidget {
                     Positioned(
                       top: 0,
                       bottom: 15,
-                      left: -30,
+                      left: 0,
                       child: GestureDetector(
                         onTap: () => Navigator.pop(context),
                         child: const Padding(
@@ -64,7 +64,7 @@ class AddExercise extends StatelessWidget {
                     filled: true,
                     borderRadius: 40,
                     onPressed: () async {
-                      await Save.safeExercise(
+                      await Save.saveExercise(
                         Exercise(name: exerciseNameController.text),
                       );
                       await refresh();

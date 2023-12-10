@@ -86,7 +86,7 @@ class Save {
     return prefs.getStringList('sets')!;
   }
 
-  static Future<bool> safeExercise(Exercise exercise) async {
+  static Future<bool> saveExercise(Exercise exercise) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String> exercises = await setExerciseIfNull();
 
