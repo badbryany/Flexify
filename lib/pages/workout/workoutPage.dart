@@ -63,7 +63,6 @@ class _WorkoutPageState extends State<WorkoutPage> {
                           child: Icon(
                             color: Theme.of(context).focusColor,
                             Icons.arrow_back_ios_new_rounded,
-                            color: Theme.of(context).colorScheme.background,
                           ),
                         ),
                       ),
