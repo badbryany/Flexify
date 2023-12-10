@@ -13,6 +13,7 @@ class _DashboardWorkoutState extends State<DashboardWorkout> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      physics: const BouncingScrollPhysics(),
       itemCount: 3,
       itemBuilder: (context, index) {
         return DashboardXOptionButton(targetPage: WorkoutCreator(),);

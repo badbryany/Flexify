@@ -1,6 +1,6 @@
-import 'package:flexify/pages/dashboardFood.dart';
-import 'package:flexify/pages/dashboardProfile.dart';
-import 'package:flexify/pages/dashboardStatistics.dart';
+import 'package:flexify/pages/food/dashboardFood.dart';
+import 'package:flexify/pages/profile/dashboardProfile.dart';
+import 'package:flexify/pages/measurements/dashboardStatistics.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
@@ -70,9 +70,9 @@ class _DashboardState extends State<Dashboard> {
       // SPACING
       bottomNavigationBar: Container(
         padding: const EdgeInsets.symmetric(vertical: 20),
-        decoration: const BoxDecoration(
-          color: Color.fromRGBO(29, 29, 29, 1),
-          borderRadius: BorderRadius.only(
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.surface,
+          borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(35),
             topRight: Radius.circular(35),
           ),
@@ -82,9 +82,10 @@ class _DashboardState extends State<Dashboard> {
           padding: const EdgeInsets.only(top: 8, bottom: 8, left: 5, right: 5),
 
           // COLORS
-          tabBackgroundColor: Theme.of(context).colorScheme.onSurface,
-          color: Theme.of(context).focusColor.withOpacity(0.4),
-          activeColor: Theme.of(context).focusColor,
+          // 
+          tabBackgroundColor: Theme.of(context).colorScheme.background,
+          color: Theme.of(context).colorScheme.primary.withOpacity(0.4),
+          activeColor: Theme.of(context).colorScheme.primary,
 
           // CONTENT
           gap: 10,
