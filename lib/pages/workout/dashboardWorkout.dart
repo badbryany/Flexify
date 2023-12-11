@@ -44,14 +44,18 @@ class WorkoutDashboard extends StatefulWidget {
 
 class _WorkoutDashboardState extends State<WorkoutDashboard> {
   List<DateTime> dates = [
+    DateTime.now().subtract(const Duration(days: 6)),
+    DateTime.now().subtract(const Duration(days: 5)),
+    DateTime.now().subtract(const Duration(days: 4)),
     DateTime.now().subtract(const Duration(days: 3)),
     DateTime.now().subtract(const Duration(days: 2)),
     DateTime.now().subtract(const Duration(days: 1)),
     DateTime.now(),
   ];
 
-  List<int> intensityPerDay = [0, 0, 0, 0];
-  int selectedIintensity = 2; // yesterday
+  List<int> intensityPerDay = [0, 0, 0, 0, 0, 0, 0];
+
+  int selectedIntesity = 5; // yesterday
 
   getData() async {
     List<Set> sets = (await Save.setSetIfNull())
@@ -79,14 +83,42 @@ class _WorkoutDashboardState extends State<WorkoutDashboard> {
     getData();
   }
 
-  int max(List<int> list) {
+  double max(List<int> list, BuildContext context) {
     int maxValue = list[0];
     for (int i = 1; i < list.length; i++) {
       if (list[i] > maxValue) {
         maxValue = list[i];
       }
     }
-    return maxValue;
+    return maxValue.toDouble();
+  }
+
+  String dateString(DateTime date) {
+    String day = [
+      'Mon',
+      'Tue',
+      'Wed',
+      'Thu',
+      'Fri',
+      'Sat',
+      'Sun',
+    ][date.weekday - 1];
+    String month = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec'
+    ][date.month - 1];
+
+    return '$day, $month ${date.day}';
   }
 
   List<Widget> chartWidgets() {
@@ -111,20 +143,22 @@ class _WorkoutDashboardState extends State<WorkoutDashboard> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             GestureDetector(
-              onTap: () => setState(() => selectedIintensity = i),
+              onTap: () => setState(() => selectedIntesity = i),
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 400),
-                height: (MediaQuery.of(context).size.height * 0.2) /
-                    16 *
-                    realIntensity,
-                width: MediaQuery.of(context).size.width * 0.19,
+                height: max(intensityPerDay, context) == 0
+                    ? 0
+                    : ((MediaQuery.of(context).size.height * 0.18) /
+                        max(intensityPerDay, context) *
+                        realIntensity),
+                width: MediaQuery.of(context).size.width * 0.114,
                 margin: const EdgeInsets.only(
                   left: 0.5,
                   right: 0.5,
                 ),
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.surface,
-                  gradient: selectedIintensity == i
+                  gradient: selectedIntesity == i
                       ? LinearGradient(
                           colors: [
                             Theme.of(context).colorScheme.primary,
@@ -138,8 +172,8 @@ class _WorkoutDashboardState extends State<WorkoutDashboard> {
                           ],
                         ),
                   borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(22),
-                    topRight: Radius.circular(22),
+                    topLeft: Radius.circular(18),
+                    topRight: Radius.circular(18),
                   ),
                 ),
               ),
@@ -149,7 +183,8 @@ class _WorkoutDashboardState extends State<WorkoutDashboard> {
               day,
               style: TextStyle(
                 fontSize: 18,
-                fontWeight: selectedIintensity == i ? FontWeight.bold : null,
+                fontWeight: selectedIntesity == i ? FontWeight.bold : null,
+                color: Theme.of(context).scaffoldBackgroundColor,
               ),
             )
           ],
@@ -163,7 +198,7 @@ class _WorkoutDashboardState extends State<WorkoutDashboard> {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.95,
-      height: MediaQuery.of(context).size.height * 0.41,
+      height: MediaQuery.of(context).size.height * 0.38,
       padding: const EdgeInsets.all(30),
       margin: const EdgeInsets.only(top: 20),
       decoration: BoxDecoration(
@@ -175,16 +210,24 @@ class _WorkoutDashboardState extends State<WorkoutDashboard> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                'Sets per day',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Theme.of(context)
-                      .scaffoldBackgroundColor,
+              Container(
+                alignment: Alignment.centerLeft,
+                width: MediaQuery.of(context).size.width * 0.3,
+                child: Text(
+                  dateString(dates[selectedIntesity]),
+                  key: ValueKey(selectedIntesity),
+                  //textAlign: TextAlign.left,
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context)
+                        .scaffoldBackgroundColor
+                        .withOpacity(0.6),
+                  ),
                 ),
               ),
               Text(
-                'last 4 days',
+                'last ${dates.length} days',
                 style: TextStyle(
                   fontSize: 16,
                   color: Theme.of(context)
@@ -194,39 +237,17 @@ class _WorkoutDashboardState extends State<WorkoutDashboard> {
               ),
             ],
           ),
-          const SizedBox(height: 20),
           Row(
             children: [
-              Row(
-                children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.075,
-                    child: AnimatedSwitcher(
-                      duration: const Duration(milliseconds: 250),
-                      transitionBuilder: (child, animation) => ScaleTransition(
-                        scale: animation,
-                        child: child,
-                      ),
-                      child: Text(
-                        '${intensityPerDay[selectedIintensity]}',
-                        key: ValueKey(selectedIintensity),
-                        style: TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).scaffoldBackgroundColor
-                        ),
-                      ),
-                    ),
-                  ),
-                  Text(
-                    ' sets',
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).scaffoldBackgroundColor
-                    ),
-                  ),
-                ],
+              Text(
+                '${intensityPerDay[selectedIntesity]} sets',
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context)
+                      .scaffoldBackgroundColor
+                      .withOpacity(0.85),
+                ),
               ),
             ],
           ),

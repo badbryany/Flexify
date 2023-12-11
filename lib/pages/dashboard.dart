@@ -43,35 +43,6 @@ class _DashboardState extends State<Dashboard> {
   Duration duration = const Duration(milliseconds: 250);
   double imageSize = 0.125;
 
-  String dateString() {
-    DateTime now = DateTime.now();
-    String day = [
-      'Mon',
-      'Tue',
-      'Wed',
-      'Thu',
-      'Fri',
-      'Sat',
-      'Sun',
-    ][now.weekday - 1];
-    String month = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec'
-    ][now.month - 1];
-
-    return '$day, $month ${now.day}';
-  }
-
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
@@ -114,10 +85,11 @@ class _DashboardState extends State<Dashboard> {
                       ),
                     ),
                     Text(
-                      dateString(),
+                      'Flexify',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 20,
+                        fontFamily: 'Sacramento',
+                        fontSize: 30,
                         color: Theme.of(context).focusColor,
                       ),
                     ),
@@ -126,7 +98,7 @@ class _DashboardState extends State<Dashboard> {
                         IconButton(
                           onPressed: () {},
                           icon: Icon(
-                            Icons.notifications,
+                            Icons.notifications_rounded,
                             color: Theme.of(context).focusColor,
                           ),
                         ),

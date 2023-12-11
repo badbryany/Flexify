@@ -26,3 +26,6 @@ flutter:
     - family: JosefinSans
       fonts:
         - asset: ./assets/fonts/JosefinSans-Regular.ttf
+    - family: Sacramento
+      fonts:
+        - asset: ./assets/fonts/Sacramento-Regular.ttf
