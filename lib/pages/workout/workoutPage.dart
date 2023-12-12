@@ -83,7 +83,12 @@ class _WorkoutPageState extends State<WorkoutPage> {
               Column(
                 children: [
                   ...(loadingDone
-                      ? exercises.map((e) => ExerciseWidget(exercise: e))
+                      ? exercises.map(
+                          (e) => ExerciseWidget(
+                            exercise: e,
+                            reload: getData,
+                          ),
+                        )
                       : [
                           Center(
                             child: SizedBox(

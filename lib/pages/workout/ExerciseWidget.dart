@@ -8,9 +8,11 @@ class ExerciseWidget extends StatelessWidget {
   const ExerciseWidget({
     super.key,
     required this.exercise,
+    required this.reload,
   });
 
   final Exercise exercise;
+  final Function reload;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class ExerciseWidget extends StatelessWidget {
         PageTransition(
           child: ExerciseSets(
             name: exercise.name,
-            refresh: () {},
+            refresh: reload,
           ),
           type: PageTransitionType.fade,
         ),
