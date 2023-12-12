@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:flexify/pages/workout/addSet.dart';
 import 'package:flexify/pages/workout/editSet.dart';
-import '../../data/exerciseModels.dart';
+import 'package:flexify/pages/workout/ExerciseStats.dart';
+import 'package:flexify/data/exerciseModels.dart';
 
 class ExerciseSets extends StatefulWidget {
   const ExerciseSets({
@@ -22,16 +23,11 @@ class _ExerciseSetsState extends State<ExerciseSets> {
   List<Set> sets = [];
   bool loadingDone = false;
   getData() async {
-    sets = [];
-    List<String> savedSets = await Save.setSetIfNull();
+    sets = (await Save.setSetIfNull())
+        .map((e) => Set.fromStringToObject(e))
+        .where((e) => e.exerciseName == widget.name)
+        .toList();
 
-    // add sets from the back to sets -> the newest sets are at the top
-    for (int i = savedSets.length - 1; i >= 0; i--) {
-      Set tmpSet = Set.fromStringToObject(savedSets[i]);
-      if (tmpSet.exerciseName == widget.name) {
-        sets.add(tmpSet);
-      }
-    }
     loadingDone = true;
     setState(() {});
   }
@@ -43,35 +39,36 @@ class _ExerciseSetsState extends State<ExerciseSets> {
     return '$num';
   }
 
-  List<Widget> setList(List<Color> colors) {
+  String dateString(DateTime date) {
+    String month = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec'
+    ][date.month - 1];
+
+    return '$month ${date.day}';
+  }
+
+  List<Widget> setList() {
     List<Widget> returnList = [];
-    TextStyle textStyle = TextStyle(
-      color: Theme.of(context).focusColor,
-    );
 
-    returnList.add(
-      const Padding(
-        padding: EdgeInsets.only(top: 0, bottom: 10),
-        child: Text(
-          'last Workout',
-        ),
-      ),
-    );
+    if (sets.isEmpty) return returnList;
 
-    DateTime? firstDate;
+    DateTime currentDate = sets.last.date;
 
-    for (int i = 0; i < sets.length; i++) {
-      firstDate ??= sets[i].date;
-      if (firstDate.difference(sets[i].date) >= const Duration(hours: 12)) {
-        returnList.add(
-          Padding(
-            padding: const EdgeInsets.only(top: 30, bottom: 10),
-            child: Text(
-              'Workout of the ${zeroBefore(firstDate.day)}.${zeroBefore(firstDate.month)}',
-            ),
-          ),
-        );
-        firstDate = null;
+    for (int i = sets.length - 1; i >= 0; i--) {
+      if (currentDate.difference(sets[i].date).abs() >
+          const Duration(hours: 1, minutes: 45)) {
+        returnList.add(const SizedBox(height: 40));
       }
 
       returnList.add(
@@ -84,25 +81,73 @@ class _ExerciseSetsState extends State<ExerciseSets> {
             ),
           ).then((value) => getData()),
           child: Container(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(10),
             margin: const EdgeInsets.all(5),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              color: colors[i % colors.length],
+              color: Theme.of(context).colorScheme.surface,
             ),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('${sets[i].reps} reps', style: textStyle),
-                Text('${sets[i].weight} kg', style: textStyle),
+                // ICON
+                Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(25),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).scaffoldBackgroundColor,
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: Icon(
+                        Icons.fitness_center_rounded,
+                        color: Theme.of(context).focusColor,
+                      ),
+                    ),
+
+                    const SizedBox(width: 30),
+
+                    // WEIGHT + DATE
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '${sets[i].weight}kg',
+                          style: TextStyle(
+                            color: Theme.of(context).focusColor,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          '${dateString(sets[i].date)} at ${zeroBefore(sets[i].date.hour)}:${zeroBefore(sets[i].date.minute)}',
+                          style: TextStyle(
+                            color:
+                                Theme.of(context).focusColor.withOpacity(0.4),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                const SizedBox(),
+
+                //REPS
                 Text(
-                    '${zeroBefore(sets[i].date.hour)}:${zeroBefore(sets[i].date.minute)}',
-                    style: textStyle),
+                  'x${sets[i].reps}',
+                  style: TextStyle(
+                    color: Theme.of(context).focusColor,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(),
               ],
             ),
           ),
         ),
       );
+      currentDate = sets[i].date;
     }
     return returnList;
   }
@@ -120,7 +165,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
         physics: const BouncingScrollPhysics(),
         children: [
           Container(
-            width: MediaQuery.of(context).size.width,
+            margin: const EdgeInsets.only(left: 10, right: 10),
             height: MediaQuery.of(context).size.height * 0.1,
             alignment: Alignment.center,
             child: Row(
@@ -130,102 +175,87 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                 IconButton(
                   onPressed: () => Navigator.pop(context),
                   icon: Icon(
-                    Icons.arrow_back_ios_new_rounded,
+                    Icons.arrow_back_rounded,
                     color: Theme.of(context).focusColor,
                   ),
                 ),
-                IconButton(
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        backgroundColor:
-                            Theme.of(context).colorScheme.background,
-                        content: const Text('Are you sure?'),
-                        actions: [
-                          TextButton(
-                            onPressed: () => Navigator.pop(context),
-                            child: const Text('cancel'),
-                          ),
-                          TextButton(
-                            onPressed: () async {
-                              Navigator.pop(context);
-                              await Save.deleteExercise(
-                                  Exercise(name: widget.name));
-                              widget.refresh();
-                              Navigator.pop(context);
-                            },
-                            child: const Text('delete'),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                  icon: Icon(
-                    Icons.delete_outlined,
-                    color: Theme.of(context).focusColor,
-                  ),
-                ),
-                IconButton(
+                TextButton(
                   onPressed: () => Navigator.push(
                     context,
                     PageTransition(
-                      child: AddSet(exerciseName: widget.name),
+                      child: AddSet(
+                        exerciseName: widget.name,
+                      ),
                       type: PageTransitionType.bottomToTop,
                     ),
                   ).then((value) => getData()),
-                  icon: Icon(
-                    Icons.add_rounded,
-                    color: Theme.of(context).focusColor,
+                  child: Text(
+                    'add',
+                    style: TextStyle(
+                      color: Theme.of(context).focusColor,
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ],
             ),
           ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * 0.2,
-            alignment: Alignment.center,
-            child: Text(
-              widget.name,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Theme.of(context).focusColor,
-                fontWeight: FontWeight.bold,
-                fontSize: 40,
-              ),
-            ),
+          ExerciseStats(
+            exerciseName: widget.name,
+            sets: sets,
           ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * (1 - 0.2 - 0.1),
-            width: MediaQuery.of(context).size.width,
-            child: Column(
+          Container(
+            margin: EdgeInsets.only(
+              left: MediaQuery.of(context).size.width * 0.075,
+            ),
+            child: const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                ...(loadingDone
-                    ? setList([
-                        Theme.of(context).colorScheme.primary,
-                        Theme.of(context).colorScheme.onPrimary,
-                      ])
-                    : [
-                        Center(
-                          child: SizedBox(
-                            height: MediaQuery.of(context).size.width * 0.1,
-                            width: MediaQuery.of(context).size.width * 0.1,
-                            child: const CircularProgressIndicator(),
-                          ),
-                        )
-                      ]),
-                loadingDone && sets.isEmpty
-                    ? Text(
-                        'no sets',
-                        style: TextStyle(
-                          color: Theme.of(context).focusColor,
-                        ),
-                      )
-                    : const SizedBox(),
+                Text(
+                  'All sets',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25,
+                  ),
+                ),
+                SizedBox(),
               ],
             ),
-          )
+          ),
+          Column(
+            children: [
+              ...(loadingDone
+                  ? setList()
+                  : [
+                      Center(
+                        child: SizedBox(
+                          height: MediaQuery.of(context).size.width * 0.1,
+                          width: MediaQuery.of(context).size.width * 0.1,
+                          child: const CircularProgressIndicator(),
+                        ),
+                      )
+                    ]),
+              loadingDone && sets.isEmpty
+                  ? Column(
+                      children: [
+                        ...[0, 0, 0].map(
+                          (e) => Container(
+                            padding: const EdgeInsets.all(10),
+                            margin: const EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Theme.of(context).colorScheme.surface,
+                            ),
+                            width: MediaQuery.of(context).size.width * 0.9,
+                            height: MediaQuery.of(context).size.height * 0.1,
+                          ),
+                        ),
+                      ],
+                    )
+                  : const SizedBox(),
+            ],
+          ),
         ],
       ),
     );
