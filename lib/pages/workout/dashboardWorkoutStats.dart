@@ -1,45 +1,5 @@
 import 'package:flutter/material.dart';
-
 import 'package:flexify/data/exerciseModels.dart';
-import 'package:flexify/pages/DashboardOptionButton.dart';
-import 'package:flexify/pages/workout/workoutPage/workoutPage.dart';
-
-class DashboardWorkout extends StatefulWidget {
-  const DashboardWorkout({super.key});
-
-  @override
-  State<DashboardWorkout> createState() => _DashboardWorkoutState();
-}
-
-class _DashboardWorkoutState extends State<DashboardWorkout> {
-  reload() => setState(() {});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const WorkoutDashboard(),
-        const SizedBox(height: 10),
-        DashboardXOptionButton(
-          title: 'Recommended Workout',
-          targetPage: WorkoutPage(
-            reload: reload,
-          ),
-          content: const Text(''),
-        ),
-        const SizedBox(height: 10),
-        DashboardXOptionButton(
-          title: 'Custom Workout',
-          targetPage: WorkoutPage(
-            reload: reload,
-          ),
-          content: const Text(''),
-        ),
-        const SizedBox(height: 10),
-      ],
-    );
-  }
-}
 
 class WorkoutDashboard extends StatefulWidget {
   const WorkoutDashboard({super.key});
@@ -89,13 +49,14 @@ class _WorkoutDashboardState extends State<WorkoutDashboard> {
     getData();
   }
 
-  double max(List<int> list, BuildContext context) {
+  double max(List<int> list) {
     int maxValue = list[0];
     for (int i = 1; i < list.length; i++) {
       if (list[i] > maxValue) {
         maxValue = list[i];
       }
     }
+    if (maxValue == 0) return 0.1;
     return maxValue.toDouble();
   }
 
@@ -141,8 +102,8 @@ class _WorkoutDashboardState extends State<WorkoutDashboard> {
         'Sun'
       ][dates[i].weekday - 1];
 
-      int realIntensity = intensityPerDay[i];
-      if (realIntensity == 0) realIntensity = 1;
+      double realIntensity = intensityPerDay[i].toDouble();
+      if (max(intensityPerDay) == 0.1) realIntensity = 0;
 
       returnList.add(
         Column(
@@ -152,12 +113,10 @@ class _WorkoutDashboardState extends State<WorkoutDashboard> {
               onTap: () => setState(() => selectedIntesity = i),
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 400),
-                height: max(intensityPerDay, context) == 0
-                    ? 0
-                    : ((MediaQuery.of(context).size.height * 0.18) /
-                        max(intensityPerDay, context) *
-                        realIntensity),
-                width: MediaQuery.of(context).size.width * 0.114,
+                height: (MediaQuery.of(context).size.height * 0.175) /
+                    max(intensityPerDay) *
+                    realIntensity,
+                width: MediaQuery.of(context).size.width * 0.11,
                 margin: const EdgeInsets.only(
                   left: 0.5,
                   right: 0.5,
@@ -188,7 +147,6 @@ class _WorkoutDashboardState extends State<WorkoutDashboard> {
             Text(
               day,
               style: TextStyle(
-                fontSize: 18,
                 fontWeight: selectedIntesity == i ? FontWeight.bold : null,
                 color: Theme.of(context).scaffoldBackgroundColor,
               ),
@@ -202,10 +160,11 @@ class _WorkoutDashboardState extends State<WorkoutDashboard> {
 
   @override
   Widget build(BuildContext context) {
+    getData();
     return Container(
       width: MediaQuery.of(context).size.width * 0.95,
       height: MediaQuery.of(context).size.height * 0.38,
-      padding: const EdgeInsets.all(30),
+      padding: const EdgeInsets.all(25),
       margin: const EdgeInsets.only(top: 20),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.background,
@@ -222,10 +181,9 @@ class _WorkoutDashboardState extends State<WorkoutDashboard> {
                 child: Text(
                   dateString(dates[selectedIntesity]),
                   key: ValueKey(selectedIntesity),
-                  //textAlign: TextAlign.left,
                   style: TextStyle(
                     fontSize: 20,
-                    fontWeight: FontWeight.bold,
+                    // fontWeight: FontWeight.bold,
                     color: Theme.of(context)
                         .scaffoldBackgroundColor
                         .withOpacity(0.6),
@@ -243,6 +201,7 @@ class _WorkoutDashboardState extends State<WorkoutDashboard> {
               ),
             ],
           ),
+          const SizedBox(height: 5),
           Row(
             children: [
               Text(
