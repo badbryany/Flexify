@@ -103,7 +103,7 @@ class _WorkoutDashboardState extends State<WorkoutDashboard> {
       ][dates[i].weekday - 1];
 
       double realIntensity = intensityPerDay[i].toDouble();
-      if (max(intensityPerDay) == 0.1) realIntensity = 0;
+      if (max(intensityPerDay) == 0.1) realIntensity = 0.005;
 
       returnList.add(
         Column(
@@ -143,7 +143,7 @@ class _WorkoutDashboardState extends State<WorkoutDashboard> {
                 ),
               ),
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 1),
             Text(
               day,
               style: TextStyle(
@@ -163,8 +163,8 @@ class _WorkoutDashboardState extends State<WorkoutDashboard> {
     getData();
     return Container(
       width: MediaQuery.of(context).size.width * 0.95,
-      height: MediaQuery.of(context).size.height * 0.38,
-      padding: const EdgeInsets.all(25),
+      height: MediaQuery.of(context).size.height * 0.45,
+      padding: const EdgeInsets.all(30),
       margin: const EdgeInsets.only(top: 20),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.background,
