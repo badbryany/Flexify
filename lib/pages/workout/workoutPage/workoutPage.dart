@@ -1,5 +1,5 @@
-import 'package:flexify/pages/workout/ExerciseWidget.dart';
-import 'package:flexify/pages/workout/addExercise.dart';
+import 'package:flexify/pages/workout/workoutPage/ExerciseWidget.dart';
+import 'package:flexify/pages/workout/workoutPage/addExercisePage/addExercisePage.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/exerciseModels.dart';
 import 'package:page_transition/page_transition.dart';

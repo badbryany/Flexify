@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flexify/widgets/Button.dart';
 import 'package:flexify/widgets/SetInput.dart';
-import '../../data/exerciseModels.dart';
+import '../../../../../data/exerciseModels.dart';
 
 class EditSet extends StatefulWidget {
   const EditSet({

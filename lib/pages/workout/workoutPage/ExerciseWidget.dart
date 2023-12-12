@@ -1,5 +1,5 @@
 import 'package:flexify/data/exerciseModels.dart';
-import 'package:flexify/pages/workout/ExerciseSets.dart';
+import 'package:flexify/pages/workout/workoutPage/setPage/setsPage.dart';
 import 'package:flutter/material.dart';
 
 import 'package:page_transition/page_transition.dart';
@@ -11,6 +11,7 @@ class ExerciseWidget extends StatelessWidget {
   });
 
   final Exercise exercise;
+  
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,7 @@ class ExerciseWidget extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Container(
           width: MediaQuery.of(context).size.width * 0.9,
-          height: MediaQuery.of(context).size.height * 0.3,
+          height: MediaQuery.of(context).size.height * 0.1,
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.background,
             borderRadius: BorderRadius.circular(25),

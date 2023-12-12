@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flexify/data/exerciseModels.dart';
 import 'package:flexify/widgets/dashboardXOptionButton.dart';
-import 'package:flexify/pages/workout/workoutPage.dart';
+import 'package:flexify/pages/workout/workoutPage/workoutPage.dart';
 
 class DashboardWorkout extends StatefulWidget {
   const DashboardWorkout({super.key});
