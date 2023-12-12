@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:flexify/pages/dashboard.dart';
 
 void main() {
@@ -30,7 +29,7 @@ class MyApp extends StatelessWidget {
           surface: Color(0xfff5f5fb),
           onSurface: Color.fromARGB(255, 37, 37, 37),
         ),
-        textTheme: TextTheme(
+        textTheme: TextTheme( 
           bodyLarge:
               TextStyle(
                 color: Theme.of(context).scaffoldBackgroundColor,
@@ -41,7 +40,6 @@ class MyApp extends StatelessWidget {
                 fontWeight: FontWeight.w100,
                 letterSpacing: -1),
         ),
-        fontFamily: 'Nunito',
       ),
       home: const Dashboard(),
     );

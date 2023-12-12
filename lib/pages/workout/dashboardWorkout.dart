@@ -150,38 +150,48 @@ class _WorkoutDashboardState extends State<WorkoutDashboard> {
           children: [
             GestureDetector(
               onTap: () => setState(() => selectedIntesity = i),
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 400),
-                height: max(intensityPerDay, context) == 0
-                    ? 0
-                    : ((MediaQuery.of(context).size.height * 0.18) /
-                        max(intensityPerDay, context) *
-                        realIntensity),
-                width: MediaQuery.of(context).size.width * 0.114,
-                margin: const EdgeInsets.only(
-                  left: 0.5,
-                  right: 0.5,
-                ),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.surface,
-                  gradient: selectedIntesity == i
-                      ? LinearGradient(
-                          colors: [
-                            Theme.of(context).colorScheme.primary,
-                            Theme.of(context).colorScheme.onPrimary,
-                          ],
-                        )
-                      : LinearGradient(
-                          colors: [
-                            Theme.of(context).colorScheme.surface,
-                            Theme.of(context).colorScheme.surface,
-                          ],
-                        ),
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(18),
-                    topRight: Radius.circular(18),
+              child: Stack(
+                alignment: Alignment.bottomCenter,
+                children: [
+                  Container(
+                    height: MediaQuery.of(context).size.height * 0.22,
+                    width: MediaQuery.of(context).size.width * 0.114,
+                    color: Theme.of(context).colorScheme.background
                   ),
-                ),
+                  AnimatedContainer(
+                    duration: const Duration(milliseconds: 400),
+                    height: max(intensityPerDay, context) == 0
+                        ? 0
+                        : ((MediaQuery.of(context).size.height * 0.18) /
+                            max(intensityPerDay, context) *
+                            realIntensity),
+                    width: MediaQuery.of(context).size.width * 0.114,
+                    margin: const EdgeInsets.only(
+                      left: 0.5,
+                      right: 0.5,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.surface,
+                      gradient: selectedIntesity == i
+                          ? LinearGradient(
+                              colors: [
+                                Theme.of(context).colorScheme.primary,
+                                Theme.of(context).colorScheme.onPrimary,
+                              ],
+                            )
+                          : LinearGradient(
+                              colors: [
+                                Theme.of(context).colorScheme.surface,
+                                Theme.of(context).colorScheme.surface,
+                              ],
+                            ),
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(18),
+                        topRight: Radius.circular(18),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
             const SizedBox(height: 12),
@@ -202,72 +212,98 @@ class _WorkoutDashboardState extends State<WorkoutDashboard> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width * 0.95,
-      height: MediaQuery.of(context).size.height * 0.38,
-      padding: const EdgeInsets.all(30),
-      margin: const EdgeInsets.only(top: 20),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.background,
-        borderRadius: BorderRadius.circular(35),
-      ),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                alignment: Alignment.centerLeft,
-                width: MediaQuery.of(context).size.width * 0.3,
-                child: Text(
-                  dateString(dates[selectedIntesity]),
-                  key: ValueKey(selectedIntesity),
-                  //textAlign: TextAlign.left,
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context)
-                        .scaffoldBackgroundColor
-                        .withOpacity(0.6),
+    return SafeArea(
+      child: Container(
+        width: MediaQuery.of(context).size.width * 0.95,
+        height: MediaQuery.of(context).size.height * 0.38,
+        padding: const EdgeInsets.all(30),
+        margin: const EdgeInsets.only(top: 20),
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.background,
+          borderRadius: BorderRadius.circular(35),
+        ),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        dateString(dates[selectedIntesity]),
+                        key: ValueKey(selectedIntesity),
+                        style: TextStyle(
+                          fontSize: MediaQuery.of(context).size.width * 0.037,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context)
+                              .scaffoldBackgroundColor
+                              .withOpacity(0.6),
+                        ),
+                      ),
+                    ),
+                    Text(
+                      '${intensityPerDay[selectedIntesity]} sets',
+                      style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.width * 0.05,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context)
+                            .scaffoldBackgroundColor
+                            .withOpacity(0.85),
+                      ),
+                    ),
+                  ],
+                ),
+                Container(
+                  padding: const EdgeInsets.all(15),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(35),
+                    gradient: LinearGradient(
+                      colors: [
+                        Theme.of(context).colorScheme.primary,
+                        Theme.of(context).colorScheme.onPrimary,
+                      ],
+                    ),
+                  ),
+                  child: GestureDetector(
+                    onTap: () {
+                      
+                    },
+                    child: Row(
+                      children: [
+                        Text(
+                          'See more',
+                          style: TextStyle(
+                            fontSize: MediaQuery.of(context).size.width * 0.027,
+                            color: Theme.of(context).focusColor.withOpacity(0.8),
+                          ),
+                        ),
+                        SizedBox(width: MediaQuery.of(context).size.width * 0.01),
+                        Icon(
+                          Icons.arrow_forward_ios,
+                          color: Theme.of(context).focusColor,
+                          size: 13,
+                        )
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              Text(
-                'last ${dates.length} days',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Theme.of(context)
-                      .scaffoldBackgroundColor
-                      .withOpacity(0.8),
-                ),
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              Text(
-                '${intensityPerDay[selectedIntesity]} sets',
-                style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context)
-                      .scaffoldBackgroundColor
-                      .withOpacity(0.85),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-
-          // CHART
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.22,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: chartWidgets(),
+              ],
             ),
-          ),
-        ],
+            const SizedBox(height: 20),
+
+            // CHART
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.23,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: chartWidgets(),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

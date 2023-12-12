@@ -1,5 +1,6 @@
 import 'package:flexify/pages/workout/workoutPage/ExerciseWidget.dart';
 import 'package:flexify/pages/workout/workoutPage/addExercisePage/addExercisePage.dart';
+import 'package:flexify/pages/workout/workoutPage/widgets/exerciseButton.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/exerciseModels.dart';
 import 'package:page_transition/page_transition.dart';
@@ -45,7 +46,6 @@ class _WorkoutPageState extends State<WorkoutPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).canvasColor,
       body: SafeArea(
         child: SizedBox(
           height: MediaQuery.of(context).size.height,
@@ -70,7 +70,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
                         child: Padding(
                           padding: const EdgeInsets.all(40),
                           child: Icon(
-                            color: Theme.of(context).scaffoldBackgroundColor,
+                            color: Theme.of(context).focusColor,
                             Icons.arrow_back_ios_new_rounded,
                           ),
                         ),
@@ -80,7 +80,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
                       child: Text(
                         'Workout',
                         style: TextStyle(
-                          color: Theme.of(context).scaffoldBackgroundColor,
+                          color: Theme.of(context).focusColor,
                           fontWeight: FontWeight.bold,
                           letterSpacing: -1,
                           fontSize: 50,
@@ -94,7 +94,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
                 children: [
                   ...(loadingDone
                       ? exercises.map(
-                          (e) => ExerciseWidget(
+                          (e) => ExerciseButton(
                             exercise: e,
                             reload: getData,
                           ),
@@ -119,7 +119,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
                           ),
                           icon: Icon(
                             Icons.add_rounded,
-                            color: Theme.of(context).scaffoldBackgroundColor,
+                            color: Theme.of(context).focusColor,
                           ),
                         )
                       : const SizedBox()

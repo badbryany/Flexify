@@ -44,7 +44,6 @@ class _AddSetState extends State<AddSet> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).canvasColor,
       body: SafeArea(
         child: SizedBox(
           height: MediaQuery.of(context).size.height,
@@ -67,7 +66,7 @@ class _AddSetState extends State<AddSet> {
                           padding: const EdgeInsets.all(40),
                           child: Icon(
                             Icons.arrow_back_ios_new_rounded,
-                            color: Theme.of(context).scaffoldBackgroundColor,
+                            color: Theme.of(context).focusColor,
                           ),
                         ),
                       ),
@@ -76,7 +75,7 @@ class _AddSetState extends State<AddSet> {
                       child: Text(
                         'Add set',
                         style: TextStyle(
-                          color: Theme.of(context).scaffoldBackgroundColor,
+                          color: Theme.of(context).focusColor,
                           fontWeight: FontWeight.bold,
                           fontSize: 50,
                         ),

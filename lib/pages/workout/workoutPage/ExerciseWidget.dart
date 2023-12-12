@@ -8,9 +8,11 @@ class ExerciseWidget extends StatelessWidget {
   const ExerciseWidget({
     super.key,
     required this.exercise,
+    required this.reload,
   });
 
   final Exercise exercise;
+  final Function reload;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class ExerciseWidget extends StatelessWidget {
         PageTransition(
           child: ExerciseSets(
             name: exercise.name,
-            refresh: () {},
+            refresh: reload,
           ),
           type: PageTransitionType.fade,
         ),
@@ -29,70 +31,21 @@ class ExerciseWidget extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Container(
           width: MediaQuery.of(context).size.width * 0.9,
-          height: MediaQuery.of(context).size.height * 0.1,
+          height: MediaQuery.of(context).size.height * 0.3,
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.background,
             borderRadius: BorderRadius.circular(25),
           ),
-          child: Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.only(left: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      exercise.name,
-                      style: TextStyle(
-                        color: Theme.of(context)
-                            .scaffoldBackgroundColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30,
-                      ),
-                    ),
-                    Text(
-                      'PR - 12 Reps - 100kg',
-                      style: TextStyle(
-                        color: Theme.of(context)
-                            .scaffoldBackgroundColor
-                            .withOpacity(0.7),
-                        fontWeight: FontWeight.w300,
-                        fontSize: 15,
-                      ),
-                    ),
-                  ],
-                ),
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Text(
+              exercise.name,
+              style: TextStyle(
+                color: Theme.of(context).scaffoldBackgroundColor,
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
               ),
-              Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    CircularProgressIndicator(
-                      value: 0.3,
-                      strokeWidth: 6.0,
-                      color: Theme.of(context).colorScheme.primary,
-                      backgroundColor:
-                          Theme.of(context).colorScheme.onBackground,
-                    ),
-                    CircularProgressIndicator(
-                      value: 0.4,
-                      strokeWidth: 6.0,
-                      color: Theme.of(context).colorScheme.onPrimary,
-                      backgroundColor:
-                          Theme.of(context).colorScheme.onBackground,
-                    ),
-                    CircularProgressIndicator(
-                      value: 0.7,
-                      strokeWidth: 6.0,
-                      color: Theme.of(context).colorScheme.secondary,
-                      backgroundColor:
-                          Theme.of(context).colorScheme.onBackground,
-                    )
-                  ],
-                ),
-              )
-            ],
+            ),
           ),
         ),
       ),

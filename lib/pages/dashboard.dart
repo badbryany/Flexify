@@ -52,7 +52,6 @@ class _DashboardState extends State<Dashboard> {
       ),
     );
     return Scaffold(
-      backgroundColor: Theme.of(context).canvasColor,
       body: SafeArea(
         child: SizedBox(
           width: MediaQuery.of(context).size.width,
@@ -91,7 +90,7 @@ class _DashboardState extends State<Dashboard> {
                         fontWeight: FontWeight.bold,
                         fontFamily: 'Sacramento',
                         fontSize: 40,
-                        color: Theme.of(context).scaffoldBackgroundColor,
+                        color: Theme.of(context).focusColor,
                       ),
                     ),
                     Stack(
@@ -101,7 +100,7 @@ class _DashboardState extends State<Dashboard> {
                           iconSize: 30,
                           icon: Icon(
                             Icons.notifications_rounded,
-                            color: Theme.of(context).scaffoldBackgroundColor,
+                            color: Theme.of(context).focusColor,
                           ),
                         ),
                         Visibility(
@@ -145,7 +144,7 @@ class _DashboardState extends State<Dashboard> {
       ),
       // SPACING
       bottomNavigationBar: Container(
-        padding: const EdgeInsets.symmetric(vertical: 25),
+        padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height*0.025),
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.background,
           borderRadius: const BorderRadius.only(

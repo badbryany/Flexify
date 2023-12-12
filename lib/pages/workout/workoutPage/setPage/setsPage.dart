@@ -56,7 +56,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
           'last Workout',
           style: TextStyle(
             letterSpacing: -1,
-            color: Theme.of(context).scaffoldBackgroundColor
+            color: Theme.of(context).focusColor
           ),
         ),
       ),
@@ -120,7 +120,6 @@ class _ExerciseSetsState extends State<ExerciseSets> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).canvasColor,
       body: ListView(
         physics: const BouncingScrollPhysics(),
         children: [
@@ -136,7 +135,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                   onPressed: () => Navigator.pop(context),
                   icon: Icon(
                     Icons.arrow_back_ios_new_rounded,
-                    color: Theme.of(context).scaffoldBackgroundColor,
+                    color: Theme.of(context).focusColor,
                   ),
                 ),
                 IconButton(
@@ -168,7 +167,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                   },
                   icon: Icon(
                     Icons.delete_outlined,
-                    color: Theme.of(context).scaffoldBackgroundColor,
+                    color: Theme.of(context).focusColor,
                   ),
                 ),
                 IconButton(
@@ -181,7 +180,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                   ).then((value) => getData()),
                   icon: Icon(
                     Icons.add_rounded,
-                    color: Theme.of(context).scaffoldBackgroundColor,
+                    color: Theme.of(context).focusColor,
                   ),
                 ),
               ],
@@ -195,7 +194,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
               widget.name,
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: Theme.of(context).scaffoldBackgroundColor,
+                color: Theme.of(context).focusColor,
                 fontWeight: FontWeight.bold,
                 fontSize: 40,
               ),
@@ -224,7 +223,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                     ? Text(
                         'no sets',
                         style: TextStyle(
-                          color: Theme.of(context).scaffoldBackgroundColor,
+                          color: Theme.of(context).focusColor,
                         ),
                       )
                     : const SizedBox(),
