@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flexify/widgets/Button.dart';
-import 'package:flexify/widgets/SetInput.dart';
-import '../../data/exerciseModels.dart';
+import 'package:flexify/pages/workout/workoutPage/setPage/SetInput.dart';
+import '../../../../../data/exerciseModels.dart';
 
 class AddSet extends StatefulWidget {
   const AddSet({
@@ -44,6 +44,7 @@ class _AddSetState extends State<AddSet> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).canvasColor,
       body: SafeArea(
         child: SizedBox(
           height: MediaQuery.of(context).size.height,
@@ -66,7 +67,7 @@ class _AddSetState extends State<AddSet> {
                           padding: const EdgeInsets.all(40),
                           child: Icon(
                             Icons.arrow_back_ios_new_rounded,
-                            color: Theme.of(context).focusColor,
+                            color: Theme.of(context).scaffoldBackgroundColor,
                           ),
                         ),
                       ),
@@ -75,7 +76,7 @@ class _AddSetState extends State<AddSet> {
                       child: Text(
                         'Add set',
                         style: TextStyle(
-                          color: Theme.of(context).focusColor,
+                          color: Theme.of(context).scaffoldBackgroundColor,
                           fontWeight: FontWeight.bold,
                           fontSize: 50,
                         ),

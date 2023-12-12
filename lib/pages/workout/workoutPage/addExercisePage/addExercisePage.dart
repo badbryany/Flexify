@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flexify/widgets/Button.dart';
-import 'package:flexify/widgets/InputField.dart';
-import '../../data/exerciseModels.dart';
+import 'package:flexify/pages/workout/workoutPage/setPage/InputField.dart';
+import '../../../../data/exerciseModels.dart';
 
 class AddExercise extends StatelessWidget {
   AddExercise({
@@ -15,6 +15,7 @@ class AddExercise extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).canvasColor,
       body: SafeArea(
         child: SizedBox(
           height: MediaQuery.of(context).size.height,
@@ -37,7 +38,7 @@ class AddExercise extends StatelessWidget {
                           padding: const EdgeInsets.all(40),
                           child: Icon(
                             Icons.arrow_back_ios_new_rounded,
-                            color: Theme.of(context).focusColor,
+                            color: Theme.of(context).scaffoldBackgroundColor,
                           ),
                         ),
                       ),
@@ -46,7 +47,7 @@ class AddExercise extends StatelessWidget {
                       child: Text(
                         'Add exercise',
                         style: TextStyle(
-                          color: Theme.of(context).focusColor,
+                          color: Theme.of(context).scaffoldBackgroundColor,
                           fontWeight: FontWeight.bold,
                           fontSize: 50,
                         ),

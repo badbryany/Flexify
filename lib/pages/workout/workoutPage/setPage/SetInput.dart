@@ -40,7 +40,7 @@ class SetInput extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextStyle textStyle = TextStyle(
       fontWeight: FontWeight.bold,
-      color: Theme.of(context).focusColor,
+      color: Theme.of(context).scaffoldBackgroundColor,
       fontSize: 60,
     );
     return Column(
@@ -52,7 +52,7 @@ class SetInput extends StatelessWidget {
           child: Text(
             '$title:',
             style: TextStyle(
-              color: Theme.of(context).focusColor,
+              color: Theme.of(context).scaffoldBackgroundColor,
             ),
           ),
         ),
@@ -85,7 +85,7 @@ class SetInput extends StatelessWidget {
               height: MediaQuery.of(context).size.height * 0.1,
               child: TextFormField(
                 style: TextStyle(
-                  color: Theme.of(context).focusColor,
+                  color: Theme.of(context).scaffoldBackgroundColor,
                   fontSize: 60,
                 ),
                 textAlign: TextAlign.center,

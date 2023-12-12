@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:flexify/pages/workout/addSet.dart';
-import 'package:flexify/pages/workout/editSet.dart';
 import 'package:flexify/pages/workout/ExerciseStats.dart';
 import 'package:flexify/data/exerciseModels.dart';
+import 'package:flexify/pages/workout/workoutPage/setPage/addSetPage/addSetPage.dart';
+import 'package:flexify/pages/workout/workoutPage/setPage/editSetPage/editSetPage.dart';
 
 class ExerciseSets extends StatefulWidget {
   const ExerciseSets({
@@ -161,6 +161,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).canvasColor,
       body: ListView(
         physics: const BouncingScrollPhysics(),
         children: [

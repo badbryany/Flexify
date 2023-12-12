@@ -15,6 +15,7 @@ dependencies:
   shared_preferences: ^2.2.2
   page_transition: "^2.1.0"
   fl_chart: ^0.65.0
+  google_fonts: ^6.1.0
 
 dev_dependencies:
   flutter_test:
@@ -24,9 +25,9 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   fonts:
-    - family: JosefinSans
+    - family: Raleway
       fonts:
-        - asset: ./assets/fonts/JosefinSans-Regular.ttf
+        - asset: ./assets/fonts/Raleway/Raleway-Medium.ttf
     - family: Sacramento
       fonts:
         - asset: ./assets/fonts/Sacramento-Regular.ttf
