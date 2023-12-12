@@ -1,4 +1,3 @@
-import 'package:flexify/pages/workout/workoutPage/ExerciseWidget.dart';
 import 'package:flexify/pages/workout/workoutPage/addExercisePage/addExercisePage.dart';
 import 'package:flexify/pages/workout/workoutPage/widgets/exerciseButton.dart';
 import 'package:flutter/material.dart';
