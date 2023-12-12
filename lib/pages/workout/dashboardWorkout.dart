@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flexify/data/exerciseModels.dart';
-import 'package:flexify/widgets/dashboardXOptionButton.dart';
+import 'package:flexify/pages/DashboardOptionButton.dart';
 import 'package:flexify/pages/workout/workoutPage/workoutPage.dart';
 
 class DashboardWorkout extends StatefulWidget {
@@ -151,7 +151,7 @@ class _WorkoutDashboardState extends State<WorkoutDashboard> {
                     : ((MediaQuery.of(context).size.height * 0.18) /
                         max(intensityPerDay, context) *
                         realIntensity),
-                width: MediaQuery.of(context).size.width * 0.114,
+                width: MediaQuery.of(context).size.width * 0.11,
                 margin: const EdgeInsets.only(
                   left: 0.5,
                   right: 0.5,
@@ -186,7 +186,7 @@ class _WorkoutDashboardState extends State<WorkoutDashboard> {
                 fontWeight: selectedIntesity == i ? FontWeight.bold : null,
                 color: Theme.of(context).scaffoldBackgroundColor,
               ),
-            )
+            ),
           ],
         ),
       );
@@ -198,7 +198,7 @@ class _WorkoutDashboardState extends State<WorkoutDashboard> {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.95,
-      height: MediaQuery.of(context).size.height * 0.38,
+      height: MediaQuery.of(context).size.height * 0.45,
       padding: const EdgeInsets.all(30),
       margin: const EdgeInsets.only(top: 20),
       decoration: BoxDecoration(
@@ -216,7 +216,6 @@ class _WorkoutDashboardState extends State<WorkoutDashboard> {
                 child: Text(
                   dateString(dates[selectedIntesity]),
                   key: ValueKey(selectedIntesity),
-                  //textAlign: TextAlign.left,
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -226,15 +225,35 @@ class _WorkoutDashboardState extends State<WorkoutDashboard> {
                   ),
                 ),
               ),
-              Text(
-                'last ${dates.length} days',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Theme.of(context)
-                      .scaffoldBackgroundColor
-                      .withOpacity(0.8),
+              Container(
+                padding: const EdgeInsets.all(15),
+                decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.primary,
+                    gradient: LinearGradient(
+                      colors: [
+                        Theme.of(context).colorScheme.primary,
+                        Theme.of(context).colorScheme.onPrimary,
+                      ],
+                    ),
+                    borderRadius: BorderRadius.circular(35)),
+                child: Row(
+                  children: [
+                    Text(
+                      'See more',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Theme.of(context).focusColor.withOpacity(0.8),
+                      ),
+                    ),
+                    const SizedBox(width: 5),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      color: Theme.of(context).focusColor,
+                      size: 14,
+                    )
+                  ],
                 ),
-              ),
+              )
             ],
           ),
           Row(

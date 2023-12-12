@@ -52,6 +52,7 @@ class _DashboardState extends State<Dashboard> {
       ),
     );
     return Scaffold(
+      backgroundColor: Theme.of(context).canvasColor,
       body: SafeArea(
         child: SizedBox(
           width: MediaQuery.of(context).size.width,
@@ -89,17 +90,18 @@ class _DashboardState extends State<Dashboard> {
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontFamily: 'Sacramento',
-                        fontSize: 30,
-                        color: Theme.of(context).focusColor,
+                        fontSize: 40,
+                        color: Theme.of(context).scaffoldBackgroundColor,
                       ),
                     ),
                     Stack(
                       children: [
                         IconButton(
                           onPressed: () {},
+                          iconSize: 30,
                           icon: Icon(
                             Icons.notifications_rounded,
-                            color: Theme.of(context).focusColor,
+                            color: Theme.of(context).scaffoldBackgroundColor,
                           ),
                         ),
                         Visibility(

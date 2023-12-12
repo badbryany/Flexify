@@ -11,7 +11,6 @@ class ExerciseWidget extends StatelessWidget {
   });
 
   final Exercise exercise;
-  
 
   @override
   Widget build(BuildContext context) {
@@ -35,16 +34,65 @@ class ExerciseWidget extends StatelessWidget {
             color: Theme.of(context).colorScheme.background,
             borderRadius: BorderRadius.circular(25),
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Text(
-              exercise.name,
-              style: TextStyle(
-                color: Theme.of(context).scaffoldBackgroundColor,
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
+          child: Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.only(left: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      exercise.name,
+                      style: TextStyle(
+                        color: Theme.of(context)
+                            .scaffoldBackgroundColor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30,
+                      ),
+                    ),
+                    Text(
+                      'PR - 12 Reps - 100kg',
+                      style: TextStyle(
+                        color: Theme.of(context)
+                            .scaffoldBackgroundColor
+                            .withOpacity(0.7),
+                        fontWeight: FontWeight.w300,
+                        fontSize: 15,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    CircularProgressIndicator(
+                      value: 0.3,
+                      strokeWidth: 6.0,
+                      color: Theme.of(context).colorScheme.primary,
+                      backgroundColor:
+                          Theme.of(context).colorScheme.onBackground,
+                    ),
+                    CircularProgressIndicator(
+                      value: 0.4,
+                      strokeWidth: 6.0,
+                      color: Theme.of(context).colorScheme.onPrimary,
+                      backgroundColor:
+                          Theme.of(context).colorScheme.onBackground,
+                    ),
+                    CircularProgressIndicator(
+                      value: 0.7,
+                      strokeWidth: 6.0,
+                      color: Theme.of(context).colorScheme.secondary,
+                      backgroundColor:
+                          Theme.of(context).colorScheme.onBackground,
+                    )
+                  ],
+                ),
+              )
+            ],
           ),
         ),
       ),
