@@ -5,7 +5,12 @@ import 'package:flexify/data/exerciseModels.dart';
 import 'package:page_transition/page_transition.dart';
 
 class WorkoutPage extends StatefulWidget {
-  const WorkoutPage({super.key});
+  const WorkoutPage({
+    super.key,
+    required this.reload,
+  });
+
+  final Function reload;
 
   @override
   State<WorkoutPage> createState() => _WorkoutPageState();
@@ -57,7 +62,10 @@ class _WorkoutPageState extends State<WorkoutPage> {
                       bottom: 15,
                       left: 0,
                       child: GestureDetector(
-                        onTap: () => Navigator.pop(context),
+                        onTap: () {
+                          widget.reload();
+                          Navigator.pop(context);
+                        },
                         child: Padding(
                           padding: const EdgeInsets.all(40),
                           child: Icon(

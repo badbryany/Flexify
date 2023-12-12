@@ -12,24 +12,30 @@ class DashboardWorkout extends StatefulWidget {
 }
 
 class _DashboardWorkoutState extends State<DashboardWorkout> {
+  reload() => setState(() {});
+
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       children: [
-        WorkoutDashboard(),
-        SizedBox(height: 10),
+        const WorkoutDashboard(),
+        const SizedBox(height: 10),
         DashboardXOptionButton(
           title: 'Recommended Workout',
-          targetPage: WorkoutPage(),
-          content: Text(''),
+          targetPage: WorkoutPage(
+            reload: reload,
+          ),
+          content: const Text(''),
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         DashboardXOptionButton(
           title: 'Custom Workout',
-          targetPage: WorkoutPage(),
-          content: Text(''),
+          targetPage: WorkoutPage(
+            reload: reload,
+          ),
+          content: const Text(''),
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
       ],
     );
   }
