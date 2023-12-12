@@ -41,7 +41,6 @@ class _EditSetState extends State<EditSet> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).canvasColor,
       body: ListView(
         physics: const BouncingScrollPhysics(),
         children: [
@@ -57,13 +56,13 @@ class _EditSetState extends State<EditSet> {
                       onPressed: () => Navigator.pop(context),
                       icon: Icon(
                         Icons.arrow_back_ios_new_rounded,
-                        color: Theme.of(context).scaffoldBackgroundColor,
+                        color: Theme.of(context).focusColor,
                       ),
                     ),
                     Text(
                       'Edit Set',
                       style: TextStyle(
-                        color: Theme.of(context).scaffoldBackgroundColor,
+                        color: Theme.of(context).focusColor,
                         fontWeight: FontWeight.bold,
                         fontSize: 40,
                       ),

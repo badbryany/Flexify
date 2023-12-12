@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:flexify/pages/dashboard.dart';
 
 void main() {
@@ -14,6 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+      fontFamily: 'JosefinSans',
         focusColor: Colors.black,
         scaffoldBackgroundColor: Colors.white,
         canvasColor: const Color.fromARGB(255, 23, 23, 23),
@@ -30,18 +30,6 @@ class MyApp extends StatelessWidget {
           surface: Color(0xfff5f5fb),
           onSurface: Color.fromARGB(255, 37, 37, 37),
         ),
-        /* textTheme: TextTheme(
-          bodyLarge:
-              TextStyle(
-                color: Theme.of(context).scaffoldBackgroundColor,
-                letterSpacing: -1),
-          bodySmall:
-              TextStyle(
-                color: Theme.of(context).scaffoldBackgroundColor,
-                fontWeight: FontWeight.w100,
-                letterSpacing: -1),
-        ), */
-        fontFamily: 'Raleway',
       ),
       home: const Dashboard(),
     );

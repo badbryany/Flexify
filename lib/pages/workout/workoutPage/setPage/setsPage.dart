@@ -161,7 +161,6 @@ class _ExerciseSetsState extends State<ExerciseSets> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).canvasColor,
       body: ListView(
         physics: const BouncingScrollPhysics(),
         children: [

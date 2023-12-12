@@ -43,12 +43,6 @@ class _WorkoutDashboardState extends State<WorkoutDashboard> {
     }
   }
 
-  @override
-  void initState() {
-    super.initState();
-    getData();
-  }
-
   double max(List<int> list) {
     int maxValue = list[0];
     for (int i = 1; i < list.length; i++) {
@@ -113,7 +107,7 @@ class _WorkoutDashboardState extends State<WorkoutDashboard> {
               onTap: () => setState(() => selectedIntesity = i),
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 400),
-                height: (MediaQuery.of(context).size.height * 0.175) /
+                height: (MediaQuery.of(context).size.height * 0.17) /
                     max(intensityPerDay) *
                     realIntensity,
                 width: MediaQuery.of(context).size.width * 0.11,
@@ -143,10 +137,11 @@ class _WorkoutDashboardState extends State<WorkoutDashboard> {
                 ),
               ),
             ),
-            const SizedBox(height: 1),
+            const SizedBox(height: 10),
             Text(
               day,
               style: TextStyle(
+                fontSize: 16,
                 fontWeight: selectedIntesity == i ? FontWeight.bold : null,
                 color: Theme.of(context).scaffoldBackgroundColor,
               ),
@@ -182,7 +177,7 @@ class _WorkoutDashboardState extends State<WorkoutDashboard> {
                   dateString(dates[selectedIntesity]),
                   key: ValueKey(selectedIntesity),
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 18,
                     // fontWeight: FontWeight.bold,
                     color: Theme.of(context)
                         .scaffoldBackgroundColor
@@ -207,11 +202,9 @@ class _WorkoutDashboardState extends State<WorkoutDashboard> {
               Text(
                 '${intensityPerDay[selectedIntesity]} sets',
                 style: TextStyle(
-                  fontSize: 30,
+                  fontSize: 26,
                   fontWeight: FontWeight.bold,
-                  color: Theme.of(context)
-                      .scaffoldBackgroundColor
-                      .withOpacity(0.85),
+                  color: Theme.of(context).scaffoldBackgroundColor,
                 ),
               ),
             ],
@@ -220,7 +213,7 @@ class _WorkoutDashboardState extends State<WorkoutDashboard> {
 
           // CHART
           SizedBox(
-            height: MediaQuery.of(context).size.height * 0.22,
+            height: MediaQuery.of(context).size.height * 0.225,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: chartWidgets(),

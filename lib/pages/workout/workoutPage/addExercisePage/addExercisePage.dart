@@ -15,7 +15,6 @@ class AddExercise extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).canvasColor,
       body: SafeArea(
         child: SizedBox(
           height: MediaQuery.of(context).size.height,
@@ -38,7 +37,7 @@ class AddExercise extends StatelessWidget {
                           padding: const EdgeInsets.all(40),
                           child: Icon(
                             Icons.arrow_back_ios_new_rounded,
-                            color: Theme.of(context).scaffoldBackgroundColor,
+                            color: Theme.of(context).focusColor,
                           ),
                         ),
                       ),
@@ -47,7 +46,7 @@ class AddExercise extends StatelessWidget {
                       child: Text(
                         'Add exercise',
                         style: TextStyle(
-                          color: Theme.of(context).scaffoldBackgroundColor,
+                          color: Theme.of(context).focusColor,
                           fontWeight: FontWeight.bold,
                           fontSize: 50,
                         ),
