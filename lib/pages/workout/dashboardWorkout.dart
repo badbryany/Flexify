@@ -1,8 +1,8 @@
-import 'package:flexify/pages/workout/dashboardWorkoutStats.dart';
+import 'package:flexify/pages/workout/widgets/dashboardWorkoutStats.dart';
 import 'package:flutter/material.dart';
 
-import 'package:flexify/pages/DashboardOptionButton.dart';
-import 'package:flexify/pages/workout/workoutPage/workoutPage.dart';
+import 'package:flexify/widgets/DashboardOptionButton.dart';
+import 'package:flexify/pages/workout/exercisesPage/exercisesPage.dart';
 
 class DashboardWorkout extends StatefulWidget {
   const DashboardWorkout({super.key});

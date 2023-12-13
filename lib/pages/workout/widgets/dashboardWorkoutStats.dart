@@ -105,39 +105,43 @@ class _WorkoutDashboardState extends State<WorkoutDashboard> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             BounceElement(
-              child: GestureDetector(
-                onTap: () => setState(() => selectedIntesity = i),
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 400),
-                  height: (MediaQuery.of(context).size.height * 0.17) /
-                      max(intensityPerDay) *
-                      realIntensity,
-                  width: MediaQuery.of(context).size.width * 0.11,
-                  margin: const EdgeInsets.only(
-                    left: 0.5,
-                    right: 0.5,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.surface,
-                    gradient: selectedIntesity == i
-                        ? LinearGradient(
-                            colors: [
-                              Theme.of(context).colorScheme.primary,
-                              Theme.of(context).colorScheme.onPrimary,
-                            ],
-                          )
-                        : LinearGradient(
-                            colors: [
-                              Theme.of(context).colorScheme.surface,
-                              Theme.of(context).colorScheme.surface,
-                            ],
-                          ),
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(18),
-                      topRight: Radius.circular(18),
+              child: Stack(
+                children: [
+                  GestureDetector(
+                    onTap: () => setState(() => selectedIntesity = i),
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 400),
+                      height: (MediaQuery.of(context).size.height * 0.17) /
+                          max(intensityPerDay) *
+                          realIntensity,
+                      width: MediaQuery.of(context).size.width * 0.11,
+                      margin: const EdgeInsets.only(
+                        left: 0.5,
+                        right: 0.5,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.surface,
+                        gradient: selectedIntesity == i
+                            ? LinearGradient(
+                                colors: [
+                                  Theme.of(context).colorScheme.primary,
+                                  Theme.of(context).colorScheme.onPrimary,
+                                ],
+                              )
+                            : LinearGradient(
+                                colors: [
+                                  Theme.of(context).colorScheme.surface,
+                                  Theme.of(context).colorScheme.surface,
+                                ],
+                              ),
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(18),
+                          topRight: Radius.circular(18),
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                ],
               ),
             ),
             const SizedBox(height: 10),

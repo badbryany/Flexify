@@ -1,5 +1,5 @@
-import 'package:flexify/pages/workout/workoutPage/addExercisePage/addExercisePage.dart';
-import 'package:flexify/pages/workout/workoutPage/widgets/exerciseButton.dart';
+import 'package:flexify/pages/workout/exercisesPage/addExercisePage/addExercisePage.dart';
+import 'package:flexify/pages/workout/exercisesPage/widgets/exerciseButton.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/exerciseModels.dart';
 import 'package:page_transition/page_transition.dart';
@@ -56,25 +56,16 @@ class _WorkoutPageState extends State<WorkoutPage> {
               SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * (1 - 0.82),
-                child: Stack(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Positioned(
-                      top: 0,
-                      bottom: 15,
-                      left: 0,
-                      child: GestureDetector(
-                        onTap: () {
-                          widget.reload();
-                          Navigator.pop(context);
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(40),
-                          child: Icon(
-                            color: Theme.of(context).focusColor,
-                            Icons.arrow_back_ios_new_rounded,
-                          ),
-                        ),
-                      ),
+                    IconButton(
+                      onPressed: () {
+                        widget.reload();
+                        Navigator.pop(context);
+                      },
+                      color: Theme.of(context).focusColor,
+                      icon: Icon(Icons.arrow_back_ios_new_rounded),
                     ),
                     Center(
                       child: Text(
@@ -87,6 +78,22 @@ class _WorkoutPageState extends State<WorkoutPage> {
                         ),
                       ),
                     ),
+                    loadingDone
+                        ? IconButton(
+                            onPressed: () => Navigator.push(
+                              context,
+                              PageTransition(
+                                child: AddExercise(refresh: getData),
+                                type: PageTransitionType.fade,
+                              ),
+                            ),
+                            icon: Icon(
+                              Icons.add_rounded,
+                              color: Theme.of(context).focusColor,
+                              size: 30,
+                            ),
+                          )
+                        : const SizedBox()
                   ],
                 ),
               ),
@@ -112,21 +119,6 @@ class _WorkoutPageState extends State<WorkoutPage> {
                             ),
                           )
                         ]),
-                  loadingDone
-                      ? IconButton(
-                          onPressed: () => Navigator.push(
-                            context,
-                            PageTransition(
-                              child: AddExercise(refresh: getData),
-                              type: PageTransitionType.fade,
-                            ),
-                          ),
-                          icon: Icon(
-                            Icons.add_rounded,
-                            color: Theme.of(context).focusColor,
-                          ),
-                        )
-                      : const SizedBox()
                 ],
               ),
             ],

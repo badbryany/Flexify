@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:flexify/pages/workout/ExerciseStats.dart';
+import 'package:flexify/pages/workout/exercisesPage/exercisePage/ExerciseStats.dart';
 import 'package:flexify/data/exerciseModels.dart';
-import 'package:flexify/pages/workout/workoutPage/setPage/addSetPage/addSetPage.dart';
-import 'package:flexify/pages/workout/workoutPage/setPage/editSetPage/editSetPage.dart';
+import 'package:flexify/pages/workout/exercisesPage/exercisePage/add_editSetPage/addSetPage.dart';
+import 'package:flexify/pages/workout/exercisesPage/exercisePage/add_editSetPage/editSetPage.dart';
 
 class ExerciseSets extends StatefulWidget {
   const ExerciseSets({
