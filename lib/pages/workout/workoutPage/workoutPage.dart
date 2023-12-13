@@ -18,6 +18,7 @@ class WorkoutPage extends StatefulWidget {
 
 class _WorkoutPageState extends State<WorkoutPage> {
   List<Exercise> exercises = [];
+  List<Set> sets = [];
   bool loadingDone = false;
 
   getData() async {
@@ -26,6 +27,10 @@ class _WorkoutPageState extends State<WorkoutPage> {
 
     exercises = (await Save.setExerciseIfNull())
         .map((e) => Exercise.fromStringtoObject(e))
+        .toList();
+
+    sets = (await Save.setSetIfNull())
+        .map((e) => Set.fromStringToObject(e))
         .toList();
 
     loadingDone = true;
@@ -91,6 +96,10 @@ class _WorkoutPageState extends State<WorkoutPage> {
                       ? exercises.map(
                           (e) => ExerciseButton(
                             exercise: e,
+                            sets: sets
+                                .where(
+                                    (element) => element.exerciseName == e.name)
+                                .toList(),
                             reload: getData,
                           ),
                         )

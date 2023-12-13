@@ -198,7 +198,9 @@ class _ExerciseStatsState extends State<ExerciseStats> {
                                     minX: 0,
                                     lineBarsData: [
                                       LineChartBarData(
-                                        dotData: const FlDotData(show: false),
+                                        dotData: spots.length == 1
+                                            ? const FlDotData(show: true)
+                                            : const FlDotData(show: false),
                                         color: Theme.of(context)
                                             .scaffoldBackgroundColor,
                                         spots: spots,

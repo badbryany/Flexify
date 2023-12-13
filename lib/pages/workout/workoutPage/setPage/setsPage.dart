@@ -173,10 +173,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    widget.refresh();
-                  },
+                  onPressed: () => Navigator.pop(context),
                   icon: Icon(
                     Icons.arrow_back_rounded,
                     color: Theme.of(context).focusColor,
