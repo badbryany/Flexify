@@ -61,6 +61,10 @@ class _ExerciseStatsState extends State<ExerciseStats> {
 
   @override
   Widget build(BuildContext context) {
+    String name = widget.exerciseName;
+    if (name.length > 30) {
+      name = '${name.substring(0, 27)}...';
+    }
     getData();
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.53,
@@ -84,11 +88,11 @@ class _ExerciseStatsState extends State<ExerciseStats> {
                 child: Column(
                   children: [
                     Text(
-                      widget.exerciseName,
+                      name,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Theme.of(context).scaffoldBackgroundColor,
-                        fontSize: 30,
+                        fontSize: name.length > 13 ? 20 : 30,
                       ),
                     ),
                     const SizedBox(height: 20),

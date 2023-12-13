@@ -84,13 +84,21 @@ class _ExerciseButtonState extends State<ExerciseButton> {
 
   @override
   Widget build(BuildContext context) {
+    String name = widget.exercise.name;
+    if (name.length > 40) {
+      name = '${name.substring(0, 37)}...';
+    }
+
     return GestureDetector(
       onTap: () => Navigator.push(
         context,
         PageTransition(
           child: ExerciseSets(
             name: widget.exercise.name,
-            refresh: widget.reload,
+            refresh: () {
+              widget.reload();
+              getData();
+            },
           ),
           type: PageTransitionType.fade,
         ),
@@ -111,12 +119,15 @@ class _ExerciseButtonState extends State<ExerciseButton> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  widget.exercise.name,
-                  style: TextStyle(
-                    color: Theme.of(context).scaffoldBackgroundColor,
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.55,
+                  child: Text(
+                    name,
+                    style: TextStyle(
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                      fontSize: name.length > 13 ? 20 : 30,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
                 Text(
@@ -128,7 +139,7 @@ class _ExerciseButtonState extends State<ExerciseButton> {
                   ),
                 ),
 
-                const SizedBox(height: 30),
+                const SizedBox(height: 20),
                 // LAST TRAIN DATE
                 sets.isNotEmpty
                     ? Text(
