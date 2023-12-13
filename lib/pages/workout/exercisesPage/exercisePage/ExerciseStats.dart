@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 
 import 'package:flexify/data/exerciseModels.dart';
+import 'package:flexify/data/globaleVariables.dart' as global;
 
 class ExerciseStats extends StatefulWidget {
   const ExerciseStats({
@@ -73,15 +74,18 @@ class _ExerciseStatsState extends State<ExerciseStats> {
         children: [
           Positioned(
             top: 15,
+            left: 0,
+            right: 0,
             child: Container(
               height: MediaQuery.of(context).size.height * 0.46,
-              width: MediaQuery.of(context).size.width * 0.9,
+              width: MediaQuery.of(context).size.width *
+                  global.containerWidthFactor,
               margin: const EdgeInsets.all(10),
               padding: const EdgeInsets.all(20),
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.background,
-                borderRadius: BorderRadius.circular(35),
+                borderRadius: BorderRadius.circular(global.borderRadius),
               ),
               child: Padding(
                 padding: const EdgeInsets.only(top: 45),
