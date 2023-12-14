@@ -17,7 +17,7 @@ class WorkoutDay {
     return tmp;
   }
 
-  match(WorkoutDay workoutDay) {
+  bool match(WorkoutDay workoutDay) {
     List<String> thisCleanExercises = _cleanExercises(exercises);
     List<String> cleanExercises = _cleanExercises(workoutDay.exercises);
 
@@ -34,5 +34,12 @@ class WorkoutDay {
     if ((commonExercises - thisCleanExercises.length).abs() >= 2) return false;
 
     return true;
+  }
+
+  bool hasMatchingExercise(String exerciseName) {
+    for (int i = 0; i < exercises.length; i++) {
+      if (exercises[i] == exerciseName) return true;
+    }
+    return false;
   }
 }

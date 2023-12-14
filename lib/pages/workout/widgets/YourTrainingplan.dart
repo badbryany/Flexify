@@ -32,7 +32,6 @@ class _YourTrainingPlanState extends State<YourTrainingPlan> {
         workoutDay,
         sets,
       );
-      print(realSets);
       List<Widget> widgetList = [];
 
       for (int i = 0; i < realSets.length; i++) {
