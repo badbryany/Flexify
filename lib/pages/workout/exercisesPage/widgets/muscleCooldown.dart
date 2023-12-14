@@ -3,6 +3,7 @@ import 'package:flexify/data/exerciseModels.dart';
 
 
 
+// ignore: must_be_immutable
 class MuscleCooldown extends StatelessWidget {
   MuscleCooldown({
     super.key,
