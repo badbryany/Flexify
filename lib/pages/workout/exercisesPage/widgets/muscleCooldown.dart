@@ -26,7 +26,7 @@ class MuscleCooldown extends StatelessWidget {
 
     // CALC recoverValue
     recoverValue =
-        sets.last.date.difference(DateTime.now()).inHours / 72;
+        (sets.last.date.difference(DateTime.now()).inHours).abs() / 72;
 
     if (recoverValue <= 0.6) {
       loadString = 'recovering';

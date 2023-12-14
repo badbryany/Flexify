@@ -90,8 +90,11 @@ class _WorkoutPageState extends State<WorkoutPage> {
                     ),
                     AnimatedContainer(
                       duration: const Duration(milliseconds: 300),
-                      width: _searchBarOpen == 1 ? 0 : MediaQuery.of(context).size.width*0.4,
-                      height: 50,
+                      alignment: Alignment.center,
+                      width: _searchBarOpen == 1
+                          ? 0
+                          : MediaQuery.of(context).size.width * 0.33,
+                      height: MediaQuery.of(context).size.height * 0.05,
                       child: ListView(
                         physics: const NeverScrollableScrollPhysics(),
                         scrollDirection: Axis.horizontal,
