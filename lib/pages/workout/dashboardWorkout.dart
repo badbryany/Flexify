@@ -1,4 +1,4 @@
-import 'package:flexify/pages/workout/widgets/DashboardWorkoutStats.dart';
+import 'package:flexify/pages/workout/widgets/dashboardWorkoutStats.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flexify/widgets/DashboardOptionButton.dart';
