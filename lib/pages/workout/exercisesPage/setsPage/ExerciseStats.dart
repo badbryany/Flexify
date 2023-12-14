@@ -69,11 +69,12 @@ class _ExerciseStatsState extends State<ExerciseStats> {
     return Container(
       alignment: Alignment.center,
       height: MediaQuery.of(context).size.height * 0.53,
-      width: MediaQuery.of(context).size.width * 1,
+      margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.025),
       child: Stack(
         children: [
           Positioned(
             top: 15,
+            left: 0,
             child: Container(
               height: MediaQuery.of(context).size.height * 0.46,
               width: MediaQuery.of(context).size.width * 0.9,
@@ -164,16 +165,12 @@ class _ExerciseStatsState extends State<ExerciseStats> {
                                         sideTitles: SideTitles(
                                           showTitles: true,
                                           getTitlesWidget: (value, meta) =>
-                                              Padding(
-                                            padding:
-                                                const EdgeInsets.only(right: 0),
-                                            child: Text(
-                                              '${value.round()}',
-                                              style: TextStyle(
-                                                fontSize: 10,
-                                                color: Theme.of(context)
-                                                    .scaffoldBackgroundColor,
-                                              ),
+                                              Text(
+                                            '${value.round()}',
+                                            style: TextStyle(
+                                              fontSize: 10,
+                                              color: Theme.of(context)
+                                                  .scaffoldBackgroundColor,
                                             ),
                                           ),
                                         ),
