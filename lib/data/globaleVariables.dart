@@ -1,3 +1,3 @@
 double borderRadius = 35;
 double containerWidthFactor = 0.9;
-double containerPadding = 20;
+double containerPadding = 30;

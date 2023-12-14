@@ -1,3 +1,4 @@
+import 'package:flexify/pages/workout/widgets/YourTrainingplan.dart';
 import 'package:flexify/pages/workout/widgets/dashboardWorkoutStats.dart';
 import 'package:flutter/material.dart';
 
@@ -28,13 +29,7 @@ class _DashboardWorkoutState extends State<DashboardWorkout> {
           content: const Text(''),
         ),
         const SizedBox(height: 10),
-        DashboardXOptionButton(
-          title: 'Custom Workout',
-          targetPage: WorkoutPage(
-            reload: reload,
-          ),
-          content: const Text(''),
-        ),
+        const YourTrainingPlan(),
         const SizedBox(height: 10),
       ],
     );
