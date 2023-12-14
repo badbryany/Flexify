@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-
 import 'package:flexify/data/exerciseModels.dart';
+
+
 
 class MuscleCooldown extends StatelessWidget {
   MuscleCooldown({
@@ -24,7 +25,7 @@ class MuscleCooldown extends StatelessWidget {
 
     // CALC recoverValue
     recoverValue =
-        (72 / 100) * sets.last.date.difference(DateTime.now()).inHours;
+        sets.last.date.difference(DateTime.now()).inHours / 72;
 
     if (recoverValue <= 0.6) {
       loadString = 'recovering';

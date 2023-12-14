@@ -1,4 +1,4 @@
-import 'package:flexify/pages/workout/widgets/dashboardWorkoutStats.dart';
+import 'package:flexify/pages/workout/widgets/DashboardWorkoutStats.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flexify/widgets/DashboardOptionButton.dart';
@@ -18,7 +18,7 @@ class _DashboardWorkoutState extends State<DashboardWorkout> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const WorkoutDashboard(),
+        const DashboardWorkoutStats(),
         const SizedBox(height: 10),
         DashboardXOptionButton(
           title: 'Recommended Workout',

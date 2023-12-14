@@ -1,9 +1,8 @@
+import 'package:flexify/pages/workout/exercisesPage/setsPage/setsPage.dart';
 import 'package:flexify/widgets/BounceElement.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-
 import 'package:flexify/data/exerciseModels.dart';
-import 'package:flexify/pages/workout/exercisesPage/exercisePage/exercisesPage.dart';
 import 'package:flexify/pages/workout/exercisesPage/widgets/muscleCooldown.dart';
 
 class ExerciseButton extends StatefulWidget {

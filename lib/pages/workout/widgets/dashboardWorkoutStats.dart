@@ -2,14 +2,14 @@ import 'package:flexify/widgets/BounceElement.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/exerciseModels.dart';
 
-class WorkoutDashboard extends StatefulWidget {
-  const WorkoutDashboard({super.key});
+class DashboardWorkoutStats extends StatefulWidget {
+  const DashboardWorkoutStats({super.key});
 
   @override
-  State<WorkoutDashboard> createState() => _WorkoutDashboardState();
+  State<DashboardWorkoutStats> createState() => _DashboardWorkoutStatsState();
 }
 
-class _WorkoutDashboardState extends State<WorkoutDashboard> {
+class _DashboardWorkoutStatsState extends State<DashboardWorkoutStats> {
   List<DateTime> dates = [
     DateTime.now().subtract(const Duration(days: 6)),
     DateTime.now().subtract(const Duration(days: 5)),

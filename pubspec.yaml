@@ -16,6 +16,7 @@ dependencies:
   page_transition: "^2.1.0"
   fl_chart: ^0.65.0
   flutter_launcher_icons: ^0.13.1
+  anim_search_bar: ^2.0.3
 
 dev_dependencies:
   flutter_test:
@@ -36,3 +37,5 @@ flutter:
     - family: Sacramento
       fonts:
         - asset: ./assets/fonts/Sacramento-Regular.ttf
+  assets:
+  - assets/img/

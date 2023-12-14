@@ -1,8 +1,7 @@
-import 'package:flexify/pages/workout/exercisesPage/addExercisePage/addExercisePage.dart';
-import 'package:flexify/pages/workout/exercisesPage/widgets/exerciseButton.dart';
+import 'package:flexify/pages/workout/exercisesPage/widgets/ExerciseButton.dart';
+import 'package:flexify/widgets/SearchBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/exerciseModels.dart';
-import 'package:page_transition/page_transition.dart';
 
 class WorkoutPage extends StatefulWidget {
   const WorkoutPage({
@@ -20,6 +19,8 @@ class _WorkoutPageState extends State<WorkoutPage> {
   List<Exercise> exercises = [];
   List<Set> sets = [];
   bool loadingDone = false;
+  int _searchBarOpen = 0;
+  TextEditingController controller = TextEditingController();
 
   getData() async {
     loadingDone = false;
@@ -59,41 +60,72 @@ class _WorkoutPageState extends State<WorkoutPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    IconButton(
-                      onPressed: () {
-                        widget.reload();
-                        Navigator.pop(context);
-                      },
-                      color: Theme.of(context).focusColor,
-                      icon: Icon(Icons.arrow_back_ios_new_rounded),
-                    ),
-                    Center(
-                      child: Text(
-                        'Workout',
-                        style: TextStyle(
-                          color: Theme.of(context).focusColor,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: -1,
-                          fontSize: 50,
-                        ),
+                    Container(
+                      padding: const EdgeInsets.all(4.3),
+                      decoration: BoxDecoration(
+                        boxShadow: ([
+                          BoxShadow(
+                            color:
+                                Theme.of(context).focusColor.withOpacity(0.25),
+                            spreadRadius: -10.0,
+                            blurRadius: 10.0,
+                            offset: const Offset(0.0, 10.0),
+                          ),
+                        ]),
+                        color: Theme.of(context).scaffoldBackgroundColor,
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                      child: IconButton(
+                        splashColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onPressed: () {
+                          widget.reload();
+                          Navigator.pop(context);
+                        },
+                        color: Theme.of(context).focusColor,
+                        icon: const Icon(Icons.arrow_back_rounded),
+                        iconSize: 20,
                       ),
                     ),
-                    loadingDone
-                        ? IconButton(
-                            onPressed: () => Navigator.push(
-                              context,
-                              PageTransition(
-                                child: AddExercise(refresh: getData),
-                                type: PageTransitionType.fade,
+                    AnimatedContainer(
+                      duration: const Duration(milliseconds: 300),
+                      width: _searchBarOpen == 1 ? 0 : MediaQuery.of(context).size.width*0.4,
+                      height: 50,
+                      child: ListView(
+                        physics: const NeverScrollableScrollPhysics(),
+                        scrollDirection: Axis.horizontal,
+                        children: [
+                          Center(
+                            child: Text(
+                              'Workout',
+                              style: TextStyle(
+                                color: Theme.of(context).focusColor,
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: -1,
+                                fontSize: 50,
                               ),
                             ),
-                            icon: Icon(
-                              Icons.add_rounded,
-                              color: Theme.of(context).focusColor,
-                              size: 30,
-                            ),
                           )
-                        : const SizedBox()
+                        ],
+                      ),
+                    ),
+                    AnimSearchBar(
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                      helpText: 'Add exercise to workout',
+                      width: 400,
+                      textController: controller,
+                      onSubmitted: (foo) {},
+                      suffixIcon: const Icon(Icons.clear),
+                      onSuffixTap: () {
+                        controller.clear();
+                      },
+                      onToggle: (int open) {
+                        setState(() => _searchBarOpen = open);
+                      },
+                      closeSearchOnSuffixTap: true,
+                      autoFocus: true,
+                    ),
                   ],
                 ),
               ),
