@@ -1,6 +1,7 @@
 import 'package:flexify/widgets/BounceElement.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/exerciseModels.dart';
+import 'package:flexify/data/globaleVariables.dart' as global;
 
 class DashboardWorkoutStats extends StatefulWidget {
   const DashboardWorkoutStats({super.key});
@@ -164,13 +165,13 @@ class _DashboardWorkoutStatsState extends State<DashboardWorkoutStats> {
   Widget build(BuildContext context) {
     getData();
     return Container(
-      width: MediaQuery.of(context).size.width * 0.95,
+      width: MediaQuery.of(context).size.width * global.containerWidthFactor,
       height: MediaQuery.of(context).size.height * 0.45,
-      padding: const EdgeInsets.all(30),
+      padding: EdgeInsets.all(global.containerPadding),
       margin: const EdgeInsets.only(top: 20),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.background,
-        borderRadius: BorderRadius.circular(35),
+        borderRadius: BorderRadius.circular(global.borderRadius),
       ),
       child: Column(
         children: [
@@ -185,7 +186,6 @@ class _DashboardWorkoutStatsState extends State<DashboardWorkoutStats> {
                   key: ValueKey(selectedIntesity),
                   style: TextStyle(
                     fontSize: 18,
-                    // fontWeight: FontWeight.bold,
                     color: Theme.of(context)
                         .scaffoldBackgroundColor
                         .withOpacity(0.6),

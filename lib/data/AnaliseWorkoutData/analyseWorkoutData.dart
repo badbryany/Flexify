@@ -48,34 +48,32 @@ List<WorkoutDay> analyseWorkout(List<Set> setList) {
 }
 
 List<dynamic> getAverageWorkoutString(
-  List<WorkoutDay> workoutDays,
+  WorkoutDay workoutDay,
   List<Set> setList,
 ) {
   List<dynamic> workoutString = [];
 
-  for (int i = 0; i < workoutDays.length; i++) {
-    String exerciseName = workoutDays[i].exercises[0];
-    int setCount = 0;
+  String exerciseName = workoutDay.exercises[0];
+  int setCount = 0;
 
-    for (int j = 0; j < workoutDays[i].exercises.length; j++) {
-      if (workoutDays[i].exercises[j] == exerciseName) {
-        setCount++;
-      } else {
-        workoutString.add({
-          'exerciseName': exerciseName,
-          'setCount': setCount,
-          'reps': null,
-        });
-        exerciseName = workoutDays[i].exercises[j];
-        setCount = 1;
-      }
-      if (j == workoutDays[i].exercises.length - 1) {
-        workoutString.add({
-          'exerciseName': exerciseName,
-          'setCount': setCount,
-          'reps': null,
-        });
-      }
+  for (int j = 0; j < workoutDay.exercises.length; j++) {
+    if (workoutDay.exercises[j] == exerciseName) {
+      setCount++;
+    } else {
+      workoutString.add({
+        'exerciseName': exerciseName,
+        'setCount': setCount,
+        'reps': null,
+      });
+      exerciseName = workoutDay.exercises[j];
+      setCount = 1;
+    }
+    if (j == workoutDay.exercises.length - 1) {
+      workoutString.add({
+        'exerciseName': exerciseName,
+        'setCount': setCount,
+        'reps': null,
+      });
     }
   }
   return workoutString;

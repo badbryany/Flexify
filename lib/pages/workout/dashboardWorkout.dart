@@ -1,9 +1,7 @@
+import 'package:flexify/pages/workout/widgets/StartWorkout.dart';
 import 'package:flexify/pages/workout/widgets/YourTrainingplan.dart';
 import 'package:flexify/pages/workout/widgets/dashboardWorkoutStats.dart';
 import 'package:flutter/material.dart';
-
-import 'package:flexify/widgets/DashboardOptionButton.dart';
-import 'package:flexify/pages/workout/exercisesPage/exercisesPage.dart';
 
 class DashboardWorkout extends StatefulWidget {
   const DashboardWorkout({super.key});
@@ -21,12 +19,8 @@ class _DashboardWorkoutState extends State<DashboardWorkout> {
       children: [
         const DashboardWorkoutStats(),
         const SizedBox(height: 10),
-        DashboardXOptionButton(
-          title: 'Recommended Workout',
-          targetPage: WorkoutPage(
-            reload: reload,
-          ),
-          content: const Text(''),
+        StartWorkout(
+          reload: reload,
         ),
         const SizedBox(height: 10),
         const YourTrainingPlan(),

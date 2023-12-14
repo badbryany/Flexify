@@ -27,10 +27,12 @@ class _YourTrainingPlanState extends State<YourTrainingPlan> {
   }
 
   List<Widget> workoutDaysWidgets() {
-    List<Widget> _showSets(List<String> exerciseNames) {
-      List<dynamic> realSets =
-          analize.getAverageWorkoutString(workoutDays, sets);
-
+    List<Widget> _showSets(WorkoutDay workoutDay) {
+      List<dynamic> realSets = analize.getAverageWorkoutString(
+        workoutDay,
+        sets,
+      );
+      print(realSets);
       List<Widget> widgetList = [];
 
       for (int i = 0; i < realSets.length; i++) {
@@ -54,21 +56,19 @@ class _YourTrainingPlanState extends State<YourTrainingPlan> {
     List<Widget> returnList = [];
     for (int i = 0; i < workoutDays.length; i++) {
       returnList.add(
-        Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Day ${i + 1}:',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).focusColor,
-                ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Day ${i + 1}:',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).focusColor,
               ),
-              ..._showSets(workoutDays[i].exercises),
-            ],
-          ),
+            ),
+            ..._showSets(workoutDays[i]),
+          ],
         ),
       );
     }
@@ -90,7 +90,6 @@ class _YourTrainingPlanState extends State<YourTrainingPlan> {
         borderRadius: BorderRadius.circular(global.borderRadius),
       ),
       width: MediaQuery.of(context).size.width * global.containerWidthFactor,
-      // height: MediaQuery.of(context).size.height * 0.2,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
