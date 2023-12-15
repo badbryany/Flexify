@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-      fontFamily: 'JosefinSans',
+        fontFamily: 'JosefinSans',
         focusColor: Colors.black,
         scaffoldBackgroundColor: Colors.white,
         canvasColor: const Color.fromARGB(255, 23, 23, 23),

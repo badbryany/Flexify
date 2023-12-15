@@ -214,17 +214,28 @@ class _ExerciseSetsState extends State<ExerciseSets> {
             margin: EdgeInsets.only(
               left: MediaQuery.of(context).size.width * 0.075,
             ),
-            child: const Row(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
+                const Text(
                   'All sets',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 25,
                   ),
                 ),
-                SizedBox(),
+                const SizedBox(),
+                const SizedBox(),
+                const SizedBox(),
+                const SizedBox(),
+                Text(
+                  '(${sets.length})',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                ),
+                const SizedBox(),
               ],
             ),
           ),
