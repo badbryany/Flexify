@@ -33,6 +33,14 @@ class DashboardXOptionButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.surface,
           borderRadius: BorderRadius.circular(35),
+          boxShadow: [
+                BoxShadow(
+                  color: Theme.of(context).focusColor.withOpacity(0.4),
+                  spreadRadius: -10.0,
+                  blurRadius: 10.0,
+                  offset: const Offset(0, 10.0),
+                )
+              ],
         ),
         width: MediaQuery.of(context).size.width * 0.95,
         height: MediaQuery.of(context).size.height * 0.2,

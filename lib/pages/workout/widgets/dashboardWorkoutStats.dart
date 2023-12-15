@@ -171,6 +171,14 @@ class _DashboardWorkoutStatsState extends State<DashboardWorkoutStats> {
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.background,
         borderRadius: BorderRadius.circular(35),
+        boxShadow: [
+                BoxShadow(
+                  color: Theme.of(context).focusColor,
+                  spreadRadius: -10.0,
+                  blurRadius: 10.0,
+                  offset: const Offset(0, 10.0),
+                )
+              ],
       ),
       child: Column(
         children: [
@@ -185,7 +193,6 @@ class _DashboardWorkoutStatsState extends State<DashboardWorkoutStats> {
                   key: ValueKey(selectedIntesity),
                   style: TextStyle(
                     fontSize: 18,
-                    // fontWeight: FontWeight.bold,
                     color: Theme.of(context)
                         .scaffoldBackgroundColor
                         .withOpacity(0.6),

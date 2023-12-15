@@ -137,13 +137,15 @@ class _WorkoutPageState extends State<WorkoutPage> {
                   ...(loadingDone
                       ? exercises.map(
                           (e) => ExerciseButton(
-                            exercise: e,
-                            sets: sets
-                                .where(
-                                    (element) => element.exerciseName == e.name)
-                                .toList(),
-                            reload: getData,
-                          ),
+                              exercise: e,
+                              sets: sets
+                                  .where((element) =>
+                                      element.exerciseName == e.name)
+                                  .toList(),
+                              reload: () {
+                                getData();
+                                
+                              }),
                         )
                       : [
                           Center(

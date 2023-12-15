@@ -266,6 +266,7 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                       unfocusKeyboard(),
                       setState(() {
                         toggle = 0;
+                        widget.onToggle(toggle);
                       }),
                       widget.textController.clear(),
                     },

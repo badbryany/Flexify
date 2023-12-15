@@ -1,5 +1,6 @@
 import 'package:flexify/pages/workout/exercisesPage/setsPage/setsPage.dart';
 import 'package:flexify/widgets/BounceElement.dart';
+import 'package:flexify/widgets/SearchBar.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:flexify/data/exerciseModels.dart';
@@ -97,7 +98,7 @@ class _ExerciseButtonState extends State<ExerciseButton> {
             content: Text(
               'Do you want to delete this exercise?',
               style: TextStyle(
-                color: Theme.of(context).scaffoldBackgroundColor,
+                color: Theme.of(context).colorScheme.surface,
               ),
             ),
             actions: [
@@ -153,11 +154,19 @@ class _ExerciseButtonState extends State<ExerciseButton> {
           child: Container(
             width: MediaQuery.of(context).size.width * 0.9,
             height: MediaQuery.of(context).size.height * 0.2,
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(30),
             margin: const EdgeInsets.all(7.5),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(35),
               color: Theme.of(context).colorScheme.background,
+              boxShadow: [
+                BoxShadow(
+                  color: Theme.of(context).focusColor,
+                  spreadRadius: -10.0,
+                  blurRadius: 10.0,
+                  offset: const Offset(0, 10.0),
+                )
+              ],
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
