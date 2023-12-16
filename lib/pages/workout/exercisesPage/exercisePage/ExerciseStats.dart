@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 
 import 'package:flexify/data/exerciseModels.dart';
-import 'package:flexify/data/globaleVariables.dart' as global;
+import 'package:flexify/data/globalVariables.dart' as global;
 
 class ExerciseStats extends StatefulWidget {
   const ExerciseStats({

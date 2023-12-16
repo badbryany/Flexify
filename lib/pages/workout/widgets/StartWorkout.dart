@@ -8,7 +8,7 @@ import 'package:flexify/data/AnaliseWorkoutData/predictNextWorkout.dart';
 import 'package:flexify/data/AnaliseWorkoutData/WorkoutDay.dart';
 
 import 'package:flexify/data/exerciseModels.dart';
-import 'package:flexify/data/globaleVariables.dart' as global;
+import 'package:flexify/data/globalVariables.dart' as global;
 import 'package:page_transition/page_transition.dart';
 
 class StartWorkout extends StatefulWidget {

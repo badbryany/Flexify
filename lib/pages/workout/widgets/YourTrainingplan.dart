@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flexify/data/globaleVariables.dart' as global;
+import 'package:flexify/data/globalVariables.dart' as global;
 
 import 'package:flexify/data/AnaliseWorkoutData/analyseWorkoutData.dart'
     as analize;
