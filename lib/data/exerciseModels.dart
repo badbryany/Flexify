@@ -1,151 +1,149 @@
-import 'dart:convert';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:io';
+
+import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 
 class Exercise {
   Exercise({
     required this.name,
+    required this.type,
+    required this.affectedMuscle,
+    required this.equipment,
   });
 
   final String name;
+  final String type;
+  final String affectedMuscle;
+  final String equipment;
 
-  String toJsonString() {
-    return jsonEncode({'name': name});
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'type': type,
+      'affectedMuscle': affectedMuscle,
+      'equipment': equipment,
+      'synced': 0,
+    };
   }
 
-  static Exercise fromStringtoObject(String string) {
-    dynamic values = jsonDecode(string);
+  static Exercise fromJSONtoObject(Map<String, dynamic> values) {
     return Exercise(
       name: values['name'],
+      type: values['type'],
+      affectedMuscle: values['affectedMuscle'],
+      equipment: values['equipment'],
     );
   }
 }
 
 class Set {
   Set({
-    required this.setId,
+    this.s_id,
     required this.exerciseName,
     required this.reps,
     required this.weight,
     required this.date,
   });
 
-  final int setId;
+  final int? s_id;
   final String exerciseName;
   final int reps;
   final double weight;
   final DateTime date;
 
-  String toJsonString() {
-    return jsonEncode({
-      'setId': setId,
+  Map<String, dynamic> toJson() {
+    return {
       'exerciseName': exerciseName,
       'reps': reps,
       'weight': weight,
       'date': date.toString(),
-    });
+      'synced': 0,
+    };
   }
 
-  static Set fromStringToObject(String string) {
-    dynamic values = jsonDecode(string);
+  static Set fromJSONtoObject(Map<String, dynamic> values) {
     return Set(
-      setId: values['setId'],
+      s_id: values['s_id'],
       exerciseName: values['exerciseName'],
       reps: values['reps'],
-      weight: values['weight'],
+      weight: values['weight'].toDouble(),
       date: DateTime.parse(values['date']),
     );
-  }
-
-  static Future<int> getNewSetId() async {
-    List<Set> sets = (await Save.setSetIfNull())
-        .map((e) => Set.fromStringToObject(e))
-        .toList();
-
-    if (sets.isEmpty) {
-      return 0;
-    }
-    return sets.last.setId + 1;
   }
 }
 
 class Save {
-  static Future<List<String>> setExerciseIfNull() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (prefs.getStringList('exercises') == null) {
-      prefs.setStringList('exercises', []);
-    }
+  static Future<Database> getDatabase() async {
+    final Directory documentsDirectory =
+        await getApplicationDocumentsDirectory();
 
-    return prefs.getStringList('exercises')!;
+    final String path = join(documentsDirectory.path, 'flexify.db');
+
+    return openDatabase(
+      path,
+      version: 1,
+      onCreate: (Database db, int version) async {
+        await db.execute(
+          'CREATE TABLE IF NOT EXISTS "exercises" ("name"	TEXT NOT NULL, "type" TEXT, "affectedMuscle" TEXT, "equipment" TEXT, "synced" INTEGER NOT NULL, PRIMARY KEY("name"));',
+        );
+        await db.execute(
+          'CREATE TABLE IF NOT EXISTS "sets" ("s_id"	INTEGER NOT NULL, "exerciseName" TEXT NOT NULL, "reps" INTEGER NOT NULL, "weight" NUMERIC NOT NULL, "date" DATE NOT NULL, "synced" INTEGER NOT NULL, PRIMARY KEY("s_id" AUTOINCREMENT));',
+        );
+      },
+    );
   }
 
-  static Future<List<String>> setSetIfNull() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (prefs.getStringList('sets') == null) {
-      prefs.setStringList('sets', []);
-    }
-    return prefs.getStringList('sets')!;
+  static Future<List<Exercise>> getExersiseList() async {
+    Database db = await getDatabase();
+    List<Map<String, Object?>> exercises =
+        await db.rawQuery('SELECT * FROM exercises;');
+
+    return exercises.map((e) => Exercise.fromJSONtoObject(e)).toList();
   }
 
-  static Future<bool> saveExercise(Exercise exercise) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> exercises = await setExerciseIfNull();
+  static Future<List<Set>> getSetList() async {
+    Database db = await getDatabase();
+    List<Map<String, Object?>> sets =
+        await db.rawQuery('SELECT * FROM sets;'); // TODO
 
-    exercises.add(exercise.toJsonString());
-
-    prefs.setStringList('exercises', exercises);
-    return true;
+    return sets.map((e) => Set.fromJSONtoObject(e)).toList();
   }
 
-  static Future<bool> deleteExercise(Exercise exercise) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    List<Set> sets = (await Save.setSetIfNull())
-        .map((e) => Set.fromStringToObject(e))
-        .toList();
-
-    sets.removeWhere((element) => element.exerciseName == exercise.name);
-
-    List<String> exercises = await setExerciseIfNull();
-
-    exercises.remove(exercise.toJsonString());
-
-    prefs.setStringList('exercises', exercises);
-    prefs.setStringList('sets', sets.map((e) => e.toJsonString()).toList());
-    return true;
+  static Future<void> saveExercise(Exercise exercise) async {
+    Database db = await getDatabase();
+    await db.insert('exercises', exercise.toJson());
   }
 
-  static Future<bool> safeSet(Set set) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> sets = await setSetIfNull();
+  static Future<void> deleteExercise(Exercise exercise) async {
+    Database db = await getDatabase();
 
-    sets.add(set.toJsonString());
-
-    prefs.setStringList('sets', sets);
-    return true;
+    await db.rawDelete(
+      'DELETE FROM sets WHERE sets.exerciseName="${exercise.name}"',
+    );
+    await db.rawDelete(
+      'DELETE FROM exercises WHERE exercises.name="${exercise.name}"',
+    );
   }
 
-  static Future<bool> deleteSet(Set set) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> sets = await setSetIfNull();
+  static Future<void> saveSet(Set set) async {
+    Database db = await getDatabase();
 
-    sets.remove(set.toJsonString());
-
-    prefs.setStringList('sets', sets);
-    return true;
+    await db.insert('sets', set.toJson());
   }
 
-  static editSet(Set set) async {
-    List<Set> sets = (await Save.setSetIfNull())
-        .map((e) => Set.fromStringToObject(e))
-        .toList();
+  static Future<void> deleteSet(Set set) async {
+    Database db = await getDatabase();
+    await db.rawDelete(
+      'DELETE FROM sets WHERE sets.s_id=${set.s_id}',
+    );
+  }
 
-    for (int i = 0; i < sets.length; i++) {
-      if (sets[i].setId == set.setId) {
-        sets[i] = set;
-      }
-    }
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+  static Future<void> editSet(Set set) async {
+    Database db = await getDatabase();
 
-    prefs.setStringList('sets', sets.map((e) => e.toJsonString()).toList());
+    await db.rawUpdate(
+      'UPDATE sets SET reps=${set.reps}, weight=${set.weight} WHERE sets.s_id=${set.s_id}',
+    );
   }
 }

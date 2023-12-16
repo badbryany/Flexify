@@ -1,6 +1,5 @@
 import 'package:flexify/pages/workout/exercisesPage/setsPage/setsPage.dart';
 import 'package:flexify/widgets/BounceElement.dart';
-import 'package:flexify/widgets/SearchBar.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:flexify/data/exerciseModels.dart';
@@ -26,7 +25,7 @@ class _ExerciseButtonState extends State<ExerciseButton> {
   Set getMaxSet(List<Set> sets) {
     if (sets.isEmpty) {
       return Set(
-        setId: -1,
+        s_id: -1,
         date: DateTime.now(),
         exerciseName: widget.exercise.name,
         reps: 0,
@@ -104,8 +103,7 @@ class _ExerciseButtonState extends State<ExerciseButton> {
             actions: [
               TextButton(
                 onPressed: () async {
-                  List<Set> sets = (await Save.setSetIfNull())
-                      .map((e) => Set.fromStringToObject(e))
+                  List<Set> sets = (await Save.getSetList())
                       .where((element) =>
                           element.exerciseName == widget.exercise.name)
                       .toList();
@@ -116,7 +114,7 @@ class _ExerciseButtonState extends State<ExerciseButton> {
                   await Save.saveExercise(widget.exercise);
 
                   for (var i = 0; i < sets.length; i++) {
-                    await Save.safeSet(sets[i]);
+                    await Save.saveSet(sets[i]);
                   }
 
                   await widget.reload();

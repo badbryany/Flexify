@@ -26,13 +26,8 @@ class _WorkoutPageState extends State<WorkoutPage> {
     loadingDone = false;
     setState(() {});
 
-    exercises = (await Save.setExerciseIfNull())
-        .map((e) => Exercise.fromStringtoObject(e))
-        .toList();
-
-    sets = (await Save.setSetIfNull())
-        .map((e) => Set.fromStringToObject(e))
-        .toList();
+    exercises = await Save.getExersiseList();
+    sets = await Save.getSetList();
 
     loadingDone = true;
     setState(() {});
@@ -81,6 +76,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
                         highlightColor: Colors.transparent,
                         onPressed: () {
                           widget.reload();
+                          getData();
                           Navigator.pop(context);
                         },
                         color: Theme.of(context).focusColor,
@@ -144,7 +140,6 @@ class _WorkoutPageState extends State<WorkoutPage> {
                                   .toList(),
                               reload: () {
                                 getData();
-                                
                               }),
                         )
                       : [

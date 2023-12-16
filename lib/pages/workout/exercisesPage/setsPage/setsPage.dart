@@ -23,8 +23,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
   List<Set> sets = [];
   bool loadingDone = false;
   getData() async {
-    sets = (await Save.setSetIfNull())
-        .map((e) => Set.fromStringToObject(e))
+    sets = (await Save.getSetList())
         .where((e) => e.exerciseName == widget.name)
         .toList();
 

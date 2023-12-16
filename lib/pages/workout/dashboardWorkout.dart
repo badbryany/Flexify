@@ -1,3 +1,4 @@
+import 'package:flexify/data/exerciseModels.dart';
 import 'package:flexify/pages/workout/widgets/StartWorkout.dart';
 import 'package:flexify/pages/workout/widgets/YourTrainingplan.dart';
 import 'package:flexify/pages/workout/widgets/dashboardWorkoutStats.dart';
@@ -11,19 +12,33 @@ class DashboardWorkout extends StatefulWidget {
 }
 
 class _DashboardWorkoutState extends State<DashboardWorkout> {
-  reload() => setState(() {});
+  List<Set> sets = [];
+
+  getData() async {
+    sets = await Save.getSetList();
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const DashboardWorkoutStats(),
+        DashboardWorkoutStats(sets: sets),
         const SizedBox(height: 10),
         StartWorkout(
-          reload: reload,
+          sets: sets,
+          reload: getData,
         ),
         const SizedBox(height: 10),
-        const YourTrainingPlan(),
+        YourTrainingPlan(
+          sets: sets,
+        ),
         const SizedBox(height: 10),
       ],
     );

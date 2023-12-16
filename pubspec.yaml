@@ -12,10 +12,12 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.2
   google_nav_bar: ^5.0.6
-  shared_preferences: ^2.2.2
   page_transition: "^2.1.0"
   fl_chart: ^0.65.0
   flutter_launcher_icons: ^0.13.1
+  sqflite: ^2.3.0
+  path_provider: ^2.1.1
+  path: ^1.8.3
 
 dev_dependencies:
   flutter_test:

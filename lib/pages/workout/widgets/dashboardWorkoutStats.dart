@@ -4,7 +4,12 @@ import 'package:flexify/data/exerciseModels.dart';
 import 'package:flexify/data/globaleVariables.dart' as global;
 
 class DashboardWorkoutStats extends StatefulWidget {
-  const DashboardWorkoutStats({super.key});
+  const DashboardWorkoutStats({
+    super.key,
+    required this.sets,
+  });
+
+  final List<Set> sets;
 
   @override
   State<DashboardWorkoutStats> createState() => _DashboardWorkoutStatsState();
@@ -26,16 +31,12 @@ class _DashboardWorkoutStatsState extends State<DashboardWorkoutStats> {
   int selectedIntesity = 5; // yesterday
 
   getData() async {
-    List<Set> sets = (await Save.setSetIfNull())
-        .map((e) => Set.fromStringToObject(e))
-        .toList();
-
     for (int i = 0; i < dates.length; i++) {
       int thisDaySets = 0;
-      for (int j = 0; j < sets.length; j++) {
-        if (sets[j].date.day == dates[i].day &&
-            sets[j].date.month == dates[i].month &&
-            sets[j].date.year == dates[i].year) {
+      for (int j = 0; j < widget.sets.length; j++) {
+        if (widget.sets[j].date.day == dates[i].day &&
+            widget.sets[j].date.month == dates[i].month &&
+            widget.sets[j].date.year == dates[i].year) {
           thisDaySets++;
         }
       }

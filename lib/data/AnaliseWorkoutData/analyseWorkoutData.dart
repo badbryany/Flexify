@@ -14,6 +14,10 @@ List<WorkoutDay> analyseWorkout(List<Set> setList) {
 
   List<String> exercises = [];
 
+  if (setList.isEmpty) {
+    return [];
+  }
+
   DateTime lastDate = setList[0].date;
 
   for (int i = 0; i < setList.length; i++) {
@@ -52,6 +56,10 @@ List<dynamic> getAverageWorkoutString(
   List<Set> setList,
 ) {
   List<dynamic> workoutString = [];
+
+  if (workoutDay.exercises.isEmpty) {
+    return [];
+  }
 
   String exerciseName = workoutDay.exercises[0];
   int setCount = 0;

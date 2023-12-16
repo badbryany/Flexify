@@ -15,9 +15,11 @@ class StartWorkout extends StatefulWidget {
   const StartWorkout({
     super.key,
     required this.reload,
+    required this.sets,
   });
 
   final Function reload;
+  final List<Set> sets;
 
   @override
   State<StartWorkout> createState() => _StartWorkoutState();
@@ -25,16 +27,11 @@ class StartWorkout extends StatefulWidget {
 
 class _StartWorkoutState extends State<StartWorkout> {
   WorkoutDay? nextWorkoutDay;
-  List<Set> sets = [];
 
   getData() async {
-    sets = (await Save.setSetIfNull())
-        .map((e) => Set.fromStringToObject(e))
-        .toList();
-
     nextWorkoutDay = predictNextWorkout(
-      analize.analyseWorkout(sets),
-      sets,
+      analize.analyseWorkout(widget.sets),
+      widget.sets,
     );
 
     setState(() {});
@@ -43,7 +40,7 @@ class _StartWorkoutState extends State<StartWorkout> {
   List<Widget> showSets(WorkoutDay _nextWorkoutDay) {
     List<dynamic> realSets = analize.getAverageWorkoutString(
       _nextWorkoutDay,
-      sets,
+      widget.sets,
     );
     List<Widget> widgetList = [];
 

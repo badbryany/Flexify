@@ -7,7 +7,12 @@ import 'package:flexify/data/AnaliseWorkoutData/WorkoutDay.dart';
 import 'package:flexify/data/exerciseModels.dart';
 
 class YourTrainingPlan extends StatefulWidget {
-  const YourTrainingPlan({super.key});
+  const YourTrainingPlan({
+    super.key,
+    required this.sets,
+  });
+
+  final List<Set> sets;
 
   @override
   State<YourTrainingPlan> createState() => _YourTrainingPlanState();
@@ -15,13 +20,8 @@ class YourTrainingPlan extends StatefulWidget {
 
 class _YourTrainingPlanState extends State<YourTrainingPlan> {
   List<WorkoutDay> workoutDays = [];
-  List<Set> sets = [];
   getData() async {
-    sets = (await Save.setSetIfNull())
-        .map((e) => Set.fromStringToObject(e))
-        .toList();
-
-    workoutDays = analize.analyseWorkout(sets);
+    workoutDays = analize.analyseWorkout(widget.sets);
 
     setState(() {});
   }
@@ -30,7 +30,7 @@ class _YourTrainingPlanState extends State<YourTrainingPlan> {
     List<Widget> _showSets(WorkoutDay workoutDay) {
       List<dynamic> realSets = analize.getAverageWorkoutString(
         workoutDay,
-        sets,
+        widget.sets,
       );
       List<Widget> widgetList = [];
 

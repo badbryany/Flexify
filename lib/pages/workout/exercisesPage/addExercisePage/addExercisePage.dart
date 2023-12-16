@@ -66,8 +66,14 @@ class AddExercise extends StatelessWidget {
                     filled: true,
                     borderRadius: 40,
                     onPressed: () async {
+                      // TODO
                       await Save.saveExercise(
-                        Exercise(name: exerciseNameController.text),
+                        Exercise(
+                          name: exerciseNameController.text,
+                          affectedMuscle: '',
+                          equipment: '',
+                          type: '',
+                        ),
                       );
                       await refresh();
                       Navigator.pop(context);

@@ -1,5 +1,5 @@
 import 'package:flexify/data/AnaliseWorkoutData/WorkoutDay.dart';
-import 'package:flexify/data/AnaliseWorkoutData/analyseWorkoutData.dart';
+// import 'package:flexify/data/AnaliseWorkoutData/analyseWorkoutData.dart';
 import 'package:flexify/data/exerciseModels.dart';
 
 WorkoutDay predictNextWorkout(List<WorkoutDay> workoutDays, List<Set> sets) {
@@ -12,6 +12,10 @@ WorkoutDay predictNextWorkout(List<WorkoutDay> workoutDays, List<Set> sets) {
     if (workoutDays[i].hasMatchingExercise(sets.last.exerciseName)) {
       lastWorkoutDayIndex = i;
     }
+  }
+
+  if (workoutDays.isEmpty) {
+    return WorkoutDay(id: 0, exercises: []);
   }
 
   return workoutDays[(lastWorkoutDayIndex + 1) % workoutDays.length];

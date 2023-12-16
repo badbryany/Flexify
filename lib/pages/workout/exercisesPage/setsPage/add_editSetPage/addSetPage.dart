@@ -24,8 +24,7 @@ class _AddSetState extends State<AddSet> {
   );
 
   getData() async {
-    List<String> stringSets = await Save.setSetIfNull();
-    List<Set> sets = stringSets.map((e) => Set.fromStringToObject(e)).toList();
+    List<Set> sets = await Save.getSetList();
 
     for (int i = 0; i < sets.length; i++) {
       if (sets[i].exerciseName == widget.exerciseName) {
@@ -102,9 +101,8 @@ class _AddSetState extends State<AddSet> {
                     filled: true,
                     borderRadius: 40,
                     onPressed: () async {
-                      await Save.safeSet(
+                      await Save.saveSet(
                         Set(
-                          setId: await Set.getNewSetId(),
                           date: DateTime.now(),
                           exerciseName: widget.exerciseName,
                           reps: int.parse(repsController.text),

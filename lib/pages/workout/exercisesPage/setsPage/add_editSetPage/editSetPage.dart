@@ -88,7 +88,7 @@ class _EditSetState extends State<EditSet> {
             onPressed: () async {
               await Save.editSet(
                 Set(
-                  setId: widget.set.setId,
+                  s_id: widget.set.s_id,
                   date: widget.set.date,
                   exerciseName: widget.set.exerciseName,
                   reps: newReps,
