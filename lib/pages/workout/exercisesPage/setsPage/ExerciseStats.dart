@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-
+import 'package:flexify/data/globalVariables.dart' as global;
 import 'package:flexify/data/exerciseModels.dart';
 
 class ExerciseStats extends StatefulWidget {
@@ -77,7 +77,7 @@ class _ExerciseStatsState extends State<ExerciseStats> {
             left: 0,
             child: Container(
               height: MediaQuery.of(context).size.height * 0.46,
-              width: MediaQuery.of(context).size.width * 0.9,
+              width: MediaQuery.of(context).size.width * global.containerWidthFactor,
               margin: const EdgeInsets.all(10),
               padding: const EdgeInsets.all(20),
               alignment: Alignment.center,

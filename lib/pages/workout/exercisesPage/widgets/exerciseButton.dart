@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:flexify/data/exerciseModels.dart';
 import 'package:flexify/pages/workout/exercisesPage/widgets/muscleCooldown.dart';
+import 'package:flexify/data/globalVariables.dart' as global;
 
 class ExerciseButton extends StatefulWidget {
   const ExerciseButton({
@@ -150,7 +151,7 @@ class _ExerciseButtonState extends State<ExerciseButton> {
             ),
           ),
           child: Container(
-            width: MediaQuery.of(context).size.width * 0.9,
+            width: MediaQuery.of(context).size.width * global.containerWidthFactor,
             height: MediaQuery.of(context).size.height * 0.2,
             padding: const EdgeInsets.all(30),
             margin: const EdgeInsets.all(7.5),
