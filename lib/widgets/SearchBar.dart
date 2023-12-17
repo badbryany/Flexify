@@ -134,22 +134,20 @@ class _AnimSearchBarState extends State<AnimSearchBar>
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100.0,
-
       ///if the rtl is true, search bar will be from right to left
       alignment: widget.rtl ? Alignment.centerRight : Alignment(-1.0, 0.0),
 
       ///Using Animated container to expand and shrink the widget
       child: AnimatedContainer(
         duration: Duration(milliseconds: widget.animationDurationInMilli),
-        height: 48.0,
-        width: (toggle == 0) ? 48.0 : widget.width,
+        height: (toggle == 0) ? MediaQuery.of(context).size.width * 0.15 : MediaQuery.of(context).size.height * 0.07,
+        width: (toggle == 0) ? MediaQuery.of(context).size.width * 0.15 : widget.width,
         curve: Curves.easeOut,
         decoration: BoxDecoration(
           /// can add custom  color or the color will be white
           color: toggle == 1 ? widget.textFieldColor : widget.color,
-          borderRadius: BorderRadius.circular(30.0),
-
+          borderRadius: BorderRadius.circular(100),
+          
           /// show boxShadow unless false was passed
           boxShadow: !widget.boxShadow
               ? null
@@ -161,24 +159,23 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                     offset: Offset(0.0, 10.0),
                   ),
                 ],
-        ),
+        ),  
         child: Stack(
           children: [
             ///Using Animated Positioned widget to expand and shrink the widget
             AnimatedPositioned(
               duration: Duration(milliseconds: widget.animationDurationInMilli),
-              top: 6.0,
-              right: 7.0,
+              top: MediaQuery.of(context).size.height*0.024,
+              right: MediaQuery.of(context).size.width*0.05,
               curve: Curves.easeOut,
               child: AnimatedOpacity(
                 opacity: (toggle == 0) ? 0.0 : 1.0,
                 duration: Duration(milliseconds: 200),
                 child: Container(
-                  padding: EdgeInsets.all(8.0),
                   decoration: BoxDecoration(
                     /// can add custom color or the color will be white
                     color: widget.color,
-                    borderRadius: BorderRadius.circular(30.0),
+                    borderRadius: BorderRadius.circular(100),
                   ),
                   child: AnimatedBuilder(
                     child: GestureDetector(
@@ -241,15 +238,13 @@ class _AnimSearchBarState extends State<AnimSearchBar>
               duration: Duration(milliseconds: widget.animationDurationInMilli),
               left: (toggle == 0) ? 20.0 : 40.0,
               curve: Curves.easeOut,
-              top: 11.0,
+              top: MediaQuery.of(context).size.height * 0.025,
 
               ///Using Animated opacity to change the opacity of th textField while expanding
               child: AnimatedOpacity(
                 opacity: (toggle == 0) ? 0.0 : 1.0,
                 duration: Duration(milliseconds: 200),
                 child: Container(
-                  padding: const EdgeInsets.only(left: 10),
-                  alignment: Alignment.topCenter,
                   width: widget.width / 1.7,
                   child: TextField(
                     ///Text Controller. you can manipulate the text inside this textField by calling this controller.
@@ -309,7 +304,7 @@ class _AnimSearchBarState extends State<AnimSearchBar>
               /// can add custom color or the color will be white
               /// toggle button color based on toggle state
               color: toggle == 0 ? widget.color : widget.textFieldColor,
-              borderRadius: BorderRadius.circular(30.0),
+              borderRadius: BorderRadius.circular(1000),
 
               child: Container(
                   child: toggle == 0
@@ -326,7 +321,7 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                             child: Icon(
                               Icons.add,
                               color: widget.searchIconColor,
-                              size: 20.0,
+                              size: MediaQuery.of(context).size.width * 0.05,
                             ),
                           ),
                           onPressed: () {
@@ -342,7 +337,6 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                                       FocusScope.of(context)
                                           .requestFocus(focusNode);
                                   });
-
                                   ///forward == expand
                                   _con.forward();
                                 } else {

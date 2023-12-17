@@ -1,9 +1,11 @@
+import 'package:flexify/pages/workout/exercisesPage/setsPage/addeditSetPage/addeditSetPage.dart';
 import 'package:flexify/pages/workout/exercisesPage/widgets/exerciseButton.dart';
 import 'package:flexify/widgets/SearchBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/exerciseModels.dart';
 import 'package:flexify/data/dummyExercises.dart' as dummyExercises;
 import 'package:flexify/data/globalVariables.dart' as global;
+import 'package:page_transition/page_transition.dart';
 
 class WorkoutPage extends StatefulWidget {
   const WorkoutPage({
@@ -65,36 +67,26 @@ class _WorkoutPageState extends State<WorkoutPage> {
               Container(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * (1 - 0.88),
+                margin: EdgeInsets.only(
+                  left: MediaQuery.of(context).size.width * 0.05,
+                  right: MediaQuery.of(context).size.width * 0.05,
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    AnimatedContainer(
-                      duration: const Duration(milliseconds: 300),
-                      alignment: Alignment.center,
-                      width: _searchBarOpen == 1
-                          ? 0
-                          : MediaQuery.of(context).size.width * 0.33,
-                      height: MediaQuery.of(context).size.height * 0.05,
-                      child: ListView(
-                        clipBehavior: Clip.none,
-                        physics: const NeverScrollableScrollPhysics(),
-                        scrollDirection: Axis.horizontal,
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(4.3),
+                    _searchBarOpen == 0
+                        ? AnimatedContainer(
+                          duration: const Duration(milliseconds: 300),
+                          alignment: Alignment.center,
+                            padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.005),
+                            width: MediaQuery.of(context).size.width * 0.15,
+                            height: MediaQuery.of(context).size.width * 0.15,
                             decoration: BoxDecoration(
                               boxShadow: ([
-                                BoxShadow(
-                                  color: Theme.of(context)
-                                      .focusColor
-                                      .withOpacity(0.25),
-                                  spreadRadius: -10.0,
-                                  blurRadius: 10.0,
-                                  offset: const Offset(0.0, 10.0),
-                                ),
+                                global.lightShadow,
                               ]),
                               color: Theme.of(context).scaffoldBackgroundColor,
-                              borderRadius: BorderRadius.circular(100),
+                              borderRadius: BorderRadius.circular(1000),
                             ),
                             child: IconButton(
                               splashColor: Colors.transparent,
@@ -106,31 +98,34 @@ class _WorkoutPageState extends State<WorkoutPage> {
                               },
                               color: Theme.of(context).focusColor,
                               icon: const Icon(Icons.arrow_back_rounded),
-                              iconSize: 20,
+                              iconSize: MediaQuery.of(context).size.width * 0.05,
                             ),
+                          )
+                        : SizedBox(),
+                    AnimatedContainer(
+                      duration: const Duration(milliseconds: 300),
+                      child: Padding(
+                          padding: const EdgeInsets.only(
+                            top: 10,
                           ),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.108,
-                          ),
-                          Center(
-                            child: Text(
-                              'Workout',
-                              style: TextStyle(
-                                color: Theme.of(context).focusColor,
-                                fontWeight: FontWeight.bold,
-                                letterSpacing: -1,
-                                fontSize: 30,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                          child: _searchBarOpen == 0
+                              ? Text(
+                                  'Workout',
+                                  style: TextStyle(
+                                    color: Theme.of(context).focusColor,
+                                    fontWeight: FontWeight.bold,
+                                    letterSpacing: -1,
+                                    fontSize: MediaQuery.of(context).size.width * 0.07,
+                                  ),
+                                )
+                              : SizedBox()),
                     ),
                     AnimSearchBar(
                       color: Theme.of(context).scaffoldBackgroundColor,
-                      helpText: 'Add exercise to workout',
+                      helpText: 'Add exercise',
                       width: MediaQuery.of(context).size.width *
-                          global.containerWidthFactor,
+                          global.containerWidthFactor *
+                          0.9,
                       textController: _controller,
                       suffixIcon: const Icon(Icons.clear),
                       onSuffixTap: () {
@@ -180,24 +175,42 @@ class _WorkoutPageState extends State<WorkoutPage> {
                     )
                   : Column(
                       children: [
-                        ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: searchRecommendations.length > 11
-                              ? 12
-                              : searchRecommendations.length,
-                          itemBuilder: (context, index) => ListTile(
-                            title: Text(searchRecommendations[index].name,
-                                style: TextStyle(
-                                    color: Theme.of(context).focusColor)),
-                            shape: BorderDirectional(
-                                bottom: BorderSide(
-                                    color: Theme.of(context).focusColor)),
-                            tileColor:
-                                Theme.of(context).scaffoldBackgroundColor,
-                            contentPadding: EdgeInsets.all(10),
-                            onTap: () {},
+                        Container(
+                          width: MediaQuery.of(context).size.width *
+                              global.containerWidthFactor *
+                              0.9,
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: searchRecommendations.length > 11
+                                ? 12
+                                : searchRecommendations.length,
+                            itemBuilder: (context, index) => ListTile(
+                              title: Text(searchRecommendations[index].name,
+                                  style: TextStyle(
+                                      color: Theme.of(context).focusColor)),
+                              shape: BorderDirectional(
+                                  bottom: BorderSide(
+                                      color: Theme.of(context).focusColor)),
+                              tileColor:
+                                  Theme.of(context).scaffoldBackgroundColor,
+                              contentPadding: EdgeInsets.all(10),
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  PageTransition(
+                                    child: AddEditSet(
+                                        add: true,
+                                        set: null,
+                                        doublePop: true,
+                                        exerciseName:
+                                            searchRecommendations[index].name),
+                                    type: PageTransitionType.rightToLeft,
+                                  ),
+                                );
+                              },
+                            ),
                           ),
-                        )
+                        ),
                       ],
                     ),
             ],

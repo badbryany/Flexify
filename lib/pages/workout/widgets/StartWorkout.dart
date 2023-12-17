@@ -2,10 +2,10 @@ import 'package:flexify/pages/workout/exercisesPage/exercisesPage.dart';
 import 'package:flexify/widgets/BounceElement.dart';
 import 'package:flutter/material.dart';
 
-import 'package:flexify/data/AnaliseWorkoutData/analyseWorkoutData.dart'
+import 'package:flexify/data/AnalyseWorkoutData/analyseWorkoutData.dart'
     as analize;
-import 'package:flexify/data/AnaliseWorkoutData/predictNextWorkout.dart';
-import 'package:flexify/data/AnaliseWorkoutData/WorkoutDay.dart';
+import 'package:flexify/data/AnalyseWorkoutData/predictNextWorkout.dart';
+import 'package:flexify/data/AnalyseWorkoutData/WorkoutDay.dart';
 
 import 'package:flexify/data/exerciseModels.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
@@ -94,7 +94,7 @@ class _StartWorkoutState extends State<StartWorkout> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Start Workout',
+                    'Start Workout:',
                     style: TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
@@ -104,18 +104,18 @@ class _StartWorkoutState extends State<StartWorkout> {
                   const Icon(Icons.arrow_forward_rounded),
                 ],
               ),
-              const SizedBox(height: 20),
-              //
-              Text('Recommended Workout:'),
+              Text(
+                'Recommended Workout',
+                style: TextStyle(
+                    color: Theme.of(context).focusColor.withOpacity(0.7)),
+              ),
               ...(nextWorkoutDay == null
                   ? [const Text('error')]
                   : showSets(nextWorkoutDay!)),
-              //
               const SizedBox(height: 20),
               ...[
-                'We maybe have too little trainingdata to detect every split.',
-                'If you track enough it will be more percisely.',
-                'If that data still isn\'t correct, please contact the support!'
+                'More data needed for accurate evalutation',
+                'Please continue using the app for added performance'
               ].map(
                 (e) => Text(
                   e,

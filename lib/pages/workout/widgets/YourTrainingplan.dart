@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
 
-import 'package:flexify/data/AnaliseWorkoutData/analyseWorkoutData.dart'
+import 'package:flexify/data/AnalyseWorkoutData/analyseWorkoutData.dart'
     as analize;
-import 'package:flexify/data/AnaliseWorkoutData/WorkoutDay.dart';
+import 'package:flexify/data/AnalyseWorkoutData/WorkoutDay.dart';
 import 'package:flexify/data/exerciseModels.dart';
 
 class YourTrainingPlan extends StatefulWidget {
@@ -104,9 +104,8 @@ class _YourTrainingPlanState extends State<YourTrainingPlan> {
           ...workoutDaysWidgets(),
           const SizedBox(height: 20),
           ...[
-            'We maybe have too little trainingdata to detect every split.',
-            'If you track enough it will be more percisely.',
-            'If that data still isn\'t correct, please contact the support!'
+            'More data needed for accurate evalutation',
+            'Please continue using the app for added performance'
           ].map(
             (e) => Text(
               e,

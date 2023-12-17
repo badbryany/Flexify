@@ -1,6 +1,6 @@
 import 'package:flexify/data/exerciseModels.dart';
 
-import 'package:flexify/data/AnaliseWorkoutData/WorkoutDay.dart';
+import 'package:flexify/data/AnalyseWorkoutData/WorkoutDay.dart';
 
 String zero(int a) {
   if (a < 10) {

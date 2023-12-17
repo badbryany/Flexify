@@ -147,16 +147,17 @@ class _ExerciseButtonState extends State<ExerciseButton> {
                   widget.reload();
                 },
               ),
-              type: PageTransitionType.fade,
+              type: PageTransitionType.rightToLeft,
             ),
           ),
           child: Container(
-            width: MediaQuery.of(context).size.width * global.containerWidthFactor,
-            height: MediaQuery.of(context).size.height * 0.2,
-            padding: const EdgeInsets.all(30),
-            margin: const EdgeInsets.all(7.5),
+            width:
+                MediaQuery.of(context).size.width * global.containerWidthFactor,
+            height: MediaQuery.of(context).size.width * 0.3,
+            padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.08),
+            margin: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(35),
+              borderRadius: BorderRadius.circular(MediaQuery.of(context).size.width * 0.08),
               color: Theme.of(context).colorScheme.background,
               boxShadow: [
                 BoxShadow(
@@ -169,7 +170,7 @@ class _ExerciseButtonState extends State<ExerciseButton> {
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -180,7 +181,7 @@ class _ExerciseButtonState extends State<ExerciseButton> {
                         name,
                         style: TextStyle(
                           color: Theme.of(context).scaffoldBackgroundColor,
-                          fontSize: name.length > 13 ? 20 : 30,
+                          fontSize: MediaQuery.of(context).size.width * 0.035,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -191,10 +192,9 @@ class _ExerciseButtonState extends State<ExerciseButton> {
                         color: Theme.of(context)
                             .scaffoldBackgroundColor
                             .withOpacity(0.4),
+                            fontSize: MediaQuery.of(context).size.width * 0.02,
                       ),
                     ),
-
-                    const SizedBox(height: 20),
                     // LAST TRAIN DATE
                     widget.sets.isNotEmpty
                         ? Text(
@@ -203,13 +203,23 @@ class _ExerciseButtonState extends State<ExerciseButton> {
                               color: Theme.of(context)
                                   .scaffoldBackgroundColor
                                   .withOpacity(0.4),
+                                  fontSize: MediaQuery.of(context).size.width * 0.02,
                             ),
                           )
                         : const SizedBox(),
                   ],
                 ),
-                MuscleCooldown(
-                  sets: widget.sets,
+                Padding(
+                  padding: EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.1),
+                  child: Center(
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.07,
+                      height: MediaQuery.of(context).size.width * 0.07,
+                      child: MuscleCooldown(
+                        sets: widget.sets,
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),

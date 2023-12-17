@@ -29,7 +29,7 @@ class _DashboardState extends State<Dashboard> {
       'icon': Icons.restaurant_rounded,
     },
     {
-      'title': 'Statistics',
+      'title': 'Measurements',
       'widget': const DashboardMeasurements(),
       'icon': Icons.bar_chart_rounded,
     },

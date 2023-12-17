@@ -1,4 +1,4 @@
-import 'package:flexify/data/AnaliseWorkoutData/WorkoutDay.dart';
+import 'package:flexify/data/AnalyseWorkoutData/WorkoutDay.dart';
 // import 'package:flexify/data/AnaliseWorkoutData/analyseWorkoutData.dart';
 import 'package:flexify/data/exerciseModels.dart';
 
