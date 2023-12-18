@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:flexify/data/exerciseModels.dart';
 import 'package:flexify/pages/workout/exercisesPage/widgets/muscleCooldown.dart';
+import 'dart:math';
 import 'package:flexify/data/globalVariables.dart' as global;
 
 class ExerciseButton extends StatefulWidget {
@@ -69,6 +70,9 @@ class _ExerciseButtonState extends State<ExerciseButton> {
     return '$month ${date.day}';
   }
 
+  bool thresholdReached = false;
+  double thresholdProgress = 0.0;
+
   @override
   Widget build(BuildContext context) {
     String name = widget.exercise.name;
@@ -78,16 +82,32 @@ class _ExerciseButtonState extends State<ExerciseButton> {
 
     return Dismissible(
       key: ValueKey(name),
-      background: Container(
-        margin: const EdgeInsets.all(7.5),
-        alignment: Alignment.center,
+      dismissThresholds: const {DismissDirection.endToStart: 0.7},
+      direction: DismissDirection.endToStart,
+      background: AnimatedContainer(
+        key: const ValueKey(Alignment),
+        duration: const Duration(milliseconds: 150),
+        alignment:
+            thresholdReached ? Alignment.centerLeft : Alignment.centerRight,
+        padding: thresholdReached
+            ? EdgeInsets.only(
+                left: max(((1 - thresholdProgress) *
+                        (global.containerWidthFactor) *
+                        MediaQuery.of(context).size.width) + MediaQuery.of(context).size.width * 0.05,
+                    (MediaQuery.of(context).size.width * 0.1)))
+            : EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.1),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.error.withOpacity(0.3),
-          borderRadius: BorderRadius.circular(35),
+          color: Theme.of(context).colorScheme.error,
+          borderRadius:
+              BorderRadius.circular(MediaQuery.of(context).size.width * 0.08),
         ),
-        child: const Text(
-          'delete exercise',
-          // style: TextStyle(fontSize: 25),
+        child: Text(
+          'DELETE',
+          style: TextStyle(
+            color: Theme.of(context).scaffoldBackgroundColor,
+            fontSize: MediaQuery.of(context).size.width * 0.025,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
       onDismissed: (direction) {
@@ -108,11 +128,6 @@ class _ExerciseButtonState extends State<ExerciseButton> {
                       .where((element) =>
                           element.exerciseName == widget.exercise.name)
                       .toList();
-
-                  await Save.deleteExercise(widget.exercise);
-                  await widget.reload();
-
-                  await Save.saveExercise(widget.exercise);
 
                   for (var i = 0; i < sets.length; i++) {
                     await Save.saveSet(sets[i]);
@@ -136,6 +151,11 @@ class _ExerciseButtonState extends State<ExerciseButton> {
           ),
         );
       },
+      onUpdate: (details) {
+        thresholdReached = details.reached;
+        thresholdProgress = details.progress;
+        setState(() {});
+      },
       child: BounceElement(
         child: GestureDetector(
           onTap: () => Navigator.push(
@@ -157,7 +177,8 @@ class _ExerciseButtonState extends State<ExerciseButton> {
             padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.08),
             margin: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(MediaQuery.of(context).size.width * 0.08),
+              borderRadius: BorderRadius.circular(
+                  MediaQuery.of(context).size.width * 0.08),
               color: Theme.of(context).colorScheme.background,
               boxShadow: [
                 BoxShadow(
@@ -192,7 +213,7 @@ class _ExerciseButtonState extends State<ExerciseButton> {
                         color: Theme.of(context)
                             .scaffoldBackgroundColor
                             .withOpacity(0.4),
-                            fontSize: MediaQuery.of(context).size.width * 0.02,
+                        fontSize: MediaQuery.of(context).size.width * 0.02,
                       ),
                     ),
                     // LAST TRAIN DATE
@@ -203,14 +224,16 @@ class _ExerciseButtonState extends State<ExerciseButton> {
                               color: Theme.of(context)
                                   .scaffoldBackgroundColor
                                   .withOpacity(0.4),
-                                  fontSize: MediaQuery.of(context).size.width * 0.02,
+                              fontSize:
+                                  MediaQuery.of(context).size.width * 0.02,
                             ),
                           )
                         : const SizedBox(),
                   ],
                 ),
                 Padding(
-                  padding: EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.1),
+                  padding: EdgeInsets.only(
+                      right: MediaQuery.of(context).size.width * 0.1),
                   child: Center(
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width * 0.07,

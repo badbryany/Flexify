@@ -40,57 +40,56 @@ class AnimSearchBar extends StatefulWidget {
   final bool boxShadow;
   final Function(String) onSubmitted;
   final Function(int) onToggle;
+  AnimSearchBar(
+      {Key? key,
 
-  const AnimSearchBar({
-    Key? key,
+      /// The width cannot be null
+      required this.width,
 
-    /// The width cannot be null
-    required this.width,
+      /// The textController cannot be null
+      required this.textController,
+      this.suffixIcon,
+      this.prefixIcon,
+      this.helpText = "Search...",
 
-    /// The textController cannot be null
-    required this.textController,
-    this.suffixIcon,
-    this.prefixIcon,
-    this.helpText = "Search...",
+      /// choose your custom color
+      this.color = Colors.white,
 
-    /// choose your custom color
-    this.color = Colors.white,
+      /// choose your custom color for the search when it is expanded
+      this.textFieldColor = Colors.white,
 
-    /// choose your custom color for the search when it is expanded
-    this.textFieldColor = Colors.white,
+      /// choose your custom color for the search when it is expanded
+      this.searchIconColor = Colors.black,
 
-    /// choose your custom color for the search when it is expanded
-    this.searchIconColor = Colors.black,
+      /// choose your custom color for the search when it is expanded
+      this.textFieldIconColor = Colors.black,
 
-    /// choose your custom color for the search when it is expanded
-    this.textFieldIconColor = Colors.black,
+      /// The onSuffixTap cannot be null
+      required this.onSuffixTap,
+      this.animationDurationInMilli = 375,
 
-    /// The onSuffixTap cannot be null
-    required this.onSuffixTap,
-    this.animationDurationInMilli = 375,
+      /// The onSubmitted cannot be null
+      required this.onSubmitted,
 
-    /// The onSubmitted cannot be null
-    required this.onSubmitted,
+      /// make the search bar to open from right to left
+      this.rtl = false,
 
-    /// make the search bar to open from right to left
-    this.rtl = false,
+      /// make the keyboard to show automatically when the AnimSearchBar is expanded
+      this.autoFocus = false,
 
-    /// make the keyboard to show automatically when the AnimSearchBar is expanded
-    this.autoFocus = false,
+      /// TextStyle of the contents inside the AnimSearchBar
+      this.style,
 
-    /// TextStyle of the contents inside the AnimSearchBar
-    this.style,
+      /// close the search on suffix tap
+      this.closeSearchOnSuffixTap = false,
 
-    /// close the search on suffix tap
-    this.closeSearchOnSuffixTap = false,
+      /// enable/disable the box shadow decoration
+      this.boxShadow = true,
 
-    /// enable/disable the box shadow decoration
-    this.boxShadow = true,
-
-    /// can add list of inputformatters to control the input
-    this.inputFormatters,
-    required this.onToggle,
-  }) : super(key: key);
+      /// can add list of inputformatters to control the input
+      this.inputFormatters,
+      required this.onToggle})
+      : super(key: key);
 
   @override
   _AnimSearchBarState createState() => _AnimSearchBarState();
@@ -124,6 +123,12 @@ class _AnimSearchBarState extends State<AnimSearchBar>
     );
   }
 
+  void switchToggle(incoming) {
+    setState(() {
+      toggle = incoming == 0 ? 1 : 0;
+    });
+  }
+
   unfocusKeyboard() {
     final FocusScopeNode currentScope = FocusScope.of(context);
     if (!currentScope.hasPrimaryFocus && currentScope.hasFocus) {
@@ -140,14 +145,18 @@ class _AnimSearchBarState extends State<AnimSearchBar>
       ///Using Animated container to expand and shrink the widget
       child: AnimatedContainer(
         duration: Duration(milliseconds: widget.animationDurationInMilli),
-        height: (toggle == 0) ? MediaQuery.of(context).size.width * 0.15 : MediaQuery.of(context).size.height * 0.07,
-        width: (toggle == 0) ? MediaQuery.of(context).size.width * 0.15 : widget.width,
+        height: (toggle == 0)
+            ? MediaQuery.of(context).size.width * 0.15
+            : MediaQuery.of(context).size.height * 0.07,
+        width: (toggle == 0)
+            ? MediaQuery.of(context).size.width * 0.15
+            : widget.width,
         curve: Curves.easeOut,
         decoration: BoxDecoration(
           /// can add custom  color or the color will be white
           color: toggle == 1 ? widget.textFieldColor : widget.color,
           borderRadius: BorderRadius.circular(100),
-          
+
           /// show boxShadow unless false was passed
           boxShadow: !widget.boxShadow
               ? null
@@ -159,14 +168,14 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                     offset: Offset(0.0, 10.0),
                   ),
                 ],
-        ),  
+        ),
         child: Stack(
           children: [
             ///Using Animated Positioned widget to expand and shrink the widget
             AnimatedPositioned(
               duration: Duration(milliseconds: widget.animationDurationInMilli),
-              top: MediaQuery.of(context).size.height*0.024,
-              right: MediaQuery.of(context).size.width*0.05,
+              top: MediaQuery.of(context).size.height * 0.024,
+              right: MediaQuery.of(context).size.width * 0.05,
               curve: Curves.easeOut,
               child: AnimatedOpacity(
                 opacity: (toggle == 0) ? 0.0 : 1.0,
@@ -337,6 +346,7 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                                       FocusScope.of(context)
                                           .requestFocus(focusNode);
                                   });
+
                                   ///forward == expand
                                   _con.forward();
                                 } else {

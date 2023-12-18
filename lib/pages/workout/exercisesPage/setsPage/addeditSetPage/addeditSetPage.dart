@@ -11,14 +11,14 @@ class AddEditSet extends StatefulWidget {
   const AddEditSet({
     super.key,
     required this.exerciseName,
+    required this.exerciseExists,
     required this.add,
     required this.set,
-    required this.doublePop,
   });
 
   final String exerciseName;
   final bool add;
-  final bool doublePop;
+  final bool exerciseExists;
   final Set? set;
 
   @override
@@ -156,6 +156,15 @@ class _AddEditSetState extends State<AddEditSet> {
                                           weightController.text)!,
                                     ),
                                   );
+                                  if (!widget.exerciseExists) {
+                                    await Save.saveExercise(
+                                      Exercise(
+                                          name: widget.exerciseName,
+                                          type: 'TEST',
+                                          affectedMuscle: 'TEST',
+                                          equipment: 'TEST'),
+                                    );
+                                  }
                                   Navigator.pop(context);
                                   setState(() {});
                                 }
@@ -170,9 +179,6 @@ class _AddEditSetState extends State<AddEditSet> {
                                     ),
                                   );
                                   Navigator.pop(context);
-                                  if (widget.doublePop) {
-                                    Navigator.pop(context);
-                                  }
                                 },
                           color: Theme.of(context).focusColor,
                           icon: const Icon(Icons.check),
@@ -191,7 +197,7 @@ class _AddEditSetState extends State<AddEditSet> {
                   SetInput(
                     title: 'reps',
                     controller: repsController,
-                    calcInterval: 2.5,
+                    calcInterval: 1,
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.1),
                   Container(

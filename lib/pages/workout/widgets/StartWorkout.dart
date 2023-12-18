@@ -75,7 +75,7 @@ class _StartWorkoutState extends State<StartWorkout> {
         onTap: () => Navigator.push(
           context,
           PageTransition(
-            child: WorkoutPage(reload: widget.reload),
+            child: ExercisesPage(reload: widget.reload),
             type: PageTransitionType.rightToLeft,
           ),
         ),

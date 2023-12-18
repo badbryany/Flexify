@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         canvasColor: const Color.fromARGB(255, 23, 23, 23),
         colorScheme: const ColorScheme(
           brightness: Brightness.light,
-          primary: Color(0xffa4fbbc),
+          primary: Color(0xffa4fba4),
           onPrimary: Color(0xfff2f58d),
           secondary: Color.fromARGB(255, 214, 140, 55),
           onSecondary: Colors.red,

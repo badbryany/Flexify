@@ -77,7 +77,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
             PageTransition(
               child: AddEditSet(
                 add: false,
-                doublePop: false,
+                exerciseExists: true,
                 set: sets[i],
                 exerciseName: widget.name,
               ),
@@ -275,7 +275,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                           child: AddEditSet(
                             add: true,
                             set: null,
-                            doublePop: false,
+                            exerciseExists: true,
                             exerciseName: widget.name,
                           ),
                           type: PageTransitionType.fade,

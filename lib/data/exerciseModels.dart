@@ -94,7 +94,7 @@ class Save {
     );
   }
 
-  static Future<List<Exercise>> getExersiseList() async {
+  static Future<List<Exercise>> getExerciseList() async {
     Database db = await getDatabase();
     List<Map<String, Object?>> exercises =
         await db.rawQuery('SELECT * FROM exercises;');
@@ -112,7 +112,7 @@ class Save {
 
   static Future<void> saveExercise(Exercise exercise) async {
     Database db = await getDatabase();
-    await db.insert('exercises', exercise.toJson());
+    await db.insert('exercises', exercise.toJson(), conflictAlgorithm: ConflictAlgorithm.rollback);
   }
 
   static Future<void> deleteExercise(Exercise exercise) async {

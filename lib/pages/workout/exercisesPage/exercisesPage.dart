@@ -7,8 +7,8 @@ import 'package:flexify/data/dummyExercises.dart' as dummyExercises;
 import 'package:flexify/data/globalVariables.dart' as global;
 import 'package:page_transition/page_transition.dart';
 
-class WorkoutPage extends StatefulWidget {
-  const WorkoutPage({
+class ExercisesPage extends StatefulWidget {
+  const ExercisesPage({
     super.key,
     required this.reload,
   });
@@ -16,10 +16,10 @@ class WorkoutPage extends StatefulWidget {
   final Function reload;
 
   @override
-  State<WorkoutPage> createState() => _WorkoutPageState();
+  State<ExercisesPage> createState() => _ExercisesPageState();
 }
 
-class _WorkoutPageState extends State<WorkoutPage> {
+class _ExercisesPageState extends State<ExercisesPage> {
   List<Exercise> exercises = [];
   List<Exercise> searchRecommendations = List.from(dummyExercises.gymExercises);
   List<Set> sets = [];
@@ -31,7 +31,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
     loadingDone = false;
     setState(() {});
 
-    exercises = await Save.getExersiseList();
+    exercises = await Save.getExerciseList();
     sets = await Save.getSetList();
 
     loadingDone = true;
@@ -76,9 +76,10 @@ class _WorkoutPageState extends State<WorkoutPage> {
                   children: [
                     _searchBarOpen == 0
                         ? AnimatedContainer(
-                          duration: const Duration(milliseconds: 300),
-                          alignment: Alignment.center,
-                            padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.005),
+                            duration: const Duration(milliseconds: 300),
+                            alignment: Alignment.center,
+                            padding: EdgeInsets.all(
+                                MediaQuery.of(context).size.width * 0.005),
                             width: MediaQuery.of(context).size.width * 0.15,
                             height: MediaQuery.of(context).size.width * 0.15,
                             decoration: BoxDecoration(
@@ -98,7 +99,8 @@ class _WorkoutPageState extends State<WorkoutPage> {
                               },
                               color: Theme.of(context).focusColor,
                               icon: const Icon(Icons.arrow_back_rounded),
-                              iconSize: MediaQuery.of(context).size.width * 0.05,
+                              iconSize:
+                                  MediaQuery.of(context).size.width * 0.05,
                             ),
                           )
                         : SizedBox(),
@@ -115,7 +117,9 @@ class _WorkoutPageState extends State<WorkoutPage> {
                                     color: Theme.of(context).focusColor,
                                     fontWeight: FontWeight.bold,
                                     letterSpacing: -1,
-                                    fontSize: MediaQuery.of(context).size.width * 0.07,
+                                    fontSize:
+                                        MediaQuery.of(context).size.width *
+                                            0.07,
                                   ),
                                 )
                               : SizedBox()),
@@ -201,7 +205,11 @@ class _WorkoutPageState extends State<WorkoutPage> {
                                     child: AddEditSet(
                                         add: true,
                                         set: null,
-                                        doublePop: true,
+                                        exerciseExists: exercises
+                                            .map((e) => e.name)
+                                            .contains(
+                                                searchRecommendations[index]
+                                                    .name),
                                         exerciseName:
                                             searchRecommendations[index].name),
                                     type: PageTransitionType.rightToLeft,
