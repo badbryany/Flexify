@@ -202,8 +202,6 @@ class _ExercisesPageState extends State<ExercisesPage> {
                                   Theme.of(context).scaffoldBackgroundColor,
                               contentPadding: EdgeInsets.all(10),
                               onTap: () {
-                                _searchBarOpen = 0;
-                                animSearchBar.createState();
                                 Navigator.push(
                                   context,
                                   PageTransition(
