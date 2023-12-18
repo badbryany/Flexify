@@ -1,9 +1,11 @@
 setsPage 
     -> save state of page on navigator push so the search bar is closed
+    -> fix glitch where exercises come back after deleting and pressing back on a certain set
 exerciseButton
     2. dismissable
         -> Fix glitch where the delete cancel adds to bottom
         -> Fix glitch where double delete cancel throws error
+        -> 
 workoutDashboard
     -> Create text logo for top middle 
     -> Create notification page layout
