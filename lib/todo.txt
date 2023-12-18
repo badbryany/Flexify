@@ -21,9 +21,8 @@ exercisesPage
             -> opacity goes up and exercise is added to current workout
             -> button moves to top of normal buttons
             -> new recommended button is generated 
-            -> new set page is openend
-        -> recommended no equipment exercises before data has been collected
-    ->  
+            -> new set page is opened
+        -> recommend exercises that don't require equipment before data has been collected
 
 setsPage
     -> Show (Feb 22 2023 - Dec 28 2024) instead of labeling x axis
