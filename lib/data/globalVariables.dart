@@ -5,6 +5,8 @@ double borderRadius = 35;
 double containerWidthFactor = 0.95;
 double containerPadding = 30;
 
+Duration standardAnimationDuration = const Duration(milliseconds: 300);
+
 IconData arrow = Icons.arrow_back_rounded;
 
 BoxShadow lightShadow = BoxShadow(

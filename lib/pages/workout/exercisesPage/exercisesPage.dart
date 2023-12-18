@@ -54,10 +54,26 @@ class _ExercisesPageState extends State<ExercisesPage> {
     getData();
   }
 
-  Duration duration = const Duration(milliseconds: 300);
-
   @override
   Widget build(BuildContext context) {
+    var animSearchBar = AnimSearchBar(
+      color: Theme.of(context).scaffoldBackgroundColor,
+      helpText: 'Add exercise',
+      width:
+          MediaQuery.of(context).size.width * global.containerWidthFactor * 0.9,
+      textController: _controller,
+      suffixIcon: const Icon(Icons.clear),
+      onSuffixTap: () {
+        _controller.clear();
+      },
+      onSubmitted: (foo) {},
+      onToggle: (int open) {
+        setState(() => _searchBarOpen = open);
+      },
+      closeSearchOnSuffixTap: true,
+      autoFocus: true,
+    );
+
     return Scaffold(
       body: SafeArea(
         child: SizedBox(
@@ -66,16 +82,21 @@ class _ExercisesPageState extends State<ExercisesPage> {
           child: ListView(
             physics: const BouncingScrollPhysics(),
             children: [
-              SizedBox(
+              Container(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * (1 - 0.88),
+                padding: _searchBarOpen == 1
+                    ? EdgeInsets.only(
+                        right: MediaQuery.of(context).size.width * 0.04,
+                      )
+                    : const EdgeInsets.all(0),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Visibility(
                       visible: _searchBarOpen == 0,
                       child: AnimatedContainer(
-                        duration: duration,
+                        duration: global.standardAnimationDuration,
                         alignment: Alignment.center,
                         padding: EdgeInsets.all(
                             MediaQuery.of(context).size.width * 0.005),
@@ -103,15 +124,13 @@ class _ExercisesPageState extends State<ExercisesPage> {
                       ),
                     ),
                     AnimatedContainer(
-                      duration: duration,
+                      duration: global.standardAnimationDuration,
                       width: MediaQuery.of(context).size.width *
                           0.4 *
                           (_searchBarOpen == 0 ? 1 : 0),
-                      padding: const EdgeInsets.only(
-                        top: 10,
-                      ),
+                      padding: const EdgeInsets.only(top: 10),
                       child: AnimatedOpacity(
-                        duration: duration,
+                        duration: global.standardAnimationDuration,
                         opacity: _searchBarOpen == 0 ? 1 : 0,
                         child: Text(
                           'Workout',
@@ -125,30 +144,13 @@ class _ExercisesPageState extends State<ExercisesPage> {
                         ),
                       ),
                     ),
-                    AnimSearchBar(
-                      color: Theme.of(context).scaffoldBackgroundColor,
-                      helpText: 'Add exercise',
-                      width: MediaQuery.of(context).size.width *
-                          global.containerWidthFactor *
-                          0.9,
-                      textController: _controller,
-                      suffixIcon: const Icon(Icons.clear),
-                      onSuffixTap: () {
-                        _controller.clear();
-                      },
-                      onSubmitted: (foo) {},
-                      onToggle: (int open) {
-                        setState(() => _searchBarOpen = open);
-                      },
-                      closeSearchOnSuffixTap: true,
-                      autoFocus: true,
-                    ),
+                    animSearchBar,
                   ],
                 ),
               ),
               _searchBarOpen == 0
                   ? AnimatedContainer(
-                      duration: Duration(milliseconds: 300),
+                      duration: global.standardAnimationDuration,
                       child: Column(
                         children: [
                           ...(loadingDone
@@ -200,6 +202,8 @@ class _ExercisesPageState extends State<ExercisesPage> {
                                   Theme.of(context).scaffoldBackgroundColor,
                               contentPadding: EdgeInsets.all(10),
                               onTap: () {
+                                _searchBarOpen = 0;
+                                animSearchBar.createState();
                                 Navigator.push(
                                   context,
                                   PageTransition(
