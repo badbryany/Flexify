@@ -1,4 +1,4 @@
-Glitches/Bad ----------------------------------------
+Glitches/Bad: ---------------------------------------
 
 setsPage 
     -> save state of page on navigator push so the search bar is closed
