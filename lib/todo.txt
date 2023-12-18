@@ -1,0 +1,19 @@
+setsPage 
+    -> save state of page on navigator push so the search bar is closed
+exerciseButton
+    2. dismissable
+        -> Fix glitch where the delete cancel adds to bottom
+        -> Fix glitch where double delete cancel throws error
+workoutDashboard
+    -> Create text logo for top middle 
+    -> Create notification page layout
+
+
+
+
+
+
+
+
+
+2. Remove last Set?

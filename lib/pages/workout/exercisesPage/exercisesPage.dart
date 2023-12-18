@@ -54,6 +54,8 @@ class _ExercisesPageState extends State<ExercisesPage> {
     getData();
   }
 
+  Duration duration = const Duration(milliseconds: 300);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,65 +66,64 @@ class _ExercisesPageState extends State<ExercisesPage> {
           child: ListView(
             physics: const BouncingScrollPhysics(),
             children: [
-              Container(
+              SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * (1 - 0.88),
-                margin: EdgeInsets.only(
-                  left: MediaQuery.of(context).size.width * 0.05,
-                  right: MediaQuery.of(context).size.width * 0.05,
-                ),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    _searchBarOpen == 0
-                        ? AnimatedContainer(
-                            duration: const Duration(milliseconds: 300),
-                            alignment: Alignment.center,
-                            padding: EdgeInsets.all(
-                                MediaQuery.of(context).size.width * 0.005),
-                            width: MediaQuery.of(context).size.width * 0.15,
-                            height: MediaQuery.of(context).size.width * 0.15,
-                            decoration: BoxDecoration(
-                              boxShadow: ([
-                                global.lightShadow,
-                              ]),
-                              color: Theme.of(context).scaffoldBackgroundColor,
-                              borderRadius: BorderRadius.circular(1000),
-                            ),
-                            child: IconButton(
-                              splashColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onPressed: () {
-                                widget.reload();
-                                Navigator.pop(context);
-                              },
-                              color: Theme.of(context).focusColor,
-                              icon: const Icon(Icons.arrow_back_rounded),
-                              iconSize:
-                                  MediaQuery.of(context).size.width * 0.05,
-                            ),
-                          )
-                        : SizedBox(),
+                    Visibility(
+                      visible: _searchBarOpen == 0,
+                      child: AnimatedContainer(
+                        duration: duration,
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.all(
+                            MediaQuery.of(context).size.width * 0.005),
+                        width: MediaQuery.of(context).size.width * 0.15,
+                        height: MediaQuery.of(context).size.width * 0.15,
+                        decoration: BoxDecoration(
+                          boxShadow: ([
+                            global.lightShadow,
+                          ]),
+                          color: Theme.of(context).scaffoldBackgroundColor,
+                          borderRadius: BorderRadius.circular(1000),
+                        ),
+                        child: IconButton(
+                          splashColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onPressed: () {
+                            widget.reload();
+                            Navigator.pop(context);
+                          },
+                          color: Theme.of(context).focusColor,
+                          icon: const Icon(Icons.arrow_back_rounded),
+                          iconSize: MediaQuery.of(context).size.width * 0.05,
+                        ),
+                      ),
+                    ),
                     AnimatedContainer(
-                      duration: const Duration(milliseconds: 300),
-                      child: Padding(
-                          padding: const EdgeInsets.only(
-                            top: 10,
+                      duration: duration,
+                      width: MediaQuery.of(context).size.width *
+                          0.4 *
+                          (_searchBarOpen == 0 ? 1 : 0),
+                      padding: const EdgeInsets.only(
+                        top: 10,
+                      ),
+                      child: AnimatedOpacity(
+                        duration: duration,
+                        opacity: _searchBarOpen == 0 ? 1 : 0,
+                        child: Text(
+                          'Workout',
+                          maxLines: 1,
+                          style: TextStyle(
+                            color: Theme.of(context).focusColor,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: -1,
+                            fontSize: MediaQuery.of(context).size.width * 0.1,
                           ),
-                          child: _searchBarOpen == 0
-                              ? Text(
-                                  'Workout',
-                                  style: TextStyle(
-                                    color: Theme.of(context).focusColor,
-                                    fontWeight: FontWeight.bold,
-                                    letterSpacing: -1,
-                                    fontSize:
-                                        MediaQuery.of(context).size.width *
-                                            0.07,
-                                  ),
-                                )
-                              : SizedBox()),
+                        ),
+                      ),
                     ),
                     AnimSearchBar(
                       color: Theme.of(context).scaffoldBackgroundColor,
@@ -179,7 +180,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
                     )
                   : Column(
                       children: [
-                        Container(
+                        SizedBox(
                           width: MediaQuery.of(context).size.width *
                               global.containerWidthFactor *
                               0.9,
