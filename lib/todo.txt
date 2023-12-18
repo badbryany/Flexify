@@ -10,9 +10,15 @@ exerciseButton
 
 Add: ------------------------------------------------
 
+Genereal:
+    -> Sync positions of navbar elements
+
 workoutDashboard
-    -> Create text logo for top middle 
+    -> Create focusColor logo for navbar prefix
+    -> Create text logo for navbar infix 
     -> Create notification page layout
+    -> Increase onclick size for barchart elements
+    -> Add a see more button 
 
 exercisesPage
     -> searchBar onsumbit -> add set
