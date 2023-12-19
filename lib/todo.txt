@@ -34,4 +34,4 @@ setsPage
     -> Show (Feb 22 2023 - Dec 28 2024) instead of labeling x axis
     -> Create 'zoom in' slider for set statistics (changes from date)
     -> create 'Set History' button
-    -> show last 3 workouts with date + line divider
+    -> show last 3 workouts with date + line divider + pr set with medal icon
