@@ -1,4 +1,5 @@
 import 'package:flexify/pages/workout/exercisesPage/setsPage/addeditSetPage/addeditSetPage.dart';
+import 'package:flexify/pages/workout/exercisesPage/setsPage/setsPage.dart';
 import 'package:flexify/pages/workout/exercisesPage/widgets/exerciseButton.dart';
 import 'package:flexify/widgets/SearchBar.dart';
 import 'package:flutter/material.dart';
@@ -22,10 +23,12 @@ class ExercisesPage extends StatefulWidget {
 class _ExercisesPageState extends State<ExercisesPage> {
   List<Exercise> exercises = [];
   List<Exercise> searchRecommendations = List.from(dummyExercises.gymExercises);
+  List<Exercise> exerciseRecommendations =
+      List.from(dummyExercises.dummyRecommendedExercises);
   List<Set> sets = [];
   bool loadingDone = false;
   int _searchBarOpen = 0;
-  TextEditingController _controller = TextEditingController();
+  final TextEditingController _controller = TextEditingController();
 
   getData() async {
     loadingDone = false;
@@ -66,14 +69,24 @@ class _ExercisesPageState extends State<ExercisesPage> {
       onSuffixTap: () {
         _controller.clear();
       },
-      onSubmitted: (foo) {},
+      onSubmitted: (String exercise) {
+        setState(
+          () {
+            Save.saveExercise(Exercise(
+                name: exercise,
+                type: 'Custom',
+                affectedMuscle: 'Custom',
+                equipment: 'Custom'));
+          },
+        );
+        widget.reload();
+      },
       onToggle: (int open) {
         setState(() => _searchBarOpen = open);
       },
       closeSearchOnSuffixTap: true,
       autoFocus: true,
     );
-
     return Scaffold(
       body: SafeArea(
         child: SizedBox(
@@ -154,16 +167,143 @@ class _ExercisesPageState extends State<ExercisesPage> {
                       child: Column(
                         children: [
                           ...(loadingDone
-                              ? exercises.map(
-                                  (e) => ExerciseButton(
-                                      exercise: e,
-                                      sets: sets
-                                          .where((element) =>
-                                              element.exerciseName == e.name)
-                                          .toList(),
-                                      reload: () {
-                                        getData();
-                                      }),
+                              ? [
+                                  ...[const Text('Recommended Exercises')],
+                                  ...[
+                                    exerciseRecommendations[0],
+                                    exerciseRecommendations[1]
+                                  ],
+                                  ...[const Text('Current Workout')],
+                                  ...(exercises.reversed.toList())
+                                ].map(
+                                  (e) => e.runtimeType == Text
+                                      ? Column(
+                                        children: [
+                                          SizedBox(height: MediaQuery.of(context).size.width * 0.03,),
+                                          Container(
+                                              padding: EdgeInsets.all(
+                                                  MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.01),
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  global.containerWidthFactor,
+                                              alignment: Alignment.center,
+                                              decoration: BoxDecoration(
+                                                  gradient: LinearGradient(
+                                                    colors: [
+                                                      Theme.of(context)
+                                                          .colorScheme
+                                                          .primary,
+                                                      Theme.of(context)
+                                                          .colorScheme
+                                                          .onPrimary,
+                                                    ],
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.03),
+                                                  boxShadow: [global.darkShadow]),
+                                              child: Text(
+                                                '  ${(e as Text).data}  ',
+                                                style: TextStyle(
+                                                  color:
+                                                      Theme.of(context).focusColor,
+                                                  fontSize: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.03,
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(height: MediaQuery.of(context).size.width * 0.03,),
+                                        ],
+                                      )
+                                      : e.runtimeType == Exercise
+                                          ? (exerciseRecommendations
+                                                  .map(
+                                                      (element) => element.name)
+                                                  .contains(
+                                                      (e as Exercise).name)
+                                              ? GestureDetector(
+                                                  onTap: () {
+                                                    exerciseRecommendations
+                                                        .remove(e);
+                                                    exercises.add(e);
+                                                    (sets
+                                                            .where((element) =>
+                                                                element
+                                                                    .exerciseName ==
+                                                                e.name)
+                                                            .toList()
+                                                            .isEmpty)
+                                                        ? Navigator.push(
+                                                            context,
+                                                            PageTransition(
+                                                              child: AddEditSet(
+                                                                  add: true,
+                                                                  set: null,
+                                                                  exerciseExists: exercises
+                                                                      .map((element) =>
+                                                                          element
+                                                                              .name)
+                                                                      .contains(e
+                                                                          .name),
+                                                                  exerciseName:
+                                                                      e.name),
+                                                              type: PageTransitionType
+                                                                  .rightToLeft,
+                                                            ),
+                                                          )
+                                                        : Navigator.push(
+                                                            context,
+                                                            PageTransition(
+                                                              child:
+                                                                  ExerciseSets(
+                                                                name: e.name,
+                                                                refresh: () =>
+                                                                    widget
+                                                                        .reload(),
+                                                              ),
+                                                              type: PageTransitionType
+                                                                  .rightToLeft,
+                                                            ),
+                                                          );
+                                                  },
+                                                  child: Opacity(
+                                                    opacity: 0.7,
+                                                    child: ExerciseButton(
+                                                      exercise: e,
+                                                      sets: sets
+                                                          .where((element) =>
+                                                              element
+                                                                  .exerciseName ==
+                                                              e.name)
+                                                          .toList(),
+                                                      reload: () {
+                                                        getData();
+                                                      },
+                                                    ),
+                                                  ),
+                                                )
+                                              : ExerciseButton(
+                                                  exercise: e,
+                                                  sets: sets
+                                                      .where((element) =>
+                                                          element
+                                                              .exerciseName ==
+                                                          e.name)
+                                                      .toList(),
+                                                  reload: () {
+                                                    getData();
+                                                  },
+                                                ))
+                                          : Container(),
                                 )
                               : [
                                   Center(
@@ -200,7 +340,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
                                       color: Theme.of(context).focusColor)),
                               tileColor:
                                   Theme.of(context).scaffoldBackgroundColor,
-                              contentPadding: EdgeInsets.all(10),
+                              contentPadding: const EdgeInsets.all(10),
                               onTap: () {
                                 Navigator.push(
                                   context,

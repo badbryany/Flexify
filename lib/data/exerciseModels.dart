@@ -39,14 +39,14 @@ class Exercise {
 
 class Set {
   Set({
-    this.s_id,
+    this.setID,
     required this.exerciseName,
     required this.reps,
     required this.weight,
     required this.date,
   });
 
-  final int? s_id;
+  final int? setID;
   final String exerciseName;
   final int reps;
   final double weight;
@@ -64,7 +64,7 @@ class Set {
 
   static Set fromJSONtoObject(Map<String, dynamic> values) {
     return Set(
-      s_id: values['s_id'],
+      setID: values['s_id'],
       exerciseName: values['exerciseName'],
       reps: values['reps'],
       weight: values['weight'].toDouble(),
@@ -135,7 +135,7 @@ class Save {
   static Future<void> deleteSet(Set set) async {
     Database db = await getDatabase();
     await db.rawDelete(
-      'DELETE FROM sets WHERE sets.s_id=${set.s_id}',
+      'DELETE FROM sets WHERE sets.setID=${set.setID}',
     );
   }
 
@@ -143,7 +143,7 @@ class Save {
     Database db = await getDatabase();
 
     await db.rawUpdate(
-      'UPDATE sets SET reps=${set.reps}, weight=${set.weight} WHERE sets.s_id=${set.s_id}',
+      'UPDATE sets SET reps=${set.reps}, weight=${set.weight} WHERE sets.setID=${set.setID}',
     );
   }
 }

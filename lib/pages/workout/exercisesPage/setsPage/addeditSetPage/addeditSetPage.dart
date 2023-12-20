@@ -1,9 +1,5 @@
-import 'dart:ffi';
-
-import 'package:flexify/data/dummyExercises%20copy.dart';
 import 'package:flexify/widgets/SetInput.dart';
 import 'package:flutter/material.dart';
-import 'package:flexify/widgets/Button.dart';
 import '../../../../../data/exerciseModels.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
 
@@ -171,7 +167,7 @@ class _AddEditSetState extends State<AddEditSet> {
                               : () async {
                                   await Save.editSet(
                                     Set(
-                                      s_id: widget.set!.s_id,
+                                      setID: widget.set!.setID,
                                       date: widget.set!.date,
                                       exerciseName: widget.set!.exerciseName,
                                       reps: newReps,

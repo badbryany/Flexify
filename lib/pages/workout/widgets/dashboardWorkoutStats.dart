@@ -1,7 +1,9 @@
+import 'package:flexify/pages/workout/widgets/workoutStatsPage/workoutStatsPage.dart';
 import 'package:flexify/widgets/BounceElement.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/exerciseModels.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
+import 'package:page_transition/page_transition.dart';
 
 class DashboardWorkoutStats extends StatefulWidget {
   const DashboardWorkoutStats({
@@ -107,11 +109,17 @@ class _DashboardWorkoutStatsState extends State<DashboardWorkoutStats> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             BounceElement(
-              child: Stack(
-                children: [
-                  GestureDetector(
-                    onTap: () => setState(() => selectedIntesity = i),
-                    child: AnimatedContainer(
+              child: GestureDetector(
+                onTap: () => setState(() => selectedIntesity = i),
+                child: Stack(
+                  alignment: Alignment.bottomCenter,
+                  children: [
+                    Container(
+                      height: (MediaQuery.of(context).size.height * 0.17),
+                      width: MediaQuery.of(context).size.width * 0.11,
+                      color: Theme.of(context).colorScheme.background,
+                    ),
+                    AnimatedContainer(
                       duration: const Duration(milliseconds: 400),
                       height: (MediaQuery.of(context).size.height * 0.17) /
                           max(intensityPerDay) *
@@ -142,8 +150,8 @@ class _DashboardWorkoutStatsState extends State<DashboardWorkoutStats> {
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
             const SizedBox(height: 10),
@@ -193,13 +201,45 @@ class _DashboardWorkoutStatsState extends State<DashboardWorkoutStats> {
                   ),
                 ),
               ),
-              Text(
-                'last ${dates.length} days',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Theme.of(context)
-                      .scaffoldBackgroundColor
-                      .withOpacity(0.8),
+              Container(
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Theme.of(context).colorScheme.primary,
+                        Theme.of(context).colorScheme.onPrimary,
+                      ],
+                    ),
+                    borderRadius: BorderRadius.circular(
+                        MediaQuery.of(context).size.width * 0.1)),
+                child: GestureDetector(
+                  onTap: () {
+                    PageTransition(
+                      child: const workoutStatsPage(),
+                      type: PageTransitionType.rightToLeft,
+                    );
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.all(
+                        MediaQuery.of(context).size.width * 0.02),
+                    child: Row(
+                      children: [
+                        Text(
+                          'See more',
+                          style: TextStyle(
+                              color: Theme.of(context).focusColor,
+                              fontSize:
+                                  MediaQuery.of(context).size.width * 0.02),
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.005,
+                        ),
+                        Icon(
+                          Icons.arrow_forward_rounded,
+                          size: MediaQuery.of(context).size.width * 0.02,
+                        )
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ],

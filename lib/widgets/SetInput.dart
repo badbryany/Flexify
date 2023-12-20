@@ -1,4 +1,3 @@
-import 'package:flexify/widgets/BounceElement.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
 

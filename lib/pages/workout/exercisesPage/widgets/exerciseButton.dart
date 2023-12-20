@@ -27,7 +27,7 @@ class _ExerciseButtonState extends State<ExerciseButton> {
   Set getMaxSet(List<Set> sets) {
     if (sets.isEmpty) {
       return Set(
-        s_id: -1,
+        setID: -1,
         date: DateTime.now(),
         exerciseName: widget.exercise.name,
         reps: 0,
@@ -91,9 +91,11 @@ class _ExerciseButtonState extends State<ExerciseButton> {
             thresholdReached ? Alignment.centerLeft : Alignment.centerRight,
         padding: thresholdReached
             ? EdgeInsets.only(
-                left: max(((1 - thresholdProgress) *
-                        (global.containerWidthFactor) *
-                        MediaQuery.of(context).size.width) + MediaQuery.of(context).size.width * 0.05,
+                left: max(
+                    ((1 - thresholdProgress) *
+                            (global.containerWidthFactor) *
+                            MediaQuery.of(context).size.width) +
+                        MediaQuery.of(context).size.width * 0.05,
                     (MediaQuery.of(context).size.width * 0.1)))
             : EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.1),
         decoration: BoxDecoration(

@@ -1,6 +1,4 @@
 import 'package:flexify/data/exerciseModels.dart';
-import 'dart:convert';
-import 'dart:io';
 
 List<Exercise> gymExercises = [
   Exercise(
@@ -26,12 +24,6 @@ List<Exercise> gymExercises = [
     type: "Lunge",
     affectedMuscle: "Quads",
     equipment: "Dumbbells",
-  ),
-  Exercise(
-    name: "Pull-ups",
-    type: "Compound",
-    affectedMuscle: "Back",
-    equipment: "Pull-up bar",
   ),
   Exercise(
     name: "Shoulder Press",
@@ -136,12 +128,6 @@ List<Exercise> gymExercises = [
     equipment: "Barbell",
   ),
   Exercise(
-    name: "Box Jumps",
-    type: "Plyometric",
-    affectedMuscle: "Legs",
-    equipment: "Box",
-  ),
-  Exercise(
     name: "Renegade Rows",
     type: "Compound",
     affectedMuscle: "Back",
@@ -182,5 +168,20 @@ List<Exercise> gymExercises = [
     type: "Isolation",
     affectedMuscle: "Calves",
     equipment: "Calf raise machine",
+  ),
+];
+
+List<Exercise> dummyRecommendedExercises = [
+  Exercise(
+    name: "Pull-ups",
+    type: "Compound",
+    affectedMuscle: "Back",
+    equipment: "Pull-up bar",
+  ),
+  Exercise(
+    name: "Box Jumps",
+    type: "Plyometric",
+    affectedMuscle: "Legs",
+    equipment: "Box",
   ),
 ];

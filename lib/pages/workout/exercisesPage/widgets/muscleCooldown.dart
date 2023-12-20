@@ -12,11 +12,11 @@ class MuscleCooldown extends StatelessWidget {
 
   String loadString = '';
   double recoverValue = 0.0;
-  Color recoverColor = Color.fromARGB(255, 255, 116, 116);
+  Color recoverColor = const Color.fromARGB(255, 255, 116, 116);
   getData(BuildContext context) {
     if (sets.isEmpty) {
       recoverValue = 1;
-      recoverColor = Color.fromARGB(255, 162, 251, 162);
+      recoverColor = const Color.fromARGB(255, 162, 251, 162);
       return;
     }
 

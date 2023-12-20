@@ -3,35 +3,35 @@ Glitches/Bad: ---------------------------------------
 setsPage 
     -> save state of page on navigator push so the search bar is closed
     -> fix glitch where exercises come back after deleting and pressing back on a certain set
-exerciseButton
-    2. dismissable
-        -> Fix glitch where the delete cancel adds to bottom
-        -> Fix glitch where double delete cancel throws error
+    -> fix glitch where page doesn't reload onsubmit
+
+exercisesPage: 
+    -> searchRecommendation onclick:
+        -> addeditSetPage
+            -> Icons.check onclick -> setsPage
+            -> Icons.arrow_back onclick -> exercisesPage (searchBar closed)
+    exerciseButton
+        2. dismissable
+            -> Fix glitch where the delete cancel adds to bottom
+            -> Fix glitch where double delete cancel throws error
 
 Add: ------------------------------------------------
 
 Genereal:
     -> Sync positions of navbar elements
 
-workoutDashboard
+dashboardNavBar
     -> Create focusColor logo for navbar prefix
     -> Create text logo for navbar infix 
     -> Create notification page layout
-    -> Increase onclick size for barchart elements
-    -> Add a see more button 
 
 exercisesPage
-    -> searchBar onsumbit -> add set
-    -> add 2 recommended buttons (lower opacity) 
-        -> onclick: 
-            -> opacity goes up and exercise is added to current workout
-            -> button moves to top of normal buttons
-            -> new recommended button is generated 
-            -> new set page is opened
+    -> exerciseRecommendation onclick: 
+        -> new recommended button is generated
         -> recommend exercises that don't require equipment before data has been collected
 
 setsPage
-    -> Show (Feb 22 2023 - Dec 28 2024) instead of labeling x axis
-    -> Create 'zoom in' slider for set statistics (changes from date)
-    -> create 'Set History' button
-    -> show last 3 workouts with date + line divider + pr set with medal icon
+    -> sort statistics by (1 rep, x rep max)
+    -> show last 3 exercise dates + line divider + pr set with medal icon + previous pr with different color medal icon
+    -> empty circle for any other sets
+    -> infinite scroll + up button

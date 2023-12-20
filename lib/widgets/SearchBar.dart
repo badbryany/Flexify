@@ -40,7 +40,7 @@ class AnimSearchBar extends StatefulWidget {
   final bool boxShadow;
   final Function(String) onSubmitted;
   final Function(int) onToggle;
-  AnimSearchBar(
+  const AnimSearchBar(
       {Key? key,
 
       /// The width cannot be null
@@ -107,13 +107,13 @@ class _AnimSearchBarState extends State<AnimSearchBar>
   ///initializing the AnimationController
   late AnimationController _con;
   FocusNode focusNode = FocusNode();
+  final GlobalKey<_AnimSearchBarState> searchBarKey = GlobalKey<_AnimSearchBarState>();
 
   @override
   void initState() {
     toggle = 0;
 
     super.initState();
-
     ///Initializing the animationController which is responsible for the expanding and shrinking of the search bar
     _con = AnimationController(
       vsync: this,
@@ -123,9 +123,9 @@ class _AnimSearchBarState extends State<AnimSearchBar>
     );
   }
 
-  void switchToggle(incoming) {
+  void switchToggle(int incoming) {
     setState(() {
-      toggle = incoming == 0 ? 1 : 0;
+      incoming == 0 ? toggle = 1 : toggle = 0;
     });
   }
 
@@ -140,7 +140,7 @@ class _AnimSearchBarState extends State<AnimSearchBar>
   Widget build(BuildContext context) {
     return Container(
       ///if the rtl is true, search bar will be from right to left
-      alignment: widget.rtl ? Alignment.centerRight : Alignment(-1.0, 0.0),
+      alignment: widget.rtl ? Alignment.centerRight : const Alignment(-1.0, 0.0),
 
       ///Using Animated container to expand and shrink the widget
       child: AnimatedContainer(
@@ -161,7 +161,7 @@ class _AnimSearchBarState extends State<AnimSearchBar>
           boxShadow: !widget.boxShadow
               ? null
               : [
-                  BoxShadow(
+                  const BoxShadow(
                     color: Colors.black26,
                     spreadRadius: -10.0,
                     blurRadius: 10.0,
@@ -179,7 +179,7 @@ class _AnimSearchBarState extends State<AnimSearchBar>
               curve: Curves.easeOut,
               child: AnimatedOpacity(
                 opacity: (toggle == 0) ? 0.0 : 1.0,
-                duration: Duration(milliseconds: 200),
+                duration: const Duration(milliseconds: 200),
                 child: Container(
                   decoration: BoxDecoration(
                     /// can add custom color or the color will be white
@@ -187,6 +187,14 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                     borderRadius: BorderRadius.circular(100),
                   ),
                   child: AnimatedBuilder(
+                    builder: (context, widget) {
+                      ///Using Transform.rotate to rotate the suffix icon when it gets expanded
+                      return Transform.rotate(
+                        angle: _con.value * 2.0 * pi,
+                        child: widget,
+                      );
+                    },
+                    animation: _con,
                     child: GestureDetector(
                       onTap: () {
                         try {
@@ -223,22 +231,12 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                       },
 
                       ///suffixIcon is of type Icon
-                      child: widget.suffixIcon != null
-                          ? widget.suffixIcon
-                          : Icon(
+                      child: widget.suffixIcon ?? Icon(
                               Icons.close,
                               size: 20.0,
                               color: widget.textFieldIconColor,
                             ),
                     ),
-                    builder: (context, widget) {
-                      ///Using Transform.rotate to rotate the suffix icon when it gets expanded
-                      return Transform.rotate(
-                        angle: _con.value * 2.0 * pi,
-                        child: widget,
-                      );
-                    },
-                    animation: _con,
                   ),
                 ),
               ),
@@ -252,15 +250,15 @@ class _AnimSearchBarState extends State<AnimSearchBar>
               ///Using Animated opacity to change the opacity of th textField while expanding
               child: AnimatedOpacity(
                 opacity: (toggle == 0) ? 0.0 : 1.0,
-                duration: Duration(milliseconds: 200),
-                child: Container(
+                duration: const Duration(milliseconds: 200),
+                child: SizedBox(
                   width: widget.width / 1.7,
                   child: TextField(
                     ///Text Controller. you can manipulate the text inside this textField by calling this controller.
                     controller: widget.textController,
                     inputFormatters: widget.inputFormatters,
                     focusNode: focusNode,
-                    cursorRadius: Radius.circular(10.0),
+                    cursorRadius: const Radius.circular(10.0),
                     cursorWidth: 2.0,
                     onChanged: (value) {
                       textFieldValue = value;
@@ -283,9 +281,7 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                     },
 
                     ///style is of type TextStyle, the default is just a color black
-                    style: widget.style != null
-                        ? widget.style
-                        : TextStyle(color: Colors.black),
+                    style: widget.style ?? const TextStyle(color: Colors.black),
                     cursorColor: Colors.black,
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.only(bottom: 5),
@@ -342,9 +338,10 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                                   widget.onToggle(toggle);
                                   setState(() {
                                     ///if the autoFocus is true, the keyboard will pop open, automatically
-                                    if (widget.autoFocus)
+                                    if (widget.autoFocus) {
                                       FocusScope.of(context)
                                           .requestFocus(focusNode);
+                                    }
                                   });
 
                                   ///forward == expand
@@ -366,7 +363,7 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                             );
                           },
                         )
-                      : SizedBox()),
+                      : const SizedBox()),
             ),
           ],
         ),

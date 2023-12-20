@@ -4,6 +4,8 @@ import 'package:flexify/pages/workout/exercisesPage/setsPage/widgets/ExerciseSta
 import 'package:flexify/data/exerciseModels.dart';
 import 'package:flexify/pages/workout/exercisesPage/setsPage/addeditSetPage/addeditSetPage.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
+import 'package:collection/collection.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class ExerciseSets extends StatefulWidget {
   const ExerciseSets({
@@ -21,12 +23,24 @@ class ExerciseSets extends StatefulWidget {
 
 class _ExerciseSetsState extends State<ExerciseSets> {
   List<Set> sets = [];
+  List<List<Set>> setsByDate = [];
+  List<Widget> setWidgets = [];
   bool loadingDone = false;
+
   getData() async {
     sets = (await Save.getSetList())
         .where((e) => e.exerciseName == widget.name)
         .toList();
-
+    setsByDate = sets.isNotEmpty
+        ? (groupBy(sets, (Set set) => dateString(set.date))
+            .values
+            .toList()
+            .reversed
+            .toList())
+        : [];
+    setWidgets = sets.isNotEmpty
+        ? setsByDate.map((sets) => setWidgetsBySetList(sets)).flattened.toList()
+        : [];
     loadingDone = true;
     setState(() {});
   }
@@ -57,19 +71,48 @@ class _ExerciseSetsState extends State<ExerciseSets> {
     return '$month ${date.day}';
   }
 
-  List<Widget> setList() {
+  List<Widget> setWidgetsBySetList(List<Set> setList) {
     List<Widget> returnList = [];
 
-    if (sets.isEmpty) return returnList;
+    if (setList.isEmpty) return returnList;
 
-    DateTime currentDate = sets.last.date;
+    returnList.add(
+      Container(
+        padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.01),
+        width: MediaQuery.of(context).size.width * global.containerWidthFactor,
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Theme.of(context).colorScheme.primary,
+                Theme.of(context).colorScheme.onPrimary,
+              ],
+            ),
+            borderRadius:
+                BorderRadius.circular(MediaQuery.of(context).size.width * 0.03),
+            boxShadow: [global.darkShadow]),
+        child: Row(
+          children: [
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.1,
+            ),
+            Text(
+              'Date: ${dateString(setList.first.date)}',
+              style: TextStyle(color: Theme.of(context).focusColor),
+            ),
+            const Expanded(child: SizedBox()),
+            Text(
+              'Total: ${setList.length}',
+              style: TextStyle(color: Theme.of(context).focusColor),
+            ),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.1,
+            )
+          ],
+        ),
+      ),
+    );
 
-    for (int i = sets.length - 1; i >= 0; i--) {
-      if (currentDate.difference(sets[i].date).abs() >
-          const Duration(hours: 1, minutes: 45)) {
-        returnList.add(const SizedBox(height: 40));
-      }
-
+    for (int i = setList.length - 1; i >= 0; i--) {
       returnList.add(
         GestureDetector(
           onTap: () => Navigator.push(
@@ -78,7 +121,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
               child: AddEditSet(
                 add: false,
                 exerciseExists: true,
-                set: sets[i],
+                set: setList[i],
                 exerciseName: widget.name,
               ),
               type: PageTransitionType.fade,
@@ -90,7 +133,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                 MediaQuery.of(context).size.width * global.containerWidthFactor,
             margin: const EdgeInsets.all(5),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(MediaQuery.of(context).size.width * 0.03),
               color: Theme.of(context).scaffoldBackgroundColor,
               boxShadow: [global.lightShadow],
             ),
@@ -100,17 +143,10 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                 // ICON
                 Row(
                   children: [
-                    Container(
-                      padding: const EdgeInsets.all(25),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).scaffoldBackgroundColor,
-                        borderRadius: BorderRadius.circular(100),
-                      ),
-                      child: Icon(
-                        Icons.fitness_center_rounded,
-                        color: Theme.of(context).focusColor,
-                        size: 40,
-                      ),
+                    SvgPicture.asset(
+                      'assets/PR_previous.svg',
+                      width: MediaQuery.of(context).size.width * 0.1,
+                      height: MediaQuery.of(context).size.width * 0.1,
                     ),
 
                     const SizedBox(width: 30),
@@ -120,7 +156,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '${sets[i].weight}kg',
+                          '${setList[i].weight}kg',
                           style: TextStyle(
                             color: Theme.of(context).focusColor,
                             fontSize: 20,
@@ -128,7 +164,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                           ),
                         ),
                         Text(
-                          '${dateString(sets[i].date)} at ${zeroBefore(sets[i].date.hour)}:${zeroBefore(sets[i].date.minute)}',
+                          '${dateString(setList[i].date)} at ${zeroBefore(setList[i].date.hour)}:${zeroBefore(sets[i].date.minute)}',
                           style: TextStyle(
                             color:
                                 Theme.of(context).focusColor.withOpacity(0.4),
@@ -142,7 +178,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
 
                 //REPS
                 Text(
-                  'x${sets[i].reps}',
+                  'x${setList[i].reps}',
                   style: TextStyle(
                     color: Theme.of(context).focusColor,
                     fontSize: 20,
@@ -155,7 +191,6 @@ class _ExerciseSetsState extends State<ExerciseSets> {
           ),
         ),
       );
-      currentDate = sets[i].date;
     }
     return returnList;
   }
@@ -163,40 +198,6 @@ class _ExerciseSetsState extends State<ExerciseSets> {
   @override
   void initState() {
     super.initState();
-    for (int i = 5; i < 100; i++) {
-      Save.deleteExercise(Exercise(
-          name: '$i', type: '$i', affectedMuscle: '$i', equipment: '$i'));
-    }
-    Save.saveExercise(Exercise(
-        name: 'Barbell Squat',
-        type: 'Barbell',
-        affectedMuscle: 'Quads',
-        equipment: 'Barbell'));
-    Save.saveExercise(Exercise(
-        name: 'Deadlift',
-        type: 'Barbell',
-        affectedMuscle: 'Quads',
-        equipment: 'Barbell'));
-    Save.saveExercise(Exercise(
-        name: 'Squat',
-        type: 'Barbell',
-        affectedMuscle: 'Quads',
-        equipment: 'Barbell'));
-    Save.saveExercise(Exercise(
-        name: 'Push-Ups',
-        type: 'Barbell',
-        affectedMuscle: 'Quads',
-        equipment: 'Barbell'));
-    Save.saveExercise(Exercise(
-        name: 'Pullups',
-        type: 'Barbell',
-        affectedMuscle: 'Quads',
-        equipment: 'Barbell'));
-    Save.saveExercise(Exercise(
-        name: 'Single Leg Calf Raises',
-        type: 'Barbell',
-        affectedMuscle: 'Quads',
-        equipment: 'Barbell'));
     getData();
   }
 
@@ -270,17 +271,17 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onPressed: () => Navigator.push(
-                        context,
-                        PageTransition(
-                          child: AddEditSet(
-                            add: true,
-                            set: null,
-                            exerciseExists: true,
-                            exerciseName: widget.name,
-                          ),
-                          type: PageTransitionType.fade,
+                      context,
+                      PageTransition(
+                        child: AddEditSet(
+                          add: true,
+                          set: null,
+                          exerciseExists: true,
+                          exerciseName: widget.name,
                         ),
-                      ).then((value) => getData()),
+                        type: PageTransitionType.fade,
+                      ),
+                    ).then((value) => getData()),
                     color: Theme.of(context).focusColor,
                     icon: const Icon(Icons.add),
                     iconSize: MediaQuery.of(context).size.width * 0.05,
@@ -289,75 +290,44 @@ class _ExerciseSetsState extends State<ExerciseSets> {
               ],
             ),
           ),
-          ExerciseStats(
-            exerciseName: widget.name,
-            sets: sets,
-          ),
-          Container(
-            margin: EdgeInsets.only(
-              left: MediaQuery.of(context).size.width * 0.075,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  'All sets',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 25,
-                  ),
+          sets.isNotEmpty
+              ? ExerciseStats(
+                  exerciseName: widget.name,
+                  sets: sets,
+                )
+              : Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                        right: MediaQuery.of(context).size.width * 0.1,
+                      ),
+                      child: SvgPicture.asset('assets/Squiggly Arrow.svg',
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          height: MediaQuery.of(context).size.width * 0.6),
+                    ),
+                  ],
                 ),
-                const SizedBox(),
-                const SizedBox(),
-                const SizedBox(),
-                const SizedBox(),
-                Text(
-                  'total: ${sets.length}',
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                  ),
-                ),
-                const SizedBox(),
-              ],
-            ),
-          ),
           SizedBox(
             width:
                 MediaQuery.of(context).size.width * global.containerWidthFactor,
             child: Column(
               children: [
                 ...(loadingDone
-                    ? setList()
-                    : [
-                        Center(
-                          child: SizedBox(
-                            height: MediaQuery.of(context).size.width * 0.1,
-                            width: MediaQuery.of(context).size.width *
-                                global.containerWidthFactor,
-                            child: const CircularProgressIndicator(),
-                          ),
-                        )
-                      ]),
-                loadingDone && sets.isEmpty
-                    ? Column(
-                        children: [
-                          ...[0, 0, 0].map(
-                            (e) => Container(
-                              padding: const EdgeInsets.all(10),
-                              margin: const EdgeInsets.all(5),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: Theme.of(context).colorScheme.surface,
+                    ? (sets.isNotEmpty
+                        ? setWidgets
+                        : [
+                            Center(
+                              child: Text(
+                                'Click  \'+\'  to add a set!  :)',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize:
+                                      MediaQuery.of(context).size.width * 0.04,
+                                ),
                               ),
-                              width: MediaQuery.of(context).size.width *
-                                  global.containerWidthFactor,
-                              height: MediaQuery.of(context).size.height * 0.1,
-                            ),
-                          ),
-                        ],
-                      )
-                    : const SizedBox(),
+                            )
+                          ])
+                    : const [Center(child: CircularProgressIndicator())]),
               ],
             ),
           ),

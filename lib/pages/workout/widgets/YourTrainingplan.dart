@@ -27,7 +27,7 @@ class _YourTrainingPlanState extends State<YourTrainingPlan> {
   }
 
   List<Widget> workoutDaysWidgets() {
-    List<Widget> _showSets(WorkoutDay workoutDay) {
+    List<Widget> showSets(WorkoutDay workoutDay) {
       List<dynamic> realSets = analize.getAverageWorkoutString(
         workoutDay,
         widget.sets,
@@ -66,7 +66,7 @@ class _YourTrainingPlanState extends State<YourTrainingPlan> {
                 color: Theme.of(context).focusColor,
               ),
             ),
-            ..._showSets(workoutDays[i]),
+            ...showSets(workoutDays[i]),
           ],
         ),
       );

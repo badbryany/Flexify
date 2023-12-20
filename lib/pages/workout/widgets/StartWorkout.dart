@@ -37,9 +37,9 @@ class _StartWorkoutState extends State<StartWorkout> {
     setState(() {});
   }
 
-  List<Widget> showSets(WorkoutDay _nextWorkoutDay) {
+  List<Widget> showSets(WorkoutDay nextWorkoutDay) {
     List<dynamic> realSets = analize.getAverageWorkoutString(
-      _nextWorkoutDay,
+      nextWorkoutDay,
       widget.sets,
     );
     List<Widget> widgetList = [];
