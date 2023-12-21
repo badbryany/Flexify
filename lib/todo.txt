@@ -17,6 +17,11 @@ exercisesPage:
 
 Add: ------------------------------------------------
 
+setsPage
+    -> sort statistics by (1 rep, x rep max)
+    -> pr set with medal icon + previous pr with different color medal icon
+    -> infinite scroll + up button
+
 Genereal:
     -> Sync positions of navbar elements
 
@@ -25,12 +30,25 @@ dashboardNavBar
     -> Create text logo for navbar infix 
     -> Create notification page layout
 
-exercisesPage
-    -> exerciseRecommendation onclick: 
-        -> new recommended button is generated
-        -> recommend exercises that don't require equipment before data has been collected
+Start Workout -> (Progress Bar for each Path)
+    -> Strength (Red Background)
+        -> Push-Pull-Legs
+        -> Full Body
+        -> Upper-Lower
+        -> Bro Split
+        -> Calisthenics
+    -> Endurance (Blue Background)
+        -> HIIT
+        -> Cardio
+    -> Flexibility (Green Background)
+        -> Yoga
+        -> Stretches
 
-setsPage
-    -> sort statistics by (1 rep, x rep max)
-    -> pr set with medal icon + previous pr with different color medal icon
-    -> infinite scroll + up button
+Profile ->
+    -> Strength Stats,
+    -> Endurance Stats,
+    -> Flexibility Stats,
+
+Detected Trainingplan:
+    -> Red Circle + Text
+        (e.g)'2 Improvements can be made'

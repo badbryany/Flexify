@@ -106,7 +106,7 @@ class _YourTrainingPlanState extends State<YourTrainingPlan> {
           const SizedBox(height: 20),
           ...[
             'More data needed for accurate evalutation',
-            'Please continue using the app for added performance'
+            'Please continue using the app to enable this feature'
           ].map(
             (e) => Text(
               e,

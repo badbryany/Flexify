@@ -184,4 +184,16 @@ List<Exercise> dummyRecommendedExercises = [
     affectedMuscle: "Legs",
     equipment: "Box",
   ),
+  Exercise(
+    name: "Big Boy Squats",
+    type: "Plyometric",
+    affectedMuscle: "Legs",
+    equipment: "Box",
+  ),
+  Exercise(
+    name: "G'd up with my feet up",
+    type: "Plyometric",
+    affectedMuscle: "Legs",
+    equipment: "Box",
+  ),
 ];
