@@ -1,6 +1,6 @@
 import 'package:flexify/pages/workout/exercisesPage/setsPage/addeditSetPage/addeditSetPage.dart';
-import 'package:flexify/pages/workout/exercisesPage/widgets/ExerciseButton.dart';
-import 'package:flexify/pages/workout/exercisesPage/widgets/recommendedExerciseButton.dart';
+import 'package:flexify/pages/workout/exercisesPage/widgets/exerciseButton.dart';
+import 'package:flexify/pages/workout/exercisesPage/widgets/RecommendedExerciseButton.dart';
 import 'package:flexify/widgets/BounceElement.dart';
 import 'package:flexify/widgets/SearchBar.dart';
 import 'package:flutter/material.dart';
@@ -242,7 +242,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
                                                   .contains(
                                                       (e as Exercise).name)
                                               ? BounceElement(
-                                                child: GestureDetector(
+                                                  child: GestureDetector(
                                                     onTap: () {
                                                       exerciseRecommendations
                                                           .remove(e);
@@ -266,7 +266,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
                                                       ),
                                                     ),
                                                   ),
-                                              )
+                                                )
                                               : ExerciseButton(
                                                   exercise: e,
                                                   sets: sets

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flexify/data/exerciseModels.dart';
-import 'package:flexify/pages/workout/exercisesPage/widgets/MuscleCooldown.dart';
+import 'package:flexify/pages/workout/exercisesPage/widgets/muscleCooldown.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
 
 class RecommendedExerciseButton extends StatefulWidget {
@@ -16,7 +16,8 @@ class RecommendedExerciseButton extends StatefulWidget {
   final List<Set> sets;
 
   @override
-  State<RecommendedExerciseButton> createState() => _RecommendedExerciseButtonState();
+  State<RecommendedExerciseButton> createState() =>
+      _RecommendedExerciseButtonState();
 }
 
 class _RecommendedExerciseButtonState extends State<RecommendedExerciseButton> {
@@ -77,14 +78,13 @@ class _RecommendedExerciseButtonState extends State<RecommendedExerciseButton> {
     }
 
     return Container(
-      width:
-          MediaQuery.of(context).size.width * global.containerWidthFactor,
+      width: MediaQuery.of(context).size.width * global.containerWidthFactor,
       height: MediaQuery.of(context).size.width * 0.3,
       padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.08),
       margin: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(
-            MediaQuery.of(context).size.width * 0.08),
+        borderRadius:
+            BorderRadius.circular(MediaQuery.of(context).size.width * 0.08),
         color: Theme.of(context).colorScheme.background,
         boxShadow: [
           BoxShadow(
@@ -129,16 +129,15 @@ class _RecommendedExerciseButtonState extends State<RecommendedExerciseButton> {
                         color: Theme.of(context)
                             .scaffoldBackgroundColor
                             .withOpacity(0.4),
-                        fontSize:
-                            MediaQuery.of(context).size.width * 0.02,
+                        fontSize: MediaQuery.of(context).size.width * 0.02,
                       ),
                     )
                   : const SizedBox(),
             ],
           ),
           Padding(
-            padding: EdgeInsets.only(
-                right: MediaQuery.of(context).size.width * 0.1),
+            padding:
+                EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.1),
             child: Center(
               child: SizedBox(
                 width: MediaQuery.of(context).size.width * 0.07,
