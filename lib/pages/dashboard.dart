@@ -78,8 +78,8 @@ class _DashboardState extends State<Dashboard> {
                         decoration: BoxDecoration(
                           color: Theme.of(context).colorScheme.background,
                         ),
-                        child: Image.network(
-                          'https://pxbar.com/wp-content/uploads/2023/09/profile-picture-girl.jpg',
+                        child: Image.asset(
+                          'assets/img/logo.jpg',
                           height: MediaQuery.of(context).size.width * imageSize,
                         ),
                       ),
@@ -144,7 +144,8 @@ class _DashboardState extends State<Dashboard> {
       ),
       // SPACING
       bottomNavigationBar: Container(
-        padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height*0.025),
+        padding: EdgeInsets.symmetric(
+            vertical: MediaQuery.of(context).size.height * 0.025),
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.background,
           borderRadius: const BorderRadius.only(
