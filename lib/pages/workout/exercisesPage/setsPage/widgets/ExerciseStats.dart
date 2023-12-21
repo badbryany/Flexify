@@ -109,9 +109,21 @@ class _ExerciseStatsState extends State<ExerciseStats> {
                       global.containerWidthFactor,
                   height: MediaQuery.of(context).size.width * 0.1,
                   decoration: BoxDecoration(
-                    boxShadow: [global.darkShadow],
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Color.fromARGB(134, 190, 190, 190),
+                        spreadRadius: -15.0,
+                        blurRadius: 7.0,
+                        offset: Offset(-8, -10),
+                      ),
+                      BoxShadow(
+                        color: Color.fromARGB(137, 0, 0, 0),
+                        spreadRadius: -10.0,
+                        blurRadius: 10.0,
+                        offset: Offset(10, 10),
+                      ),
+                    ],
                     color: Theme.of(context).colorScheme.background,
-                    border: Border.all(width: 1,color: Theme.of(context).colorScheme.onBackground),
                     borderRadius: BorderRadius.circular(
                         MediaQuery.of(context).size.width * 0.1),
                   ),
@@ -125,27 +137,33 @@ class _ExerciseStatsState extends State<ExerciseStats> {
                               fontSize:
                                   MediaQuery.of(context).size.width * 0.03),
                         ),
-                        Container(
-                          alignment: Alignment.center,
-                          width: MediaQuery.of(context).size.width * 0.1,
-                          height: MediaQuery.of(context).size.width * 0.1,
-                          padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.01),
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.background,
-                            borderRadius: BorderRadius.circular(MediaQuery.of(context).size.width * 0.1),
-                            border: Border.all(width: 1,color: Theme.of(context).scaffoldBackgroundColor),
-                            gradient: LinearGradient(
-                              colors: [
-                                Theme.of(context).colorScheme.primary,
-                                Theme.of(context).colorScheme.onPrimary,
-                              ],
-                            ),
-                          ),
-                          child: Icon(
-                            Icons.fitness_center_rounded,
-                            color: Theme.of(context).focusColor,
-                            size: MediaQuery.of(context).size.width * 0.03,
-                          ),
+                        // Container(
+                        //   alignment: Alignment.center,
+                        //   width: MediaQuery.of(context).size.width * 0.1,
+                        //   height: MediaQuery.of(context).size.width * 0.1,
+                        //   padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.01),
+                        //   decoration: BoxDecoration(
+                        //     color: Theme.of(context).colorScheme.background,
+                        //     borderRadius: BorderRadius.circular(MediaQuery.of(context).size.width * 0.1),
+                        //     gradient: LinearGradient(
+                        //       colors: [
+                        //         Theme.of(context).colorScheme.primary,
+                        //         Theme.of(context).colorScheme.onPrimary,
+                        //       ],
+                        //     ),
+                        //   ),
+                        //   child: Icon(
+                        //     Icons.fitness_center_rounded,
+                        //     color: Theme.of(context).focusColor,
+                        //     size: MediaQuery.of(context).size.width * 0.03,
+                        //   ),
+                        // ),
+                        Text(
+                          ' - ',
+                          style: TextStyle(
+                              color: Theme.of(context).scaffoldBackgroundColor,
+                              fontSize:
+                                  MediaQuery.of(context).size.width * 0.05),
                         ),
                         Text(
                           dateString(widget.sets.last.date),

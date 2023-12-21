@@ -43,7 +43,7 @@ class _DashboardWorkoutStatsState extends State<DashboardWorkoutStats> {
         }
       }
       intensityPerDay[i] = thisDaySets;
-      await Future.delayed(const Duration(milliseconds: 100));
+      await Future.delayed(const Duration(milliseconds: 125));
       setState(() {});
     }
   }
@@ -181,6 +181,7 @@ class _DashboardWorkoutStatsState extends State<DashboardWorkoutStats> {
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.background,
         borderRadius: BorderRadius.circular(global.borderRadius),
+        boxShadow: [global.lightShadow],
       ),
       child: Column(
         children: [

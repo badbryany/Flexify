@@ -77,42 +77,70 @@ class _ExerciseSetsState extends State<ExerciseSets> {
     if (setList.isEmpty) return returnList;
 
     returnList.add(
-      Container(
-        padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.01),
-        width: MediaQuery.of(context).size.width * global.containerWidthFactor,
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Theme.of(context).colorScheme.primary,
-                Theme.of(context).colorScheme.onPrimary,
+      Column(
+        children: [
+          SizedBox(
+            height: MediaQuery.of(context).size.width * 0.03,
+          ),
+          Container(
+            padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
+            width:
+                MediaQuery.of(context).size.width * global.containerWidthFactor,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Theme.of(context).colorScheme.primary,
+                  Theme.of(context).colorScheme.onPrimary,
+                ],
+              ),
+              borderRadius: BorderRadius.circular(
+                  MediaQuery.of(context).size.width * 0.03),
+              boxShadow: const [
+                BoxShadow(
+                  color: Color.fromARGB(133, 158, 158, 158),
+                  spreadRadius: -10.0,
+                  blurRadius: 10.0,
+                  offset: Offset(0.0, 10.0),
+                )
               ],
             ),
-            borderRadius:
-                BorderRadius.circular(MediaQuery.of(context).size.width * 0.03),
-            boxShadow: [global.darkShadow]),
-        child: Row(
-          children: [
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.1,
+            child: Row(
+              children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.1,
+                ),
+                Text(
+                  'date:   ${dateString(setList.first.date).toLowerCase()}',
+                  style: TextStyle(
+                    color: Theme.of(context).focusColor,
+                    fontSize: MediaQuery.of(context).size.width * 0.03,
+                  ),
+                ),
+                const Expanded(child: SizedBox()),
+                Text(
+                  'total sets:   ${setList.length}',
+                  style: TextStyle(
+                    color: Theme.of(context).focusColor,
+                    fontSize: MediaQuery.of(context).size.width * 0.03,
+                  ),
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.1,
+                )
+              ],
             ),
-            Text(
-              'Date: ${dateString(setList.first.date)}',
-              style: TextStyle(color: Theme.of(context).focusColor),
-            ),
-            const Expanded(child: SizedBox()),
-            Text(
-              'Total: ${setList.length}',
-              style: TextStyle(color: Theme.of(context).focusColor),
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.1,
-            )
-          ],
-        ),
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.width * 0.03,
+          ),
+        ],
       ),
     );
 
     for (int i = setList.length - 1; i >= 0; i--) {
+      returnList.add(SizedBox(
+        height: MediaQuery.of(context).size.width * 0.01,
+      ));
       returnList.add(
         GestureDetector(
           onTap: () => Navigator.push(
@@ -128,14 +156,21 @@ class _ExerciseSetsState extends State<ExerciseSets> {
             ),
           ).then((value) => getData()),
           child: Container(
-            padding: const EdgeInsets.all(10),
+            padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.01),
             width:
                 MediaQuery.of(context).size.width * global.containerWidthFactor,
-            margin: const EdgeInsets.all(5),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(MediaQuery.of(context).size.width * 0.03),
+              borderRadius: BorderRadius.circular(
+                  MediaQuery.of(context).size.width * 0.03),
               color: Theme.of(context).scaffoldBackgroundColor,
-              boxShadow: [global.lightShadow],
+              boxShadow: const [
+                BoxShadow(
+                  color: Color.fromARGB(133, 211, 211, 211),
+                  spreadRadius: -10.0,
+                  blurRadius: 10.0,
+                  offset: Offset(0.0, 10.0),
+                ),
+              ],
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -159,7 +194,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                           '${setList[i].weight}kg',
                           style: TextStyle(
                             color: Theme.of(context).focusColor,
-                            fontSize: 20,
+                            fontSize: MediaQuery.of(context).size.width * 0.045,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -168,6 +203,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                           style: TextStyle(
                             color:
                                 Theme.of(context).focusColor.withOpacity(0.4),
+                            fontSize: MediaQuery.of(context).size.width * 0.035,
                           ),
                         ),
                       ],
@@ -181,7 +217,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                   'x${setList[i].reps}',
                   style: TextStyle(
                     color: Theme.of(context).focusColor,
-                    fontSize: 20,
+                    fontSize: MediaQuery.of(context).size.width * 0.05,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -191,6 +227,9 @@ class _ExerciseSetsState extends State<ExerciseSets> {
           ),
         ),
       );
+      returnList.add(SizedBox(
+        height: MediaQuery.of(context).size.width * 0.01,
+      ));
     }
     return returnList;
   }
@@ -260,9 +299,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                   width: MediaQuery.of(context).size.width * 0.15,
                   height: MediaQuery.of(context).size.width * 0.15,
                   decoration: BoxDecoration(
-                    boxShadow: ([
-                      global.lightShadow,
-                    ]),
+                    boxShadow: [global.lightShadow],
                     color: Theme.of(context).scaffoldBackgroundColor,
                     borderRadius: BorderRadius.circular(1000),
                   ),

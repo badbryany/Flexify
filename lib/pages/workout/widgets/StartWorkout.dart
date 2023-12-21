@@ -84,6 +84,7 @@ class _StartWorkoutState extends State<StartWorkout> {
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.surface,
             borderRadius: BorderRadius.circular(global.borderRadius),
+            boxShadow: [global.lightShadow],
           ),
           width:
               MediaQuery.of(context).size.width * global.containerWidthFactor,

@@ -32,6 +32,5 @@ exercisesPage
 
 setsPage
     -> sort statistics by (1 rep, x rep max)
-    -> show last 3 exercise dates + line divider + pr set with medal icon + previous pr with different color medal icon
-    -> empty circle for any other sets
+    -> pr set with medal icon + previous pr with different color medal icon
     -> infinite scroll + up button
