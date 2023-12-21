@@ -83,7 +83,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
             height: MediaQuery.of(context).size.width * 0.03,
           ),
           Container(
-            padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
+            padding: const EdgeInsets.all(15),
             width:
                 MediaQuery.of(context).size.width * global.containerWidthFactor,
             decoration: BoxDecoration(
@@ -93,8 +93,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                   Theme.of(context).colorScheme.onPrimary,
                 ],
               ),
-              borderRadius: BorderRadius.circular(
-                  MediaQuery.of(context).size.width * 0.03),
+              borderRadius: BorderRadius.circular(global.borderRadius),
               boxShadow: const [
                 BoxShadow(
                   color: Color.fromARGB(133, 158, 158, 158),
@@ -105,28 +104,22 @@ class _ExerciseSetsState extends State<ExerciseSets> {
               ],
             ),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.1,
-                ),
                 Text(
-                  'date:   ${dateString(setList.first.date).toLowerCase()}',
+                  'date:   ${dateString(setList.first.date)}',
                   style: TextStyle(
                     color: Theme.of(context).focusColor,
-                    fontSize: MediaQuery.of(context).size.width * 0.03,
+                    fontSize: MediaQuery.of(context).size.width * 0.035,
                   ),
                 ),
-                const Expanded(child: SizedBox()),
                 Text(
                   'total sets:   ${setList.length}',
                   style: TextStyle(
                     color: Theme.of(context).focusColor,
-                    fontSize: MediaQuery.of(context).size.width * 0.03,
+                    fontSize: MediaQuery.of(context).size.width * 0.035,
                   ),
                 ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.1,
-                )
               ],
             ),
           ),
@@ -156,12 +149,11 @@ class _ExerciseSetsState extends State<ExerciseSets> {
             ),
           ).then((value) => getData()),
           child: Container(
-            padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.01),
+            padding: const EdgeInsets.all(15),
             width:
                 MediaQuery.of(context).size.width * global.containerWidthFactor,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(
-                  MediaQuery.of(context).size.width * 0.03),
+              borderRadius: BorderRadius.circular(global.borderRadius),
               color: Theme.of(context).scaffoldBackgroundColor,
               boxShadow: const [
                 BoxShadow(

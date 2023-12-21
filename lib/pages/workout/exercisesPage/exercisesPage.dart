@@ -1,7 +1,6 @@
 import 'package:flexify/pages/workout/exercisesPage/setsPage/addeditSetPage/addeditSetPage.dart';
 import 'package:flexify/pages/workout/exercisesPage/widgets/exerciseButton.dart';
-import 'package:flexify/pages/workout/exercisesPage/widgets/RecommendedExerciseButton.dart';
-import 'package:flexify/widgets/BounceElement.dart';
+import 'package:flexify/pages/workout/exercisesPage/widgets/Heading.dart';
 import 'package:flexify/widgets/SearchBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/exerciseModels.dart';
@@ -23,12 +22,16 @@ class ExercisesPage extends StatefulWidget {
 
 class _ExercisesPageState extends State<ExercisesPage> {
   List<Exercise> exercises = [];
-  List<Exercise> searchRecommendations = List.from(dummyExercises.gymExercises);
   List<Exercise> exerciseRecommendations =
       List.from(dummyExercises.dummyRecommendedExercises);
+
+  List<Exercise> searchRecommendations = List.from(dummyExercises.gymExercises);
+
   List<Set> sets = [];
+
   bool loadingDone = false;
   int _searchBarOpen = 0;
+
   final TextEditingController _controller = TextEditingController();
 
   getData() async {
@@ -167,132 +170,22 @@ class _ExercisesPageState extends State<ExercisesPage> {
                       duration: global.standardAnimationDuration,
                       child: Column(
                         children: [
-                          ...(loadingDone
-                              ? [
-                                  ...[const Text('Recommended Exercises')],
-                                  ...exerciseRecommendations.take(2).toList(),
-                                  ...[const Text('Current Workout')],
-                                  ...(exercises.reversed.toList())
-                                ].map(
-                                  (e) => e.runtimeType == Text
-                                      ? Column(
-                                          children: [
-                                            SizedBox(
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.03,
-                                            ),
-                                            Container(
-                                              padding: EdgeInsets.all(
-                                                  MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.01),
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  global.containerWidthFactor,
-                                              alignment: Alignment.center,
-                                              decoration: BoxDecoration(
-                                                  gradient: LinearGradient(
-                                                    colors: [
-                                                      Theme.of(context)
-                                                          .colorScheme
-                                                          .primary,
-                                                      Theme.of(context)
-                                                          .colorScheme
-                                                          .onPrimary,
-                                                    ],
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
-                                                              0.03),
-                                                  boxShadow: [
-                                                    global.darkShadow
-                                                  ]),
-                                              child: Text(
-                                                '  ${(e as Text).data}  ',
-                                                style: TextStyle(
-                                                  color: Theme.of(context)
-                                                      .focusColor,
-                                                  fontSize:
-                                                      MediaQuery.of(context)
-                                                              .size
-                                                              .width *
-                                                          0.03,
-                                                ),
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.03,
-                                            ),
-                                          ],
-                                        )
-                                      : e.runtimeType == Exercise
-                                          ? (exerciseRecommendations
-                                                  .map(
-                                                      (element) => element.name)
-                                                  .contains(
-                                                      (e as Exercise).name)
-                                              ? BounceElement(
-                                                  child: GestureDetector(
-                                                    onTap: () {
-                                                      exerciseRecommendations
-                                                          .remove(e);
-                                                      exercises.add(e);
-                                                      setState(() {});
-                                                    },
-                                                    child: Opacity(
-                                                      opacity: 0.7,
-                                                      child:
-                                                          RecommendedExerciseButton(
-                                                        exercise: e,
-                                                        sets: sets
-                                                            .where((element) =>
-                                                                element
-                                                                    .exerciseName ==
-                                                                e.name)
-                                                            .toList(),
-                                                        reload: () {
-                                                          getData();
-                                                        },
-                                                      ),
-                                                    ),
-                                                  ),
-                                                )
-                                              : ExerciseButton(
-                                                  exercise: e,
-                                                  sets: sets
-                                                      .where((element) =>
-                                                          element
-                                                              .exerciseName ==
-                                                          e.name)
-                                                      .toList(),
-                                                  reload: () {
-                                                    getData();
-                                                  },
-                                                ))
-                                          : Container(),
-                                )
-                              : [
-                                  Center(
-                                    child: SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.width *
-                                              0.1,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.1,
-                                      child: const CircularProgressIndicator(),
-                                    ),
-                                  )
-                                ]),
+                          const Heading(title: 'Recommended exercises'),
+                          ...exerciseRecommendations.map(
+                            (e) => ExerciseButton(
+                              exercise: e,
+                              reload: getData,
+                              sets: sets,
+                            ),
+                          ),
+                          const Heading(title: 'Other exercises'),
+                          ...exercises.map(
+                            (e) => ExerciseButton(
+                              exercise: e,
+                              reload: getData,
+                              sets: sets,
+                            ),
+                          ),
                         ],
                       ),
                     )

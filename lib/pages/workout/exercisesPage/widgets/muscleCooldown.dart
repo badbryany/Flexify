@@ -46,13 +46,14 @@ class MuscleCooldown extends StatelessWidget {
     // }
 
     if (recoverValue <= 0.5) {
-      recoverColor = Color.fromARGB(255, 251, (164 * recoverValue + 164).toInt(), 164);
+      recoverColor =
+          Color.fromARGB(255, 251, (164 * recoverValue + 164).toInt(), 164);
     }
 
     if (recoverValue > 0.5) {
-      recoverColor = Color.fromARGB(255, (-164 * recoverValue + 328).toInt() ,251, 164);
+      recoverColor =
+          Color.fromARGB(255, (-164 * recoverValue + 328).toInt(), 251, 164);
     }
-    
   }
 
   @override
@@ -62,7 +63,7 @@ class MuscleCooldown extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         Transform.scale(
-          scale: 2,
+          scale: 2.2,
           child: CircularProgressIndicator(
             value: recoverValue,
             color: recoverColor,
@@ -74,10 +75,11 @@ class MuscleCooldown extends StatelessWidget {
           ),
         ),
         Text(
-          '${(recoverValue*100).round()}%',
+          '${(recoverValue * 100).round()}%',
           style: TextStyle(
-              color: recoverColor,
-              fontSize: MediaQuery.of(context).size.width * 0.02),
+            color: recoverColor,
+            fontSize: MediaQuery.of(context).size.width * 0.03,
+          ),
         ),
       ],
     );

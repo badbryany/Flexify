@@ -175,7 +175,7 @@ class _ExerciseButtonState extends State<ExerciseButton> {
           child: Container(
             width:
                 MediaQuery.of(context).size.width * global.containerWidthFactor,
-            height: MediaQuery.of(context).size.width * 0.3,
+            height: MediaQuery.of(context).size.width * 0.34,
             padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.08),
             margin: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
             decoration: BoxDecoration(
@@ -204,7 +204,7 @@ class _ExerciseButtonState extends State<ExerciseButton> {
                         name,
                         style: TextStyle(
                           color: Theme.of(context).scaffoldBackgroundColor,
-                          fontSize: MediaQuery.of(context).size.width * 0.035,
+                          fontSize: MediaQuery.of(context).size.width * 0.045,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -215,9 +215,10 @@ class _ExerciseButtonState extends State<ExerciseButton> {
                         color: Theme.of(context)
                             .scaffoldBackgroundColor
                             .withOpacity(0.4),
-                        fontSize: MediaQuery.of(context).size.width * 0.02,
+                        fontSize: MediaQuery.of(context).size.width * 0.035,
                       ),
                     ),
+                    const SizedBox(height: 5),
                     // LAST TRAIN DATE
                     widget.sets.isNotEmpty
                         ? Text(
@@ -227,7 +228,7 @@ class _ExerciseButtonState extends State<ExerciseButton> {
                                   .scaffoldBackgroundColor
                                   .withOpacity(0.4),
                               fontSize:
-                                  MediaQuery.of(context).size.width * 0.02,
+                                  MediaQuery.of(context).size.width * 0.03,
                             ),
                           )
                         : const SizedBox(),
