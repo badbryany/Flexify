@@ -26,7 +26,7 @@ Genereal:
     -> Sync positions of navbar elements
 
 dashboardNavBar
-    -> Create focusColor logo for navbar prefix
+    -> Top left noti
     -> Create text logo for navbar infix 
     -> Create notification page layout
 
@@ -52,3 +52,7 @@ Profile ->
 Detected Trainingplan:
     -> Red Circle + Text
         (e.g)'2 Improvements can be made'
+
+Entry Page: 
+Kg/Lbs 
+Cm/in
