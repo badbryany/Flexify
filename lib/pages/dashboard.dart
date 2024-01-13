@@ -79,13 +79,13 @@ class _DashboardState extends State<Dashboard> {
                           color: Theme.of(context).colorScheme.background,
                         ),
                         child: Image.asset(
-                          'assets/img/logo.jpg',
+                          'assets/img/logo.png',
                           height: MediaQuery.of(context).size.width * imageSize,
                         ),
                       ),
                     ),
                     Text(
-                      'Flexify',
+                      'flexify',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontFamily: 'Sacramento',
@@ -93,32 +93,13 @@ class _DashboardState extends State<Dashboard> {
                         color: Theme.of(context).focusColor,
                       ),
                     ),
-                    Stack(
-                      children: [
-                        IconButton(
-                          onPressed: () {},
-                          iconSize: 30,
-                          icon: Icon(
-                            Icons.notifications_rounded,
-                            color: Theme.of(context).focusColor,
-                          ),
-                        ),
-                        Visibility(
-                          visible: true,
-                          child: Positioned(
-                            top: 15,
-                            right: 15,
-                            child: Container(
-                              width: 6,
-                              height: 6,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(100),
-                                color: const Color(0xff1564fd),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+                    IconButton(
+                      onPressed: () {},
+                      iconSize: 30,
+                      icon: Icon(
+                        Icons.more_horiz_rounded,
+                        color: Theme.of(context).focusColor,
+                      ),
                     ),
                   ],
                 ),
