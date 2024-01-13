@@ -126,7 +126,8 @@ class _ExercisesPageState extends State<ExercisesPage> {
         _controller.clear();
       },
       onSubmitted: (String exercise) {
-        setState(
+        print('---------- new exercise creat --------');
+        /* setState(
           () {
             Save.saveExercise(Exercise(
                 name: exercise,
@@ -134,8 +135,8 @@ class _ExercisesPageState extends State<ExercisesPage> {
                 affectedMuscle: 'Custom',
                 equipment: 'Custom'));
           },
-        );
-        widget.reload();
+        ); */
+        // widget.reload();
       },
       onToggle: (int open) {
         setState(() => _searchBarOpen = open);

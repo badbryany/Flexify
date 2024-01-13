@@ -1,3 +1,4 @@
+import 'package:flexify/pages/workout/exercisesPage/widgets/Heading.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:flexify/pages/workout/exercisesPage/setsPage/widgets/ExerciseStats.dart';
@@ -77,56 +78,9 @@ class _ExerciseSetsState extends State<ExerciseSets> {
     if (setList.isEmpty) return returnList;
 
     returnList.add(
-      Column(
-        children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.width * 0.03,
-          ),
-          Container(
-            padding: const EdgeInsets.all(15),
-            width:
-                MediaQuery.of(context).size.width * global.containerWidthFactor,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Theme.of(context).colorScheme.primary,
-                  Theme.of(context).colorScheme.onPrimary,
-                ],
-              ),
-              borderRadius: BorderRadius.circular(global.borderRadius),
-              boxShadow: const [
-                BoxShadow(
-                  color: Color.fromARGB(133, 158, 158, 158),
-                  spreadRadius: -10.0,
-                  blurRadius: 10.0,
-                  offset: Offset(0.0, 10.0),
-                )
-              ],
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text(
-                  'date:   ${dateString(setList.first.date)}',
-                  style: TextStyle(
-                    color: Theme.of(context).focusColor,
-                    fontSize: MediaQuery.of(context).size.width * 0.035,
-                  ),
-                ),
-                Text(
-                  'total sets:   ${setList.length}',
-                  style: TextStyle(
-                    color: Theme.of(context).focusColor,
-                    fontSize: MediaQuery.of(context).size.width * 0.035,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.width * 0.03,
-          ),
-        ],
+      Heading(
+        title:
+            'date: ${dateString(setList.first.date)}                       total sets: ${setList.length}',
       ),
     );
 
@@ -141,7 +95,6 @@ class _ExerciseSetsState extends State<ExerciseSets> {
             PageTransition(
               child: AddEditSet(
                 add: false,
-                exerciseExists: true,
                 set: setList[i],
                 exerciseName: widget.name,
               ),
@@ -149,71 +102,65 @@ class _ExerciseSetsState extends State<ExerciseSets> {
             ),
           ).then((value) => getData()),
           child: Container(
-            padding: const EdgeInsets.all(15),
+            padding: EdgeInsets.all(global.containerPadding - 10),
             width:
                 MediaQuery.of(context).size.width * global.containerWidthFactor,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(global.borderRadius),
-              color: Theme.of(context).scaffoldBackgroundColor,
-              boxShadow: const [
-                BoxShadow(
-                  color: Color.fromARGB(133, 211, 211, 211),
-                  spreadRadius: -10.0,
-                  blurRadius: 10.0,
-                  offset: Offset(0.0, 10.0),
-                ),
-              ],
+              borderRadius: BorderRadius.circular(global.borderRadius - 5),
+              color: Theme.of(context).colorScheme.background,
+              boxShadow: [global.darkShadow],
             ),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                // ICON
+                // WEIGHT
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    SvgPicture.asset(
-                      'assets/PR_previous.svg',
-                      width: MediaQuery.of(context).size.width * 0.1,
-                      height: MediaQuery.of(context).size.width * 0.1,
+                    Text(
+                      '${setList[i].weight}',
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.primary,
+                        fontSize: MediaQuery.of(context).size.width * 0.08,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-
-                    const SizedBox(width: 30),
-
-                    // WEIGHT + DATE
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          '${setList[i].weight}kg',
-                          style: TextStyle(
-                            color: Theme.of(context).focusColor,
-                            fontSize: MediaQuery.of(context).size.width * 0.045,
-                            fontWeight: FontWeight.bold,
-                          ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).size.height * 0.009,
+                      ),
+                      child: Text(
+                        'kg',
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary,
+                          fontSize: MediaQuery.of(context).size.width * 0.04,
+                          fontWeight: FontWeight.bold,
                         ),
-                        Text(
-                          '${dateString(setList[i].date)} at ${zeroBefore(setList[i].date.hour)}:${zeroBefore(sets[i].date.minute)}',
-                          style: TextStyle(
-                            color:
-                                Theme.of(context).focusColor.withOpacity(0.4),
-                            fontSize: MediaQuery.of(context).size.width * 0.035,
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                   ],
                 ),
-                const SizedBox(),
+
+                // DATE
+                Text(
+                  '${zeroBefore(setList[i].date.hour)}:${zeroBefore(sets[i].date.minute)}',
+                  style: TextStyle(
+                    color: Theme.of(context)
+                        .scaffoldBackgroundColor
+                        .withOpacity(0.6),
+                    fontSize: MediaQuery.of(context).size.width * 0.04,
+                  ),
+                ),
 
                 //REPS
                 Text(
                   'x${setList[i].reps}',
                   style: TextStyle(
-                    color: Theme.of(context).focusColor,
-                    fontSize: MediaQuery.of(context).size.width * 0.05,
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                    fontSize: MediaQuery.of(context).size.width * 0.06,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(),
               ],
             ),
           ),
@@ -308,7 +255,6 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                         child: AddEditSet(
                           add: true,
                           set: null,
-                          exerciseExists: true,
                           exerciseName: widget.name,
                         ),
                         type: PageTransitionType.fade,

@@ -25,7 +25,7 @@ class Heading extends StatelessWidget {
         title,
         textAlign: TextAlign.center,
         style: TextStyle(
-          fontSize: MediaQuery.of(context).size.width * 0.045,
+          fontSize: MediaQuery.of(context).size.width * 0.038,
         ),
       ),
     );

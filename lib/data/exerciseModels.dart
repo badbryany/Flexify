@@ -144,7 +144,7 @@ class Save {
     Database db = await getDatabase();
 
     await db.rawUpdate(
-      'UPDATE sets SET reps=${set.reps}, weight=${set.weight} WHERE sets.setID=${set.setID}',
+      'UPDATE sets SET reps=${set.reps}, weight=${set.weight} WHERE sets.s_id=${set.setID}',
     );
   }
 }

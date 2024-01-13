@@ -41,7 +41,6 @@ class SetInput extends StatelessWidget {
     bool continueCount = true;
     return BounceElement(
       child: GestureDetector(
-        onTap: onTap,
         onTapDown: (details) async {
           continueCount = true;
           while (continueCount) {
@@ -79,7 +78,7 @@ class SetInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
-      padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.025),
+      padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.018),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(global.borderRadius),
         color: Theme.of(context).colorScheme.background,
@@ -110,8 +109,8 @@ class SetInput extends StatelessWidget {
                 '-',
               ),
               SizedBox(
-                width: MediaQuery.of(context).size.width * 0.3,
-                height: MediaQuery.of(context).size.height * 0.1,
+                width: MediaQuery.of(context).size.width * 0.35,
+                // height: MediaQuery.of(context).size.height * 0.1,
                 child: TextFormField(
                   style: TextStyle(
                     fontSize: 60,

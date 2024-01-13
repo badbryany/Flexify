@@ -7,14 +7,12 @@ class AddEditSet extends StatefulWidget {
   const AddEditSet({
     super.key,
     required this.exerciseName,
-    required this.exerciseExists,
     required this.add,
     required this.set,
   });
 
   final String exerciseName;
   final bool add;
-  final bool exerciseExists;
   final Set? set;
 
   @override
@@ -136,41 +134,31 @@ class _AddEditSetState extends State<AddEditSet> {
                         splashColor: Colors.transparent,
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
-                        onPressed: widget.add
-                            ? () async {
-                                await Save.saveSet(
-                                  Set(
-                                    date: DateTime.now(),
-                                    exerciseName: widget.exerciseName,
-                                    reps: int.parse(repsController.text),
-                                    weight:
-                                        double.tryParse(weightController.text)!,
-                                  ),
-                                );
-                                if (!widget.exerciseExists) {
-                                  await Save.saveExercise(
-                                    Exercise(
-                                        name: widget.exerciseName,
-                                        type: 'TEST',
-                                        affectedMuscle: 'TEST',
-                                        equipment: 'TEST'),
-                                  );
-                                }
-                                Navigator.pop(context);
-                                setState(() {});
-                              }
-                            : () async {
-                                await Save.editSet(
-                                  Set(
-                                    setID: widget.set!.setID,
-                                    date: widget.set!.date,
-                                    exerciseName: widget.set!.exerciseName,
-                                    reps: newReps,
-                                    weight: newWeight,
-                                  ),
-                                );
-                                Navigator.pop(context);
-                              },
+                        onPressed: () async {
+                          if (widget.add) {
+                            await Save.saveSet(
+                              Set(
+                                date: DateTime.now(),
+                                exerciseName: widget.exerciseName,
+                                reps: int.parse(repsController.text),
+                                weight: double.tryParse(weightController.text)!,
+                              ),
+                            );
+                          } else {
+                            await Save.editSet(
+                              Set(
+                                setID: widget.set!.setID,
+                                date: widget.set!.date,
+                                exerciseName: widget.set!.exerciseName,
+                                reps: newReps,
+                                weight: newWeight,
+                              ),
+                            );
+                          }
+                          // ignore: use_build_context_synchronously
+                          Navigator.pop(context);
+                          setState(() {});
+                        },
                         color: Theme.of(context).focusColor,
                         icon: const Icon(Icons.check),
                         iconSize: MediaQuery.of(context).size.width * 0.05,

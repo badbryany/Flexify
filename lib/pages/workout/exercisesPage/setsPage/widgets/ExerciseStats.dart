@@ -137,33 +137,31 @@ class _ExerciseStatsState extends State<ExerciseStats> {
                               fontSize:
                                   MediaQuery.of(context).size.width * 0.03),
                         ),
-                        // Container(
-                        //   alignment: Alignment.center,
-                        //   width: MediaQuery.of(context).size.width * 0.1,
-                        //   height: MediaQuery.of(context).size.width * 0.1,
-                        //   padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.01),
-                        //   decoration: BoxDecoration(
-                        //     color: Theme.of(context).colorScheme.background,
-                        //     borderRadius: BorderRadius.circular(MediaQuery.of(context).size.width * 0.1),
-                        //     gradient: LinearGradient(
-                        //       colors: [
-                        //         Theme.of(context).colorScheme.primary,
-                        //         Theme.of(context).colorScheme.onPrimary,
-                        //       ],
-                        //     ),
-                        //   ),
-                        //   child: Icon(
-                        //     Icons.fitness_center_rounded,
-                        //     color: Theme.of(context).focusColor,
-                        //     size: MediaQuery.of(context).size.width * 0.03,
-                        //   ),
-                        // ),
-                        Text(
-                          ' - ',
-                          style: TextStyle(
-                              color: Theme.of(context).scaffoldBackgroundColor,
+                        Container(
+                          alignment: Alignment.center,
+                          width: MediaQuery.of(context).size.width * 0.1,
+                          height: MediaQuery.of(context).size.width * 0.1,
+                          padding: EdgeInsets.all(
+                              MediaQuery.of(context).size.width * 0.01),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.background,
+                            borderRadius: BorderRadius.circular(
+                                MediaQuery.of(context).size.width * 0.1),
+                            gradient: LinearGradient(
+                              colors: [
+                                Theme.of(context).colorScheme.primary,
+                                Theme.of(context).colorScheme.onPrimary,
+                              ],
+                            ),
+                          ),
+                          child: Text(
+                            ' - ',
+                            style: TextStyle(
+                              color: Theme.of(context).focusColor,
                               fontSize:
-                                  MediaQuery.of(context).size.width * 0.05),
+                                  MediaQuery.of(context).size.width * 0.05,
+                            ),
+                          ),
                         ),
                         Text(
                           dateString(widget.sets.last.date),
