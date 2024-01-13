@@ -195,6 +195,7 @@ class _ExerciseButtonState extends State<ExerciseButton> {
                       width: MediaQuery.of(context).size.width * 0.55,
                       child: Text(
                         name,
+                        maxLines: 1,
                         style: TextStyle(
                           color: Theme.of(context).scaffoldBackgroundColor,
                           fontSize: MediaQuery.of(context).size.width * 0.05,

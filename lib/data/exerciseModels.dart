@@ -112,7 +112,8 @@ class Save {
 
   static Future<void> saveExercise(Exercise exercise) async {
     Database db = await getDatabase();
-    await db.insert('exercises', exercise.toJson(), conflictAlgorithm: ConflictAlgorithm.rollback);
+    await db.insert('exercises', exercise.toJson(),
+        conflictAlgorithm: ConflictAlgorithm.rollback);
   }
 
   static Future<void> deleteExercise(Exercise exercise) async {
