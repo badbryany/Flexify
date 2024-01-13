@@ -26,9 +26,6 @@ class _BounceElementState extends State<BounceElement> {
           scale = 0.98;
         }),
         onTapUp: (value) async => setState(() async {
-          // if (scale == 0.98) {
-          //   await Future.delayed(Duration(milliseconds: duration - 20));
-          // }
           scale = 1.02;
           Future.delayed(
             Duration(milliseconds: duration),

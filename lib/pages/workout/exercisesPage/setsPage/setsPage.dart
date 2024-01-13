@@ -244,13 +244,14 @@ class _ExerciseSetsState extends State<ExerciseSets> {
             alignment: Alignment.center,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
                   alignment: Alignment.center,
                   padding:
                       EdgeInsets.all(MediaQuery.of(context).size.width * 0.005),
-                  width: MediaQuery.of(context).size.width * 0.15,
-                  height: MediaQuery.of(context).size.width * 0.15,
+                  width: MediaQuery.of(context).size.width * 0.14,
+                  height: MediaQuery.of(context).size.width * 0.14,
                   decoration: BoxDecoration(
                     boxShadow: ([
                       global.lightShadow,
@@ -280,16 +281,18 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                     widget.name,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        color: Theme.of(context).focusColor,
-                        fontSize: MediaQuery.of(context).size.width * 0.05),
+                      color: Theme.of(context).focusColor,
+                      fontSize: MediaQuery.of(context).size.width * 0.06,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
                 Container(
                   alignment: Alignment.center,
                   padding:
                       EdgeInsets.all(MediaQuery.of(context).size.width * 0.005),
-                  width: MediaQuery.of(context).size.width * 0.15,
-                  height: MediaQuery.of(context).size.width * 0.15,
+                  width: MediaQuery.of(context).size.width * 0.14,
+                  height: MediaQuery.of(context).size.width * 0.14,
                   decoration: BoxDecoration(
                     boxShadow: [global.lightShadow],
                     color: Theme.of(context).scaffoldBackgroundColor,
@@ -330,9 +333,11 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                       padding: EdgeInsets.only(
                         right: MediaQuery.of(context).size.width * 0.1,
                       ),
-                      child: SvgPicture.asset('assets/Squiggly Arrow.svg',
-                          width: MediaQuery.of(context).size.width * 0.8,
-                          height: MediaQuery.of(context).size.width * 0.6),
+                      child: SvgPicture.asset(
+                        'assets/Squiggly Arrow.svg',
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        height: MediaQuery.of(context).size.width * 0.6,
+                      ),
                     ),
                   ],
                 ),

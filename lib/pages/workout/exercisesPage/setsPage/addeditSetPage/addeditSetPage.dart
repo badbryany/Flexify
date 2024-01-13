@@ -76,118 +76,110 @@ class _AddEditSetState extends State<AddEditSet> {
               SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * (1 - 0.88),
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 15.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.14,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      alignment: Alignment.center,
+                      padding: EdgeInsets.all(
+                          MediaQuery.of(context).size.width * 0.005),
+                      width: MediaQuery.of(context).size.width * 0.14,
+                      height: MediaQuery.of(context).size.width * 0.14,
+                      decoration: BoxDecoration(
+                        boxShadow: ([
+                          global.lightShadow,
+                        ]),
+                        color: Theme.of(context).scaffoldBackgroundColor,
+                        borderRadius: BorderRadius.circular(1000),
                       ),
-                      Container(
-                        alignment: Alignment.center,
-                        padding: EdgeInsets.all(
-                            MediaQuery.of(context).size.width * 0.005),
-                        width: MediaQuery.of(context).size.width * 0.15,
-                        height: MediaQuery.of(context).size.width * 0.15,
-                        decoration: BoxDecoration(
-                          boxShadow: ([
-                            global.lightShadow,
-                          ]),
-                          color: Theme.of(context).scaffoldBackgroundColor,
-                          borderRadius: BorderRadius.circular(1000),
-                        ),
-                        child: IconButton(
-                          splashColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
+                      child: IconButton(
+                        splashColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        color: Theme.of(context).focusColor,
+                        icon: const Icon(Icons.arrow_back_rounded),
+                        iconSize: MediaQuery.of(context).size.width * 0.05,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                        left: MediaQuery.of(context).size.width * 0.13,
+                        right: MediaQuery.of(context).size.width * 0.13,
+                        top: 10,
+                      ),
+                      child: Text(
+                        widget.add ? 'Add Set' : 'Edit Set',
+                        style: TextStyle(
                           color: Theme.of(context).focusColor,
-                          icon: const Icon(Icons.arrow_back_rounded),
-                          iconSize: MediaQuery.of(context).size.width * 0.05,
+                          fontSize: MediaQuery.of(context).size.width * 0.06,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                          left: MediaQuery.of(context).size.width * 0.075,
-                          right: MediaQuery.of(context).size.width * 0.075,
-                          top: 10,
-                        ),
-                        child: Text(
-                          widget.add ? 'Add Set' : 'Edit Set',
-                          style: TextStyle(
-                            color: Theme.of(context).focusColor,
-                            fontWeight: FontWeight.bold,
-                            fontSize: MediaQuery.of(context).size.width * 0.053,
-                          ),
-                        ),
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      padding: EdgeInsets.all(
+                          MediaQuery.of(context).size.width * 0.005),
+                      width: MediaQuery.of(context).size.width * 0.14,
+                      height: MediaQuery.of(context).size.width * 0.14,
+                      decoration: BoxDecoration(
+                        boxShadow: ([
+                          global.lightShadow,
+                        ]),
+                        color: Theme.of(context).scaffoldBackgroundColor,
+                        borderRadius: BorderRadius.circular(1000),
                       ),
-                      Container(
-                        alignment: Alignment.center,
-                        padding: EdgeInsets.all(
-                            MediaQuery.of(context).size.width * 0.005),
-                        width: MediaQuery.of(context).size.width * 0.15,
-                        height: MediaQuery.of(context).size.width * 0.15,
-                        decoration: BoxDecoration(
-                          boxShadow: ([
-                            global.lightShadow,
-                          ]),
-                          color: Theme.of(context).scaffoldBackgroundColor,
-                          borderRadius: BorderRadius.circular(1000),
-                        ),
-                        child: IconButton(
-                          splashColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          onPressed: widget.add
-                              ? () async {
-                                  await Save.saveSet(
-                                    Set(
-                                      date: DateTime.now(),
-                                      exerciseName: widget.exerciseName,
-                                      reps: int.parse(repsController.text),
-                                      weight: double.tryParse(
-                                          weightController.text)!,
-                                    ),
+                      child: IconButton(
+                        splashColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onPressed: widget.add
+                            ? () async {
+                                await Save.saveSet(
+                                  Set(
+                                    date: DateTime.now(),
+                                    exerciseName: widget.exerciseName,
+                                    reps: int.parse(repsController.text),
+                                    weight:
+                                        double.tryParse(weightController.text)!,
+                                  ),
+                                );
+                                if (!widget.exerciseExists) {
+                                  await Save.saveExercise(
+                                    Exercise(
+                                        name: widget.exerciseName,
+                                        type: 'TEST',
+                                        affectedMuscle: 'TEST',
+                                        equipment: 'TEST'),
                                   );
-                                  if (!widget.exerciseExists) {
-                                    await Save.saveExercise(
-                                      Exercise(
-                                          name: widget.exerciseName,
-                                          type: 'TEST',
-                                          affectedMuscle: 'TEST',
-                                          equipment: 'TEST'),
-                                    );
-                                  }
-                                  Navigator.pop(context);
-                                  setState(() {});
                                 }
-                              : () async {
-                                  await Save.editSet(
-                                    Set(
-                                      setID: widget.set!.setID,
-                                      date: widget.set!.date,
-                                      exerciseName: widget.set!.exerciseName,
-                                      reps: newReps,
-                                      weight: newWeight,
-                                    ),
-                                  );
-                                  Navigator.pop(context);
-                                },
-                          color: Theme.of(context).focusColor,
-                          icon: const Icon(Icons.check),
-                          iconSize: MediaQuery.of(context).size.width * 0.05,
-                        ),
+                                Navigator.pop(context);
+                                setState(() {});
+                              }
+                            : () async {
+                                await Save.editSet(
+                                  Set(
+                                    setID: widget.set!.setID,
+                                    date: widget.set!.date,
+                                    exerciseName: widget.set!.exerciseName,
+                                    reps: newReps,
+                                    weight: newWeight,
+                                  ),
+                                );
+                                Navigator.pop(context);
+                              },
+                        color: Theme.of(context).focusColor,
+                        icon: const Icon(Icons.check),
+                        iconSize: MediaQuery.of(context).size.width * 0.05,
                       ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.14,
-                      )
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.05),
               Column(
                 children: [
                   SetInput(
@@ -195,13 +187,11 @@ class _AddEditSetState extends State<AddEditSet> {
                     controller: repsController,
                     calcInterval: 1,
                   ),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.1),
-                  Container(
-                    child: SetInput(
-                      title: 'weight',
-                      controller: weightController,
-                      calcInterval: 2.5,
-                    ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+                  SetInput(
+                    title: 'weight',
+                    controller: weightController,
+                    calcInterval: 2.5,
                   ),
                 ],
               ),

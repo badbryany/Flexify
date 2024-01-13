@@ -1,14 +1,10 @@
 import 'dart:convert';
-
-import 'package:flexify/pages/workout/exercisesPage/setsPage/addeditSetPage/addeditSetPage.dart';
 import 'package:flexify/widgets/BounceElement.dart';
 import 'package:flexify/pages/workout/exercisesPage/widgets/exerciseButton.dart';
-import 'package:flexify/pages/workout/exercisesPage/widgets/Heading.dart';
 import 'package:flexify/widgets/SearchBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/exerciseModels.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
-import 'package:page_transition/page_transition.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:http/http.dart' as http;
