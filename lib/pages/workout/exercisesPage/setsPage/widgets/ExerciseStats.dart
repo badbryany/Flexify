@@ -18,6 +18,13 @@ class ExerciseStats extends StatefulWidget {
 }
 
 class _ExerciseStatsState extends State<ExerciseStats> {
+  String statsValueTag = 'weight';
+  List<String> statsValueTags = [
+    'weight',
+    'reps',
+    'weight / reps',
+    'weight * reps'
+  ];
   List<FlSpot> spots = [];
   double maxX = 0;
   double maxY = 0;
@@ -29,7 +36,22 @@ class _ExerciseStatsState extends State<ExerciseStats> {
 
     for (int i = 0; i < widget.sets.length; i++) {
       if (widget.sets[i].exerciseName == widget.exerciseName) {
-        double y = widget.sets[i].weight / widget.sets[i].reps;
+        double y = 0;
+
+        switch (statsValueTag) {
+          case 'weight':
+            y = widget.sets[i].weight;
+            break;
+          case 'reps':
+            y = widget.sets[i].reps.toDouble();
+            break;
+          case 'weight / reps':
+            y = widget.sets[i].weight / widget.sets[i].reps;
+            break;
+          case 'weight * reps':
+            y = widget.sets[i].weight * widget.sets[i].reps;
+            break;
+        }
 
         spots.add(FlSpot(i.toDouble(), y));
 
@@ -193,7 +215,52 @@ class _ExerciseStatsState extends State<ExerciseStats> {
                               ),
                             ),
                           )
-                        : Statistics(maxX: maxX, maxY: maxY, spots: spots))),
+                        : Statistics(
+                            maxX: maxX,
+                            maxY: maxY,
+                            spots: spots,
+                            tag: statsValueTag,
+                          ))),
+                const SizedBox(height: 15),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text(
+                      'choose your Stats:',
+                      style: TextStyle(
+                        color: Theme.of(context).scaffoldBackgroundColor,
+                      ),
+                    ),
+                    const SizedBox(),
+                    DropdownButton(
+                      value: statsValueTag,
+                      items: [
+                        ...statsValueTags.map(
+                          (e) => DropdownMenuItem(
+                            value: e,
+                            child: Text(e),
+                          ),
+                        )
+                      ],
+                      style: TextStyle(
+                        color: Theme.of(context).scaffoldBackgroundColor,
+                        fontFamily: 'JosefinSans',
+                      ),
+                      borderRadius:
+                          BorderRadius.circular(global.borderRadius - 15),
+                      dropdownColor: Theme.of(context).colorScheme.background,
+                      iconEnabledColor:
+                          Theme.of(context).scaffoldBackgroundColor,
+                      underline: const SizedBox(),
+                      onChanged: (String? value) {
+                        if (value is String) {
+                          statsValueTag = value;
+                          setState(() {});
+                        }
+                      },
+                    )
+                  ],
+                ),
               ],
             ),
           ),
@@ -209,11 +276,13 @@ class Statistics extends StatelessWidget {
     required this.maxX,
     required this.maxY,
     required this.spots,
+    required this.tag,
   });
 
   final double maxX;
   final double maxY;
   final List<FlSpot> spots;
+  final String tag;
 
   @override
   Widget build(BuildContext context) {
@@ -247,7 +316,7 @@ class Statistics extends StatelessWidget {
               axisNameWidget: Padding(
                 padding: const EdgeInsets.only(bottom: 0),
                 child: Text(
-                  'weight / rep',
+                  tag,
                   style: TextStyle(
                     fontSize: 10,
                     color: Theme.of(context).scaffoldBackgroundColor,
@@ -293,7 +362,8 @@ class Statistics extends StatelessWidget {
             ),
           ],
         ),
-        duration: const Duration(seconds: 1),
+        duration: global.standardAnimationDuration,
+        curve: Curves.linear,
       ),
     );
   }
