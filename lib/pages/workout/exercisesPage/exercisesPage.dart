@@ -58,6 +58,13 @@ class _ExercisesPageState extends State<ExercisesPage> {
   }
 
   searchForExercises() async {
+    print('---------------------- search start --------------------------');
+    print('---------------------- search start --------------------------');
+    print('---------------------- search start --------------------------');
+    print('---------------------- search start --------------------------');
+    print('');
+    print('');
+    print('');
     loadingDone = false;
     setState(() {});
 
@@ -149,268 +156,287 @@ class _ExercisesPageState extends State<ExercisesPage> {
     );
     return Scaffold(
       body: SafeArea(
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          child: ListView(
-            physics: const BouncingScrollPhysics(),
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * (1 - 0.88),
-                padding: _searchBarOpen == 1
-                    ? EdgeInsets.only(
-                        right: MediaQuery.of(context).size.width * 0.04,
-                      )
-                    : const EdgeInsets.all(0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Visibility(
-                      visible: _searchBarOpen == 0,
-                      child: AnimatedContainer(
-                        duration: global.standardAnimationDuration,
-                        alignment: Alignment.center,
-                        padding: EdgeInsets.all(
-                            MediaQuery.of(context).size.width * 0.005),
-                        width: MediaQuery.of(context).size.width * 0.15,
-                        height: MediaQuery.of(context).size.width * 0.15,
-                        decoration: BoxDecoration(
-                          boxShadow: ([
-                            global.lightShadow,
-                          ]),
-                          color: Theme.of(context).scaffoldBackgroundColor,
-                          borderRadius: BorderRadius.circular(1000),
-                        ),
-                        child: IconButton(
-                          splashColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          onPressed: () {
-                            widget.reload();
-                            Navigator.pop(context);
-                          },
-                          color: Theme.of(context).focusColor,
-                          icon: const Icon(Icons.arrow_back_rounded),
-                          iconSize: MediaQuery.of(context).size.width * 0.05,
-                        ),
-                      ),
-                    ),
-                    AnimatedContainer(
-                      duration: global.standardAnimationDuration,
-                      width: MediaQuery.of(context).size.width *
-                          0.4 *
-                          (_searchBarOpen == 0 ? 1 : 0),
-                      padding: const EdgeInsets.only(top: 10),
-                      child: AnimatedOpacity(
-                        duration: global.standardAnimationDuration,
-                        opacity: _searchBarOpen == 0 ? 1 : 0,
-                        child: Text(
-                          'Workout',
-                          maxLines: 1,
-                          style: TextStyle(
+        child: PopScope(
+          canPop: _searchBarOpen == 0,
+          /* onPopInvoked: (foo) {
+            if (!foo) {
+              _searchBarOpen = 0;
+              setState(() {});
+            }
+          }, */
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: ListView(
+              physics: const BouncingScrollPhysics(),
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * (1 - 0.88),
+                  padding: _searchBarOpen == 1
+                      ? EdgeInsets.only(
+                          right: MediaQuery.of(context).size.width * 0.04,
+                        )
+                      : const EdgeInsets.all(0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Visibility(
+                        visible: _searchBarOpen == 0,
+                        child: AnimatedContainer(
+                          duration: global.standardAnimationDuration,
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.all(
+                              MediaQuery.of(context).size.width * 0.005),
+                          width: MediaQuery.of(context).size.width * 0.15,
+                          height: MediaQuery.of(context).size.width * 0.15,
+                          decoration: BoxDecoration(
+                            boxShadow: ([
+                              global.lightShadow,
+                            ]),
+                            color: Theme.of(context).scaffoldBackgroundColor,
+                            borderRadius: BorderRadius.circular(1000),
+                          ),
+                          child: IconButton(
+                            splashColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onPressed: () {
+                              widget.reload();
+                              Navigator.pop(context);
+                            },
                             color: Theme.of(context).focusColor,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: -1,
-                            fontSize: MediaQuery.of(context).size.width * 0.1,
+                            icon: const Icon(Icons.arrow_back_rounded),
+                            iconSize: MediaQuery.of(context).size.width * 0.05,
                           ),
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(7.5),
-                      child: animSearchBar,
-                    ),
-                  ],
+                      AnimatedContainer(
+                        duration: global.standardAnimationDuration,
+                        width: MediaQuery.of(context).size.width *
+                            0.4 *
+                            (_searchBarOpen == 0 ? 1 : 0),
+                        padding: const EdgeInsets.only(top: 10),
+                        child: AnimatedOpacity(
+                          duration: global.standardAnimationDuration,
+                          opacity: _searchBarOpen == 0 ? 1 : 0,
+                          child: Text(
+                            'Workout',
+                            maxLines: 1,
+                            style: TextStyle(
+                              color: Theme.of(context).focusColor,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: -1,
+                              fontSize: MediaQuery.of(context).size.width * 0.1,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(7.5),
+                        child: animSearchBar,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              AnimatedSwitcher(
-                duration: Duration(seconds: 3),
-                key: ValueKey(_searchBarOpen),
-                transitionBuilder: (child, animation) => ScaleTransition(
-                  scale: animation,
-                  child: child,
-                ),
-                child: _searchBarOpen == 0
-                    ? Column(
-                        key: ValueKey(_searchBarOpen),
-                        children: [
-                          ...(exercises.isEmpty
-                              ? [
-                                  Column(
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                          right: MediaQuery.of(context)
+                AnimatedSwitcher(
+                  duration: Duration(seconds: 3),
+                  key: ValueKey(_searchBarOpen),
+                  transitionBuilder: (child, animation) => ScaleTransition(
+                    scale: animation,
+                    child: child,
+                  ),
+                  child: _searchBarOpen == 0
+                      ? Column(
+                          key: ValueKey(_searchBarOpen),
+                          children: [
+                            ...(exercises.isEmpty
+                                ? [
+                                    Column(
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                            right: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.1,
+                                          ),
+                                          child: SvgPicture.asset(
+                                              'assets/Squiggly Arrow.svg',
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.8,
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.6),
+                                        ),
+                                      ],
+                                    ),
+                                    Center(
+                                      child: Text(
+                                        'Click  \'+\'  to add an exercise!  :)',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: MediaQuery.of(context)
                                                   .size
                                                   .width *
-                                              0.1,
+                                              0.04,
                                         ),
-                                        child: SvgPicture.asset(
-                                            'assets/Squiggly Arrow.svg',
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.8,
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.6),
                                       ),
-                                    ],
-                                  ),
-                                  Center(
-                                    child: Text(
-                                      'Click  \'+\'  to add an exercise!  :)',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize:
-                                            MediaQuery.of(context).size.width *
-                                                0.04,
+                                    )
+                                  ]
+                                : [
+                                    ...exercises.map(
+                                      (e) => ExerciseButton(
+                                        exercise: e,
+                                        reload: getData,
+                                        sets: sets
+                                            .where(
+                                              (element) =>
+                                                  element.exerciseName ==
+                                                  e.name,
+                                            )
+                                            .toList(),
                                       ),
-                                    ),
-                                  )
-                                ]
-                              : [
-                                  ...exercises.map(
-                                    (e) => ExerciseButton(
-                                      exercise: e,
-                                      reload: getData,
-                                      sets: sets,
-                                    ),
-                                  )
-                                ]),
-                        ],
-                      )
-                    : Column(
-                        key: ValueKey(_searchBarOpen),
-                        children: [
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width *
-                                global.containerWidthFactor,
-                            height: MediaQuery.of(context).size.height *
-                                (!loadingDone ? 0.1 : 0.9),
-                            child: !loadingDone
-                                ? const Center(
-                                    child: CircularProgressIndicator())
-                                : !connectedToInternet
-                                    ? const Center(child: Text('no connection'))
-                                    : Scrollbar(
-                                        radius: const Radius.circular(100),
-                                        child: ListView(
-                                          shrinkWrap: true,
-                                          physics:
-                                              const BouncingScrollPhysics(),
-                                          children: [
-                                            Text(
-                                              '${searchExercises.length} Ergebnisse (0.${loadingSpeed.inMilliseconds.toString().substring(1)[0]} Sekunden)',
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                color: Theme.of(context)
-                                                    .focusColor
-                                                    .withOpacity(0.3),
+                                    )
+                                  ]),
+                          ],
+                        )
+                      : Column(
+                          key: ValueKey(_searchBarOpen),
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width *
+                                  global.containerWidthFactor,
+                              height: MediaQuery.of(context).size.height *
+                                  (!loadingDone ? 0.1 : 0.845),
+                              child: !loadingDone
+                                  ? const Center(
+                                      child: CircularProgressIndicator())
+                                  : !connectedToInternet
+                                      ? const Center(
+                                          child: Text('no connection'))
+                                      : Scrollbar(
+                                          radius: const Radius.circular(100),
+                                          child: ListView(
+                                            shrinkWrap: true,
+                                            physics:
+                                                const BouncingScrollPhysics(),
+                                            children: [
+                                              Text(
+                                                '${searchExercises.length} Ergebnisse (0.${loadingSpeed.inMilliseconds.toString().substring(1)[0]} Sekunden)',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  color: Theme.of(context)
+                                                      .focusColor
+                                                      .withOpacity(0.3),
+                                                ),
                                               ),
-                                            ),
-                                            ...searchExercises
-                                                .map((e) => BounceElement(
-                                                      child: GestureDetector(
-                                                        onTap: () async {
-                                                          Save.saveExercise(
-                                                              e['exercise']);
-                                                          e['added'] = true;
-                                                          setState(() {});
-                                                        },
-                                                        child: Container(
-                                                          padding: EdgeInsets
-                                                              .all(global
-                                                                  .containerPadding),
-                                                          margin:
-                                                              const EdgeInsets
-                                                                  .all(7.5),
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            boxShadow: [
-                                                              global.darkShadow
-                                                            ],
-                                                            borderRadius: BorderRadius
-                                                                .circular(global
-                                                                    .borderRadius),
-                                                            color: Theme.of(
-                                                                    context)
-                                                                .colorScheme
-                                                                .background,
-                                                          ),
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .center,
-                                                            children: [
-                                                              SizedBox(
-                                                                width: MediaQuery.of(
-                                                                            context)
-                                                                        .size
-                                                                        .width *
-                                                                    0.65,
-                                                                child: Text(
-                                                                  e['exercise']
-                                                                      .name,
-                                                                  style:
-                                                                      TextStyle(
-                                                                    color: Theme.of(
-                                                                            context)
-                                                                        .scaffoldBackgroundColor,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
-                                                                    fontSize: MediaQuery.of(context)
-                                                                            .size
-                                                                            .width *
-                                                                        0.045,
+                                              ...searchExercises
+                                                  .map((e) => BounceElement(
+                                                        child: GestureDetector(
+                                                          onTap: () async {
+                                                            Save.saveExercise(
+                                                                e['exercise']);
+                                                            e['added'] = true;
+                                                            setState(() {});
+                                                          },
+                                                          child: Container(
+                                                            padding: EdgeInsets
+                                                                .all(global
+                                                                    .containerPadding),
+                                                            margin:
+                                                                const EdgeInsets
+                                                                    .all(7.5),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              boxShadow: [
+                                                                global
+                                                                    .darkShadow
+                                                              ],
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          global
+                                                                              .borderRadius),
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .colorScheme
+                                                                  .background,
+                                                            ),
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                SizedBox(
+                                                                  width: MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .width *
+                                                                      0.65,
+                                                                  child: Text(
+                                                                    e['exercise']
+                                                                        .name,
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: Theme.of(
+                                                                              context)
+                                                                          .scaffoldBackgroundColor,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      fontSize: MediaQuery.of(context)
+                                                                              .size
+                                                                              .width *
+                                                                          0.045,
+                                                                    ),
                                                                   ),
                                                                 ),
-                                                              ),
-                                                              AnimatedSwitcher(
-                                                                duration: global
-                                                                    .standardAnimationDuration,
-                                                                transitionBuilder:
-                                                                    (child, animation) =>
-                                                                        RotationTransition(
-                                                                  turns:
-                                                                      animation,
-                                                                  child: child,
+                                                                AnimatedSwitcher(
+                                                                  duration: global
+                                                                      .standardAnimationDuration,
+                                                                  transitionBuilder:
+                                                                      (child, animation) =>
+                                                                          RotationTransition(
+                                                                    turns:
+                                                                        animation,
+                                                                    child:
+                                                                        child,
+                                                                  ),
+                                                                  key: ValueKey(
+                                                                      '${e['added']}${e['exercise'].name}'),
+                                                                  child:
+                                                                      e['added']
+                                                                          ? Icon(
+                                                                              Icons.check_rounded,
+                                                                              color: Theme.of(context).colorScheme.primary,
+                                                                            )
+                                                                          : Icon(
+                                                                              Icons.add_rounded,
+                                                                              color: Theme.of(context).scaffoldBackgroundColor,
+                                                                            ),
                                                                 ),
-                                                                key: ValueKey(
-                                                                    '${e['added']}${e['exercise'].name}'),
-                                                                child:
-                                                                    e['added']
-                                                                        ? Icon(
-                                                                            Icons.check_rounded,
-                                                                            color:
-                                                                                Theme.of(context).colorScheme.primary,
-                                                                          )
-                                                                        : Icon(
-                                                                            Icons.add_rounded,
-                                                                            color:
-                                                                                Theme.of(context).scaffoldBackgroundColor,
-                                                                          ),
-                                                              ),
-                                                            ],
+                                                              ],
+                                                            ),
                                                           ),
                                                         ),
-                                                      ),
-                                                    ))
-                                                .toList()
-                                          ],
+                                                      ))
+                                                  .toList()
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                          ),
-                        ],
-                      ),
-              ),
-            ],
+                            ),
+                          ],
+                        ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

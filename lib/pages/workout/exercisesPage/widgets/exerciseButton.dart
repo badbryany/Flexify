@@ -236,12 +236,7 @@ class _ExerciseButtonState extends State<ExerciseButton> {
                       width: MediaQuery.of(context).size.width * 0.08,
                       height: MediaQuery.of(context).size.width * 0.08,
                       child: MuscleCooldown(
-                        sets: widget.sets
-                            .where(
-                              (element) =>
-                                  element.exerciseName == widget.exercise.name,
-                            )
-                            .toList(),
+                        sets: widget.sets,
                       ),
                     ),
                   ),
