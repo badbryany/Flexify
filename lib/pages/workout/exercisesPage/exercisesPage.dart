@@ -7,6 +7,7 @@ import 'package:flexify/data/exerciseModels.dart';
 import 'package:flexify/data/dummyExercises.dart' as dummyExercises;
 import 'package:flexify/data/globalVariables.dart' as global;
 import 'package:page_transition/page_transition.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class ExercisesPage extends StatefulWidget {
   const ExercisesPage({
@@ -22,8 +23,6 @@ class ExercisesPage extends StatefulWidget {
 
 class _ExercisesPageState extends State<ExercisesPage> {
   List<Exercise> exercises = [];
-  List<Exercise> exerciseRecommendations =
-      List.from(dummyExercises.dummyRecommendedExercises);
 
   List<Exercise> searchRecommendations = List.from(dummyExercises.gymExercises);
 
@@ -63,7 +62,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
 
   @override
   Widget build(BuildContext context) {
-    var animSearchBar = AnimSearchBar(
+    Widget animSearchBar = AnimSearchBar(
       color: Theme.of(context).scaffoldBackgroundColor,
       helpText: 'Add exercise',
       width:
@@ -165,74 +164,112 @@ class _ExercisesPageState extends State<ExercisesPage> {
                   ],
                 ),
               ),
-              _searchBarOpen == 0
-                  ? AnimatedContainer(
-                      duration: global.standardAnimationDuration,
-                      child: Column(
+              AnimatedSwitcher(
+                duration: Duration(seconds: 3),
+                key: ValueKey(_searchBarOpen),
+                transitionBuilder: (child, animation) => ScaleTransition(
+                  scale: animation,
+                  child: child,
+                ),
+                child: _searchBarOpen == 0
+                    ? Column(
+                        key: ValueKey(_searchBarOpen),
                         children: [
-                          const Heading(title: 'Recommended exercises'),
-                          ...exerciseRecommendations.map(
-                            (e) => ExerciseButton(
-                              exercise: e,
-                              reload: getData,
-                              sets: sets,
-                            ),
-                          ),
-                          const Heading(title: 'Other exercises'),
-                          ...exercises.map(
-                            (e) => ExerciseButton(
-                              exercise: e,
-                              reload: getData,
-                              sets: sets,
+                          ...(exercises.isEmpty
+                              ? [
+                                  Column(
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                          right: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.1,
+                                        ),
+                                        child: SvgPicture.asset(
+                                            'assets/Squiggly Arrow.svg',
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.8,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.6),
+                                      ),
+                                    ],
+                                  ),
+                                  Center(
+                                    child: Text(
+                                      'Click  \'+\'  to add an exercise!  :)',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize:
+                                            MediaQuery.of(context).size.width *
+                                                0.04,
+                                      ),
+                                    ),
+                                  )
+                                ]
+                              : [
+                                  const Heading(title: 'your exercises'),
+                                  ...exercises.map(
+                                    (e) => ExerciseButton(
+                                      exercise: e,
+                                      reload: getData,
+                                      sets: sets,
+                                    ),
+                                  )
+                                ]),
+                        ],
+                      )
+                    : Column(
+                        key: ValueKey(_searchBarOpen),
+                        children: [
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width *
+                                global.containerWidthFactor *
+                                0.9,
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: searchRecommendations.length > 11
+                                  ? 12
+                                  : searchRecommendations.length,
+                              itemBuilder: (context, index) => ListTile(
+                                title: Text(searchRecommendations[index].name,
+                                    style: TextStyle(
+                                        color: Theme.of(context).focusColor)),
+                                shape: BorderDirectional(
+                                    bottom: BorderSide(
+                                        color: Theme.of(context).focusColor)),
+                                tileColor:
+                                    Theme.of(context).scaffoldBackgroundColor,
+                                contentPadding: const EdgeInsets.all(10),
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    PageTransition(
+                                      child: AddEditSet(
+                                          add: true,
+                                          set: null,
+                                          exerciseExists: exercises
+                                              .map((e) => e.name)
+                                              .contains(
+                                                  searchRecommendations[index]
+                                                      .name),
+                                          exerciseName:
+                                              searchRecommendations[index]
+                                                  .name),
+                                      type: PageTransitionType.rightToLeft,
+                                    ),
+                                  );
+                                },
+                              ),
                             ),
                           ),
                         ],
                       ),
-                    )
-                  : Column(
-                      children: [
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width *
-                              global.containerWidthFactor *
-                              0.9,
-                          child: ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: searchRecommendations.length > 11
-                                ? 12
-                                : searchRecommendations.length,
-                            itemBuilder: (context, index) => ListTile(
-                              title: Text(searchRecommendations[index].name,
-                                  style: TextStyle(
-                                      color: Theme.of(context).focusColor)),
-                              shape: BorderDirectional(
-                                  bottom: BorderSide(
-                                      color: Theme.of(context).focusColor)),
-                              tileColor:
-                                  Theme.of(context).scaffoldBackgroundColor,
-                              contentPadding: const EdgeInsets.all(10),
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    child: AddEditSet(
-                                        add: true,
-                                        set: null,
-                                        exerciseExists: exercises
-                                            .map((e) => e.name)
-                                            .contains(
-                                                searchRecommendations[index]
-                                                    .name),
-                                        exerciseName:
-                                            searchRecommendations[index].name),
-                                    type: PageTransitionType.rightToLeft,
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+              ),
             ],
           ),
         ),

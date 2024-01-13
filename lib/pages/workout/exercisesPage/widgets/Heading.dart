@@ -18,15 +18,8 @@ class Heading extends StatelessWidget {
       width: MediaQuery.of(context).size.width * global.containerWidthFactor,
       decoration: BoxDecoration(
         color: Theme.of(context).scaffoldBackgroundColor,
-        borderRadius: BorderRadius.circular(global.borderRadius),
-        boxShadow: [
-          BoxShadow(
-            color: Theme.of(context).focusColor,
-            spreadRadius: -10.0,
-            blurRadius: 10.0,
-            offset: const Offset(0, 10.0),
-          )
-        ],
+        borderRadius: BorderRadius.circular(global.borderRadius - 10),
+        boxShadow: [global.lightShadow],
       ),
       child: Text(
         title,

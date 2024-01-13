@@ -23,6 +23,10 @@ class MuscleCooldown extends StatelessWidget {
     recoverValue =
         (sets.last.date.difference(DateTime.now()).inHours).abs() / 72;
 
+    if (recoverValue > 1) {
+      recoverValue = 1;
+    }
+
     /* 
     
     ----------- TEMPORAL COLOR GRADIENT -----------

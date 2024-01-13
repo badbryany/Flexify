@@ -89,6 +89,7 @@ class _ExerciseButtonState extends State<ExerciseButton> {
         duration: const Duration(milliseconds: 150),
         alignment:
             thresholdReached ? Alignment.centerLeft : Alignment.centerRight,
+        margin: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
         padding: thresholdReached
             ? EdgeInsets.only(
                 left: max(
@@ -176,20 +177,12 @@ class _ExerciseButtonState extends State<ExerciseButton> {
             width:
                 MediaQuery.of(context).size.width * global.containerWidthFactor,
             height: MediaQuery.of(context).size.width * 0.34,
-            padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.08),
             margin: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
+            padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.08),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(
-                  MediaQuery.of(context).size.width * 0.08),
+              borderRadius: BorderRadius.circular(global.borderRadius),
               color: Theme.of(context).colorScheme.background,
-              boxShadow: [
-                BoxShadow(
-                  color: Theme.of(context).focusColor,
-                  spreadRadius: -10.0,
-                  blurRadius: 10.0,
-                  offset: const Offset(0, 10.0),
-                )
-              ],
+              boxShadow: [global.darkShadow],
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -204,7 +197,7 @@ class _ExerciseButtonState extends State<ExerciseButton> {
                         name,
                         style: TextStyle(
                           color: Theme.of(context).scaffoldBackgroundColor,
-                          fontSize: MediaQuery.of(context).size.width * 0.045,
+                          fontSize: MediaQuery.of(context).size.width * 0.05,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -239,8 +232,8 @@ class _ExerciseButtonState extends State<ExerciseButton> {
                       right: MediaQuery.of(context).size.width * 0.1),
                   child: Center(
                     child: SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.07,
-                      height: MediaQuery.of(context).size.width * 0.07,
+                      width: MediaQuery.of(context).size.width * 0.08,
+                      height: MediaQuery.of(context).size.width * 0.08,
                       child: MuscleCooldown(
                         sets: widget.sets,
                       ),
