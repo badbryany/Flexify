@@ -22,8 +22,8 @@ class _ExerciseStatsState extends State<ExerciseStats> {
   List<String> statsValueTags = [
     'weight',
     'reps',
-    'weight / reps',
-    'weight * reps'
+    'weight per reps',
+    'moved weight'
   ];
   List<FlSpot> spots = [];
   double maxX = 0;
@@ -45,10 +45,10 @@ class _ExerciseStatsState extends State<ExerciseStats> {
           case 'reps':
             y = widget.sets[i].reps.toDouble();
             break;
-          case 'weight / reps':
+          case 'weight per reps':
             y = widget.sets[i].weight / widget.sets[i].reps;
             break;
-          case 'weight * reps':
+          case 'moved weight':
             y = widget.sets[i].weight * widget.sets[i].reps;
             break;
         }
