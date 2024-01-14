@@ -29,6 +29,8 @@ class MyApp extends StatelessWidget {
           onBackground: Color.fromARGB(255, 117, 117, 137),
           surface: Color(0xfff5f5fb),
           onSurface: Color.fromARGB(255, 37, 37, 37),
+          outline: Color.fromARGB(255, 125, 185, 125),
+          shadow: Color.fromARGB(255, 170, 170, 170),
         ),
       ),
       home: const Dashboard(),

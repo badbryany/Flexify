@@ -47,4 +47,5 @@ flutter:
   assets:
     - assets/
     - assets/img/
+    - assets/Squiggly Arrow.svg
     - assets/icon/
