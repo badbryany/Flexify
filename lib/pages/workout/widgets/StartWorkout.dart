@@ -78,7 +78,7 @@ class _StartWorkoutState extends State<StartWorkout> {
             child: ExercisesPage(reload: widget.reload),
             type: PageTransitionType.rightToLeft,
           ),
-        ),
+        ).then((value) => widget.reload()),
         child: Container(
           padding: EdgeInsets.all(global.containerPadding),
           decoration: BoxDecoration(

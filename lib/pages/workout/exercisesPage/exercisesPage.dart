@@ -137,6 +137,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
           0.95,
       textController: _controller,
       suffixIcon: const Icon(Icons.clear),
+      open: _searchBarOpen == 1,
       onSuffixTap: () {
         _controller.clear();
       },
@@ -166,12 +167,12 @@ class _ExercisesPageState extends State<ExercisesPage> {
       body: SafeArea(
         child: PopScope(
           canPop: _searchBarOpen == 0,
-          /* onPopInvoked: (foo) {
+          onPopInvoked: (foo) {
             if (!foo) {
               _searchBarOpen = 0;
               setState(() {});
             }
-          }, */
+          },
           child: SizedBox(
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
