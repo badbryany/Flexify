@@ -28,6 +28,7 @@ class AnimSearchBar extends StatefulWidget {
   final String helpText;
   final int animationDurationInMilli;
   final onSuffixTap;
+  final bool open;
   final bool rtl;
   final bool autoFocus;
   final TextStyle? style;
@@ -45,6 +46,7 @@ class AnimSearchBar extends StatefulWidget {
 
       /// The width cannot be null
       required this.width,
+      required this.open,
 
       /// The textController cannot be null
       required this.textController,
@@ -107,13 +109,15 @@ class _AnimSearchBarState extends State<AnimSearchBar>
   ///initializing the AnimationController
   late AnimationController _con;
   FocusNode focusNode = FocusNode();
-  final GlobalKey<_AnimSearchBarState> searchBarKey = GlobalKey<_AnimSearchBarState>();
+  final GlobalKey<_AnimSearchBarState> searchBarKey =
+      GlobalKey<_AnimSearchBarState>();
 
   @override
   void initState() {
-    toggle = 0;
+    toggle = widget.open ? 1 : 0;
 
     super.initState();
+
     ///Initializing the animationController which is responsible for the expanding and shrinking of the search bar
     _con = AnimationController(
       vsync: this,
@@ -138,9 +142,11 @@ class _AnimSearchBarState extends State<AnimSearchBar>
 
   @override
   Widget build(BuildContext context) {
+    toggle = widget.open ? 1 : 0;
     return Container(
       ///if the rtl is true, search bar will be from right to left
-      alignment: widget.rtl ? Alignment.centerRight : const Alignment(-1.0, 0.0),
+      alignment:
+          widget.rtl ? Alignment.centerRight : const Alignment(-1.0, 0.0),
 
       ///Using Animated container to expand and shrink the widget
       child: AnimatedContainer(
@@ -231,11 +237,12 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                       },
 
                       ///suffixIcon is of type Icon
-                      child: widget.suffixIcon ?? Icon(
-                              Icons.close,
-                              size: 20.0,
-                              color: widget.textFieldIconColor,
-                            ),
+                      child: widget.suffixIcon ??
+                          Icon(
+                            Icons.close,
+                            size: 20.0,
+                            color: widget.textFieldIconColor,
+                          ),
                     ),
                   ),
                 ),
