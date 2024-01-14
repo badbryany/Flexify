@@ -11,8 +11,8 @@ class SignInInput extends StatefulWidget {
 class _SignInInputState extends State<SignInInput> {
   TextEditingController username = TextEditingController();
   TextEditingController password = TextEditingController();
-  bool visible = true;
-  Icon passwordIcon = const Icon(Icons.lock);
+  Icon? passwordIcon;
+  bool visible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -20,20 +20,30 @@ class _SignInInputState extends State<SignInInput> {
       {
         'labelText': 'username',
         'hintText': 'e.g. Peter Pan',
-        'hidden': false,
-        'taped': false,
         'controller': username,
-        'icon': const Icon(Icons.person),
+        'icon': null,
+        'password': false,
       },
       {
         'labelText': 'password',
         'hintText': 'at least 6 signs',
-        'hidden': visible,
-        'taped': false,
         'controller': password,
         'icon': passwordIcon,
+        'password': visible,
       },
     ];
+
+    if (visible) {
+      passwordIcon = Icon(
+        Icons.visibility,
+        color: Theme.of(context).colorScheme.onBackground,
+      );
+    } else {
+      passwordIcon = Icon(
+        Icons.visibility_off,
+        color: Theme.of(context).colorScheme.onBackground,
+      );
+    }
 
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.3,
@@ -41,23 +51,20 @@ class _SignInInputState extends State<SignInInput> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           ...inputs.map(
-            (e) => SizedBox(
-              width: MediaQuery.of(context).size.width * 0.8,
-              child: Input(
-                labelText: e['labelText'],
-                hintText: e['hintText'],
-                hidden: e['hidden'],
-                controller: e['controller'],
-                icon: e['icon'],
-                onTap: () {
-                  passwordIcon = const Icon(Icons.visibility);
-                  setState(() {});
-                },
-                onTapOutside: (PointerDownEvent) {
-                  passwordIcon = const Icon(Icons.lock);
-                  setState(() {});
-                },
-              ),
+            (e) => Input(
+              password: e['password'],
+              labelText: e['labelText'],
+              hintText: e['hintText'],
+              controller: e['controller'],
+              icon: e['icon'],
+              onTap: () {
+                if (visible) {
+                  visible = false;
+                } else {
+                  visible = true;
+                }
+                setState(() {});
+              },
             ),
           ),
         ],
