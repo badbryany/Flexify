@@ -3,15 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:flexify/SignInSignUp/widgets/shadow.dart';
 import 'package:flexify/widgets/BounceElement.dart';
 
-class ButtonWithText extends StatelessWidget {
+class ButtonWithText extends StatefulWidget {
   const ButtonWithText({
     super.key,
-    required this.onTap,
     required this.text,
+    required this.onTap,
   });
-  final Function() onTap;
   final String text;
+  final Function() onTap;
 
+  @override
+  State<ButtonWithText> createState() => _ButtonWithTextState();
+}
+
+class _ButtonWithTextState extends State<ButtonWithText> {
   @override
   Widget build(BuildContext context) {
     return BounceElement(
@@ -22,14 +27,14 @@ class ButtonWithText extends StatelessWidget {
           borderRadius: borderRadius,
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
+              borderRadius: BorderRadius.circular(borderRadius),
               color: Theme.of(context).colorScheme.outline,
             ),
             child: GestureDetector(
-              onTap: onTap(),
+              onTap: widget.onTap,
               child: Center(
                 child: Text(
-                  text,
+                  widget.text,
                   style: const TextStyle(
                     fontSize: 20,
                   ),
@@ -63,7 +68,7 @@ class ImageButton extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(borderRadius - 25),
-              border: Border.all(),
+              border: Border.all(color: Theme.of(context).colorScheme.onBackground,),
             ),
             child: GestureDetector(
               onTap: onTap(),

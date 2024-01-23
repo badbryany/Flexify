@@ -1,22 +1,33 @@
-import 'package:flexify/SignInSignUp/widgets/bubbles.dart';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:flexify/SignInSignUp/signIn.dart';
+import 'package:flexify/SignInSignUp/widgets/bubbles.dart';
 import 'package:flexify/SignInSignUp/widgets/button.dart';
 import 'package:flexify/SignInSignUp/widgets/heading.dart';
-import 'package:flexify/SignInSignUp/widgets/signInInput.dart';
 import 'package:flexify/SignInSignUp/widgets/fastSignIn.dart';
-import 'package:flexify/SignInSignUp/signUp.dart';
+import 'package:flexify/SignInSignUp/widgets/SignUpPages/signUpPage1.dart';
+import 'package:flexify/SignInSignUp/widgets/SignUpPages/signUpPage2.dart';
+import 'package:page_transition/page_transition.dart';
 
-class SignIn extends StatefulWidget {
-  const SignIn({super.key});
+class SignUp extends StatefulWidget {
+  const SignUp({super.key});
 
   @override
-  State<SignIn> createState() => _SignInState();
+  State<SignUp> createState() => _SignUpState();
 }
 
-class _SignInState extends State<SignIn> {
+Widget? refresh;
+int pageSwitch = 0;
+
+class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
+    if (pageSwitch == 0) {
+      refresh = const SignUpPage1();
+    }
+    if (pageSwitch == 1) {
+      refresh = const SignUpPage2();
+    }
+
     return Scaffold(
       body: SizedBox(
         width: MediaQuery.of(context).size.width,
@@ -27,7 +38,7 @@ class _SignInState extends State<SignIn> {
             children: [
               const Bubbles(),
               const LogInHeading(
-                text: 'In',
+                text: 'Up',
               ),
               Container(
                 alignment: Alignment.bottomCenter,
@@ -37,30 +48,43 @@ class _SignInState extends State<SignIn> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const SignInInput(),
-// finish button
+// SignIn page
+                      AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 250),
+                        child: refresh,
+                        transitionBuilder: (child, animation) => FadeTransition(
+                          opacity: animation,
+                          child: child,
+                        ),
+                      ),
+// next button
                       Container(
                         alignment: Alignment.bottomCenter,
                         child: ButtonWithText(
-                          onTap: () {},
-                          text: 'finish',
+                          onTap: () {
+                            pageSwitch++;
+                            setState(() {});
+                          },
+                          text: 'next',
                         ),
                       ),
+// FastSignIn
                       const FastSignin(),
-// SignUp butten
+// SignIn button
                       Container(
                         alignment: Alignment.bottomCenter,
                         child: GestureDetector(
                           onTap: () {
                             Navigator.of(context).push(
                               PageTransition(
-                              child: const SignUp(),
-                              type: PageTransitionType.fade,
-                            ),
+                                child: const SignIn(),
+                                type: PageTransitionType.fade,
+                              ),
                             );
+                            pageSwitch = 0;
                           },
                           child: const Text(
-                            'SignUp',
+                            'SignIn',
                             style:
                                 TextStyle(decoration: TextDecoration.underline),
                           ),

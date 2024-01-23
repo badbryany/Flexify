@@ -3,15 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flexify/SignInSignUp/widgets/shadow.dart';
 
 class Input extends StatelessWidget {
-  const Input({
-    super.key,
-    required this.labelText,
-    required this.hintText,
-    required this.controller,
-    required this.onTap,
-    this.icon,
-    required this.password
-  });
+  const Input(
+      {super.key,
+      required this.labelText,
+      required this.hintText,
+      required this.controller,
+      required this.onTap,
+      this.icon,
+      required this.password});
   final String labelText;
   final String hintText;
   final TextEditingController controller;
@@ -33,6 +32,8 @@ class Input extends StatelessWidget {
             Shadow(
               borderRadius: borderRadius,
               child: TextFormField(
+                onTap: () {},
+                textInputAction: TextInputAction.done,
                 obscureText: password,
                 cursorColor: Theme.of(context).colorScheme.background,
                 style: TextStyle(

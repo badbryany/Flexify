@@ -10,7 +10,7 @@ class LogInHeading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      alignment: const Alignment(1, -0.75),
+      alignment: const Alignment(1, -0.8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
