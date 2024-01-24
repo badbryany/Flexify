@@ -30,7 +30,7 @@ class _DashboardWorkoutStatsState extends State<DashboardWorkoutStats> {
 
   List<int> intensityPerDay = [0, 0, 0, 0, 0, 0, 0];
 
-  int selectedIntesity = 5; // yesterday
+  int selectedIntesity = 6; // yesterday
 
   getData() async {
     for (int i = 0; i < dates.length; i++) {
@@ -45,6 +45,13 @@ class _DashboardWorkoutStatsState extends State<DashboardWorkoutStats> {
       intensityPerDay[i] = thisDaySets;
       await Future.delayed(const Duration(milliseconds: 125));
       setState(() {});
+    }
+
+    for (int i = intensityPerDay.length - 1; i >= 0; i--) {
+      if (intensityPerDay[i] != 0) {
+        selectedIntesity = i;
+        break;
+      }
     }
   }
 

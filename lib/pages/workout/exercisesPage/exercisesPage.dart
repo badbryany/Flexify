@@ -124,11 +124,12 @@ class _ExercisesPageState extends State<ExercisesPage> {
         searchForExercises();
       }
     });
-    getData();
+    // getData();
   }
 
   @override
   Widget build(BuildContext context) {
+    getData();
     Widget animSearchBar = AnimSearchBar(
       color: Theme.of(context).scaffoldBackgroundColor,
       helpText: 'Add exercise',

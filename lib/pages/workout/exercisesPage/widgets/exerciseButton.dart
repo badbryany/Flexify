@@ -172,7 +172,7 @@ class _ExerciseButtonState extends State<ExerciseButton> {
               ),
               type: PageTransitionType.rightToLeft,
             ),
-          ),
+          ).then((value) => widget.reload),
           child: Container(
             width:
                 MediaQuery.of(context).size.width * global.containerWidthFactor,

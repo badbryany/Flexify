@@ -1,3 +1,4 @@
+import 'package:flexify/pages/createTrainingPlan/Button.dart';
 import 'package:flexify/widgets/SetInput.dart';
 import 'package:flutter/material.dart';
 import '../../../../../data/exerciseModels.dart';
@@ -181,6 +182,16 @@ class _AddEditSetState extends State<AddEditSet> {
                     controller: weightController,
                     calcInterval: 2.5,
                   ),
+                  !widget.add
+                      ? Button(
+                          text: 'delete',
+                          onPressed: () async {
+                            await Save.deleteSet(widget.set!);
+                            Navigator.pop(context);
+                            setState(() {});
+                          },
+                        )
+                      : const SizedBox(),
                 ],
               ),
             ],

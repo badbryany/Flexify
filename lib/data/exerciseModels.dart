@@ -136,7 +136,7 @@ class Save {
   static Future<void> deleteSet(Set set) async {
     Database db = await getDatabase();
     await db.rawDelete(
-      'DELETE FROM sets WHERE sets.setID=${set.setID}',
+      'DELETE FROM sets WHERE sets.s_id=${set.setID}',
     );
   }
 
