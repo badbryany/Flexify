@@ -181,137 +181,138 @@ class _ExerciseSetsState extends State<ExerciseSets> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView(
-        physics: const BouncingScrollPhysics(),
-        children: [
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * (1 - 0.88),
-            alignment: Alignment.center,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  alignment: Alignment.center,
-                  padding:
-                      EdgeInsets.all(MediaQuery.of(context).size.width * 0.005),
-                  width: MediaQuery.of(context).size.width * 0.14,
-                  height: MediaQuery.of(context).size.width * 0.14,
-                  decoration: BoxDecoration(
-                    boxShadow: ([
-                      global.lightShadow,
-                    ]),
-                    color: Theme.of(context).scaffoldBackgroundColor,
-                    borderRadius: BorderRadius.circular(1000),
-                  ),
-                  child: IconButton(
-                    splashColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onPressed: () {
-                      widget.refresh();
-                      Navigator.pop(context);
-                    },
-                    color: Theme.of(context).focusColor,
-                    icon: const Icon(Icons.arrow_back_rounded),
-                    iconSize: MediaQuery.of(context).size.width * 0.05,
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(
-                    left: MediaQuery.of(context).size.width * 0.01,
-                    right: MediaQuery.of(context).size.width * 0.01,
-                  ),
-                  child: Text(
-                    widget.name,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
+    return PopScope(
+      onPopInvoked: (foo) => widget.refresh(),
+      child: Scaffold(
+        body: ListView(
+          physics: const BouncingScrollPhysics(),
+          children: [
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height * (1 - 0.88),
+              alignment: Alignment.center,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.all(
+                        MediaQuery.of(context).size.width * 0.005),
+                    width: MediaQuery.of(context).size.width * 0.14,
+                    height: MediaQuery.of(context).size.width * 0.14,
+                    decoration: BoxDecoration(
+                      boxShadow: ([
+                        global.lightShadow,
+                      ]),
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                      borderRadius: BorderRadius.circular(1000),
+                    ),
+                    child: IconButton(
+                      splashColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onPressed: () => Navigator.pop(context),
                       color: Theme.of(context).focusColor,
-                      fontSize: MediaQuery.of(context).size.width * 0.06,
-                      fontWeight: FontWeight.bold,
+                      icon: const Icon(Icons.arrow_back_rounded),
+                      iconSize: MediaQuery.of(context).size.width * 0.05,
                     ),
                   ),
-                ),
-                Container(
-                  alignment: Alignment.center,
-                  padding:
-                      EdgeInsets.all(MediaQuery.of(context).size.width * 0.005),
-                  width: MediaQuery.of(context).size.width * 0.14,
-                  height: MediaQuery.of(context).size.width * 0.14,
-                  decoration: BoxDecoration(
-                    boxShadow: [global.lightShadow],
-                    color: Theme.of(context).scaffoldBackgroundColor,
-                    borderRadius: BorderRadius.circular(1000),
+                  Padding(
+                    padding: EdgeInsets.only(
+                      left: MediaQuery.of(context).size.width * 0.01,
+                      right: MediaQuery.of(context).size.width * 0.01,
+                    ),
+                    child: Text(
+                      widget.name,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Theme.of(context).focusColor,
+                        fontSize: MediaQuery.of(context).size.width * 0.06,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
-                  child: IconButton(
-                    splashColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onPressed: () => Navigator.push(
-                      context,
-                      PageTransition(
-                        child: AddEditSet(
-                          add: true,
-                          set: null,
-                          exerciseName: widget.name,
+                  Container(
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.all(
+                        MediaQuery.of(context).size.width * 0.005),
+                    width: MediaQuery.of(context).size.width * 0.14,
+                    height: MediaQuery.of(context).size.width * 0.14,
+                    decoration: BoxDecoration(
+                      boxShadow: [global.lightShadow],
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                      borderRadius: BorderRadius.circular(1000),
+                    ),
+                    child: IconButton(
+                      splashColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onPressed: () => Navigator.push(
+                        context,
+                        PageTransition(
+                          child: AddEditSet(
+                            add: true,
+                            set: null,
+                            exerciseName: widget.name,
+                          ),
+                          type: PageTransitionType.fade,
                         ),
-                        type: PageTransitionType.fade,
-                      ),
-                    ).then((value) => getData()),
-                    color: Theme.of(context).focusColor,
-                    icon: const Icon(Icons.add),
-                    iconSize: MediaQuery.of(context).size.width * 0.05,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          sets.isNotEmpty
-              ? ExerciseStats(
-                  exerciseName: widget.name,
-                  sets: sets,
-                )
-              : Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                        right: MediaQuery.of(context).size.width * 0.1,
-                      ),
-                      child: SvgPicture.asset(
-                        'assets/Squiggly Arrow.svg',
-                        width: MediaQuery.of(context).size.width * 0.8,
-                        height: MediaQuery.of(context).size.width * 0.6,
-                      ),
+                      ).then((value) => getData()),
+                      color: Theme.of(context).focusColor,
+                      icon: const Icon(Icons.add),
+                      iconSize: MediaQuery.of(context).size.width * 0.05,
                     ),
-                  ],
-                ),
-          SizedBox(
-            width:
-                MediaQuery.of(context).size.width * global.containerWidthFactor,
-            child: Column(
-              children: [
-                ...(loadingDone
-                    ? (sets.isNotEmpty
-                        ? setWidgets
-                        : [
-                            Center(
-                              child: Text(
-                                'Click  \'+\'  to add a set!  :)',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize:
-                                      MediaQuery.of(context).size.width * 0.04,
-                                ),
-                              ),
-                            )
-                          ])
-                    : const [Center(child: CircularProgressIndicator())]),
-              ],
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+            sets.isNotEmpty
+                ? ExerciseStats(
+                    exerciseName: widget.name,
+                    sets: sets,
+                  )
+                : Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(
+                          right: MediaQuery.of(context).size.width * 0.1,
+                        ),
+                        child: SvgPicture.asset(
+                          'assets/Squiggly Arrow.svg',
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          height: MediaQuery.of(context).size.width * 0.6,
+                        ),
+                      ),
+                    ],
+                  ),
+            SizedBox(
+              width: MediaQuery.of(context).size.width *
+                  global.containerWidthFactor,
+              child: Column(
+                children: [
+                  ...(loadingDone
+                      ? (sets.isNotEmpty
+                          ? setWidgets
+                          : [
+                              Center(
+                                child: Text(
+                                  'Click  \'+\'  to add a set!  :)',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize:
+                                        MediaQuery.of(context).size.width *
+                                            0.04,
+                                  ),
+                                ),
+                              )
+                            ])
+                      : const [Center(child: CircularProgressIndicator())]),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

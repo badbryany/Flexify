@@ -166,9 +166,7 @@ class _ExerciseButtonState extends State<ExerciseButton> {
             PageTransition(
               child: ExerciseSets(
                 name: widget.exercise.name,
-                refresh: () {
-                  widget.reload();
-                },
+                refresh: widget.reload,
               ),
               type: PageTransitionType.rightToLeft,
             ),
