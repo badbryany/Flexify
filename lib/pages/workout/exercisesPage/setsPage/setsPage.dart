@@ -260,11 +260,11 @@ class _ExerciseSetsState extends State<ExerciseSets> {
           physics: const BouncingScrollPhysics(),
           children: [
             Container(
-              width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height * (1 - 0.88),
+              margin: const EdgeInsets.only(left: 10, right: 10),
               alignment: Alignment.center,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
@@ -290,11 +290,8 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                       iconSize: MediaQuery.of(context).size.width * 0.05,
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      left: MediaQuery.of(context).size.width * 0.01,
-                      right: MediaQuery.of(context).size.width * 0.01,
-                    ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.65,
                     child: Text(
                       widget.name,
                       textAlign: TextAlign.center,

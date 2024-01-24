@@ -137,7 +137,8 @@ class _ExercisesPageState extends State<ExercisesPage> {
       textController: _controller,
       suffixIcon: const Icon(Icons.clear),
       open: _searchBarOpen == 1,
-      onSuffixTap: () {
+      onSuffixTap: () async {
+        await getData();
         _controller.clear();
       },
       onSubmitted: (String exercise) {
@@ -339,7 +340,6 @@ class _ExercisesPageState extends State<ExercisesPage> {
                                                           Save.saveExercise(
                                                               e['exercise']);
                                                           e['added'] = true;
-                                                          await getData();
                                                         },
                                                         child: Container(
                                                           padding: EdgeInsets
