@@ -339,7 +339,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
                                                           Save.saveExercise(
                                                               e['exercise']);
                                                           e['added'] = true;
-                                                          setState(() {});
+                                                          await getData();
                                                         },
                                                         child: Container(
                                                           padding: EdgeInsets

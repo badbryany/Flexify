@@ -83,7 +83,7 @@ class _ExerciseButtonState extends State<ExerciseButton> {
     return Dismissible(
       key: ValueKey(name),
       dismissThresholds: const {DismissDirection.endToStart: 0.7},
-      direction: DismissDirection.endToStart,
+      direction: DismissDirection.horizontal,
       background: AnimatedContainer(
         key: const ValueKey(Alignment),
         duration: const Duration(milliseconds: 150),
@@ -105,16 +105,16 @@ class _ExerciseButtonState extends State<ExerciseButton> {
               BorderRadius.circular(MediaQuery.of(context).size.width * 0.08),
         ),
         child: Text(
-          'DELETE',
+          'delete',
           style: TextStyle(
             color: Theme.of(context).scaffoldBackgroundColor,
-            fontSize: MediaQuery.of(context).size.width * 0.025,
-            fontWeight: FontWeight.bold,
+            fontSize: MediaQuery.of(context).size.width * 0.035,
           ),
         ),
       ),
-      onDismissed: (direction) {
-        showDialog(
+      confirmDismiss: (diracion) async {
+        bool returnValue = false;
+        await showDialog(
           context: context,
           builder: (context) => AlertDialog(
             backgroundColor: Theme.of(context).colorScheme.background,
@@ -126,18 +126,8 @@ class _ExerciseButtonState extends State<ExerciseButton> {
             ),
             actions: [
               TextButton(
-                onPressed: () async {
-                  List<Set> sets = (await Save.getSetList())
-                      .where((element) =>
-                          element.exerciseName == widget.exercise.name)
-                      .toList();
-
-                  for (var i = 0; i < sets.length; i++) {
-                    await Save.saveSet(sets[i]);
-                  }
-
-                  await widget.reload();
-
+                onPressed: () {
+                  returnValue = false;
                   Navigator.pop(context);
                 },
                 child: const Text('cancel'),
@@ -146,6 +136,7 @@ class _ExerciseButtonState extends State<ExerciseButton> {
                 onPressed: () async {
                   await Save.deleteExercise(widget.exercise);
                   await widget.reload();
+                  returnValue = true;
                   Navigator.pop(context);
                 },
                 child: const Text('delete'),
@@ -153,6 +144,7 @@ class _ExerciseButtonState extends State<ExerciseButton> {
             ],
           ),
         );
+        return returnValue;
       },
       onUpdate: (details) {
         thresholdReached = details.reached;
