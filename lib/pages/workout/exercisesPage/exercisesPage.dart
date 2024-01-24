@@ -37,6 +37,10 @@ class _ExercisesPageState extends State<ExercisesPage> {
 
   final TextEditingController _controller = TextEditingController();
 
+  List<List<Set>> exerciseSets = [];
+
+  bool initialLoad = true;
+
   getData() async {
     loadingDone = false;
     setState(() {});
@@ -46,6 +50,28 @@ class _ExercisesPageState extends State<ExercisesPage> {
 
     loadingDone = true;
     setState(() {});
+
+    exerciseSets = List.generate(
+        exercises.length,
+        (index) => [
+              Set(
+                date: DateTime.now(),
+                exerciseName: '',
+                reps: 0,
+                weight: 0,
+                setID: -10,
+              )
+            ]);
+    for (int i = 0; i < exercises.length; i++) {
+      if (initialLoad) {
+        await Future.delayed(const Duration(milliseconds: 75));
+      }
+      exerciseSets[i] = sets
+          .where((element) => element.exerciseName == exercises[i].name)
+          .toList();
+      setState(() {});
+      initialLoad = false;
+    }
   }
 
   bool exerciseExistsAlready(Exercise newExercise) {
@@ -112,6 +138,52 @@ class _ExercisesPageState extends State<ExercisesPage> {
     }
     loadingDone = true;
     setState(() {});
+  }
+
+  List<Widget> exerciseWidgets() {
+    if (exerciseSets.length != exercises.length) {
+      exerciseSets = List.generate(
+          exercises.length,
+          (index) => [
+                Set(
+                  date: DateTime.now(),
+                  exerciseName: '',
+                  reps: 0,
+                  weight: 0,
+                  setID: -10,
+                )
+              ]);
+    }
+    List<Widget> returnList = [];
+
+    exercises.sort((a, b) {
+      var aSets =
+          sets.where((element) => element.exerciseName == a.name).toList();
+      double foo = 0;
+      if (aSets.isNotEmpty) {
+        foo = aSets.last.date.difference(DateTime.now()).inHours.abs() / 72;
+      }
+
+      var bSets =
+          sets.where((element) => element.exerciseName == b.name).toList();
+      double bar = 0;
+      if (bSets.isNotEmpty) {
+        bar = bSets.last.date.difference(DateTime.now()).inHours.abs() / 72;
+      }
+      return (bar * 100).round() - (foo * 100).round();
+    });
+
+    for (int i = 0; i < exercises.length; i++) {
+      returnList.add(
+        ExerciseButton(
+          exercise: exercises[i],
+          reload: getData,
+          sets: exerciseSets[i],
+        ),
+      );
+    }
+
+    return returnList;
   }
 
   @override
@@ -288,20 +360,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
                                     ),
                                   )
                                 ]
-                              : [
-                                  ...exercises.map(
-                                    (e) => ExerciseButton(
-                                      exercise: e,
-                                      reload: getData,
-                                      sets: sets
-                                          .where(
-                                            (element) =>
-                                                element.exerciseName == e.name,
-                                          )
-                                          .toList(),
-                                    ),
-                                  )
-                                ]),
+                              : exerciseWidgets()),
                         ],
                       )
                     : Column(
@@ -340,6 +399,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
                                                           Save.saveExercise(
                                                               e['exercise']);
                                                           e['added'] = true;
+                                                          setState(() {});
                                                         },
                                                         child: Container(
                                                           padding: EdgeInsets

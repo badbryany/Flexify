@@ -76,10 +76,9 @@ class _ExerciseButtonState extends State<ExerciseButton> {
   @override
   Widget build(BuildContext context) {
     String name = widget.exercise.name;
-    if (name.length > 40) {
-      name = '${name.substring(0, 37)}...';
+    if (name.length > 30) {
+      name = '${name.substring(0, 27)}...';
     }
-
     return Dismissible(
       key: ValueKey(name),
       dismissThresholds: const {DismissDirection.endToStart: 0.7},
@@ -174,7 +173,38 @@ class _ExerciseButtonState extends State<ExerciseButton> {
               color: Theme.of(context).colorScheme.background,
               boxShadow: [global.darkShadow],
             ),
-            child: Row(
+            child: Column(
+              children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width *
+                      (global.containerWidthFactor - 0.1),
+                  child: Text(
+                    name,
+                    maxLines: 1,
+                    style: TextStyle(
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                      fontSize: MediaQuery.of(context).size.width * 0.0525,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 22),
+                MuscleCooldown(
+                  sets: widget.sets,
+                  width: MediaQuery.of(context).size.width *
+                      (global.containerWidthFactor - 0.15),
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/* 
+Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -232,10 +262,4 @@ class _ExerciseButtonState extends State<ExerciseButton> {
                   ),
                 ),
               ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
+            ), */

@@ -1,27 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flexify/data/exerciseModels.dart';
+import 'package:flexify/data/globalVariables.dart' as global;
 
-// ignore: must_be_immutable
-class MuscleCooldown extends StatelessWidget {
-  MuscleCooldown({
+class MuscleCooldown extends StatefulWidget {
+  const MuscleCooldown({
     super.key,
     required this.sets,
+    required this.width,
   });
 
   final List<Set> sets;
+  final double width;
 
+  @override
+  State<MuscleCooldown> createState() => _MuscleCooldownState();
+}
+
+class _MuscleCooldownState extends State<MuscleCooldown> {
   String loadString = '';
+
   double recoverValue = 0.0;
+
   Color recoverColor = const Color.fromARGB(255, 255, 116, 116);
-  getData(BuildContext context) {
-    if (sets.isEmpty) {
+
+  getData() {
+    if (widget.sets.isEmpty) {
       recoverValue = 1;
       recoverColor = const Color.fromARGB(255, 162, 251, 162);
       return;
     }
 
     recoverValue =
-        (sets.last.date.difference(DateTime.now()).inHours).abs() / 72;
+        (widget.sets.last.date.difference(DateTime.now()).inHours).abs() / 72;
 
     if (recoverValue > 1) {
       recoverValue = 1;
@@ -58,12 +68,52 @@ class MuscleCooldown extends StatelessWidget {
       recoverColor =
           Color.fromARGB(255, (-164 * recoverValue + 328).toInt(), 251, 164);
     }
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    getData(context);
-    return Stack(
+    getData();
+    double height = MediaQuery.of(context).size.height * 0.006;
+
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Stack(
+          children: [
+            Container(
+              height: height,
+              width: (widget.width * 0.825),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(1000),
+                color: Theme.of(context).colorScheme.surface.withOpacity(0.1),
+              ),
+            ),
+            AnimatedContainer(
+              duration: global.standardAnimationDuration * 2,
+              height: height,
+              width: (widget.width * 0.825) * recoverValue,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(1000),
+                color: recoverColor,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(width: 10),
+        Text(
+          '${(recoverValue * 100).round()}%',
+          style: TextStyle(
+            color: recoverColor,
+            fontSize: MediaQuery.of(context).size.width * 0.03,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+/* Stack(
       alignment: Alignment.center,
       children: [
         Transform.scale(
@@ -86,6 +136,4 @@ class MuscleCooldown extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-}
+    ); */
