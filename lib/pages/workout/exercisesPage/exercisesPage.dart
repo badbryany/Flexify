@@ -64,14 +64,14 @@ class _ExercisesPageState extends State<ExercisesPage> {
             ]);
     for (int i = 0; i < exercises.length; i++) {
       if (initialLoad) {
-        await Future.delayed(const Duration(milliseconds: 75));
+        await Future.delayed(const Duration(milliseconds: 100));
       }
       exerciseSets[i] = sets
           .where((element) => element.exerciseName == exercises[i].name)
           .toList();
       setState(() {});
-      initialLoad = false;
     }
+    initialLoad = false;
   }
 
   bool exerciseExistsAlready(Exercise newExercise) {
@@ -156,7 +156,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
     }
     List<Widget> returnList = [];
 
-    exercises.sort((a, b) {
+    /* exercises.sort((a, b) {
       var aSets =
           sets.where((element) => element.exerciseName == a.name).toList();
       double foo = 0;
@@ -171,7 +171,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
         bar = bSets.last.date.difference(DateTime.now()).inHours.abs() / 72;
       }
       return (bar * 100).round() - (foo * 100).round();
-    });
+    }); */
 
     for (int i = 0; i < exercises.length; i++) {
       returnList.add(
