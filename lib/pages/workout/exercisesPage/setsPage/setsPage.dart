@@ -7,6 +7,7 @@ import 'package:flexify/pages/workout/exercisesPage/setsPage/addeditSetPage/adde
 import 'package:flexify/data/globalVariables.dart' as global;
 import 'package:collection/collection.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'dart:math';
 
 class ExerciseSets extends StatefulWidget {
   const ExerciseSets({
@@ -27,6 +28,9 @@ class _ExerciseSetsState extends State<ExerciseSets> {
   List<List<Set>> setsByDate = [];
   List<Widget> setWidgets = [];
   bool loadingDone = false;
+
+  bool thresholdReached = false;
+  double thresholdProgress = 0.0;
 
   getData() async {
     sets = (await Save.getSetList())
@@ -89,79 +93,147 @@ class _ExerciseSetsState extends State<ExerciseSets> {
         height: MediaQuery.of(context).size.width * 0.01,
       ));
       returnList.add(
-        GestureDetector(
-          onTap: () => Navigator.push(
-            context,
-            PageTransition(
-              child: AddEditSet(
-                add: false,
-                set: setList[i],
-                exerciseName: widget.name,
-              ),
-              type: PageTransitionType.fade,
-            ),
-          ).then((value) => getData()),
-          child: Container(
-            padding: EdgeInsets.all(global.containerPadding - 10),
-            width:
-                MediaQuery.of(context).size.width * global.containerWidthFactor,
+        Dismissible(
+          key: ValueKey(setList[i].setID),
+          dismissThresholds: const {DismissDirection.endToStart: 0.7},
+          direction: DismissDirection.horizontal,
+          background: AnimatedContainer(
+            key: const ValueKey(Alignment),
+            duration: const Duration(milliseconds: 150),
+            alignment:
+                thresholdReached ? Alignment.centerLeft : Alignment.centerRight,
+            margin: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
+            padding: thresholdReached
+                ? EdgeInsets.only(
+                    left: max(
+                        ((1 - thresholdProgress) *
+                                (global.containerWidthFactor) *
+                                MediaQuery.of(context).size.width) +
+                            MediaQuery.of(context).size.width * 0.05,
+                        (MediaQuery.of(context).size.width * 0.1)))
+                : EdgeInsets.only(
+                    right: MediaQuery.of(context).size.width * 0.1),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(global.borderRadius - 5),
-              color: Theme.of(context).colorScheme.background,
-              boxShadow: [global.darkShadow],
+              color: Theme.of(context).colorScheme.error,
+              borderRadius: BorderRadius.circular(
+                  MediaQuery.of(context).size.width * 0.08),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                // WEIGHT
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                      '${setList[i].weight}',
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
-                        fontSize: MediaQuery.of(context).size.width * 0.08,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).size.height * 0.009,
-                      ),
-                      child: Text(
-                        'kg',
+            child: Text(
+              'delete',
+              style: TextStyle(
+                color: Theme.of(context).scaffoldBackgroundColor,
+                fontSize: MediaQuery.of(context).size.width * 0.035,
+              ),
+            ),
+          ),
+          confirmDismiss: (diracion) async {
+            bool returnValue = false;
+            await showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                backgroundColor: Theme.of(context).colorScheme.background,
+                content: Text(
+                  'Do you want to delete this set?',
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.surface,
+                  ),
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      returnValue = false;
+                      Navigator.pop(context);
+                    },
+                    child: const Text('cancel'),
+                  ),
+                  TextButton(
+                    onPressed: () async {
+                      await Save.deleteSet(setList[i]);
+                      await getData();
+                      returnValue = true;
+                      Navigator.pop(context);
+                    },
+                    child: const Text('delete'),
+                  ),
+                ],
+              ),
+            );
+            return returnValue;
+          },
+          child: GestureDetector(
+            onTap: () => Navigator.push(
+              context,
+              PageTransition(
+                child: AddEditSet(
+                  add: false,
+                  set: setList[i],
+                  exerciseName: widget.name,
+                ),
+                type: PageTransitionType.fade,
+              ),
+            ).then((value) => getData()),
+            child: Container(
+              padding: EdgeInsets.all(global.containerPadding - 10),
+              width: MediaQuery.of(context).size.width *
+                  global.containerWidthFactor,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(global.borderRadius - 5),
+                color: Theme.of(context).colorScheme.background,
+                boxShadow: [global.darkShadow],
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  // WEIGHT
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        '${setList[i].weight}',
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.primary,
-                          fontSize: MediaQuery.of(context).size.width * 0.04,
+                          fontSize: MediaQuery.of(context).size.width * 0.08,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).size.height * 0.009,
+                        ),
+                        child: Text(
+                          'kg',
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.primary,
+                            fontSize: MediaQuery.of(context).size.width * 0.04,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  // DATE
+                  Text(
+                    '${zeroBefore(setList[i].date.hour)}:${zeroBefore(sets[i].date.minute)}',
+                    style: TextStyle(
+                      color: Theme.of(context)
+                          .scaffoldBackgroundColor
+                          .withOpacity(0.6),
+                      fontSize: MediaQuery.of(context).size.width * 0.04,
                     ),
-                  ],
-                ),
-
-                // DATE
-                Text(
-                  '${zeroBefore(setList[i].date.hour)}:${zeroBefore(sets[i].date.minute)}',
-                  style: TextStyle(
-                    color: Theme.of(context)
-                        .scaffoldBackgroundColor
-                        .withOpacity(0.6),
-                    fontSize: MediaQuery.of(context).size.width * 0.04,
                   ),
-                ),
 
-                //REPS
-                Text(
-                  'x${setList[i].reps}',
-                  style: TextStyle(
-                    color: Theme.of(context).scaffoldBackgroundColor,
-                    fontSize: MediaQuery.of(context).size.width * 0.06,
-                    fontWeight: FontWeight.bold,
+                  //REPS
+                  Text(
+                    'x${setList[i].reps}',
+                    style: TextStyle(
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                      fontSize: MediaQuery.of(context).size.width * 0.06,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

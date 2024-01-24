@@ -117,38 +117,6 @@ class _AddEditSetState extends State<AddEditSet> {
                         ),
                       ),
                     ),
-                    !widget.add
-                        ? Container(
-                            alignment: Alignment.center,
-                            padding: EdgeInsets.all(
-                                MediaQuery.of(context).size.width * 0.005),
-                            width: MediaQuery.of(context).size.width * 0.14,
-                            height: MediaQuery.of(context).size.width * 0.14,
-                            decoration: BoxDecoration(
-                              boxShadow: ([
-                                global.lightShadow,
-                              ]),
-                              color: Theme.of(context).scaffoldBackgroundColor,
-                              borderRadius: BorderRadius.circular(1000),
-                            ),
-                            child: IconButton(
-                              splashColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onPressed: () async {
-                                await Save.deleteSet(widget.set!);
-
-                                // ignore: use_build_context_synchronously
-                                Navigator.pop(context);
-                                setState(() {});
-                              },
-                              color: Theme.of(context).focusColor,
-                              icon: const Icon(Icons.delete),
-                              iconSize:
-                                  MediaQuery.of(context).size.width * 0.05,
-                            ),
-                          )
-                        : const SizedBox(),
                     Container(
                       alignment: Alignment.center,
                       padding: EdgeInsets.all(
