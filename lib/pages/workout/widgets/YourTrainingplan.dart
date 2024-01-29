@@ -20,10 +20,8 @@ class YourTrainingPlan extends StatefulWidget {
 
 class _YourTrainingPlanState extends State<YourTrainingPlan> {
   List<WorkoutDay> workoutDays = [];
-  getData() async {
+  getData() {
     workoutDays = analize.analyseWorkout(widget.sets);
-
-    setState(() {});
   }
 
   List<Widget> workoutDaysWidgets() {
@@ -75,13 +73,8 @@ class _YourTrainingPlanState extends State<YourTrainingPlan> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    getData();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    getData();
     return Container(
       padding: EdgeInsets.all(global.containerPadding),
       decoration: BoxDecoration(

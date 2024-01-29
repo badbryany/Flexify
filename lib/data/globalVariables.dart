@@ -23,3 +23,10 @@ BoxShadow darkShadow = const BoxShadow(
   blurRadius: 10.0,
   offset: Offset(0.0, 10.0),
 );
+
+String zeroBefore(int num) {
+  if (num <= 9) {
+    return '0$num';
+  }
+  return '$num';
+}

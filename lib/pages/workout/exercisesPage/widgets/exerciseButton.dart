@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:flexify/pages/workout/exercisesPage/setsPage/addeditSetPage/addeditSetPage.dart';
 import 'package:flexify/pages/workout/exercisesPage/setsPage/setsPage.dart';
 import 'package:flexify/widgets/BounceElement.dart';
 import 'package:flutter/material.dart';
@@ -44,13 +47,6 @@ class _ExerciseButtonState extends State<ExerciseButton> {
     return pr;
   }
 
-  String zeroBefore(int num) {
-    if (num <= 9) {
-      return '0$num';
-    }
-    return '$num';
-  }
-
   String dateString(DateTime date) {
     String month = [
       'Jan',
@@ -73,11 +69,58 @@ class _ExerciseButtonState extends State<ExerciseButton> {
   bool thresholdReached = false;
   double thresholdProgress = 0.0;
 
+  String getPR() {
+    double max = widget.sets[0].weight;
+
+    for (int i = 1; i < widget.sets.length; i++) {
+      if (widget.sets[i].weight > max) {
+        max = widget.sets[i].weight;
+      }
+    }
+    return '${max}kg';
+  }
+
+  getNewTime() {
+    if (widget.sets.isEmpty) {
+      timeString = '--:--';
+      setState(() {});
+      return;
+    }
+    Duration difference =
+        widget.sets.last.date.difference(DateTime.now()).abs();
+    if (difference > const Duration(minutes: 6)) {
+      timeString = '--:--';
+      setState(() {});
+      return;
+    }
+
+    int minutes = (difference.inSeconds / 60).floor();
+    int seconds = (difference.inSeconds - minutes * 60).round();
+// ${difference.inSeconds >= 60 ? (difference.inSeconds / 60).round() : '00'}: ${difference.inSeconds / 60 > 1 ? (difference.inSeconds - (difference.inSeconds / 60)).round() : '00'}
+
+    timeString = '${global.zeroBefore(minutes)}:${global.zeroBefore(seconds)}';
+    setState(() {});
+  }
+
+  String timeString = '--:--';
+
+  @override
+  void initState() {
+    super.initState();
+    Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (isExpanded) {
+        getNewTime();
+      }
+    });
+  }
+
+  bool isExpanded = false;
+
   @override
   Widget build(BuildContext context) {
     String name = widget.exercise.name;
-    if (name.length > 30) {
-      name = '${name.substring(0, 27)}...';
+    if (name.length > 20) {
+      name = '${name.substring(0, 17)}...';
     }
     return Dismissible(
       key: ValueKey(name),
@@ -162,10 +205,12 @@ class _ExerciseButtonState extends State<ExerciseButton> {
               type: PageTransitionType.rightToLeft,
             ),
           ).then((value) => widget.reload),
-          child: Container(
+          child: AnimatedContainer(
+            duration: global.standardAnimationDuration,
             width:
                 MediaQuery.of(context).size.width * global.containerWidthFactor,
-            height: MediaQuery.of(context).size.width * 0.34,
+            height:
+                MediaQuery.of(context).size.height * (isExpanded ? 0.5 : 0.18),
             margin: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
             padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.08),
             decoration: BoxDecoration(
@@ -175,24 +220,126 @@ class _ExerciseButtonState extends State<ExerciseButton> {
             ),
             child: Column(
               children: [
-                SizedBox(
-                  width: MediaQuery.of(context).size.width *
-                      (global.containerWidthFactor - 0.1),
-                  child: Text(
-                    name,
-                    maxLines: 1,
-                    style: TextStyle(
+                Row(
+                  children: [
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      width: MediaQuery.of(context).size.width *
+                          (global.containerWidthFactor - 0.3),
+                      child: AnimatedScale(
+                        scale: isExpanded ? 1.1 : 1,
+                        duration: global.standardAnimationDuration,
+                        child: Text(
+                          name,
+                          key: ValueKey(isExpanded),
+                          maxLines: 1,
+                          style: TextStyle(
+                            color: Theme.of(context).scaffoldBackgroundColor,
+                            fontSize: MediaQuery.of(context).size.width *
+                                (isExpanded ? 0.058 : 0.0525),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () => setState(() {
+                        isExpanded = !isExpanded;
+                      }),
+                      icon: AnimatedSwitcher(
+                          duration: global.standardAnimationDuration,
+                          key: ValueKey(isExpanded),
+                          child: Icon(
+                            isExpanded
+                                ? Icons.expand_less_rounded
+                                : Icons.expand_more_rounded,
+                          )),
                       color: Theme.of(context).scaffoldBackgroundColor,
-                      fontSize: MediaQuery.of(context).size.width * 0.0525,
-                      fontWeight: FontWeight.bold,
+                    ),
+                  ],
+                ),
+                Visibility(
+                  visible: isExpanded,
+                  child: AnimatedContainer(
+                    duration: global.standardAnimationDuration,
+                    height: isExpanded
+                        ? MediaQuery.of(context).size.height * 0.34
+                        : 0,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Text(
+                                getPR(),
+                                style: TextStyle(
+                                  color: Theme.of(context).colorScheme.primary,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize:
+                                      MediaQuery.of(context).size.width * 0.06,
+                                ),
+                              ),
+                              IconButton(
+                                onPressed: () => Navigator.push(
+                                  context,
+                                  PageTransition(
+                                    child: AddEditSet(
+                                      add: true,
+                                      set: null,
+                                      exerciseName: widget.exercise.name,
+                                    ),
+                                    type: PageTransitionType.fade,
+                                  ),
+                                ).then((value) => widget.reload()),
+                                icon: Icon(
+                                  Icons.add,
+                                  color:
+                                      Theme.of(context).scaffoldBackgroundColor,
+                                ),
+                              ),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.18,
+                                child: Text(
+                                  timeString,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize:
+                                        MediaQuery.of(context).size.width *
+                                            0.06,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8),
+                          child: Text(
+                            'last 3 sets:',
+                            style: TextStyle(
+                              color: Theme.of(context).scaffoldBackgroundColor,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        ...widget.sets.reversed.take(3).map(
+                              (e) => SmallSetWidget(set: e),
+                            ),
+                      ],
                     ),
                   ),
                 ),
-                SizedBox(height: 22),
                 MuscleCooldown(
                   sets: widget.sets,
                   width: MediaQuery.of(context).size.width *
-                      (global.containerWidthFactor - 0.15),
+                      (global.containerWidthFactor - 0.12),
                 )
               ],
             ),
@@ -203,63 +350,53 @@ class _ExerciseButtonState extends State<ExerciseButton> {
   }
 }
 
-/* 
-Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.55,
-                      child: Text(
-                        name,
-                        maxLines: 1,
-                        style: TextStyle(
-                          color: Theme.of(context).scaffoldBackgroundColor,
-                          fontSize: MediaQuery.of(context).size.width * 0.05,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    Text(
-                      'best set: ${getMaxSet(widget.sets).reps} x ${getMaxSet(widget.sets).weight}kg',
-                      style: TextStyle(
-                        color: Theme.of(context)
-                            .scaffoldBackgroundColor
-                            .withOpacity(0.4),
-                        fontSize: MediaQuery.of(context).size.width * 0.035,
-                      ),
-                    ),
-                    const SizedBox(height: 5),
-                    // LAST TRAIN DATE
-                    widget.sets.isNotEmpty
-                        ? Text(
-                            'last set: ${dateString(widget.sets.last.date)} at ${zeroBefore(widget.sets.last.date.hour)}:${zeroBefore(widget.sets.last.date.minute)}',
-                            style: TextStyle(
-                              color: Theme.of(context)
-                                  .scaffoldBackgroundColor
-                                  .withOpacity(0.4),
-                              fontSize:
-                                  MediaQuery.of(context).size.width * 0.03,
-                            ),
-                          )
-                        : const SizedBox(),
-                  ],
+class SmallSetWidget extends StatelessWidget {
+  const SmallSetWidget({
+    super.key,
+    required this.set,
+  });
+
+  final Set set;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      margin: const EdgeInsets.all(4),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(global.borderRadius - 20),
+        color: Theme.of(context).colorScheme.surface.withOpacity(0.05),
+      ),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Text(
+                '${set.weight}',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.primary,
+                  fontWeight: FontWeight.bold,
                 ),
-                Padding(
-                  padding: EdgeInsets.only(
-                      right: MediaQuery.of(context).size.width * 0.1),
-                  child: Center(
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.08,
-                      height: MediaQuery.of(context).size.width * 0.08,
-                      child: MuscleCooldown(
-                        sets: widget.sets,
-                      ),
-                    ),
-                  ),
+              ),
+              Text(
+                '${global.zeroBefore(set.date.hour)}:${global.zeroBefore(set.date.minute)}',
+                style: TextStyle(
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  fontWeight: FontWeight.bold,
                 ),
-              ],
-            ), */
+              ),
+              Text(
+                '${set.reps}',
+                style: TextStyle(
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}

@@ -50,13 +50,6 @@ class _ExerciseSetsState extends State<ExerciseSets> {
     setState(() {});
   }
 
-  String zeroBefore(int num) {
-    if (num <= 9) {
-      return '0$num';
-    }
-    return '$num';
-  }
-
   String dateString(DateTime date) {
     String month = [
       'Jan',
@@ -214,7 +207,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
 
                   // DATE
                   Text(
-                    '${zeroBefore(setList[i].date.hour)}:${zeroBefore(sets[i].date.minute)}',
+                    '${global.zeroBefore(setList[i].date.hour)}:${global.zeroBefore(sets[i].date.minute)}',
                     style: TextStyle(
                       color: Theme.of(context)
                           .scaffoldBackgroundColor

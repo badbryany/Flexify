@@ -112,28 +112,3 @@ class _MuscleCooldownState extends State<MuscleCooldown> {
     );
   }
 }
-
-/* Stack(
-      alignment: Alignment.center,
-      children: [
-        Transform.scale(
-          scale: 2.2,
-          child: CircularProgressIndicator(
-            value: recoverValue,
-            color: recoverColor,
-            backgroundColor:
-                Theme.of(context).colorScheme.surface.withOpacity(0.1),
-            strokeWidth: MediaQuery.of(context).size.width * 0.005,
-            strokeCap: StrokeCap.round,
-            strokeAlign: BorderSide.strokeAlignOutside,
-          ),
-        ),
-        Text(
-          '${(recoverValue * 100).round()}%',
-          style: TextStyle(
-            color: recoverColor,
-            fontSize: MediaQuery.of(context).size.width * 0.03,
-          ),
-        ),
-      ],
-    ); */
