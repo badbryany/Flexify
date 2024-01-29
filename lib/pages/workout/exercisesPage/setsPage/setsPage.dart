@@ -1,4 +1,5 @@
 import 'package:flexify/pages/workout/exercisesPage/widgets/Heading.dart';
+import 'package:flexify/widgets/DeleteAlertBox.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:flexify/pages/workout/exercisesPage/setsPage/widgets/ExerciseStats.dart';
@@ -123,14 +124,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
             bool returnValue = false;
             await showDialog(
               context: context,
-              builder: (context) => AlertDialog(
-                backgroundColor: Theme.of(context).colorScheme.background,
-                content: Text(
-                  'Do you want to delete this set?',
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.surface,
-                  ),
-                ),
+              builder: (context) => DeleteAlertDialog(
                 actions: [
                   TextButton(
                     onPressed: () {

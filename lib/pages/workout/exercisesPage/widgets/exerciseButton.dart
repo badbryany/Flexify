@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flexify/pages/workout/exercisesPage/setsPage/addeditSetPage/addeditSetPage.dart';
 import 'package:flexify/pages/workout/exercisesPage/setsPage/setsPage.dart';
 import 'package:flexify/widgets/BounceElement.dart';
+import 'package:flexify/widgets/DeleteAlertBox.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:flexify/data/exerciseModels.dart';
@@ -158,14 +159,7 @@ class _ExerciseButtonState extends State<ExerciseButton> {
         bool returnValue = false;
         await showDialog(
           context: context,
-          builder: (context) => AlertDialog(
-            backgroundColor: Theme.of(context).colorScheme.background,
-            content: Text(
-              'Do you want to delete this exercise?',
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.surface,
-              ),
-            ),
+          builder: (context) => DeleteAlertDialog(
             actions: [
               TextButton(
                 onPressed: () {
