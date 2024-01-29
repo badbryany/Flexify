@@ -94,6 +94,32 @@ class _ExerciseButtonState extends State<ExerciseButton> {
     return '${max}kg x $reps';
   }
 
+  List<Widget> smallSetWidgets() {
+    if (widget.sets.isEmpty) {
+      return [];
+    }
+    List<SmallSetWidget> returnWidgets = [];
+
+    for (int i = 0; i < widget.sets.reversed.take(3).length; i++) {
+      Set current = widget.sets.reversed.elementAt(i);
+      if (i != 0) {
+        if (returnWidgets[i - 1].set.date.difference(current.date) >
+            const Duration(hours: 10)) {
+          returnWidgets.add(
+            SmallSetWidget(
+              set: returnWidgets[i - 1].set,
+              empty: true,
+            ),
+          );
+          continue;
+        }
+      }
+      returnWidgets.add(SmallSetWidget(set: current));
+    }
+
+    return returnWidgets;
+  }
+
   getNewTime() {
     if (widget.sets.isEmpty) {
       timeString = '--:--';
@@ -110,7 +136,6 @@ class _ExerciseButtonState extends State<ExerciseButton> {
 
     int minutes = (difference.inSeconds / 60).floor();
     int seconds = (difference.inSeconds - minutes * 60).round();
-// ${difference.inSeconds >= 60 ? (difference.inSeconds / 60).round() : '00'}: ${difference.inSeconds / 60 > 1 ? (difference.inSeconds - (difference.inSeconds / 60)).round() : '00'}
 
     timeString = '${global.zeroBefore(minutes)}:${global.zeroBefore(seconds)}';
     setState(() {});
@@ -316,7 +341,7 @@ class _ExerciseButtonState extends State<ExerciseButton> {
                       Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(8),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
@@ -393,15 +418,15 @@ class _ExerciseButtonState extends State<ExerciseButton> {
                             ),
                           ),
                           Text(
-                            'last 3 sets:',
+                            'last 3 sets of last workout:',
                             style: TextStyle(
-                              color: Theme.of(context).scaffoldBackgroundColor,
+                              color: Theme.of(context)
+                                  .scaffoldBackgroundColor
+                                  .withOpacity(0.8),
                             ),
                           ),
-                          const SizedBox(height: 10),
-                          ...widget.sets.reversed.take(3).map(
-                                (e) => SmallSetWidget(set: e),
-                              ),
+                          const SizedBox(height: 5),
+                          ...smallSetWidgets(),
                           Text(
                             '...',
                             style: TextStyle(
@@ -419,7 +444,7 @@ class _ExerciseButtonState extends State<ExerciseButton> {
                 ),
                 AnimatedContainer(
                   duration: global.standardAnimationDuration,
-                  height: isExpanded ? 0 : 0,
+                  height: isExpanded ? 15 : 0,
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 8),
@@ -438,52 +463,64 @@ class _ExerciseButtonState extends State<ExerciseButton> {
   }
 }
 
+// ignore: must_be_immutable
 class SmallSetWidget extends StatelessWidget {
-  const SmallSetWidget({
+  SmallSetWidget({
     super.key,
     required this.set,
+    this.empty,
   });
 
   final Set set;
+  bool? empty;
 
   @override
   Widget build(BuildContext context) {
+    empty ??= false;
     return Container(
       padding: const EdgeInsets.all(10),
       margin: const EdgeInsets.all(4),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(global.borderRadius - 20),
-        color: Theme.of(context).colorScheme.surface.withOpacity(0.05),
+        color: Theme.of(context)
+            .colorScheme
+            .surface
+            .withOpacity(empty! ? 0.025 : 0.05),
       ),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Text(
-                '${set.weight}kg',
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text(
-                '${global.zeroBefore(set.date.hour)}:${global.zeroBefore(set.date.minute)}',
-                style: TextStyle(
-                  color: Theme.of(context).scaffoldBackgroundColor,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text(
-                'x${set.reps}',
-                style: TextStyle(
-                  color: Theme.of(context).scaffoldBackgroundColor,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-        ],
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width * 0.65,
+        child: Column(
+          children: [
+            empty!
+                ? const Text('')
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text(
+                        '${set.weight}kg',
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        '${global.zeroBefore(set.date.hour)}:${global.zeroBefore(set.date.minute)}',
+                        style: TextStyle(
+                          color: Theme.of(context).scaffoldBackgroundColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        'x${set.reps}',
+                        style: TextStyle(
+                          color: Theme.of(context).scaffoldBackgroundColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+          ],
+        ),
       ),
     );
   }
