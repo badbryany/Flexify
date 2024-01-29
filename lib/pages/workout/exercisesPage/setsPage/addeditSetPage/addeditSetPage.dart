@@ -112,7 +112,7 @@ class _AddEditSetState extends State<AddEditSet> {
                         widget.add ? 'Add Set' : 'Edit Set',
                         style: TextStyle(
                           color: Theme.of(context).focusColor,
-                          fontSize: MediaQuery.of(context).size.width * 0.06,
+                          fontSize: MediaQuery.of(context).size.width * 0.08,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -127,7 +127,7 @@ class _AddEditSetState extends State<AddEditSet> {
                         boxShadow: ([
                           global.lightShadow,
                         ]),
-                        color: Theme.of(context).scaffoldBackgroundColor,
+                        color: Theme.of(context).colorScheme.background,
                         borderRadius: BorderRadius.circular(1000),
                       ),
                       child: IconButton(
@@ -159,9 +159,9 @@ class _AddEditSetState extends State<AddEditSet> {
                           Navigator.pop(context);
                           setState(() {});
                         },
-                        color: Theme.of(context).focusColor,
-                        icon: const Icon(Icons.check),
-                        iconSize: MediaQuery.of(context).size.width * 0.05,
+                        color: Theme.of(context).colorScheme.primary,
+                        icon: const Icon(Icons.check_rounded),
+                        iconSize: MediaQuery.of(context).size.width * 0.065,
                       ),
                     ),
                   ],

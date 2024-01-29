@@ -70,7 +70,7 @@ class _ExerciseButtonState extends State<ExerciseButton> {
   bool thresholdReached = false;
   double thresholdProgress = 0.0;
 
-  String getPR() {
+  String getPRWeight() {
     double max = widget.sets[0].weight;
 
     for (int i = 1; i < widget.sets.length; i++) {
@@ -79,6 +79,19 @@ class _ExerciseButtonState extends State<ExerciseButton> {
       }
     }
     return '${max}kg';
+  }
+
+  String getPRSet() {
+    double max = widget.sets[0].weight;
+    int reps = widget.sets[0].reps;
+
+    for (int i = 1; i < widget.sets.length; i++) {
+      if (widget.sets[i].weight > max) {
+        max = widget.sets[i].weight;
+        reps = widget.sets[0].reps;
+      }
+    }
+    return '${max}kg x $reps';
   }
 
   getNewTime() {
@@ -203,8 +216,8 @@ class _ExerciseButtonState extends State<ExerciseButton> {
             duration: global.standardAnimationDuration,
             width:
                 MediaQuery.of(context).size.width * global.containerWidthFactor,
-            height:
-                MediaQuery.of(context).size.height * (isExpanded ? 0.5 : 0.18),
+            height: MediaQuery.of(context).size.height *
+                (isExpanded ? 0.529 : 0.195),
             margin: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
             padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.08),
             decoration: BoxDecoration(
@@ -215,11 +228,13 @@ class _ExerciseButtonState extends State<ExerciseButton> {
             child: Column(
               children: [
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Container(
                       alignment: Alignment.centerLeft,
                       width: MediaQuery.of(context).size.width *
-                          (global.containerWidthFactor - 0.3),
+                          (global.containerWidthFactor - 0.308),
+                      margin: const EdgeInsets.only(left: 10),
                       child: AnimatedScale(
                         scale: isExpanded ? 1.1 : 1,
                         duration: global.standardAnimationDuration,
@@ -229,8 +244,8 @@ class _ExerciseButtonState extends State<ExerciseButton> {
                           maxLines: 1,
                           style: TextStyle(
                             color: Theme.of(context).scaffoldBackgroundColor,
-                            fontSize: MediaQuery.of(context).size.width *
-                                (isExpanded ? 0.058 : 0.0525),
+                            fontSize:
+                                MediaQuery.of(context).size.width * 0.0525,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -240,65 +255,73 @@ class _ExerciseButtonState extends State<ExerciseButton> {
                       onPressed: () => setState(() {
                         isExpanded = !isExpanded;
                       }),
-                      icon: AnimatedSwitcher(
-                          duration: global.standardAnimationDuration,
-                          key: ValueKey(isExpanded),
-                          child: Icon(
-                            isExpanded
-                                ? Icons.expand_less_rounded
-                                : Icons.expand_more_rounded,
-                          )),
+                      icon: Icon(
+                        key: ValueKey(isExpanded),
+                        isExpanded
+                            ? Icons.expand_less_rounded
+                            : Icons.expand_more_rounded,
+                      ),
                       color: Theme.of(context).scaffoldBackgroundColor,
                     ),
                   ],
                 ),
-                Visibility(
-                  visible: isExpanded,
+                AnimatedOpacity(
+                  duration: global.standardAnimationDuration,
+                  opacity: isExpanded ? 0 : 1,
                   child: AnimatedContainer(
                     duration: global.standardAnimationDuration,
+                    alignment: Alignment.centerLeft,
+                    padding: const EdgeInsets.only(
+                      left: 12,
+                      bottom: 8,
+                      right: 12,
+                    ),
                     height: isExpanded
-                        ? MediaQuery.of(context).size.height * 0.34
-                        : 0,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                        ? 0
+                        : MediaQuery.of(context).size.height * 0.035,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Text(
-                                getPR(),
-                                style: TextStyle(
-                                  color: Theme.of(context).colorScheme.primary,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize:
-                                      MediaQuery.of(context).size.width * 0.06,
-                                ),
-                              ),
-                              IconButton(
-                                onPressed: () => Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    child: AddEditSet(
-                                      add: true,
-                                      set: null,
-                                      exerciseName: widget.exercise.name,
-                                    ),
-                                    type: PageTransitionType.fade,
-                                  ),
-                                ).then((value) => widget.reload()),
-                                icon: Icon(
-                                  Icons.add,
-                                  color:
-                                      Theme.of(context).scaffoldBackgroundColor,
-                                ),
-                              ),
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.18,
-                                child: Text(
-                                  timeString,
-                                  textAlign: TextAlign.center,
+                        Text(
+                          '${global.zeroBefore(widget.sets.last.date.day)}.${global.zeroBefore(widget.sets.last.date.month)}. ${global.zeroBefore(widget.sets.last.date.hour)}:${global.zeroBefore(widget.sets.last.date.minute)}',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            color: Theme.of(context)
+                                .scaffoldBackgroundColor
+                                .withOpacity(0.7),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          getPRSet(),
+                          style: TextStyle(
+                            color: Theme.of(context)
+                                .scaffoldBackgroundColor
+                                .withOpacity(0.7),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                AnimatedContainer(
+                  duration: global.standardAnimationDuration,
+                  height: isExpanded
+                      ? MediaQuery.of(context).size.height * 0.34
+                      : 0,
+                  child: ListView(
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: [
+                      Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Text(
+                                  getPRWeight(),
                                   style: TextStyle(
                                     color:
                                         Theme.of(context).colorScheme.primary,
@@ -308,32 +331,103 @@ class _ExerciseButtonState extends State<ExerciseButton> {
                                             0.06,
                                   ),
                                 ),
-                              ),
-                            ],
+                                SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.18,
+                                  child: Text(
+                                    timeString,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize:
+                                          MediaQuery.of(context).size.width *
+                                              0.06,
+                                    ),
+                                  ),
+                                ),
+                                IconButton(
+                                  onPressed: () => Navigator.push(
+                                    context,
+                                    PageTransition(
+                                      child: AddEditSet(
+                                        add: true,
+                                        set: null,
+                                        exerciseName: widget.exercise.name,
+                                      ),
+                                      type: PageTransitionType.fade,
+                                    ),
+                                  ).then((value) => widget.reload()),
+                                  icon: Container(
+                                    alignment: Alignment.center,
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.1,
+                                    height:
+                                        MediaQuery.of(context).size.width * 0.1,
+                                    padding: EdgeInsets.all(
+                                        MediaQuery.of(context).size.width *
+                                            0.01),
+                                    decoration: BoxDecoration(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background,
+                                      borderRadius: BorderRadius.circular(
+                                          MediaQuery.of(context).size.width *
+                                              0.0375),
+                                      gradient: LinearGradient(
+                                        colors: [
+                                          Theme.of(context).colorScheme.primary,
+                                          Theme.of(context)
+                                              .colorScheme
+                                              .onPrimary,
+                                        ],
+                                      ),
+                                    ),
+                                    child: const Icon(
+                                      Icons.add,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 20),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 8),
-                          child: Text(
+                          Text(
                             'last 3 sets:',
                             style: TextStyle(
                               color: Theme.of(context).scaffoldBackgroundColor,
                             ),
                           ),
-                        ),
-                        const SizedBox(height: 10),
-                        ...widget.sets.reversed.take(3).map(
-                              (e) => SmallSetWidget(set: e),
+                          const SizedBox(height: 10),
+                          ...widget.sets.reversed.take(3).map(
+                                (e) => SmallSetWidget(set: e),
+                              ),
+                          Text(
+                            '...',
+                            style: TextStyle(
+                              letterSpacing: 2.5,
+                              color: Theme.of(context).scaffoldBackgroundColor,
+                              fontWeight: FontWeight.bold,
+                              fontSize:
+                                  MediaQuery.of(context).size.width * 0.05,
                             ),
-                      ],
-                    ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
-                MuscleCooldown(
-                  sets: widget.sets,
-                  width: MediaQuery.of(context).size.width *
-                      (global.containerWidthFactor - 0.12),
+                AnimatedContainer(
+                  duration: global.standardAnimationDuration,
+                  height: isExpanded ? 0 : 0,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8),
+                  child: MuscleCooldown(
+                    sets: widget.sets,
+                    width: MediaQuery.of(context).size.width *
+                        (global.containerWidthFactor - 0.15),
+                  ),
                 )
               ],
             ),
@@ -367,7 +461,7 @@ class SmallSetWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Text(
-                '${set.weight}',
+                '${set.weight}kg',
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.primary,
                   fontWeight: FontWeight.bold,
@@ -381,7 +475,7 @@ class SmallSetWidget extends StatelessWidget {
                 ),
               ),
               Text(
-                '${set.reps}',
+                'x${set.reps}',
                 style: TextStyle(
                   color: Theme.of(context).scaffoldBackgroundColor,
                   fontWeight: FontWeight.bold,
