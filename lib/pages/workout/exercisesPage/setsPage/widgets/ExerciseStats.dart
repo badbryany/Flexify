@@ -18,6 +18,8 @@ class ExerciseStats extends StatefulWidget {
 }
 
 class _ExerciseStatsState extends State<ExerciseStats> {
+  DateTime firstDate = DateTime.now();
+  DateTime lastDate = DateTime.now();
   String statsValueTag = 'weight';
   List<String> statsValueTags = [
     'weight',
@@ -34,7 +36,14 @@ class _ExerciseStatsState extends State<ExerciseStats> {
     maxX = 0;
     maxY = 0;
 
+    int offset = 0;
     for (int i = 0; i < widget.sets.length; i++) {
+      if (widget.sets[i].date.isBefore(firstDate)) {
+        offset++;
+        continue;
+      }
+      if (widget.sets[i].date.isAfter(lastDate)) break;
+
       if (widget.sets[i].exerciseName == widget.exerciseName) {
         double y = 0;
 
@@ -53,7 +62,7 @@ class _ExerciseStatsState extends State<ExerciseStats> {
             break;
         }
 
-        spots.add(FlSpot(i.toDouble(), y));
+        spots.add(FlSpot(i.toDouble() - offset, y));
 
         if (y > maxY) maxY = y;
       }
@@ -92,11 +101,64 @@ class _ExerciseStatsState extends State<ExerciseStats> {
   Widget noSetLoadingWrapper(Widget child) => Container(
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(35),
+          borderRadius: BorderRadius.circular(global.borderRadius - 10),
           color: Theme.of(context).colorScheme.surface.withOpacity(0.035),
         ),
         child: child,
       );
+
+  @override
+  void initState() {
+    firstDate = widget.sets.first.date;
+    lastDate = widget.sets.last.date;
+    super.initState();
+  }
+
+  pickNewDate(bool first) async {
+    DateTime? newDate = await showDatePicker(
+      context: context,
+      builder: (context, child) => Theme(
+        data: ThemeData(
+          fontFamily: 'JosefinSans',
+          brightness: Brightness.dark,
+          colorScheme: ColorScheme(
+            brightness: Brightness.dark,
+            primary: Colors.transparent,
+            onPrimary: Theme.of(context).colorScheme.primary,
+            secondary: Colors.red,
+            onSecondary: Colors.red,
+            error: Colors.red,
+            onError: Colors.red,
+            background: Colors.green,
+            onBackground: Colors.transparent,
+            surface: Theme.of(context).colorScheme.background,
+            onSurface: Theme.of(context).scaffoldBackgroundColor,
+          ),
+          textButtonTheme: TextButtonThemeData(
+            style: TextButton.styleFrom(
+              foregroundColor: Theme.of(context).colorScheme.primary,
+            ),
+          ),
+        ),
+        child: child!,
+      ),
+      firstDate: widget.sets.first.date,
+      lastDate: widget.sets.last.date,
+      initialDate: first ? firstDate : lastDate,
+    );
+
+    if (newDate == null) return;
+
+    if (first) {
+      firstDate = newDate;
+      if (firstDate.isAfter(lastDate)) {
+        lastDate = firstDate;
+      }
+    } else {
+      lastDate = newDate;
+    }
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -149,17 +211,26 @@ class _ExerciseStatsState extends State<ExerciseStats> {
                     borderRadius: BorderRadius.circular(
                         MediaQuery.of(context).size.width * 0.1),
                   ),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text(
-                          dateString(widget.sets.first.date),
-                          style: TextStyle(
+                  child: Stack(
+                    children: [
+                      GestureDetector(
+                        onTap: () => pickNewDate(true),
+                        child: Container(
+                          color: Colors.transparent,
+                          alignment: Alignment.center,
+                          width: MediaQuery.of(context).size.width * 0.4,
+                          child: Text(
+                            dateString(firstDate),
+                            style: TextStyle(
                               color: Theme.of(context).scaffoldBackgroundColor,
                               fontSize:
-                                  MediaQuery.of(context).size.width * 0.03),
+                                  MediaQuery.of(context).size.width * 0.03,
+                            ),
+                          ),
                         ),
-                        Container(
+                      ),
+                      Center(
+                        child: Container(
                           alignment: Alignment.center,
                           width: MediaQuery.of(context).size.width * 0.1,
                           height: MediaQuery.of(context).size.width * 0.1,
@@ -185,14 +256,29 @@ class _ExerciseStatsState extends State<ExerciseStats> {
                             ),
                           ),
                         ),
-                        Text(
-                          dateString(widget.sets.last.date),
-                          style: TextStyle(
-                              color: Theme.of(context).scaffoldBackgroundColor,
-                              fontSize:
-                                  MediaQuery.of(context).size.width * 0.03),
-                        )
-                      ]),
+                      ),
+                      Container(
+                        alignment: Alignment.centerRight,
+                        child: GestureDetector(
+                          onTap: () => pickNewDate(false),
+                          child: Container(
+                            alignment: Alignment.center,
+                            width: MediaQuery.of(context).size.width * 0.4,
+                            color: Colors.transparent,
+                            child: Text(
+                              dateString(lastDate),
+                              style: TextStyle(
+                                color:
+                                    Theme.of(context).scaffoldBackgroundColor,
+                                fontSize:
+                                    MediaQuery.of(context).size.width * 0.03,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 SizedBox(height: MediaQuery.of(context).size.width * 0.06),
                 (maxX == 0 && maxY == 0
@@ -207,11 +293,20 @@ class _ExerciseStatsState extends State<ExerciseStats> {
                       )
                     : (spots.isEmpty
                         ? noSetLoadingWrapper(
-                            Text(
-                              'no sets yet',
-                              style: TextStyle(
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor,
+                            Padding(
+                              padding: EdgeInsets.only(
+                                top: MediaQuery.of(context).size.height * 0.11,
+                                bottom:
+                                    MediaQuery.of(context).size.height * 0.11,
+                              ),
+                              child: Text(
+                                widget.sets.isEmpty
+                                    ? 'no sets yet'
+                                    : 'no sets in this interval',
+                                style: TextStyle(
+                                  color:
+                                      Theme.of(context).scaffoldBackgroundColor,
+                                ),
                               ),
                             ),
                           )
