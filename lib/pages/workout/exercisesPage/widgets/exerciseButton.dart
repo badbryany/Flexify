@@ -88,7 +88,7 @@ class _ExerciseButtonState extends State<ExerciseButton> {
     for (int i = 1; i < widget.sets.length; i++) {
       if (widget.sets[i].weight > max) {
         max = widget.sets[i].weight;
-        reps = widget.sets[0].reps;
+        reps = widget.sets[i].reps;
       }
     }
     return '${max}kg x $reps';
