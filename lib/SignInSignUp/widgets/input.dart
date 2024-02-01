@@ -1,6 +1,6 @@
-import 'package:flexify/data/globalVariables.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/SignInSignUp/widgets/shadow.dart';
+import 'package:flexify/data/globalVariables.dart';
 
 class Input extends StatelessWidget {
   const Input(
@@ -36,10 +36,10 @@ class Input extends StatelessWidget {
                 textInputAction: TextInputAction.done,
                 obscureText: password,
                 cursorColor: Theme.of(context).colorScheme.background,
+                controller: controller,
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.background,
                 ),
-                controller: controller,
                 decoration: InputDecoration(
                   hintText: hintText,
                   border: InputBorder.none,

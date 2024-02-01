@@ -28,15 +28,16 @@ class _ButtonWithTextState extends State<ButtonWithText> {
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(borderRadius),
-              color: Theme.of(context).colorScheme.outline,
+              color: Theme.of(context).colorScheme.background,
             ),
             child: GestureDetector(
               onTap: widget.onTap,
               child: Center(
                 child: Text(
                   widget.text,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 20,
+                    color: Theme.of(context).colorScheme.surface,
                   ),
                 ),
               ),
@@ -68,13 +69,53 @@ class ImageButton extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(borderRadius - 25),
-              border: Border.all(color: Theme.of(context).colorScheme.onBackground,),
+              border: Border.all(
+                color: Theme.of(context).colorScheme.onBackground,
+              ),
             ),
             child: GestureDetector(
               onTap: onTap(),
               child: Center(
                 child: image,
               ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class ButtonWithIcon extends StatefulWidget {
+  const ButtonWithIcon({
+    super.key,
+    required this.icon,
+    required this.onTap,
+  });
+  final Widget icon;
+  final Function() onTap;
+
+  @override
+  State<ButtonWithIcon> createState() => _ButtonWithIconState();
+}
+
+class _ButtonWithIconState extends State<ButtonWithIcon> {
+  @override
+  Widget build(BuildContext context) {
+    return BounceElement(
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width * 0.09,
+        height: MediaQuery.of(context).size.height * 0.09,
+        child: Shadow(
+          borderRadius: borderRadius,
+          child: Container(
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.onSurface,
+              borderRadius: BorderRadius.circular(borderRadius),
+            ),
+            child: GestureDetector(
+              onTap: widget.onTap,
+              child: widget.icon,
             ),
           ),
         ),

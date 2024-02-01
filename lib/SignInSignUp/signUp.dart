@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flexify/SignInSignUp/signIn.dart';
-import 'package:flexify/SignInSignUp/widgets/bubbles.dart';
 import 'package:flexify/SignInSignUp/widgets/button.dart';
-import 'package:flexify/SignInSignUp/widgets/heading.dart';
-import 'package:flexify/SignInSignUp/widgets/fastSignIn.dart';
-import 'package:flexify/SignInSignUp/widgets/SignUpPages/signUpPage1.dart';
-import 'package:flexify/SignInSignUp/widgets/SignUpPages/signUpPage2.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:flexify/SignInSignUp/widgets/background.dart';
+import 'package:flexify/SignInSignUp/SignUp/signUp1.dart';
+import 'package:flexify/SignInSignUp/SignUp/signUp2.dart';
+import 'package:flexify/data/globalVariables.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -17,87 +14,85 @@ class SignUp extends StatefulWidget {
 
 Widget? refresh;
 int pageSwitch = 0;
+String nextButtonText = 'next';
 
 class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     if (pageSwitch == 0) {
-      refresh = const SignUpPage1();
+      refresh = const SignUp1();
+      nextButtonText = 'next';
     }
     if (pageSwitch == 1) {
-      refresh = const SignUpPage2();
+      refresh = const SignUp2();
+      nextButtonText = 'finish';
     }
-
     return Scaffold(
-      body: SizedBox(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        child: Container(
-          padding: const EdgeInsets.all(20),
-          child: Stack(
-            children: [
-              const Bubbles(),
-              const LogInHeading(
-                text: 'Up',
+      body: Stack(
+        children: [
+// background
+          const Background(),
+// text
+          Container(
+            alignment: const Alignment(0, -0.3),
+            child: Text(
+              'Sign Up',
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.surface,
+                fontSize: 30,
               ),
-              Container(
-                alignment: Alignment.bottomCenter,
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.55,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-// SignIn page
-                      AnimatedSwitcher(
-                        duration: const Duration(milliseconds: 250),
-                        child: refresh,
-                        transitionBuilder: (child, animation) => FadeTransition(
-                          opacity: animation,
-                          child: child,
-                        ),
-                      ),
-// next button
-                      Container(
-                        alignment: Alignment.bottomCenter,
-                        child: ButtonWithText(
-                          onTap: () {
-                            pageSwitch++;
-                            setState(() {});
-                          },
-                          text: 'next',
-                        ),
-                      ),
-// FastSignIn
-                      const FastSignin(),
-// SignIn button
-                      Container(
-                        alignment: Alignment.bottomCenter,
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).push(
-                              PageTransition(
-                                child: const SignIn(),
-                                type: PageTransitionType.fade,
-                              ),
-                            );
-                            pageSwitch = 0;
-                          },
-                          child: const Text(
-                            'SignIn',
-                            style:
-                                TextStyle(decoration: TextDecoration.underline),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
+// SignUp page
+          Container(
+            alignment: const Alignment(1, 0.4),
+            child: AnimatedSwitcher(
+              duration: standardAnimationDuration,
+              child: refresh,
+              transitionBuilder: (child, animation) => FadeTransition(
+                opacity: animation,
+                child: child,
+              ),
+            ),
+          ),
+// back button
+          Container(
+            alignment: Alignment.topLeft * 0.9,
+            child: ButtonWithIcon(
+              onTap: () {
+                if (pageSwitch == 0) {
+                  Navigator.pop(context);
+                } else {
+                  pageSwitch = 0;
+                }
+                setState(() {});
+              },
+              icon: Icon(
+                Icons.arrow_back,
+                color: Theme.of(context).colorScheme.surface,
+              ),
+            ),
+          ),
+// next button
+          Container(
+            alignment: Alignment.bottomCenter * 0.9,
+            child: ButtonWithText(
+              text: nextButtonText,
+              onTap: () {
+                pageSwitch++;
+                setState(() {});
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
 }
+
+                // if (usernameInput.toString() != '' &&
+                //     passwordInput.toString() != '' &&
+                //     passwordInput.toString().length > 5) {
+                //   setUsername();
+                //   setPassword();
+                // }
