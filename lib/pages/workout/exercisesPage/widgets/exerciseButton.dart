@@ -71,6 +71,9 @@ class _ExerciseButtonState extends State<ExerciseButton> {
   double thresholdProgress = 0.0;
 
   String getPRWeight() {
+    if (widget.sets.isEmpty) {
+      return '0kg';
+    }
     double max = widget.sets[0].weight;
 
     for (int i = 1; i < widget.sets.length; i++) {
@@ -82,6 +85,9 @@ class _ExerciseButtonState extends State<ExerciseButton> {
   }
 
   String getPRSet() {
+    if (widget.sets.isEmpty) {
+      return '0kg x 0';
+    }
     double max = widget.sets[0].weight;
     int reps = widget.sets[0].reps;
 
@@ -96,7 +102,19 @@ class _ExerciseButtonState extends State<ExerciseButton> {
 
   List<Widget> smallSetWidgets() {
     if (widget.sets.isEmpty) {
-      return [];
+      return List.generate(
+        3,
+        (index) => SmallSetWidget(
+          set: Set(
+            date: DateTime.now(),
+            exerciseName: '',
+            reps: 0,
+            weight: 0,
+            setID: -10,
+          ),
+          empty: true,
+        ),
+      );
     }
     List<SmallSetWidget> returnWidgets = [];
 
@@ -158,8 +176,8 @@ class _ExerciseButtonState extends State<ExerciseButton> {
   @override
   Widget build(BuildContext context) {
     String name = widget.exercise.name;
-    if (name.length > 20) {
-      name = '${name.substring(0, 17)}...';
+    if (name.length > 29) {
+      name = '${name.substring(0, 26).trim()}...';
     }
     return Dismissible(
       key: ValueKey(name),
@@ -241,10 +259,10 @@ class _ExerciseButtonState extends State<ExerciseButton> {
             duration: global.standardAnimationDuration,
             width:
                 MediaQuery.of(context).size.width * global.containerWidthFactor,
-            height: MediaQuery.of(context).size.height *
-                (isExpanded ? 0.529 : 0.195),
+            height:
+                MediaQuery.of(context).size.height * (isExpanded ? 0.48 : 0.18),
             margin: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
-            padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.08),
+            padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.05),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(global.borderRadius),
               color: Theme.of(context).colorScheme.background,
@@ -258,7 +276,7 @@ class _ExerciseButtonState extends State<ExerciseButton> {
                     Container(
                       alignment: Alignment.centerLeft,
                       width: MediaQuery.of(context).size.width *
-                          (global.containerWidthFactor - 0.308),
+                          (global.containerWidthFactor - 0.25),
                       margin: const EdgeInsets.only(left: 10),
                       child: AnimatedScale(
                         scale: isExpanded ? 1.1 : 1,
@@ -296,10 +314,10 @@ class _ExerciseButtonState extends State<ExerciseButton> {
                   child: AnimatedContainer(
                     duration: global.standardAnimationDuration,
                     alignment: Alignment.centerLeft,
-                    padding: const EdgeInsets.only(
-                      left: 12,
+                    padding: EdgeInsets.only(
+                      left: MediaQuery.of(context).size.width * 0.042,
                       bottom: 8,
-                      right: 12,
+                      right: MediaQuery.of(context).size.width * 0.042,
                     ),
                     height: isExpanded
                         ? 0
@@ -308,7 +326,9 @@ class _ExerciseButtonState extends State<ExerciseButton> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          '${global.zeroBefore(widget.sets.last.date.day)}.${global.zeroBefore(widget.sets.last.date.month)}. ${global.zeroBefore(widget.sets.last.date.hour)}:${global.zeroBefore(widget.sets.last.date.minute)}',
+                          widget.sets.isNotEmpty
+                              ? '${global.zeroBefore(widget.sets.last.date.day)}.${global.zeroBefore(widget.sets.last.date.month)}. ${global.zeroBefore(widget.sets.last.date.hour)}:${global.zeroBefore(widget.sets.last.date.minute)}'
+                              : '',
                           textAlign: TextAlign.left,
                           style: TextStyle(
                             color: Theme.of(context)
@@ -333,7 +353,7 @@ class _ExerciseButtonState extends State<ExerciseButton> {
                 AnimatedContainer(
                   duration: global.standardAnimationDuration,
                   height: isExpanded
-                      ? MediaQuery.of(context).size.height * 0.34
+                      ? MediaQuery.of(context).size.height * 0.32
                       : 0,
                   child: ListView(
                     physics: const NeverScrollableScrollPhysics(),
@@ -418,7 +438,7 @@ class _ExerciseButtonState extends State<ExerciseButton> {
                             ),
                           ),
                           Text(
-                            'last 3 sets of last workout:',
+                            'last 3 sets:',
                             style: TextStyle(
                               color: Theme.of(context)
                                   .scaffoldBackgroundColor
@@ -427,31 +447,19 @@ class _ExerciseButtonState extends State<ExerciseButton> {
                           ),
                           const SizedBox(height: 5),
                           ...smallSetWidgets(),
-                          Text(
-                            '...',
-                            style: TextStyle(
-                              letterSpacing: 2.5,
-                              color: Theme.of(context).scaffoldBackgroundColor,
-                              fontWeight: FontWeight.bold,
-                              fontSize:
-                                  MediaQuery.of(context).size.width * 0.05,
-                            ),
-                          ),
                         ],
                       ),
                     ],
                   ),
                 ),
-                AnimatedContainer(
-                  duration: global.standardAnimationDuration,
-                  height: isExpanded ? 15 : 0,
-                ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 8),
+                  padding: EdgeInsets.only(
+                    left: MediaQuery.of(context).size.width * 0.042,
+                  ),
                   child: MuscleCooldown(
                     sets: widget.sets,
                     width: MediaQuery.of(context).size.width *
-                        (global.containerWidthFactor - 0.15),
+                        (global.containerWidthFactor - 0.1148),
                   ),
                 )
               ],
