@@ -59,12 +59,12 @@ class Background extends StatelessWidget {
         ),
 // gradient
         Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.bottomCenter,
               end: Alignment.topCenter,
               colors: [
-                Colors.black,
+                Theme.of(context).colorScheme.shadow,
                 Colors.transparent,
               ],
             ),

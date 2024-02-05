@@ -1,7 +1,9 @@
+import 'package:flexify/pages/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/SignInSignUp/widgets/button.dart';
 import 'package:flexify/SignInSignUp/widgets/background.dart';
 import 'package:flexify/SignInSignUp/widgets/input.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SignIn extends StatefulWidget {
@@ -15,40 +17,6 @@ class _SignInState extends State<SignIn> {
   TextEditingController usernameInput = TextEditingController();
   TextEditingController passwordInput = TextEditingController();
   bool visible = true;
-  bool? signedUp;
-
-  @override
-  void initState() {
-    testSignedUp();
-    super.initState();
-  }
-
-  void testSignedUp() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (prefs.getString('username') != null &&
-        prefs.getString('password') != null &&
-        prefs.getString('username') != '' &&
-        prefs.getString('password') != '') {
-      signedUp = true;
-      prefs.setBool('signedUp', signedUp!);
-    } else {
-      signedUp = false;
-      prefs.setBool('signedUp', signedUp!);
-    }
-    print(prefs.getBool('signedUp'));
-  }
-
-  void setUsername() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('username', usernameInput.text);
-    print(prefs.getString('username'));
-  }
-
-  void setPassword() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('password', passwordInput.text);
-    print(prefs.getString('password'));
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,8 +47,6 @@ class _SignInState extends State<SignIn> {
       },
     ];
 
-    testSignedUp();
-
     return Scaffold(
       body: Stack(
         children: [
@@ -92,8 +58,8 @@ class _SignInState extends State<SignIn> {
             child: Text(
               'Sign In',
               style: TextStyle(
-                color: Theme.of(context).colorScheme.surface,
                 fontSize: 30,
+                color: Theme.of(context).colorScheme.surface,
               ),
             ),
           ),
@@ -126,17 +92,33 @@ class _SignInState extends State<SignIn> {
               ),
             ),
           ),
+// back button
+          Container(
+            alignment: Alignment.topLeft * 0.9,
+            child: ButtonWithIcon(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              icon: Icon(
+                Icons.arrow_back,
+                color: Theme.of(context).colorScheme.surface,
+              ),
+            ),
+          ),
 // button
           Container(
             alignment: Alignment.bottomCenter * 0.9,
             child: ButtonWithText(
               text: 'Sign In',
-              onTap: () {
-                if (usernameInput.toString() != '' &&
-                    passwordInput.toString() != '' &&
-                    passwordInput.toString().length > 5) {
-                  setUsername();
-                  setPassword();
+              onTap: () async {
+                SharedPreferences prefs = await SharedPreferences.getInstance();
+                if (usernameInput.text == prefs.getString('username') &&
+                    passwordInput.text == prefs.getString('password')) {
+                  Navigator.of(context).push(
+                    PageTransition(
+                        child: const Dashboard(),
+                        type: PageTransitionType.fade),
+                  );
                 }
                 setState(() {});
               },

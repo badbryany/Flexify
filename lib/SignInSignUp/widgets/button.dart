@@ -27,7 +27,7 @@ class _ButtonWithTextState extends State<ButtonWithText> {
           borderRadius: borderRadius,
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(borderRadius),
+              borderRadius: BorderRadius.circular(borderRadius * 0.4),
               color: Theme.of(context).colorScheme.background,
             ),
             child: GestureDetector(
@@ -61,20 +61,18 @@ class ImageButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shadow(
-      borderRadius: borderRadius - 25,
+      borderRadius: borderRadius * 0.2,
       child: BounceElement(
         child: SizedBox(
           width: MediaQuery.of(context).size.width * 0.1,
           height: MediaQuery.of(context).size.width * 0.1,
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(borderRadius - 25),
-              border: Border.all(
-                color: Theme.of(context).colorScheme.onBackground,
-              ),
+              color: Theme.of(context).colorScheme.background,
+              borderRadius: BorderRadius.circular(borderRadius * 0.2),
             ),
             child: GestureDetector(
-              onTap: onTap(),
+              onTap: onTap,
               child: Center(
                 child: image,
               ),
@@ -103,20 +101,13 @@ class _ButtonWithIconState extends State<ButtonWithIcon> {
   @override
   Widget build(BuildContext context) {
     return BounceElement(
-      child: SizedBox(
-        width: MediaQuery.of(context).size.width * 0.09,
-        height: MediaQuery.of(context).size.height * 0.09,
-        child: Shadow(
-          borderRadius: borderRadius,
-          child: Container(
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.onSurface,
-              borderRadius: BorderRadius.circular(borderRadius),
-            ),
-            child: GestureDetector(
-              onTap: widget.onTap,
-              child: widget.icon,
-            ),
+      child: Shadow(
+        borderRadius: borderRadius,
+        child: Container(
+          color: Colors.black,
+          child: GestureDetector(
+            onTap: widget.onTap,
+            child: widget.icon,
           ),
         ),
       ),

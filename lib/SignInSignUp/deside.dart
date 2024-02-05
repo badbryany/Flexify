@@ -32,14 +32,5 @@ class _DesideState extends State<Deside> {
   @override
   Widget build(BuildContext context) {
     return refresh;
-
-    // AnimatedSwitcher(
-    //   duration: standardAnimationDuration,
-    //   child: refresh,
-    //   transitionBuilder: (child, animation) => FadeTransition(
-    //     opacity: animation,
-    //     child: child,
-    //   ),
-    // );
   }
 }

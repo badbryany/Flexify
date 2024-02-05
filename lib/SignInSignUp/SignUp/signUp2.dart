@@ -2,15 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flexify/SignInSignUp/widgets/input.dart';
 
 class SignUp2 extends StatefulWidget {
-  const SignUp2({super.key});
+  const SignUp2({
+    super.key,
+    required this.usernameController,
+    required this.passwordController,
+  });
+  final TextEditingController usernameController;
+  final TextEditingController passwordController;
 
   @override
   State<SignUp2> createState() => _SignUp2State();
 }
 
 class _SignUp2State extends State<SignUp2> {
-  TextEditingController usernameController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
   bool visible = true;
 
   @override
@@ -29,14 +33,14 @@ class _SignUp2State extends State<SignUp2> {
       {
         'labelText': 'username',
         'hintText': 'e.g. Peter Pan',
-        'controller': usernameController,
+        'controller': widget.usernameController,
         'icon': null,
         'password': false,
       },
       {
         'labelText': 'password',
         'hintText': 'at least 6 signs',
-        'controller': passwordController,
+        'controller': widget.passwordController,
         'icon': passwordIcon,
         'password': visible,
       },

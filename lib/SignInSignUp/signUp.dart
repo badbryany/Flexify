@@ -3,7 +3,10 @@ import 'package:flexify/SignInSignUp/widgets/button.dart';
 import 'package:flexify/SignInSignUp/widgets/background.dart';
 import 'package:flexify/SignInSignUp/SignUp/signUp1.dart';
 import 'package:flexify/SignInSignUp/SignUp/signUp2.dart';
+import 'package:flexify/pages/dashboard.dart';
 import 'package:flexify/data/globalVariables.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -12,19 +15,44 @@ class SignUp extends StatefulWidget {
   State<SignUp> createState() => _SignUpState();
 }
 
-Widget? refresh;
-int pageSwitch = 0;
-String nextButtonText = 'next';
-
 class _SignUpState extends State<SignUp> {
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController surnameController = TextEditingController();
+  TextEditingController emailAddressController = TextEditingController();
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  Widget? refresh;
+  int pageSwitch = 0;
+  String nextButtonText = 'next';
+
+  setPersonalData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('firstName', firstNameController.text);
+    prefs.setString('surname', surnameController.text);
+    prefs.setString('emailAddress', emailAddressController.text);
+  }
+
+  setLogInData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('username', usernameController.text);
+    prefs.setString('password', passwordController.text);
+  }
+
   @override
   Widget build(BuildContext context) {
     if (pageSwitch == 0) {
-      refresh = const SignUp1();
+      refresh = SignUp1(
+        firstNameController: firstNameController,
+        surnameController: surnameController,
+        emailAddressController: emailAddressController,
+      );
       nextButtonText = 'next';
     }
     if (pageSwitch == 1) {
-      refresh = const SignUp2();
+      refresh = SignUp2(
+        usernameController: usernameController,
+        passwordController: passwordController,
+      );
       nextButtonText = 'finish';
     }
     return Scaffold(
@@ -78,8 +106,31 @@ class _SignUpState extends State<SignUp> {
             alignment: Alignment.bottomCenter * 0.9,
             child: ButtonWithText(
               text: nextButtonText,
-              onTap: () {
-                pageSwitch++;
+              onTap: () async {
+                if (nextButtonText == 'next') {
+                  setPersonalData();
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                  if (prefs.getString('firstName') != '' &&
+                      prefs.getString('surname') != '' &&
+                      prefs.getString('emailAddress') != '') {
+                    pageSwitch++;
+                  }
+                } else {
+                  setLogInData();
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                  if (prefs.getString('username') != '' &&
+                      prefs.getString('password') != '') {
+                    prefs.setBool('signedUp', true);
+                    Navigator.of(context).push(
+                      PageTransition(
+                        child: const Dashboard(),
+                        type: PageTransitionType.fade,
+                      ),
+                    );
+                  }
+                }
                 setState(() {});
               },
             ),
@@ -89,10 +140,3 @@ class _SignUpState extends State<SignUp> {
     );
   }
 }
-
-                // if (usernameInput.toString() != '' &&
-                //     passwordInput.toString() != '' &&
-                //     passwordInput.toString().length > 5) {
-                //   setUsername();
-                //   setPassword();
-                // }

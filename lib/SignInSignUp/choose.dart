@@ -46,6 +46,29 @@ class _ChooseState extends State<Choose> {
         children: [
 // background
           const Background(),
+// text
+          Container(
+            alignment: Alignment.center,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'hundreds of',
+                  style: TextStyle(
+                    fontSize: 30,
+                    color: Theme.of(context).colorScheme.surface,
+                  ),
+                ),
+                Text(
+                  'exercises',
+                  style: TextStyle(
+                    fontSize: 30,
+                    color: Theme.of(context).colorScheme.surface,
+                  ),
+                ),
+              ],
+            ),
+          ),
 // button
           Container(
             alignment: Alignment.bottomCenter,
