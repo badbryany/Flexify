@@ -127,6 +127,18 @@ class Save {
     );
   }
 
+  static Future<void> editExerciseName(String oldName, String newName) async {
+    Database db = await getDatabase();
+
+    await db.rawUpdate(
+      'UPDATE exercises SET name="$newName" WHERE name="$oldName"',
+    );
+
+    await db.rawUpdate(
+      'UPDATE sets SET exerciseName="$newName" WHERE sets.exerciseName="$oldName"',
+    );
+  }
+
   static Future<void> saveSet(Set set) async {
     Database db = await getDatabase();
 

@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
           surface: Color(0xfff5f5fb),
           onSurface: Color.fromARGB(255, 37, 37, 37),
           outline: Color.fromARGB(255, 125, 185, 125),
-          outlineVariant: Color.fromARGB(127 , 125, 185, 125),
+          outlineVariant: Color.fromARGB(127, 125, 185, 125),
           shadow: Color.fromARGB(255, 170, 170, 170),
         ),
       ),

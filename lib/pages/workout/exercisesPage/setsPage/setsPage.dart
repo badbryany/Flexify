@@ -29,13 +29,16 @@ class _ExerciseSetsState extends State<ExerciseSets> {
   List<List<Set>> setsByDate = [];
   List<Widget> setWidgets = [];
   bool loadingDone = false;
+  TextEditingController editNameController = TextEditingController();
+
+  String exerciseName = '...';
 
   bool thresholdReached = false;
   double thresholdProgress = 0.0;
 
-  getData() async {
+  getData(BuildContext context) async {
     sets = (await Save.getSetList())
-        .where((e) => e.exerciseName == widget.name)
+        .where((e) => e.exerciseName == exerciseName)
         .toList();
     setsByDate = sets.isNotEmpty
         ? (groupBy(sets, (Set set) => dateString(set.date))
@@ -45,10 +48,78 @@ class _ExerciseSetsState extends State<ExerciseSets> {
             .toList())
         : [];
     setWidgets = sets.isNotEmpty
-        ? setsByDate.map((sets) => setWidgetsBySetList(sets)).flattened.toList()
+        ? setsByDate
+            .map((sets) => setWidgetsBySetList(sets, context))
+            .flattened
+            .toList()
         : [];
     loadingDone = true;
     setState(() {});
+  }
+
+  setEditName() async {
+    String oldName = exerciseName;
+    editNameController.text = exerciseName;
+    editNameController.addListener(() {
+      exerciseName = editNameController.text;
+      setState(() {});
+    });
+    await showDialog(
+        context: context,
+        builder: (context) => Theme(
+              data: ThemeData(
+                fontFamily: 'JosefinSans',
+                brightness: Brightness.dark,
+                colorScheme: ColorScheme(
+                  brightness: Brightness.dark,
+                  primary: Colors.transparent,
+                  onPrimary: Theme.of(context).colorScheme.primary,
+                  secondary: Colors.red,
+                  onSecondary: Colors.red,
+                  error: Colors.red,
+                  onError: Colors.red,
+                  background: Colors.green,
+                  onBackground: Colors.transparent,
+                  surface: Theme.of(context).colorScheme.background,
+                  onSurface: Theme.of(context).scaffoldBackgroundColor,
+                ),
+                textButtonTheme: TextButtonThemeData(
+                  style: TextButton.styleFrom(
+                    foregroundColor: Theme.of(context).colorScheme.primary,
+                  ),
+                ),
+              ),
+              child: AlertDialog(
+                backgroundColor: Theme.of(context).colorScheme.background,
+                content: TextField(
+                  autofocus: true,
+                  controller: editNameController,
+                  decoration: const InputDecoration(
+                    hintText: 'Name of Exercise',
+                  ),
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      editNameController.text = oldName;
+                      Navigator.pop(context);
+                    },
+                    child: const Text('cancle'),
+                  ),
+                  TextButton(
+                    onPressed: () async {
+                      await Save.editExerciseName(
+                        widget.name,
+                        editNameController.text,
+                      );
+                      await getData(context);
+                      Navigator.pop(context);
+                    },
+                    child: const Text('save'),
+                  ),
+                ],
+              ),
+            ));
   }
 
   String dateString(DateTime date) {
@@ -70,7 +141,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
     return '$month ${date.day}';
   }
 
-  List<Widget> setWidgetsBySetList(List<Set> setList) {
+  List<Widget> setWidgetsBySetList(List<Set> setList, BuildContext context) {
     List<Widget> returnList = [];
 
     if (setList.isEmpty) return returnList;
@@ -124,7 +195,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
             bool returnValue = false;
             await showDialog(
               context: context,
-              builder: (context) => DeleteAlertDialog(
+              builder: (BuildContext context) => DeleteAlertDialog(
                 actions: [
                   TextButton(
                     onPressed: () {
@@ -136,8 +207,9 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                   TextButton(
                     onPressed: () async {
                       await Save.deleteSet(setList[i]);
-                      await getData();
+                      await getData(context);
                       returnValue = true;
+                      // ignore: use_build_context_synchronously
                       Navigator.pop(context);
                     },
                     child: const Text('delete'),
@@ -158,7 +230,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                 ),
                 type: PageTransitionType.fade,
               ),
-            ).then((value) => getData()),
+            ).then((value) => getData(context)),
             child: Container(
               padding: EdgeInsets.all(global.containerPadding - 10),
               width: MediaQuery.of(context).size.width *
@@ -232,14 +304,26 @@ class _ExerciseSetsState extends State<ExerciseSets> {
     return returnList;
   }
 
+  BuildContext? globalContextVar;
+
+  foo() {
+    if (globalContextVar != null) {
+      getData(globalContextVar!);
+    } else {
+      Future.delayed(const Duration(seconds: 1), foo);
+    }
+  }
+
   @override
   void initState() {
+    exerciseName = widget.name;
     super.initState();
-    getData();
+    foo();
   }
 
   @override
   Widget build(BuildContext context) {
+    globalContextVar = context;
     return PopScope(
       onPopInvoked: (foo) => widget.refresh(),
       child: Scaffold(
@@ -277,15 +361,18 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                       iconSize: MediaQuery.of(context).size.width * 0.05,
                     ),
                   ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.65,
-                    child: Text(
-                      widget.name,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Theme.of(context).focusColor,
-                        fontSize: MediaQuery.of(context).size.width * 0.06,
-                        fontWeight: FontWeight.bold,
+                  GestureDetector(
+                    onTap: setEditName,
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.65,
+                      child: Text(
+                        exerciseName,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Theme.of(context).focusColor,
+                          fontSize: MediaQuery.of(context).size.width * 0.06,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
@@ -314,7 +401,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                           ),
                           type: PageTransitionType.fade,
                         ),
-                      ).then((value) => getData()),
+                      ).then((value) => getData(context)),
                       color: Theme.of(context).focusColor,
                       icon: const Icon(Icons.add),
                       iconSize: MediaQuery.of(context).size.width * 0.05,
@@ -323,25 +410,6 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                 ],
               ),
             ),
-            sets.isNotEmpty
-                ? ExerciseStats(
-                    exerciseName: widget.name,
-                    sets: sets,
-                  )
-                : Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                          right: MediaQuery.of(context).size.width * 0.1,
-                        ),
-                        child: SvgPicture.asset(
-                          'assets/Squiggly Arrow.svg',
-                          width: MediaQuery.of(context).size.width * 0.8,
-                          height: MediaQuery.of(context).size.width * 0.6,
-                        ),
-                      ),
-                    ],
-                  ),
             SizedBox(
               width: MediaQuery.of(context).size.width *
                   global.containerWidthFactor,
@@ -349,8 +417,27 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                 children: [
                   ...(loadingDone
                       ? (sets.isNotEmpty
-                          ? setWidgets
+                          ? [
+                              ExerciseStats(
+                                exerciseName: exerciseName,
+                                sets: sets,
+                              ),
+                              ...setWidgets
+                            ]
                           : [
+                              Padding(
+                                padding: EdgeInsets.only(
+                                  right:
+                                      MediaQuery.of(context).size.width * 0.1,
+                                ),
+                                child: SvgPicture.asset(
+                                  'assets/Squiggly Arrow.svg',
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.8,
+                                  height:
+                                      MediaQuery.of(context).size.width * 0.6,
+                                ),
+                              ),
                               Center(
                                 child: Text(
                                   'Click  \'+\'  to add a set!  :)',
