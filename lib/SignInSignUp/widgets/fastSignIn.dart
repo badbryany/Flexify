@@ -14,7 +14,7 @@ class _FastSigninState extends State<FastSignin> {
       'image': 'assets/icon/google.png',
     },
     {
-      'image': 'assets/icon/apple.png',
+      'image': 'assets/icon/apple2.png',
     },
   ];
 

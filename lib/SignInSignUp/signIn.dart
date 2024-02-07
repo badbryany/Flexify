@@ -1,11 +1,10 @@
-import 'package:flexify/SignInSignUp/widgets/bubbles.dart';
+import 'package:flexify/pages/dashboard.dart';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:flexify/SignInSignUp/widgets/button.dart';
-import 'package:flexify/SignInSignUp/widgets/heading.dart';
-import 'package:flexify/SignInSignUp/widgets/signInInput.dart';
-import 'package:flexify/SignInSignUp/widgets/fastSignIn.dart';
-import 'package:flexify/SignInSignUp/signUp.dart';
+import 'package:flexify/SignInSignUp/widgets/background.dart';
+import 'package:flexify/SignInSignUp/widgets/input.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -15,64 +14,117 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+  TextEditingController usernameInput = TextEditingController();
+  TextEditingController passwordInput = TextEditingController();
+  bool visible = true;
+
   @override
   Widget build(BuildContext context) {
+    Icon passwordIcon = visible
+        ? Icon(
+            Icons.visibility_off,
+            color: Theme.of(context).colorScheme.onBackground,
+          )
+        : Icon(
+            Icons.visibility,
+            color: Theme.of(context).colorScheme.onBackground,
+          );
+
+    List<Map<String, dynamic>> inputs = [
+      {
+        'labelText': 'username',
+        'hintText': 'e.g. Peter Pan',
+        'controller': usernameInput,
+        'icon': null,
+        'password': false,
+      },
+      {
+        'labelText': 'password',
+        'hintText': 'at least 6 signs',
+        'controller': passwordInput,
+        'icon': passwordIcon,
+        'password': visible,
+      },
+    ];
+
     return Scaffold(
-      body: SizedBox(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        child: Container(
-          padding: const EdgeInsets.all(20),
-          child: Stack(
-            children: [
-              const Bubbles(),
-              const LogInHeading(
-                text: 'In',
+      body: Stack(
+        children: [
+// background
+          const Background(),
+// text
+          Container(
+            alignment: const Alignment(0, -0.3),
+            child: Text(
+              'Sign In',
+              style: TextStyle(
+                fontSize: 30,
+                color: Theme.of(context).colorScheme.surface,
               ),
-              Container(
-                alignment: Alignment.bottomCenter,
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.55,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const SignInInput(),
-// finish button
-                      Container(
-                        alignment: Alignment.bottomCenter,
-                        child: ButtonWithText(
-                          onTap: () {},
-                          text: 'finish',
-                        ),
-                      ),
-                      const FastSignin(),
-// SignUp butten
-                      Container(
-                        alignment: Alignment.bottomCenter,
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).push(
-                              PageTransition(
-                              child: const SignUp(),
-                              type: PageTransitionType.fade,
-                            ),
-                            );
-                          },
-                          child: const Text(
-                            'SignUp',
-                            style:
-                                TextStyle(decoration: TextDecoration.underline),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
+// input
+          Container(
+            alignment: const Alignment(1, 0.5),
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height * 0.3,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  ...inputs.map(
+                    (e) => Input(
+                      password: e['password'],
+                      labelText: e['labelText'],
+                      hintText: e['hintText'],
+                      controller: e['controller'],
+                      icon: e['icon'],
+                      onTap: () {
+                        if (visible) {
+                          visible = false;
+                        } else {
+                          visible = true;
+                        }
+                        setState(() {});
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+// back button
+          Container(
+            alignment: Alignment.topLeft * 0.9,
+            child: ButtonWithIcon(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              icon: Icon(
+                Icons.arrow_back,
+                color: Theme.of(context).colorScheme.surface,
+              ),
+            ),
+          ),
+// button
+          Container(
+            alignment: Alignment.bottomCenter * 0.9,
+            child: ButtonWithText(
+              text: 'Sign In',
+              onTap: () async {
+                SharedPreferences prefs = await SharedPreferences.getInstance();
+                if (usernameInput.text == prefs.getString('username') &&
+                    passwordInput.text == prefs.getString('password')) {
+                  Navigator.of(context).push(
+                    PageTransition(
+                        child: const Dashboard(),
+                        type: PageTransitionType.fade),
+                  );
+                }
+                setState(() {});
+              },
+            ),
+          )
+        ],
       ),
     );
   }

@@ -27,16 +27,17 @@ class _ButtonWithTextState extends State<ButtonWithText> {
           borderRadius: borderRadius,
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(borderRadius),
-              color: Theme.of(context).colorScheme.outline,
+              borderRadius: BorderRadius.circular(borderRadius * 0.4),
+              color: Theme.of(context).colorScheme.background,
             ),
             child: GestureDetector(
               onTap: widget.onTap,
               child: Center(
                 child: Text(
                   widget.text,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 20,
+                    color: Theme.of(context).colorScheme.surface,
                   ),
                 ),
               ),
@@ -60,22 +61,53 @@ class ImageButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shadow(
-      borderRadius: borderRadius - 25,
+      borderRadius: borderRadius * 0.2,
       child: BounceElement(
         child: SizedBox(
           width: MediaQuery.of(context).size.width * 0.1,
           height: MediaQuery.of(context).size.width * 0.1,
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(borderRadius - 25),
-              border: Border.all(color: Theme.of(context).colorScheme.onBackground,),
+              color: Theme.of(context).colorScheme.background,
+              borderRadius: BorderRadius.circular(borderRadius * 0.2),
             ),
             child: GestureDetector(
-              onTap: onTap(),
+              onTap: onTap,
               child: Center(
                 child: image,
               ),
             ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class ButtonWithIcon extends StatefulWidget {
+  const ButtonWithIcon({
+    super.key,
+    required this.icon,
+    required this.onTap,
+  });
+  final Widget icon;
+  final Function() onTap;
+
+  @override
+  State<ButtonWithIcon> createState() => _ButtonWithIconState();
+}
+
+class _ButtonWithIconState extends State<ButtonWithIcon> {
+  @override
+  Widget build(BuildContext context) {
+    return BounceElement(
+      child: Shadow(
+        borderRadius: borderRadius,
+        child: Container(
+          color: Colors.black,
+          child: GestureDetector(
+            onTap: widget.onTap,
+            child: widget.icon,
           ),
         ),
       ),

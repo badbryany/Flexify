@@ -1,6 +1,6 @@
-import 'package:flexify/data/globalVariables.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/SignInSignUp/widgets/shadow.dart';
+import 'package:flexify/data/globalVariables.dart';
 
 class Input extends StatelessWidget {
   const Input(
@@ -32,25 +32,35 @@ class Input extends StatelessWidget {
             Shadow(
               borderRadius: borderRadius,
               child: TextFormField(
-                onTap: () {},
-                textInputAction: TextInputAction.done,
-                obscureText: password,
-                cursorColor: Theme.of(context).colorScheme.background,
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.background,
-                ),
-                controller: controller,
                 decoration: InputDecoration(
-                  hintText: hintText,
-                  border: InputBorder.none,
-                  labelText: labelText,
                   contentPadding: const EdgeInsets.only(
                     left: 15,
                     bottom: 10,
                   ),
                   labelStyle: TextStyle(
-                    color: Theme.of(context).colorScheme.background,
+                    color: Theme.of(context).colorScheme.surface,
                   ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(borderRadius * 0.4),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(borderRadius * 0.4),
+                  ),
+                  hintStyle: TextStyle(
+                    color: Theme.of(context).colorScheme.onBackground,
+                  ),
+                  filled: true,
+                  fillColor: Theme.of(context).colorScheme.onSurface,
+                  hintText: hintText,
+                  border: InputBorder.none,
+                  labelText: labelText,
+                ),
+                textInputAction: TextInputAction.done,
+                obscureText: password,
+                cursorColor: Theme.of(context).colorScheme.surface,
+                controller: controller,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.surface,
                 ),
               ),
             ),

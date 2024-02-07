@@ -1,39 +1,62 @@
 import 'package:flutter/material.dart';
 import 'package:flexify/SignInSignUp/widgets/input.dart';
 
-class SignUpPage1 extends StatefulWidget {
-  const SignUpPage1({super.key});
+class SignUp2 extends StatefulWidget {
+  const SignUp2({
+    super.key,
+    required this.usernameController,
+    required this.passwordController,
+  });
+  final TextEditingController usernameController;
+  final TextEditingController passwordController;
 
   @override
-  State<SignUpPage1> createState() => _SignUpPage1State();
+  State<SignUp2> createState() => _SignUp2State();
 }
 
-class _SignUpPage1State extends State<SignUpPage1> {
-  TextEditingController emailAddressController = TextEditingController();
-  TextEditingController firstNameController = TextEditingController();
-  TextEditingController surnameController = TextEditingController();
-
-  Icon? passwordIcon;
-  bool visible = false;
+class _SignUp2State extends State<SignUp2> {
+  bool visible = true;
 
   @override
   Widget build(BuildContext context) {
+    Icon passwordIcon = visible
+        ? Icon(
+            Icons.visibility_off,
+            color: Theme.of(context).colorScheme.onBackground,
+          )
+        : Icon(
+            Icons.visibility,
+            color: Theme.of(context).colorScheme.onBackground,
+          );
+
     List<Map<String, dynamic>> inputs = [
       {
-        'labelText': 'first name',
-        'hintText': 'Peter',
-        'controller': firstNameController,
+        'labelText': 'username',
+        'hintText': 'e.g. Peter Pan',
+        'controller': widget.usernameController,
         'icon': null,
         'password': false,
       },
       {
-        'labelText': 'surname',
-        'hintText': 'Pan',
-        'controller': surnameController,
-        'icon': null,
-        'password': false,
+        'labelText': 'password',
+        'hintText': 'at least 6 signs',
+        'controller': widget.passwordController,
+        'icon': passwordIcon,
+        'password': visible,
       },
     ];
+
+    if (visible) {
+      passwordIcon = Icon(
+        Icons.visibility,
+        color: Theme.of(context).colorScheme.onBackground,
+      );
+    } else {
+      passwordIcon = Icon(
+        Icons.visibility_off,
+        color: Theme.of(context).colorScheme.onBackground,
+      );
+    }
 
     if (visible) {
       passwordIcon = Icon(

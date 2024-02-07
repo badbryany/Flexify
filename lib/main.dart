@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flexify/pages/dashboard.dart';
+import 'package:flexify/SignInSignUp/deside.dart';
 
 void main() {
   runApp(const MyApp());
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
           shadow: Color.fromARGB(255, 170, 170, 170),
         ),
       ),
-      home: const Dashboard(),
+      home: const Deside(),
     );
   }
 }
