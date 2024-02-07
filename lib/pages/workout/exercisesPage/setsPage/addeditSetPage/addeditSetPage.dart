@@ -127,7 +127,7 @@ class _AddEditSetState extends State<AddEditSet> {
                         boxShadow: ([
                           global.lightShadow,
                         ]),
-                        color: Theme.of(context).colorScheme.background,
+                        color: Theme.of(context).scaffoldBackgroundColor,
                         borderRadius: BorderRadius.circular(1000),
                       ),
                       child: IconButton(
@@ -159,7 +159,7 @@ class _AddEditSetState extends State<AddEditSet> {
                           Navigator.pop(context);
                           setState(() {});
                         },
-                        color: Theme.of(context).colorScheme.primary,
+                        color: Theme.of(context).focusColor,
                         icon: const Icon(Icons.check_rounded),
                         iconSize: MediaQuery.of(context).size.width * 0.065,
                       ),

@@ -310,7 +310,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
     if (globalContextVar != null) {
       getData(globalContextVar!);
     } else {
-      Future.delayed(const Duration(seconds: 1), foo);
+      Future.delayed(const Duration(milliseconds: 500), foo);
     }
   }
 
@@ -450,7 +450,13 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                                 ),
                               )
                             ])
-                      : const [Center(child: CircularProgressIndicator())]),
+                      : [
+                          Padding(
+                            padding: EdgeInsets.only(
+                                top: MediaQuery.of(context).size.height * 0.3),
+                            child: const CircularProgressIndicator(),
+                          )
+                        ]),
                 ],
               ),
             ),
