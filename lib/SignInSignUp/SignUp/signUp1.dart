@@ -18,17 +18,16 @@ class SignUp1 extends StatefulWidget {
 }
 
 class _SignUp1State extends State<SignUp1> {
-
   bool visible = false;
 
   @override
   Widget build(BuildContext context) {
-    
     List<Map<String, dynamic>> inputs = [
       {
         'labelText': 'first name',
         'hintText': 'Peter',
         'controller': widget.firstNameController,
+        'type': TextInputType.text,
         'icon': null,
         'password': false,
       },
@@ -36,6 +35,7 @@ class _SignUp1State extends State<SignUp1> {
         'labelText': 'surname',
         'hintText': 'Pan',
         'controller': widget.surnameController,
+        'type': TextInputType.text,
         'icon': null,
         'password': false,
       },
@@ -43,6 +43,7 @@ class _SignUp1State extends State<SignUp1> {
         'labelText': 'e-mail adress',
         'hintText': 'peter.pan@email.com',
         'controller': widget.emailAddressController,
+        'type': TextInputType.emailAddress,
         'icon': null,
         'password': false,
       },
@@ -68,6 +69,7 @@ class _SignUp1State extends State<SignUp1> {
                       hintText: e['hintText'],
                       controller: e['controller'],
                       icon: e['icon'],
+                      textInputType: e['type'],
                       onTap: () {
                         if (visible) {
                           visible = false;

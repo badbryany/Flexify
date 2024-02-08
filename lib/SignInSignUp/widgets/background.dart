@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class Background extends StatelessWidget {
   const Background({super.key});
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        systemNavigationBarColor: Colors.black,
+        systemNavigationBarIconBrightness: Brightness.dark,
+      ),
+    );
     return Stack(
       children: [
         SizedBox(
@@ -64,7 +71,7 @@ class Background extends StatelessWidget {
               begin: Alignment.bottomCenter,
               end: Alignment.topCenter,
               colors: [
-                Theme.of(context).colorScheme.shadow,
+                Colors.black.withOpacity(0.7),
                 Colors.transparent,
               ],
             ),

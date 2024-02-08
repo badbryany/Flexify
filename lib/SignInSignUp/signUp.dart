@@ -83,10 +83,13 @@ class _SignUpState extends State<SignUp> {
             ),
           ),
 // back button
-          Container(
-            alignment: Alignment.topLeft * 0.9,
-            child: ButtonWithIcon(
-              onTap: () {
+          Padding(
+            padding: EdgeInsets.only(
+              top: MediaQuery.of(context).size.width * 0.08,
+              left: MediaQuery.of(context).size.width * 0.01,
+            ),
+            child: IconButton(
+              onPressed: () {
                 if (pageSwitch == 0) {
                   Navigator.pop(context);
                 } else {
@@ -101,14 +104,19 @@ class _SignUpState extends State<SignUp> {
               ),
             ),
           ),
+
 // next button
           Container(
             alignment: Alignment.bottomCenter * 0.9,
             child: ButtonWithText(
               text: nextButtonText,
               onTap: () async {
+                String username = usernameController.text;
+                String password = passwordController.text;
+
                 if (nextButtonText == 'next') {
                   pageSwitch++;
+                  setState(() {});
                 } else {
                   SharedPreferences prefs =
                       await SharedPreferences.getInstance();
@@ -125,20 +133,28 @@ class _SignUpState extends State<SignUp> {
                         'email': emailAddressController.text,
                       },
                     );
-                    prefs.setString('jwt', res.body);
-                    if (res.body != 'username already taken') {
-                      Navigator.of(context).push(
-                        PageTransition(
-                            child: const Dashboard(),
-                            type: PageTransitionType.fade),
-                      );
-                    } else {
-                      errorText = res.body;
-                    }
+
                     print(res.body);
+
+                    if (res.body == 'username already taken') {
+                      errorText = res.body;
+                      setState(() {});
+                      return;
+                    }
+
+                    prefs.setString('username', username);
+                    prefs.setString('password', password);
+                    prefs.setString('jwt', res.body);
+
+                    Navigator.of(context).push(
+                      PageTransition(
+                        child: const Dashboard(),
+                        type: PageTransitionType.fade,
+                      ),
+                    );
+                    return;
                   }
                 }
-                setState(() {});
               },
             ),
           ),

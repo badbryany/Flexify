@@ -3,16 +3,19 @@ import 'package:flexify/SignInSignUp/widgets/shadow.dart';
 import 'package:flexify/data/globalVariables.dart';
 
 class Input extends StatelessWidget {
-  const Input(
-      {super.key,
-      required this.labelText,
-      required this.hintText,
-      required this.controller,
-      required this.onTap,
-      this.icon,
-      required this.password});
+  const Input({
+    super.key,
+    required this.labelText,
+    required this.hintText,
+    required this.textInputType,
+    required this.controller,
+    required this.onTap,
+    this.icon,
+    required this.password,
+  });
   final String labelText;
   final String hintText;
+  final TextInputType textInputType;
   final TextEditingController controller;
   final Icon? icon;
   final Function() onTap;
@@ -31,7 +34,8 @@ class Input extends StatelessWidget {
           children: [
             Shadow(
               borderRadius: borderRadius,
-              child: TextFormField(
+              child: TextField(
+                keyboardType: textInputType,
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.only(
                     left: 15,

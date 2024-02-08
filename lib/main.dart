@@ -1,13 +1,60 @@
+import 'package:flexify/SignInSignUp/choose.dart';
 import 'package:flutter/material.dart';
-import 'package:flexify/SignInSignUp/deside.dart';
 import 'package:flexify/pages/dashboard.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+import 'package:flexify/data/globalVariables.dart' as global;
 
-void main() {
-  runApp(const MyApp());
+checkLogin() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+
+  prefs.setString('jwt', '');
+  if (prefs.getString('username') == null ||
+      prefs.getString('username') == '' ||
+      prefs.getString('password') == null ||
+      prefs.getString('password') == '') {
+    return false;
+  }
+  return true;
+}
+
+login() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+
+  final http.Response res = await http.post(
+    Uri.parse('${global.host}/signin'),
+    body: {
+      'username': prefs.getString('username'),
+      'password': prefs.getString('password'),
+    },
+  );
+  print(res.body);
+  prefs.setString('jwt', res.body);
+  return true;
+}
+
+void main() async {
+  runApp(const MyApp(startWidget: Text('loading')));
+
+  if (await checkLogin()) {
+    login();
+    runApp(const MyApp(
+      startWidget: Dashboard(),
+    ));
+  } else {
+    runApp(const MyApp(
+      startWidget: Choose(),
+    ));
+  }
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({
+    super.key,
+    required this.startWidget,
+  });
+
+  final Widget startWidget;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +82,7 @@ class MyApp extends StatelessWidget {
           shadow: Color.fromARGB(255, 170, 170, 170),
         ),
       ),
-      home: const Dashboard(),
+      home: startWidget,
     );
   }
 }

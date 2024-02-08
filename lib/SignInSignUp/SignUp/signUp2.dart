@@ -82,6 +82,7 @@ class _SignUp2State extends State<SignUp2> {
               hintText: e['hintText'],
               controller: e['controller'],
               icon: e['icon'],
+              textInputType: TextInputType.text,
               onTap: () {
                 if (visible) {
                   visible = false;

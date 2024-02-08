@@ -1,4 +1,4 @@
-import 'package:flexify/data/globalVariables.dart';
+import 'package:flexify/data/globalVariables.dart' as global;
 import 'package:flutter/material.dart';
 import 'package:flexify/SignInSignUp/widgets/shadow.dart';
 import 'package:flexify/widgets/BounceElement.dart';
@@ -20,25 +20,23 @@ class _ButtonWithTextState extends State<ButtonWithText> {
   @override
   Widget build(BuildContext context) {
     return BounceElement(
-      child: SizedBox(
-        width: MediaQuery.of(context).size.width * 0.4,
-        height: MediaQuery.of(context).size.height * 0.09,
-        child: Shadow(
-          borderRadius: borderRadius,
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width * 0.4,
+          height: MediaQuery.of(context).size.height * 0.09,
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(borderRadius * 0.4),
+              borderRadius: BorderRadius.circular(global.borderRadius * 0.4),
               color: Theme.of(context).colorScheme.background,
+              boxShadow: [global.darkShadow],
             ),
-            child: GestureDetector(
-              onTap: widget.onTap,
-              child: Center(
-                child: Text(
-                  widget.text,
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Theme.of(context).colorScheme.surface,
-                  ),
+            child: Center(
+              child: Text(
+                widget.text,
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Theme.of(context).colorScheme.surface,
                 ),
               ),
             ),
@@ -61,7 +59,7 @@ class ImageButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shadow(
-      borderRadius: borderRadius * 0.2,
+      borderRadius: global.borderRadius * 0.2,
       child: BounceElement(
         child: SizedBox(
           width: MediaQuery.of(context).size.width * 0.1,
@@ -69,7 +67,7 @@ class ImageButton extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.background,
-              borderRadius: BorderRadius.circular(borderRadius * 0.2),
+              borderRadius: BorderRadius.circular(global.borderRadius * 0.2),
             ),
             child: GestureDetector(
               onTap: onTap,
@@ -102,7 +100,7 @@ class _ButtonWithIconState extends State<ButtonWithIcon> {
   Widget build(BuildContext context) {
     return BounceElement(
       child: Shadow(
-        borderRadius: borderRadius,
+        borderRadius: global.borderRadius,
         child: Container(
           color: Colors.black,
           child: GestureDetector(

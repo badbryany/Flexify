@@ -4,7 +4,9 @@ import 'package:flexify/SignInSignUp/widgets/background.dart';
 import 'package:flexify/SignInSignUp/widgets/input.dart';
 import 'package:flexify/data/globalVariables.dart';
 import 'package:http/http.dart' as http;
+import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flexify/pages/dashboard.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -89,6 +91,7 @@ class _SignInState extends State<SignIn> {
                       hintText: e['hintText'],
                       controller: e['controller'],
                       icon: e['icon'],
+                      textInputType: TextInputType.text,
                       onTap: () {
                         if (visible) {
                           visible = false;
@@ -104,12 +107,13 @@ class _SignInState extends State<SignIn> {
             ),
           ),
 // back button
-          Container(
-            alignment: Alignment.topLeft * 0.9,
-            child: ButtonWithIcon(
-              onTap: () {
-                Navigator.pop(context);
-              },
+          Padding(
+            padding: EdgeInsets.only(
+              top: MediaQuery.of(context).size.width * 0.08,
+              left: MediaQuery.of(context).size.width * 0.01,
+            ),
+            child: IconButton(
+              onPressed: () => Navigator.pop(context),
               icon: Icon(
                 Icons.arrow_back,
                 color: Theme.of(context).colorScheme.surface,
@@ -122,23 +126,38 @@ class _SignInState extends State<SignIn> {
             child: ButtonWithText(
               text: 'Sign In',
               onTap: () async {
+                String username = usernameController.text;
+                String password = passwordController.text;
+
                 SharedPreferences prefs = await SharedPreferences.getInstance();
                 if (usernameController.text != '' &&
                     passwordController.text != '') {
                   final http.Response res = await http.post(
                     Uri.parse(url),
                     body: {
-                      'username': usernameController.text,
-                      'password': passwordController.text,
+                      'username': username,
+                      'password': password,
                     },
                   );
+
                   print(res.body);
-                  prefs.setString('jwt', res.body);
-                  if (res.body != 'username or password is wrong') {
+
+                  if (res.body == 'username or password is wrong') {
                     errorText = res.body;
+                    setState(() {});
+                    return;
                   }
+                  prefs.setString('username', username);
+                  prefs.setString('password', password);
+                  prefs.setString('jwt', res.body);
+
+                  Navigator.of(context).push(
+                    PageTransition(
+                      child: const Dashboard(),
+                      type: PageTransitionType.fade,
+                    ),
+                  );
                 }
-                setState(() {});
               },
             ),
           )
