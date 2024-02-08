@@ -1,9 +1,9 @@
-import 'package:flexify/pages/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/SignInSignUp/widgets/button.dart';
 import 'package:flexify/SignInSignUp/widgets/background.dart';
 import 'package:flexify/SignInSignUp/widgets/input.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:flexify/data/globalVariables.dart';
+import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SignIn extends StatefulWidget {
@@ -14,12 +14,14 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
-  TextEditingController usernameInput = TextEditingController();
-  TextEditingController passwordInput = TextEditingController();
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   bool visible = true;
 
   @override
   Widget build(BuildContext context) {
+    String url = '$host/signin';
+    String errorText = '';
     Icon passwordIcon = visible
         ? Icon(
             Icons.visibility_off,
@@ -34,14 +36,14 @@ class _SignInState extends State<SignIn> {
       {
         'labelText': 'username',
         'hintText': 'e.g. Peter Pan',
-        'controller': usernameInput,
+        'controller': usernameController,
         'icon': null,
         'password': false,
       },
       {
         'labelText': 'password',
         'hintText': 'at least 6 signs',
-        'controller': passwordInput,
+        'controller': passwordController,
         'icon': passwordIcon,
         'password': visible,
       },
@@ -61,6 +63,15 @@ class _SignInState extends State<SignIn> {
                 fontSize: 30,
                 color: Theme.of(context).colorScheme.surface,
               ),
+            ),
+          ),
+// error text
+          AnimatedContainer(
+            duration: standardAnimationDuration,
+            alignment: const Alignment(0, 0.63),
+            child: Text(
+              errorText,
+              style: TextStyle(color: Theme.of(context).colorScheme.error),
             ),
           ),
 // input
@@ -105,20 +116,27 @@ class _SignInState extends State<SignIn> {
               ),
             ),
           ),
-// button
+// sign in button
           Container(
             alignment: Alignment.bottomCenter * 0.9,
             child: ButtonWithText(
               text: 'Sign In',
               onTap: () async {
                 SharedPreferences prefs = await SharedPreferences.getInstance();
-                if (usernameInput.text == prefs.getString('username') &&
-                    passwordInput.text == prefs.getString('password')) {
-                  Navigator.of(context).push(
-                    PageTransition(
-                        child: const Dashboard(),
-                        type: PageTransitionType.fade),
+                if (usernameController.text != '' &&
+                    passwordController.text != '') {
+                  final http.Response res = await http.post(
+                    Uri.parse(url),
+                    body: {
+                      'username': usernameController.text,
+                      'password': passwordController.text,
+                    },
                   );
+                  print(res.body);
+                  prefs.setString('jwt', res.body);
+                  if (res.body != 'username or password is wrong') {
+                    errorText = res.body;
+                  }
                 }
                 setState(() {});
               },

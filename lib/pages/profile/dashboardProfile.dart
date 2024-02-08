@@ -1,6 +1,7 @@
 import 'package:flexify/SignInSignUp/deside.dart';
 import 'package:flexify/SignInSignUp/mainSignIn.dart';
 import 'package:flexify/pages/createTrainingPlan/createTrainingPage.dart';
+import 'package:flexify/profilPage/mainProfilPage.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -36,12 +37,12 @@ class DashboardProfileState extends State<DashboardProfile> {
           onTap: () => Navigator.push(
             context,
             PageTransition(
-              child: const Deside(),
+              child: const MainProfilPage(),
               type: PageTransitionType.fade,
             ),
           ),
           child: const Text(
-            'test if signedIn',
+            'profil page',
           ),
         ),
         GestureDetector(

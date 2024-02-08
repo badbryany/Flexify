@@ -7,6 +7,7 @@ import 'package:flexify/pages/dashboard.dart';
 import 'package:flexify/data/globalVariables.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -24,19 +25,8 @@ class _SignUpState extends State<SignUp> {
   Widget? refresh;
   int pageSwitch = 0;
   String nextButtonText = 'next';
-
-  setPersonalData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('firstName', firstNameController.text);
-    prefs.setString('surname', surnameController.text);
-    prefs.setString('emailAddress', emailAddressController.text);
-  }
-
-  setLogInData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('username', usernameController.text);
-    prefs.setString('password', passwordController.text);
-  }
+  String url = '$host/signup';
+  String errorText = '';
 
   @override
   Widget build(BuildContext context) {
@@ -71,6 +61,15 @@ class _SignUpState extends State<SignUp> {
               ),
             ),
           ),
+// error text
+          AnimatedContainer(
+            duration: standardAnimationDuration,
+            alignment: const Alignment(0, 0.63),
+            child: Text(
+              errorText,
+              style: TextStyle(color: Theme.of(context).colorScheme.error),
+            ),
+          ),
 // SignUp page
           Container(
             alignment: const Alignment(1, 0.4),
@@ -93,6 +92,7 @@ class _SignUpState extends State<SignUp> {
                 } else {
                   pageSwitch = 0;
                 }
+                errorText = '';
                 setState(() {});
               },
               icon: Icon(
@@ -108,27 +108,34 @@ class _SignUpState extends State<SignUp> {
               text: nextButtonText,
               onTap: () async {
                 if (nextButtonText == 'next') {
-                  setPersonalData();
-                  SharedPreferences prefs =
-                      await SharedPreferences.getInstance();
-                  if (prefs.getString('firstName') != '' &&
-                      prefs.getString('surname') != '' &&
-                      prefs.getString('emailAddress') != '') {
-                    pageSwitch++;
-                  }
+                  pageSwitch++;
                 } else {
-                  setLogInData();
                   SharedPreferences prefs =
                       await SharedPreferences.getInstance();
-                  if (prefs.getString('username') != '' &&
-                      prefs.getString('password') != '') {
-                    prefs.setBool('signedUp', true);
-                    Navigator.of(context).push(
-                      PageTransition(
-                        child: const Dashboard(),
-                        type: PageTransitionType.fade,
-                      ),
+                  if (usernameController.text != '' &&
+                      passwordController.text != '' &&
+                      passwordController.text.length > 5) {
+                    final http.Response res = await http.post(
+                      Uri.parse(url),
+                      body: {
+                        'username': usernameController.text,
+                        'password': passwordController.text,
+                        'firstname': firstNameController.text,
+                        'surname': surnameController.text,
+                        'email': emailAddressController.text,
+                      },
                     );
+                    prefs.setString('jwt', res.body);
+                    if (res.body != 'username already taken') {
+                      Navigator.of(context).push(
+                        PageTransition(
+                            child: const Dashboard(),
+                            type: PageTransitionType.fade),
+                      );
+                    } else {
+                      errorText = res.body;
+                    }
+                    print(res.body);
                   }
                 }
                 setState(() {});
