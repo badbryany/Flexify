@@ -1,3 +1,4 @@
+import 'package:flexify/data/exerciseModels.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/SignInSignUp/widgets/button.dart';
 import 'package:flexify/SignInSignUp/widgets/background.dart';
@@ -145,6 +146,8 @@ class _SignUpState extends State<SignUp> {
                     prefs.setString('username', username);
                     prefs.setString('password', password);
                     prefs.setString('jwt', res.body);
+
+                    await Save.clearData();
 
                     Navigator.of(context).push(
                       PageTransition(

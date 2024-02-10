@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:flexify/data/exerciseModels.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/SignInSignUp/widgets/button.dart';
 import 'package:flexify/SignInSignUp/widgets/background.dart';
@@ -7,6 +10,7 @@ import 'package:http/http.dart' as http;
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flexify/pages/dashboard.dart';
+import 'package:flexify/data/globalVariables.dart' as global;
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -132,7 +136,7 @@ class _SignInState extends State<SignIn> {
                 SharedPreferences prefs = await SharedPreferences.getInstance();
                 if (usernameController.text != '' &&
                     passwordController.text != '') {
-                  final http.Response res = await http.post(
+                  http.Response res = await http.post(
                     Uri.parse(url),
                     body: {
                       'username': username,
@@ -151,6 +155,8 @@ class _SignInState extends State<SignIn> {
                   prefs.setString('password', password);
                   prefs.setString('jwt', res.body);
 
+                  await syncData();
+
                   Navigator.of(context).push(
                     PageTransition(
                       child: const Dashboard(),
@@ -164,5 +170,44 @@ class _SignInState extends State<SignIn> {
         ],
       ),
     );
+  }
+}
+
+syncData() async {
+  await Save.clearData();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String url = '${global.host}/getExercises';
+
+  http.Response res = await http.get(
+    Uri.parse('$url?jwt=${prefs.getString('jwt')}'),
+  );
+
+  List notParsedExercises = jsonDecode(res.body);
+  for (int i = 0; i < notParsedExercises.length; i++) {
+    Save.saveExercise(Exercise(
+      name: notParsedExercises[i][1],
+      type: notParsedExercises[i][2],
+      affectedMuscle: notParsedExercises[i][3],
+      equipment: notParsedExercises[i][4],
+      synced: 1,
+    ));
+  }
+
+  url = '${global.host}/getSets';
+  res = await http.get(
+    Uri.parse('$url?jwt=${prefs.getString('jwt')}'),
+  );
+  print(res.body);
+  List notParsedSets = jsonDecode(res.body);
+  for (int i = 0; i < notParsedSets.length; i++) {
+    print(notParsedSets[i][4]);
+    Save.saveSet(Set(
+      setID: notParsedSets[i][0],
+      exerciseName: notParsedSets[i][1],
+      reps: notParsedSets[i][2],
+      weight: double.parse(notParsedSets[i][3].toString()),
+      date: DateTime.parse(notParsedSets[i][4]),
+      synced: 1,
+    ));
   }
 }

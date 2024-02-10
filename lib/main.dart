@@ -1,4 +1,5 @@
 import 'package:flexify/SignInSignUp/choose.dart';
+import 'package:flexify/data/exerciseModels.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/pages/dashboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -7,8 +8,9 @@ import 'package:flexify/data/globalVariables.dart' as global;
 
 checkLogin() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-
   prefs.setString('jwt', '');
+  // prefs.setString('username', '');
+  // prefs.setString('password', '');
   if (prefs.getString('username') == null ||
       prefs.getString('username') == '' ||
       prefs.getString('password') == null ||
@@ -18,7 +20,7 @@ checkLogin() async {
   return true;
 }
 
-login() async {
+Future<bool> login() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
 
   final http.Response res = await http.post(
@@ -37,7 +39,7 @@ void main() async {
   runApp(const MyApp(startWidget: Text('loading')));
 
   if (await checkLogin()) {
-    login();
+    login().then((value) => Save.syncData());
     runApp(const MyApp(
       startWidget: Dashboard(),
     ));

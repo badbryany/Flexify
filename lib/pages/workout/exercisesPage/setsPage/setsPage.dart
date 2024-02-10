@@ -27,7 +27,6 @@ class ExerciseSets extends StatefulWidget {
 class _ExerciseSetsState extends State<ExerciseSets> {
   List<Set> sets = [];
   List<List<Set>> setsByDate = [];
-  List<Widget> setWidgets = [];
   bool loadingDone = false;
   TextEditingController editNameController = TextEditingController();
 
@@ -36,7 +35,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
   bool thresholdReached = false;
   double thresholdProgress = 0.0;
 
-  getData(BuildContext context) async {
+  getData() async {
     sets = (await Save.getSetList())
         .where((e) => e.exerciseName == exerciseName)
         .toList();
@@ -47,12 +46,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
             .reversed
             .toList())
         : [];
-    setWidgets = sets.isNotEmpty
-        ? setsByDate
-            .map((sets) => setWidgetsBySetList(sets, context))
-            .flattened
-            .toList()
-        : [];
+
     loadingDone = true;
     setState(() {});
   }
@@ -112,7 +106,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                         widget.name,
                         editNameController.text,
                       );
-                      await getData(context);
+                      await getData();
                       Navigator.pop(context);
                     },
                     child: const Text('save'),
@@ -144,186 +138,180 @@ class _ExerciseSetsState extends State<ExerciseSets> {
   List<Widget> setWidgetsBySetList(List<Set> setList, BuildContext context) {
     List<Widget> returnList = [];
 
-    if (setList.isEmpty) return returnList;
+    if (setList.isEmpty) return [];
 
-    returnList.add(
-      Heading(
-        title:
-            'date: ${dateString(setList.first.date)}                       total sets: ${setList.length}',
-      ),
-    );
-
-    for (int i = setList.length - 1; i >= 0; i--) {
-      returnList.add(SizedBox(
-        height: MediaQuery.of(context).size.width * 0.01,
-      ));
+    for (int i = 0; i < setsByDate.length; i++) {
+      setList = setsByDate[i];
       returnList.add(
-        Dismissible(
-          key: ValueKey(setList[i].setID),
-          dismissThresholds: const {DismissDirection.endToStart: 0.7},
-          direction: DismissDirection.horizontal,
-          background: AnimatedContainer(
-            key: const ValueKey(Alignment),
-            duration: const Duration(milliseconds: 150),
-            alignment:
-                thresholdReached ? Alignment.centerLeft : Alignment.centerRight,
-            margin: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
-            padding: thresholdReached
-                ? EdgeInsets.only(
-                    left: max(
-                        ((1 - thresholdProgress) *
-                                (global.containerWidthFactor) *
-                                MediaQuery.of(context).size.width) +
-                            MediaQuery.of(context).size.width * 0.05,
-                        (MediaQuery.of(context).size.width * 0.1)))
-                : EdgeInsets.only(
-                    right: MediaQuery.of(context).size.width * 0.1),
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.error,
-              borderRadius: BorderRadius.circular(
-                  MediaQuery.of(context).size.width * 0.08),
-            ),
-            child: Text(
-              'delete',
-              style: TextStyle(
-                color: Theme.of(context).scaffoldBackgroundColor,
-                fontSize: MediaQuery.of(context).size.width * 0.035,
-              ),
-            ),
-          ),
-          confirmDismiss: (diracion) async {
-            bool returnValue = false;
-            await showDialog(
-              context: context,
-              builder: (BuildContext context) => DeleteAlertDialog(
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      returnValue = false;
-                      Navigator.pop(context);
-                    },
-                    child: const Text('cancel'),
-                  ),
-                  TextButton(
-                    onPressed: () async {
-                      await Save.deleteSet(setList[i]);
-                      await getData(context);
-                      returnValue = true;
-                      // ignore: use_build_context_synchronously
-                      Navigator.pop(context);
-                    },
-                    child: const Text('delete'),
-                  ),
-                ],
-              ),
-            );
-            return returnValue;
-          },
-          child: GestureDetector(
-            onTap: () => Navigator.push(
-              context,
-              PageTransition(
-                child: AddEditSet(
-                  add: false,
-                  set: setList[i],
-                  exerciseName: widget.name,
-                ),
-                type: PageTransitionType.fade,
-              ),
-            ).then((value) => getData(context)),
-            child: Container(
-              padding: EdgeInsets.all(global.containerPadding - 10),
-              width: MediaQuery.of(context).size.width *
-                  global.containerWidthFactor,
+        Heading(
+          title:
+              'date: ${dateString(setList.first.date)}                       total sets: ${setList.length}',
+        ),
+      );
+      for (int i = setList.length - 1; i >= 0; i--) {
+        returnList.add(SizedBox(
+          height: MediaQuery.of(context).size.width * 0.01,
+        ));
+        returnList.add(
+          Dismissible(
+            key: ValueKey(setList[i].setID),
+            dismissThresholds: const {DismissDirection.endToStart: 0.7},
+            direction: DismissDirection.horizontal,
+            background: AnimatedContainer(
+              key: const ValueKey(Alignment),
+              duration: const Duration(milliseconds: 150),
+              alignment: thresholdReached
+                  ? Alignment.centerLeft
+                  : Alignment.centerRight,
+              margin: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
+              padding: thresholdReached
+                  ? EdgeInsets.only(
+                      left: max(
+                          ((1 - thresholdProgress) *
+                                  (global.containerWidthFactor) *
+                                  MediaQuery.of(context).size.width) +
+                              MediaQuery.of(context).size.width * 0.05,
+                          (MediaQuery.of(context).size.width * 0.1)))
+                  : EdgeInsets.only(
+                      right: MediaQuery.of(context).size.width * 0.1),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(global.borderRadius - 5),
-                color: Theme.of(context).colorScheme.background,
-                boxShadow: [global.darkShadow],
+                color: Theme.of(context).colorScheme.error,
+                borderRadius: BorderRadius.circular(
+                    MediaQuery.of(context).size.width * 0.08),
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  // WEIGHT
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(
-                        '${setList[i].weight}',
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.primary,
-                          fontSize: MediaQuery.of(context).size.width * 0.08,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                          bottom: MediaQuery.of(context).size.height * 0.009,
-                        ),
-                        child: Text(
-                          'kg',
+              child: Text(
+                'delete',
+                style: TextStyle(
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  fontSize: MediaQuery.of(context).size.width * 0.035,
+                ),
+              ),
+            ),
+            confirmDismiss: (diracion) async {
+              bool returnValue = false;
+              await showDialog(
+                context: context,
+                builder: (BuildContext context) => DeleteAlertDialog(
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        returnValue = false;
+                        Navigator.pop(context);
+                      },
+                      child: const Text('cancel'),
+                    ),
+                    TextButton(
+                      onPressed: () async {
+                        await Save.deleteSet(setList[i]);
+                        await getData();
+                        returnValue = true;
+                        // ignore: use_build_context_synchronously
+                        Navigator.pop(context);
+                      },
+                      child: const Text('delete'),
+                    ),
+                  ],
+                ),
+              );
+              return returnValue;
+            },
+            child: GestureDetector(
+              onTap: () => Navigator.push(
+                context,
+                PageTransition(
+                  child: AddEditSet(
+                    add: false,
+                    set: setList[i],
+                    exerciseName: widget.name,
+                  ),
+                  type: PageTransitionType.fade,
+                ),
+              ).then((value) => getData()),
+              child: Container(
+                padding: EdgeInsets.all(global.containerPadding - 10),
+                width: MediaQuery.of(context).size.width *
+                    global.containerWidthFactor,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(global.borderRadius - 5),
+                  color: Theme.of(context).colorScheme.background,
+                  boxShadow: [global.darkShadow],
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    // WEIGHT
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text(
+                          '${setList[i].weight}',
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.primary,
-                            fontSize: MediaQuery.of(context).size.width * 0.04,
+                            fontSize: MediaQuery.of(context).size.width * 0.08,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
+                        Padding(
+                          padding: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).size.height * 0.009,
+                          ),
+                          child: Text(
+                            'kg',
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.primary,
+                              fontSize:
+                                  MediaQuery.of(context).size.width * 0.04,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    // DATE
+                    Text(
+                      '${global.zeroBefore(setList[i].date.hour)}:${global.zeroBefore(sets[i].date.minute)}',
+                      style: TextStyle(
+                        color: Theme.of(context)
+                            .scaffoldBackgroundColor
+                            .withOpacity(0.6),
+                        fontSize: MediaQuery.of(context).size.width * 0.04,
                       ),
-                    ],
-                  ),
-
-                  // DATE
-                  Text(
-                    '${global.zeroBefore(setList[i].date.hour)}:${global.zeroBefore(sets[i].date.minute)}',
-                    style: TextStyle(
-                      color: Theme.of(context)
-                          .scaffoldBackgroundColor
-                          .withOpacity(0.6),
-                      fontSize: MediaQuery.of(context).size.width * 0.04,
                     ),
-                  ),
 
-                  //REPS
-                  Text(
-                    'x${setList[i].reps}',
-                    style: TextStyle(
-                      color: Theme.of(context).scaffoldBackgroundColor,
-                      fontSize: MediaQuery.of(context).size.width * 0.06,
-                      fontWeight: FontWeight.bold,
+                    //REPS
+                    Text(
+                      'x${setList[i].reps}',
+                      style: TextStyle(
+                        color: Theme.of(context).scaffoldBackgroundColor,
+                        fontSize: MediaQuery.of(context).size.width * 0.06,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-      );
-      returnList.add(SizedBox(
-        height: MediaQuery.of(context).size.width * 0.01,
-      ));
+        );
+        returnList.add(SizedBox(
+          height: MediaQuery.of(context).size.width * 0.01,
+        ));
+      }
     }
+
     return returnList;
-  }
-
-  BuildContext? globalContextVar;
-
-  foo() {
-    if (globalContextVar != null) {
-      getData(globalContextVar!);
-    } else {
-      Future.delayed(const Duration(milliseconds: 500), foo);
-    }
   }
 
   @override
   void initState() {
     exerciseName = widget.name;
     super.initState();
-    foo();
+    getData();
   }
 
   @override
   Widget build(BuildContext context) {
-    globalContextVar = context;
     return PopScope(
       onPopInvoked: (foo) => widget.refresh(),
       child: Scaffold(
@@ -401,7 +389,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                           ),
                           type: PageTransitionType.fade,
                         ),
-                      ).then((value) => getData(context)),
+                      ).then((value) => getData()),
                       color: Theme.of(context).focusColor,
                       icon: const Icon(Icons.add),
                       iconSize: MediaQuery.of(context).size.width * 0.05,
@@ -422,7 +410,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                                 exerciseName: exerciseName,
                                 sets: sets,
                               ),
-                              ...setWidgets
+                              ...setWidgetsBySetList(sets, context),
                             ]
                           : [
                               Padding(
