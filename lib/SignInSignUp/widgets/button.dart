@@ -8,8 +8,10 @@ class ButtonWithText extends StatefulWidget {
     super.key,
     required this.text,
     required this.onTap,
+    required this.loading,
   });
   final String text;
+  final bool loading;
   final Function() onTap;
 
   @override
@@ -22,23 +24,35 @@ class _ButtonWithTextState extends State<ButtonWithText> {
     return BounceElement(
       child: GestureDetector(
         onTap: widget.onTap,
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width * 0.4,
-          height: MediaQuery.of(context).size.height * 0.09,
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(global.borderRadius * 0.4),
-              color: Theme.of(context).colorScheme.background,
-              boxShadow: [global.darkShadow],
-            ),
-            child: Center(
-              child: Text(
-                widget.text,
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Theme.of(context).colorScheme.surface,
-                ),
+        child: Container(
+          height: MediaQuery.of(context).size.height * 0.08,
+          width: MediaQuery.of(context).size.width * 0.9,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(global.borderRadius * 0.4),
+            color: Theme.of(context).colorScheme.background,
+            boxShadow: [global.darkShadow],
+          ),
+          child: Center(
+            child: AnimatedSwitcher(
+              duration: global.standardAnimationDuration,
+              transitionBuilder: (child, animation) => ScaleTransition(
+                scale: animation,
+                child: child,
               ),
+              child: widget.loading
+                  ? SizedBox(
+                      height: MediaQuery.of(context).size.width * 0.05,
+                      width: MediaQuery.of(context).size.width * 0.05,
+                      child: const CircularProgressIndicator(strokeWidth: 2.5),
+                    )
+                  : Text(
+                      widget.text,
+                      style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.width * 0.05,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.surface,
+                      ),
+                    ),
             ),
           ),
         ),

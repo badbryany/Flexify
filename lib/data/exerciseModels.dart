@@ -61,6 +61,7 @@ class Set {
 
   Map<String, dynamic> toJson() {
     return {
+      's_id': setID,
       'exerciseName': exerciseName,
       'reps': reps,
       'weight': weight,
@@ -95,7 +96,7 @@ class Save {
           'CREATE TABLE IF NOT EXISTS "exercises" ("name"	TEXT NOT NULL, "type" TEXT, "affectedMuscle" TEXT, "equipment" TEXT, "synced" INTEGER NOT NULL, PRIMARY KEY("name"));',
         );
         await db.execute(
-          'CREATE TABLE IF NOT EXISTS "sets" ("s_id"	INTEGER NOT NULL, "exerciseName" TEXT NOT NULL, "reps" INTEGER NOT NULL, "weight" NUMERIC NOT NULL, "date" DATE NOT NULL, "synced" INTEGER NOT NULL, PRIMARY KEY("s_id" AUTOINCREMENT));',
+          'CREATE TABLE IF NOT EXISTS "sets" ("s_id"	INTEGER NOT NULL, "exerciseName" TEXT NOT NULL, "reps" INTEGER NOT NULL, "weight" NUMERIC NOT NULL, "date" DATE NOT NULL, "synced" INTEGER NOT NULL, PRIMARY KEY("s_id"));',
         );
       },
     );
@@ -165,16 +166,25 @@ class Save {
     Save.syncData();
   }
 
-  static Future<void> saveSet(Set set) async {
+  static Future<void> saveSet(Set set, int? s_id) async {
     Database db = await getDatabase();
 
-    await db.insert('sets', set.toJson());
+    Set newSet = Set(
+      setID: s_id ?? ((await Save.getSetList()).last.setID!) + 1,
+      exerciseName: set.exerciseName,
+      reps: set.reps,
+      weight: set.weight,
+      date: set.date,
+      synced: set.synced,
+    );
+
+    await db.insert('sets', newSet.toJson());
     Save.syncData();
   }
 
   static Future<void> deleteSet(Set set) async {
     Database db = await getDatabase();
-
+    print(set.setID);
     await db.rawUpdate(
       'UPDATE sets SET synced=-1 WHERE sets.s_id="${set.setID}";',
     );

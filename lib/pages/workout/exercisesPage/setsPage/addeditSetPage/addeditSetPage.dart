@@ -143,6 +143,7 @@ class _AddEditSetState extends State<AddEditSet> {
                                 reps: int.parse(repsController.text),
                                 weight: double.tryParse(weightController.text)!,
                               ),
+                              null,
                             );
                           } else {
                             await Save.editSet(

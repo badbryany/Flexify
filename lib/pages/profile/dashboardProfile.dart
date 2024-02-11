@@ -1,4 +1,4 @@
-import 'package:flexify/SignInSignUp/mainSignIn.dart';
+import 'package:flexify/SignInSignUp/choose.dart';
 import 'package:flexify/pages/createTrainingPlan/createTrainingPage.dart';
 import 'package:flexify/profilPage/mainProfilPage.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +48,7 @@ class DashboardProfileState extends State<DashboardProfile> {
           onTap: () => Navigator.push(
             context,
             PageTransition(
-              child: const MainSignIn(),
+              child: const Choose(),
               type: PageTransitionType.fade,
             ),
           ),

@@ -78,19 +78,20 @@ class _SignUp2State extends State<SignUp2> {
           ...inputs.map(
             (e) => Input(
               password: e['password'],
-              labelText: e['labelText'],
               hintText: e['hintText'],
               controller: e['controller'],
-              icon: e['icon'],
+              icon: IconButton(
+                onPressed: () {
+                  if (visible) {
+                    visible = false;
+                  } else {
+                    visible = true;
+                  }
+                  setState(() {});
+                },
+                icon: e['icon'],
+              ),
               textInputType: TextInputType.text,
-              onTap: () {
-                if (visible) {
-                  visible = false;
-                } else {
-                  visible = true;
-                }
-                setState(() {});
-              },
             ),
           ),
         ],

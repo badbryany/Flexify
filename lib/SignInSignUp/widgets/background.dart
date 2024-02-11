@@ -1,8 +1,15 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class Background extends StatelessWidget {
-  const Background({super.key});
+  const Background({
+    super.key,
+    this.gradient,
+  });
+
+  final bool? gradient;
 
   @override
   Widget build(BuildContext context) {
@@ -12,6 +19,66 @@ class Background extends StatelessWidget {
         systemNavigationBarIconBrightness: Brightness.dark,
       ),
     );
+
+    if (gradient == true) {
+      return ImageFiltered(
+        imageFilter: ImageFilter.blur(
+          sigmaX: 70,
+          sigmaY: 70,
+        ),
+        child: Stack(
+          children: [
+            Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  // radius: .25,
+                  begin: Alignment.topCenter,
+                  end: Alignment.center,
+                  colors: [
+                    Theme.of(context).colorScheme.primary,
+                    Colors.black,
+                    Colors.black,
+                    Colors.black,
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                color: Colors.red,
+                gradient: RadialGradient(
+                  // radius: .25,
+                  focal: Alignment.topLeft,
+                  colors: [
+                    Theme.of(context).colorScheme.primary,
+                    Colors.black,
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                gradient: RadialGradient(
+                  // radius: .25,
+                  focal: Alignment.topRight,
+                  colors: [
+                    Theme.of(context).colorScheme.primary,
+                    Colors.black,
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
+      );
+    }
+
     return Stack(
       children: [
         SizedBox(
@@ -63,41 +130,6 @@ class Background extends StatelessWidget {
               ),
             ),
           ],
-        ),
-// gradient
-        Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.bottomCenter,
-              end: Alignment.topCenter,
-              colors: [
-                Colors.black.withOpacity(0.7),
-                Colors.transparent,
-              ],
-            ),
-          ),
-        ),
-// logo
-        Container(
-          alignment: const Alignment(0, -0.65),
-          child: SizedBox(
-            width: MediaQuery.of(context).size.width * 0.2,
-            height: MediaQuery.of(context).size.width * 0.2,
-            child: Container(
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: Theme.of(context).focusColor,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width * 0.2,
-                height: MediaQuery.of(context).size.width * 0.2,
-                child: Image.asset(
-                  'assets/img/logo.png',
-                ),
-              ),
-            ),
-          ),
         ),
       ],
     );

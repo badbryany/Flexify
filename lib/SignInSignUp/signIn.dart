@@ -1,9 +1,8 @@
 import 'dart:convert';
-
+import 'package:flexify/SignInSignUp/widgets/background.dart';
 import 'package:flexify/data/exerciseModels.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/SignInSignUp/widgets/button.dart';
-import 'package:flexify/SignInSignUp/widgets/background.dart';
 import 'package:flexify/SignInSignUp/widgets/input.dart';
 import 'package:flexify/data/globalVariables.dart';
 import 'package:http/http.dart' as http;
@@ -22,12 +21,13 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  String errorText = '';
   bool visible = true;
+  bool loading = false;
+  String url = '$host/signin';
 
   @override
   Widget build(BuildContext context) {
-    String url = '$host/signin';
-    String errorText = '';
     Icon passwordIcon = visible
         ? Icon(
             Icons.visibility_off,
@@ -40,15 +40,13 @@ class _SignInState extends State<SignIn> {
 
     List<Map<String, dynamic>> inputs = [
       {
-        'labelText': 'username',
-        'hintText': 'e.g. Peter Pan',
+        'hintText': 'your username',
         'controller': usernameController,
-        'icon': null,
+        'icon': const SizedBox(),
         'password': false,
       },
       {
-        'labelText': 'password',
-        'hintText': 'at least 6 signs',
+        'hintText': 'your password',
         'controller': passwordController,
         'icon': passwordIcon,
         'password': visible,
@@ -56,61 +54,133 @@ class _SignInState extends State<SignIn> {
     ];
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
-// background
-          const Background(),
-// text
-          Container(
-            alignment: const Alignment(0, -0.3),
-            child: Text(
-              'Sign In',
-              style: TextStyle(
-                fontSize: 30,
-                color: Theme.of(context).colorScheme.surface,
+          const Background(gradient: true),
+
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(height: MediaQuery.of(context).size.height * 0.08),
+
+              // text
+
+              Image.asset(
+                'assets/img/logo.png',
+                width: MediaQuery.of(context).size.width * 0.225,
+                height: MediaQuery.of(context).size.width * 0.225,
               ),
-            ),
-          ),
+              Container(
+                alignment: const Alignment(0, -0.3),
+                child: Text(
+                  'Sign In',
+                  style: TextStyle(
+                    fontSize: MediaQuery.of(context).size.width * 0.125,
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.surface,
+                  ),
+                ),
+              ),
+
+              SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+
+// inputs
+              ...inputs.map(
+                (e) => Input(
+                  password: e['password'],
+                  hintText: e['hintText'],
+                  controller: e['controller'],
+                  icon: IconButton(
+                    onPressed: () {
+                      if (visible) {
+                        visible = false;
+                      } else {
+                        visible = true;
+                      }
+                      setState(() {});
+                    },
+                    icon: e['icon'],
+                  ),
+                  textInputType: TextInputType.text,
+                ),
+              ),
+
 // error text
-          AnimatedContainer(
-            duration: standardAnimationDuration,
-            alignment: const Alignment(0, 0.63),
-            child: Text(
-              errorText,
-              style: TextStyle(color: Theme.of(context).colorScheme.error),
-            ),
-          ),
-// input
-          Container(
-            alignment: const Alignment(1, 0.5),
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height * 0.3,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  ...inputs.map(
-                    (e) => Input(
-                      password: e['password'],
-                      labelText: e['labelText'],
-                      hintText: e['hintText'],
-                      controller: e['controller'],
-                      icon: e['icon'],
-                      textInputType: TextInputType.text,
-                      onTap: () {
-                        if (visible) {
-                          visible = false;
-                        } else {
-                          visible = true;
-                        }
-                        setState(() {});
-                      },
+              AnimatedOpacity(
+                duration: global.standardAnimationDuration,
+                opacity: errorText == '' ? 0 : 1,
+                child: Container(
+                  margin: const EdgeInsets.only(bottom: 20),
+                  child: Text(
+                    errorText,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.error,
+                      fontSize: MediaQuery.of(context).size.width * 0.05,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                ],
+                ),
               ),
-            ),
+
+// sign in button
+              ButtonWithText(
+                text: 'Sign In',
+                loading: loading,
+                onTap: () async {
+                  if (loading) return;
+
+                  errorText = '';
+                  loading = true;
+                  setState(() {});
+
+                  String username = usernameController.text;
+                  String password = passwordController.text;
+
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                  if (usernameController.text != '' &&
+                      passwordController.text != '') {
+                    http.Response res = await http.post(
+                      Uri.parse(url),
+                      body: {
+                        'username': username,
+                        'password': password,
+                      },
+                    );
+
+                    print(res.body);
+
+                    if (res.body == 'username or password is wrong') {
+                      errorText = res.body;
+                      loading = false;
+                      loading = false;
+
+                      setState(() {});
+                      return;
+                    }
+                    prefs.setString('username', username);
+                    prefs.setString('password', password);
+                    prefs.setString('jwt', res.body);
+
+                    await syncData();
+
+                    loading = false;
+                    setState(() {});
+
+                    Navigator.of(context).push(
+                      PageTransition(
+                        child: const Dashboard(),
+                        type: PageTransitionType.fade,
+                      ),
+                    );
+                  }
+                },
+              ),
+            ],
           ),
-// back button
+
+          // back button
           Padding(
             padding: EdgeInsets.only(
               top: MediaQuery.of(context).size.width * 0.08,
@@ -124,49 +194,6 @@ class _SignInState extends State<SignIn> {
               ),
             ),
           ),
-// sign in button
-          Container(
-            alignment: Alignment.bottomCenter * 0.9,
-            child: ButtonWithText(
-              text: 'Sign In',
-              onTap: () async {
-                String username = usernameController.text;
-                String password = passwordController.text;
-
-                SharedPreferences prefs = await SharedPreferences.getInstance();
-                if (usernameController.text != '' &&
-                    passwordController.text != '') {
-                  http.Response res = await http.post(
-                    Uri.parse(url),
-                    body: {
-                      'username': username,
-                      'password': password,
-                    },
-                  );
-
-                  print(res.body);
-
-                  if (res.body == 'username or password is wrong') {
-                    errorText = res.body;
-                    setState(() {});
-                    return;
-                  }
-                  prefs.setString('username', username);
-                  prefs.setString('password', password);
-                  prefs.setString('jwt', res.body);
-
-                  await syncData();
-
-                  Navigator.of(context).push(
-                    PageTransition(
-                      child: const Dashboard(),
-                      type: PageTransitionType.fade,
-                    ),
-                  );
-                }
-              },
-            ),
-          )
         ],
       ),
     );
@@ -201,13 +228,16 @@ syncData() async {
   List notParsedSets = jsonDecode(res.body);
   for (int i = 0; i < notParsedSets.length; i++) {
     print(notParsedSets[i][4]);
-    Save.saveSet(Set(
-      setID: notParsedSets[i][0],
-      exerciseName: notParsedSets[i][1],
-      reps: notParsedSets[i][2],
-      weight: double.parse(notParsedSets[i][3].toString()),
-      date: DateTime.parse(notParsedSets[i][4]),
-      synced: 1,
-    ));
+    Save.saveSet(
+      Set(
+        setID: notParsedSets[i][0],
+        exerciseName: notParsedSets[i][1],
+        reps: notParsedSets[i][2],
+        weight: double.parse(notParsedSets[i][3].toString()),
+        date: DateTime.parse(notParsedSets[i][4]),
+        synced: 1,
+      ),
+      notParsedSets[i][0],
+    );
   }
 }

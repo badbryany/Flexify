@@ -28,6 +28,7 @@ class _SignUpState extends State<SignUp> {
   String nextButtonText = 'next';
   String url = '$host/signup';
   String errorText = '';
+  bool loading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +112,10 @@ class _SignUpState extends State<SignUp> {
             alignment: Alignment.bottomCenter * 0.9,
             child: ButtonWithText(
               text: nextButtonText,
+              loading: loading,
               onTap: () async {
+                loading = true;
+                setState(() {});
                 String username = usernameController.text;
                 String password = passwordController.text;
 
@@ -148,6 +152,9 @@ class _SignUpState extends State<SignUp> {
                     prefs.setString('jwt', res.body);
 
                     await Save.clearData();
+
+                    loading = false;
+                    setState(() {});
 
                     Navigator.of(context).push(
                       PageTransition(

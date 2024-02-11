@@ -24,27 +24,24 @@ class _SignUp1State extends State<SignUp1> {
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> inputs = [
       {
-        'labelText': 'first name',
-        'hintText': 'Peter',
+        'hintText': 'Firstname',
         'controller': widget.firstNameController,
         'type': TextInputType.text,
-        'icon': null,
+        'icon': const SizedBox(),
         'password': false,
       },
       {
-        'labelText': 'surname',
-        'hintText': 'Pan',
+        'hintText': 'Surname',
         'controller': widget.surnameController,
         'type': TextInputType.text,
-        'icon': null,
+        'icon': const SizedBox(),
         'password': false,
       },
       {
-        'labelText': 'e-mail adress',
-        'hintText': 'peter.pan@email.com',
+        'hintText': 'E-Mail',
         'controller': widget.emailAddressController,
         'type': TextInputType.emailAddress,
-        'icon': null,
+        'icon': const SizedBox(),
         'password': false,
       },
     ];
@@ -65,19 +62,20 @@ class _SignUp1State extends State<SignUp1> {
                   ...inputs.map(
                     (e) => Input(
                       password: e['password'],
-                      labelText: e['labelText'],
                       hintText: e['hintText'],
                       controller: e['controller'],
-                      icon: e['icon'],
+                      icon: IconButton(
+                        onPressed: () {
+                          if (visible) {
+                            visible = false;
+                          } else {
+                            visible = true;
+                          }
+                          setState(() {});
+                        },
+                        icon: e['icon'],
+                      ),
                       textInputType: e['type'],
-                      onTap: () {
-                        if (visible) {
-                          visible = false;
-                        } else {
-                          visible = true;
-                        }
-                        setState(() {});
-                      },
                     ),
                   ),
                 ],
