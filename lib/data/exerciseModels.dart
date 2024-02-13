@@ -129,7 +129,7 @@ class Save {
     Database db = await getDatabase();
 
     await db.rawQuery(
-      'UPDATE exercises SET synced=-1 WHERE exercise.name="${exercise.name}";',
+      'UPDATE exercises SET synced=-1 WHERE name="${exercise.name}";',
     );
     await db.rawUpdate(
       'UPDATE sets SET synced=-1 WHERE sets.exerciseName="${exercise.name}";',
@@ -302,7 +302,7 @@ class Save {
         return false;
       }
       await db.rawUpdate(
-        'DELETE FROM exercises WHERE name=${exercises[i]['name']};',
+        'DELETE FROM exercises WHERE name="${exercises[i]['name']}";',
       );
     }
     return true;

@@ -1,6 +1,5 @@
 import 'package:flexify/SignInSignUp/choose.dart';
 import 'package:flexify/pages/createTrainingPlan/createTrainingPage.dart';
-import 'package:flexify/profilPage/mainProfilPage.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -30,18 +29,6 @@ class DashboardProfileState extends State<DashboardProfile> {
           ),
           child: const Text(
             'create training plan(ist nen link)',
-          ),
-        ),
-        GestureDetector(
-          onTap: () => Navigator.push(
-            context,
-            PageTransition(
-              child: const MainProfilPage(),
-              type: PageTransitionType.fade,
-            ),
-          ),
-          child: const Text(
-            'profil page',
           ),
         ),
         GestureDetector(

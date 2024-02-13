@@ -69,6 +69,7 @@ class _ExerciseButtonState extends State<ExerciseButton> {
 
   bool thresholdReached = false;
   double thresholdProgress = 0.0;
+  int lastWorkoutSets = 0;
 
   String getPRWeight() {
     if (widget.sets.isEmpty) {
@@ -175,10 +176,23 @@ class _ExerciseButtonState extends State<ExerciseButton> {
 
   @override
   Widget build(BuildContext context) {
+    List foo = widget.sets.reversed.toList();
+    for (int i = 0; i < foo.length; i++) {
+      if (foo.length - 1 == i) {
+        lastWorkoutSets = i + 1;
+        break;
+      }
+      if (foo[i].date.difference(foo[i + 1].date) > const Duration(hours: 10)) {
+        lastWorkoutSets = i + 1;
+        break;
+      }
+    }
+
     String name = widget.exercise.name;
     if (name.length > 29) {
       name = '${name.substring(0, 26).trim()}...';
     }
+
     return Dismissible(
       key: ValueKey(name),
       dismissThresholds: const {DismissDirection.endToStart: 0.7},
@@ -437,13 +451,22 @@ class _ExerciseButtonState extends State<ExerciseButton> {
                               ],
                             ),
                           ),
-                          Text(
-                            'last 3 sets:',
-                            style: TextStyle(
-                              color: Theme.of(context)
-                                  .scaffoldBackgroundColor
-                                  .withOpacity(0.8),
-                            ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const SizedBox(),
+                              ...['last 3 sets:', '($lastWorkoutSets)'].map(
+                                (e) => Text(
+                                  e,
+                                  style: TextStyle(
+                                    color: Theme.of(context)
+                                        .scaffoldBackgroundColor
+                                        .withOpacity(0.8),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(),
+                            ],
                           ),
                           const SizedBox(height: 5),
                           ...smallSetWidgets(),
