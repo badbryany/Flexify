@@ -169,8 +169,13 @@ class Save {
   static Future<void> saveSet(Set set, int? s_id) async {
     Database db = await getDatabase();
 
+    int lastId = -1;
+    if ((await Save.getSetList()).isNotEmpty) {
+      lastId = (await Save.getSetList()).last.setID!;
+    }
+
     Set newSet = Set(
-      setID: s_id ?? ((await Save.getSetList()).last.setID!) + 1,
+      setID: s_id ?? lastId + 1,
       exerciseName: set.exerciseName,
       reps: set.reps,
       weight: set.weight,

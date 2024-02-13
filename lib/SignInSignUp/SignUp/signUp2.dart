@@ -34,7 +34,7 @@ class _SignUp2State extends State<SignUp2> {
         'labelText': 'username',
         'hintText': 'e.g. Peter Pan',
         'controller': widget.usernameController,
-        'icon': null,
+        'icon': const SizedBox(),
         'password': false,
       },
       {

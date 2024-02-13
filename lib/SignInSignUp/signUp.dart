@@ -114,56 +114,56 @@ class _SignUpState extends State<SignUp> {
               text: nextButtonText,
               loading: loading,
               onTap: () async {
+                if (nextButtonText == 'next') {
+                  pageSwitch++;
+                  setState(() {});
+                  return;
+                }
+
                 loading = true;
                 setState(() {});
                 String username = usernameController.text;
                 String password = passwordController.text;
 
-                if (nextButtonText == 'next') {
-                  pageSwitch++;
-                  setState(() {});
-                } else {
-                  SharedPreferences prefs =
-                      await SharedPreferences.getInstance();
-                  if (usernameController.text != '' &&
-                      passwordController.text != '' &&
-                      passwordController.text.length > 5) {
-                    final http.Response res = await http.post(
-                      Uri.parse(url),
-                      body: {
-                        'username': usernameController.text,
-                        'password': passwordController.text,
-                        'firstname': firstNameController.text,
-                        'surname': surnameController.text,
-                        'email': emailAddressController.text,
-                      },
-                    );
+                SharedPreferences prefs = await SharedPreferences.getInstance();
+                if (usernameController.text != '' &&
+                    passwordController.text != '' &&
+                    passwordController.text.length > 5) {
+                  final http.Response res = await http.post(
+                    Uri.parse(url),
+                    body: {
+                      'username': usernameController.text,
+                      'password': passwordController.text,
+                      'firstname': firstNameController.text,
+                      'surname': surnameController.text,
+                      'email': emailAddressController.text,
+                    },
+                  );
 
-                    print(res.body);
+                  print(res.body);
 
-                    if (res.body == 'username already taken') {
-                      errorText = res.body;
-                      setState(() {});
-                      return;
-                    }
-
-                    prefs.setString('username', username);
-                    prefs.setString('password', password);
-                    prefs.setString('jwt', res.body);
-
-                    await Save.clearData();
-
-                    loading = false;
+                  if (res.body == 'username already taken') {
+                    errorText = res.body;
                     setState(() {});
-
-                    Navigator.of(context).push(
-                      PageTransition(
-                        child: const Dashboard(),
-                        type: PageTransitionType.fade,
-                      ),
-                    );
                     return;
                   }
+
+                  prefs.setString('username', username);
+                  prefs.setString('password', password);
+                  prefs.setString('jwt', res.body);
+
+                  await Save.clearData();
+
+                  loading = false;
+                  setState(() {});
+
+                  Navigator.of(context).push(
+                    PageTransition(
+                      child: const Dashboard(),
+                      type: PageTransitionType.fade,
+                    ),
+                  );
+                  return;
                 }
               },
             ),
