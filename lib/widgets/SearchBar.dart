@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flexify/data/globalVariables.dart' as global;
 
 class AnimSearchBar extends StatefulWidget {
   ///  width - double ,isRequired : Yes
@@ -55,7 +56,7 @@ class AnimSearchBar extends StatefulWidget {
       this.helpText = "Search...",
 
       /// choose your custom color
-      this.color = Colors.white,
+      this.color = Colors.red,
 
       /// choose your custom color for the search when it is expanded
       this.textFieldColor = Colors.white,
@@ -160,19 +161,18 @@ class _AnimSearchBarState extends State<AnimSearchBar>
         curve: Curves.easeOut,
         decoration: BoxDecoration(
           /// can add custom  color or the color will be white
-          color: toggle == 1 ? widget.textFieldColor : widget.color,
+          color: toggle == 1
+              ? Theme.of(context).colorScheme.background
+              : widget.color,
           borderRadius: BorderRadius.circular(100),
 
           /// show boxShadow unless false was passed
           boxShadow: !widget.boxShadow
               ? null
               : [
-                  const BoxShadow(
-                    color: Colors.black26,
-                    spreadRadius: -10.0,
-                    blurRadius: 10.0,
-                    offset: Offset(0.0, 10.0),
-                  ),
+                  global.isDarkMode(context)
+                      ? global.darkShadow(context)
+                      : global.lightShadow(context)
                 ],
         ),
         child: Stack(
@@ -189,7 +189,6 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                 child: Container(
                   decoration: BoxDecoration(
                     /// can add custom color or the color will be white
-                    color: widget.color,
                     borderRadius: BorderRadius.circular(100),
                   ),
                   child: AnimatedBuilder(
@@ -289,7 +288,7 @@ class _AnimSearchBarState extends State<AnimSearchBar>
 
                     ///style is of type TextStyle, the default is just a color black
                     style: widget.style ?? const TextStyle(color: Colors.black),
-                    cursorColor: Colors.black,
+                    cursorColor: Theme.of(context).focusColor,
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.only(bottom: 5),
                       isDense: true,
@@ -315,7 +314,8 @@ class _AnimSearchBarState extends State<AnimSearchBar>
             Material(
               /// can add custom color or the color will be white
               /// toggle button color based on toggle state
-              color: toggle == 0 ? widget.color : widget.textFieldColor,
+              color:
+                  toggle == 0 ? Theme.of(context).colorScheme.background : null,
               borderRadius: BorderRadius.circular(1000),
 
               child: Container(
@@ -332,7 +332,7 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                           icon: Center(
                             child: Icon(
                               Icons.add,
-                              color: widget.searchIconColor,
+                              color: Theme.of(context).colorScheme.onBackground,
                               size: MediaQuery.of(context).size.width * 0.05,
                             ),
                           ),

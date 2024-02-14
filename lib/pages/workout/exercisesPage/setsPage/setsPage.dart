@@ -75,7 +75,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                   background: Colors.green,
                   onBackground: Colors.transparent,
                   surface: Theme.of(context).colorScheme.background,
-                  onSurface: Theme.of(context).scaffoldBackgroundColor,
+                  onSurface: Theme.of(context).focusColor,
                 ),
                 textButtonTheme: TextButtonThemeData(
                   style: TextButton.styleFrom(
@@ -182,7 +182,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
               child: Text(
                 'delete',
                 style: TextStyle(
-                  color: Theme.of(context).scaffoldBackgroundColor,
+                  color: Theme.of(context).focusColor,
                   fontSize: MediaQuery.of(context).size.width * 0.035,
                 ),
               ),
@@ -234,7 +234,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(global.borderRadius - 5),
                   color: Theme.of(context).colorScheme.background,
-                  boxShadow: [global.darkShadow],
+                  boxShadow: [global.darkShadow(context)],
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -273,7 +273,8 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                       '${global.zeroBefore(setList[i].date.hour)}:${global.zeroBefore(sets[i].date.minute)}',
                       style: TextStyle(
                         color: Theme.of(context)
-                            .scaffoldBackgroundColor
+                            .colorScheme
+                            .onBackground
                             .withOpacity(0.6),
                         fontSize: MediaQuery.of(context).size.width * 0.04,
                       ),
@@ -283,7 +284,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                     Text(
                       'x${setList[i].reps}',
                       style: TextStyle(
-                        color: Theme.of(context).scaffoldBackgroundColor,
+                        color: Theme.of(context).colorScheme.onBackground,
                         fontSize: MediaQuery.of(context).size.width * 0.06,
                         fontWeight: FontWeight.bold,
                       ),
@@ -333,10 +334,8 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                     width: MediaQuery.of(context).size.width * 0.14,
                     height: MediaQuery.of(context).size.width * 0.14,
                     decoration: BoxDecoration(
-                      boxShadow: ([
-                        global.lightShadow,
-                      ]),
-                      color: Theme.of(context).scaffoldBackgroundColor,
+                      boxShadow: ([global.darkShadow(context)]),
+                      color: Theme.of(context).colorScheme.background,
                       borderRadius: BorderRadius.circular(1000),
                     ),
                     child: IconButton(
@@ -344,7 +343,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onPressed: () => Navigator.pop(context),
-                      color: Theme.of(context).focusColor,
+                      color: Theme.of(context).colorScheme.onBackground,
                       icon: const Icon(Icons.arrow_back_rounded),
                       iconSize: MediaQuery.of(context).size.width * 0.05,
                     ),
@@ -371,8 +370,8 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                     width: MediaQuery.of(context).size.width * 0.14,
                     height: MediaQuery.of(context).size.width * 0.14,
                     decoration: BoxDecoration(
-                      boxShadow: [global.lightShadow],
-                      color: Theme.of(context).scaffoldBackgroundColor,
+                      boxShadow: [global.darkShadow(context)],
+                      color: Theme.of(context).colorScheme.background,
                       borderRadius: BorderRadius.circular(1000),
                     ),
                     child: IconButton(
@@ -390,7 +389,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                           type: PageTransitionType.fade,
                         ),
                       ).then((value) => getData()),
-                      color: Theme.of(context).focusColor,
+                      color: Theme.of(context).colorScheme.onBackground,
                       icon: const Icon(Icons.add),
                       iconSize: MediaQuery.of(context).size.width * 0.05,
                     ),

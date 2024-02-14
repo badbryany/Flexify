@@ -65,7 +65,7 @@ class _ChooseState extends State<Choose> {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: MediaQuery.of(context).size.width * 0.095,
-                    color: Theme.of(context).colorScheme.surface,
+                    color: Theme.of(context).colorScheme.onBackground,
                   ),
                 ),
                 Row(
@@ -83,7 +83,7 @@ class _ChooseState extends State<Choose> {
                                   .colorScheme
                                   .primary
                                   .withOpacity(0.75)
-                              : Theme.of(context).colorScheme.surface,
+                              : Theme.of(context).colorScheme.onBackground,
                         ),
                       ),
                     )
@@ -136,7 +136,7 @@ class _ChooseState extends State<Choose> {
                               fontWeight: FontWeight.bold,
                               fontSize:
                                   MediaQuery.of(context).size.width * 0.045,
-                              color: Theme.of(context).colorScheme.surface,
+                              color: Theme.of(context).colorScheme.onBackground,
                             ),
                           ),
                         ],
@@ -160,7 +160,7 @@ class _ChooseState extends State<Choose> {
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: MediaQuery.of(context).size.width * 0.038,
-                        color: Theme.of(context).colorScheme.surface,
+                        color: Theme.of(context).colorScheme.onBackground,
                       ),
                     ),
                   ),

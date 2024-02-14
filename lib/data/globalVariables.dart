@@ -10,19 +10,22 @@ Duration standardAnimationDuration = const Duration(milliseconds: 300);
 
 IconData arrow = Icons.arrow_back_rounded;
 
-BoxShadow lightShadow = const BoxShadow(
-  color: Color.fromARGB(136, 72, 72, 72),
-  spreadRadius: -10.0,
-  blurRadius: 10.0,
-  offset: Offset(0.0, 10.0),
-);
+lightShadow(BuildContext context) => BoxShadow(
+      color: Theme.of(context).colorScheme.onSurface.withOpacity(0.3),
+      spreadRadius: -10.0,
+      blurRadius: 10.0,
+      offset: const Offset(0.0, 10.0),
+    );
 
-BoxShadow darkShadow = const BoxShadow(
-  color: Color.fromARGB(137, 0, 0, 0),
-  spreadRadius: -5.0,
-  blurRadius: 10.0,
-  offset: Offset(0.0, 10.0),
-);
+BoxShadow darkShadow(BuildContext context) => BoxShadow(
+      color: Theme.of(context).colorScheme.onSurface,
+      spreadRadius: -5.0,
+      blurRadius: 10.0,
+      offset: const Offset(0.0, 10.0),
+    );
+
+bool isDarkMode(BuildContext context) =>
+    Theme.of(context).scaffoldBackgroundColor != Colors.white;
 
 String zeroBefore(int num) {
   if (num <= 9) {

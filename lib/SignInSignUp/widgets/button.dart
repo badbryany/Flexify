@@ -30,7 +30,7 @@ class _ButtonWithTextState extends State<ButtonWithText> {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(global.borderRadius * 0.4),
             color: Theme.of(context).colorScheme.background,
-            boxShadow: [global.darkShadow],
+            boxShadow: [global.darkShadow(context)],
           ),
           child: Center(
             child: AnimatedSwitcher(

@@ -14,11 +14,9 @@ class Shadow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).scaffoldBackgroundColor,
+        color: Theme.of(context).focusColor,
         borderRadius: BorderRadius.circular(borderRadius),
-        boxShadow: [
-          global.lightShadow,
-        ],
+        boxShadow: [global.lightShadow(context)],
       ),
       child: child,
     );

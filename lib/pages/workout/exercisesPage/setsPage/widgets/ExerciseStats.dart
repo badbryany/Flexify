@@ -132,7 +132,7 @@ class _ExerciseStatsState extends State<ExerciseStats> {
             background: Colors.green,
             onBackground: Colors.transparent,
             surface: Theme.of(context).colorScheme.background,
-            onSurface: Theme.of(context).scaffoldBackgroundColor,
+            onSurface: Theme.of(context).focusColor,
           ),
           textButtonTheme: TextButtonThemeData(
             style: TextButton.styleFrom(
@@ -184,7 +184,7 @@ class _ExerciseStatsState extends State<ExerciseStats> {
               color: Theme.of(context).colorScheme.background,
               borderRadius: BorderRadius.circular(
                   MediaQuery.of(context).size.width * 0.1),
-              boxShadow: [global.darkShadow],
+              boxShadow: [global.darkShadow(context)],
             ),
             child: Column(
               children: [
@@ -222,7 +222,7 @@ class _ExerciseStatsState extends State<ExerciseStats> {
                           child: Text(
                             dateString(firstDate),
                             style: TextStyle(
-                              color: Theme.of(context).scaffoldBackgroundColor,
+                              color: Theme.of(context).colorScheme.onBackground,
                               fontSize:
                                   MediaQuery.of(context).size.width * 0.03,
                             ),
@@ -250,7 +250,7 @@ class _ExerciseStatsState extends State<ExerciseStats> {
                           child: Text(
                             ' - ',
                             style: TextStyle(
-                              color: Theme.of(context).focusColor,
+                              color: Colors.black,
                               fontSize:
                                   MediaQuery.of(context).size.width * 0.05,
                             ),
@@ -269,7 +269,7 @@ class _ExerciseStatsState extends State<ExerciseStats> {
                               dateString(lastDate),
                               style: TextStyle(
                                 color:
-                                    Theme.of(context).scaffoldBackgroundColor,
+                                    Theme.of(context).colorScheme.onBackground,
                                 fontSize:
                                     MediaQuery.of(context).size.width * 0.03,
                               ),
@@ -304,8 +304,9 @@ class _ExerciseStatsState extends State<ExerciseStats> {
                                     ? 'no sets yet'
                                     : 'no sets in this interval',
                                 style: TextStyle(
-                                  color:
-                                      Theme.of(context).scaffoldBackgroundColor,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onBackground,
                                 ),
                               ),
                             ),
@@ -323,7 +324,7 @@ class _ExerciseStatsState extends State<ExerciseStats> {
                     Text(
                       'choose your Stats:',
                       style: TextStyle(
-                        color: Theme.of(context).scaffoldBackgroundColor,
+                        color: Theme.of(context).colorScheme.onBackground,
                       ),
                     ),
                     const SizedBox(),
@@ -338,14 +339,14 @@ class _ExerciseStatsState extends State<ExerciseStats> {
                         )
                       ],
                       style: TextStyle(
-                        color: Theme.of(context).scaffoldBackgroundColor,
+                        color: Theme.of(context).colorScheme.onBackground,
                         fontFamily: 'JosefinSans',
                       ),
                       borderRadius:
                           BorderRadius.circular(global.borderRadius - 15),
                       dropdownColor: Theme.of(context).colorScheme.background,
                       iconEnabledColor:
-                          Theme.of(context).scaffoldBackgroundColor,
+                          Theme.of(context).colorScheme.onBackground,
                       underline: const SizedBox(),
                       onChanged: (String? value) {
                         if (value is String) {
@@ -414,7 +415,7 @@ class Statistics extends StatelessWidget {
                   tag,
                   style: TextStyle(
                     fontSize: 10,
-                    color: Theme.of(context).scaffoldBackgroundColor,
+                    color: Theme.of(context).colorScheme.onBackground,
                   ),
                 ),
               ),
@@ -424,7 +425,7 @@ class Statistics extends StatelessWidget {
                   '${value.round()}',
                   style: TextStyle(
                     fontSize: 10,
-                    color: Theme.of(context).scaffoldBackgroundColor,
+                    color: Theme.of(context).colorScheme.onBackground,
                   ),
                 ),
               ),
@@ -436,7 +437,7 @@ class Statistics extends StatelessWidget {
                   '${value.round()}',
                   style: TextStyle(
                     fontSize: 10,
-                    color: Theme.of(context).scaffoldBackgroundColor,
+                    color: Theme.of(context).colorScheme.onBackground,
                   ),
                 ),
               ),
@@ -451,7 +452,7 @@ class Statistics extends StatelessWidget {
               dotData: spots.length == 1
                   ? const FlDotData(show: true)
                   : const FlDotData(show: false),
-              color: Theme.of(context).scaffoldBackgroundColor,
+              color: Theme.of(context).colorScheme.onBackground,
               spots: spots,
               isCurved: true,
             ),

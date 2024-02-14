@@ -201,7 +201,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
   @override
   Widget build(BuildContext context) {
     Widget animSearchBar = AnimSearchBar(
-      color: Theme.of(context).scaffoldBackgroundColor,
+      color: Theme.of(context).colorScheme.background,
       helpText: 'Add exercise',
       width: MediaQuery.of(context).size.width *
           global.containerWidthFactor *
@@ -235,6 +235,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
       closeSearchOnSuffixTap: true,
       autoFocus: true,
     );
+
     return Scaffold(
       body: SafeArea(
         child: PopScope(
@@ -272,10 +273,8 @@ class _ExercisesPageState extends State<ExercisesPage> {
                           width: MediaQuery.of(context).size.width * 0.15,
                           height: MediaQuery.of(context).size.width * 0.15,
                           decoration: BoxDecoration(
-                            boxShadow: ([
-                              global.lightShadow,
-                            ]),
-                            color: Theme.of(context).scaffoldBackgroundColor,
+                            boxShadow: ([global.darkShadow(context)]),
+                            color: Theme.of(context).colorScheme.background,
                             borderRadius: BorderRadius.circular(1000),
                           ),
                           child: IconButton(
@@ -286,7 +285,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
                               widget.reload();
                               Navigator.pop(context);
                             },
-                            color: Theme.of(context).focusColor,
+                            color: Theme.of(context).colorScheme.onBackground,
                             icon: const Icon(Icons.arrow_back_rounded),
                             iconSize: MediaQuery.of(context).size.width * 0.05,
                           ),
@@ -411,7 +410,8 @@ class _ExercisesPageState extends State<ExercisesPage> {
                                                           decoration:
                                                               BoxDecoration(
                                                             boxShadow: [
-                                                              global.darkShadow
+                                                              global.darkShadow(
+                                                                  context)
                                                             ],
                                                             borderRadius: BorderRadius
                                                                 .circular(global
@@ -445,7 +445,8 @@ class _ExercisesPageState extends State<ExercisesPage> {
                                                                       style:
                                                                           TextStyle(
                                                                         color: Theme.of(context)
-                                                                            .scaffoldBackgroundColor,
+                                                                            .colorScheme
+                                                                            .onBackground,
                                                                         fontWeight:
                                                                             FontWeight.bold,
                                                                         fontSize:
@@ -477,7 +478,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
                                                                         : Icon(
                                                                             Icons.add_rounded,
                                                                             color:
-                                                                                Theme.of(context).scaffoldBackgroundColor,
+                                                                                Theme.of(context).focusColor,
                                                                           ),
                                                                   ),
                                                                 ],

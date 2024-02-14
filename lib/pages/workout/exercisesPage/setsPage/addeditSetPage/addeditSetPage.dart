@@ -85,9 +85,9 @@ class _AddEditSetState extends State<AddEditSet> {
                       height: MediaQuery.of(context).size.width * 0.14,
                       decoration: BoxDecoration(
                         boxShadow: ([
-                          global.lightShadow,
+                          global.lightShadow(context),
                         ]),
-                        color: Theme.of(context).scaffoldBackgroundColor,
+                        color: Theme.of(context).focusColor,
                         borderRadius: BorderRadius.circular(1000),
                       ),
                       child: IconButton(
@@ -125,9 +125,9 @@ class _AddEditSetState extends State<AddEditSet> {
                       height: MediaQuery.of(context).size.width * 0.14,
                       decoration: BoxDecoration(
                         boxShadow: ([
-                          global.lightShadow,
+                          global.lightShadow(context),
                         ]),
-                        color: Theme.of(context).scaffoldBackgroundColor,
+                        color: Theme.of(context).focusColor,
                         borderRadius: BorderRadius.circular(1000),
                       ),
                       child: IconButton(
