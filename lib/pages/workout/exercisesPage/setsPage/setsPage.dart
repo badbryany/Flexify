@@ -423,6 +423,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                                       MediaQuery.of(context).size.width * 0.8,
                                   height:
                                       MediaQuery.of(context).size.width * 0.6,
+                                  color: Theme.of(context).focusColor,
                                 ),
                               ),
                               Center(
@@ -433,6 +434,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                                     fontSize:
                                         MediaQuery.of(context).size.width *
                                             0.04,
+                                    color: Theme.of(context).focusColor,
                                   ),
                                 ),
                               )

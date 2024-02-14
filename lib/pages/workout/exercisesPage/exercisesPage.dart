@@ -335,15 +335,17 @@ class _ExercisesPageState extends State<ExercisesPage> {
                                               0.1,
                                         ),
                                         child: SvgPicture.asset(
-                                            'assets/Squiggly Arrow.svg',
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.8,
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.6),
+                                          'assets/Squiggly Arrow.svg',
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.8,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.6,
+                                          color: Theme.of(context).focusColor,
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -355,6 +357,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
                                         fontSize:
                                             MediaQuery.of(context).size.width *
                                                 0.04,
+                                        color: Theme.of(context).focusColor,
                                       ),
                                     ),
                                   )
