@@ -5,6 +5,7 @@ import 'package:flexify/pages/dashboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:flexify/data/globalVariables.dart' as global;
+import 'package:flutter/services.dart';
 
 checkLogin() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -60,6 +61,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        systemNavigationBarColor: Theme.of(context).colorScheme.background,
+        systemNavigationBarIconBrightness: Brightness.dark,
+      ),
+    );
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(

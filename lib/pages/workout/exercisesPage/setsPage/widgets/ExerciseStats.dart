@@ -226,29 +226,35 @@ class _ExerciseStatsState extends State<ExerciseStats> {
                         ),
                       ),
                       Center(
-                        child: Container(
-                          alignment: Alignment.center,
-                          width: MediaQuery.of(context).size.width * 0.1,
-                          height: MediaQuery.of(context).size.width * 0.1,
-                          padding: EdgeInsets.all(
-                              MediaQuery.of(context).size.width * 0.01),
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.background,
-                            borderRadius: BorderRadius.circular(
-                                MediaQuery.of(context).size.width * 0.1),
-                            gradient: LinearGradient(
-                              colors: [
-                                Theme.of(context).colorScheme.primary,
-                                Theme.of(context).colorScheme.onPrimary,
-                              ],
+                        child: GestureDetector(
+                          onTap: () => setState(() {
+                            firstDate = widget.sets.first.date;
+                            lastDate = widget.sets.last.date;
+                          }),
+                          child: Container(
+                            alignment: Alignment.center,
+                            width: MediaQuery.of(context).size.width * 0.1,
+                            height: MediaQuery.of(context).size.width * 0.1,
+                            padding: EdgeInsets.all(
+                                MediaQuery.of(context).size.width * 0.01),
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.background,
+                              borderRadius: BorderRadius.circular(
+                                  MediaQuery.of(context).size.width * 0.1),
+                              gradient: LinearGradient(
+                                colors: [
+                                  Theme.of(context).colorScheme.primary,
+                                  Theme.of(context).colorScheme.onPrimary,
+                                ],
+                              ),
                             ),
-                          ),
-                          child: Text(
-                            ' - ',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize:
-                                  MediaQuery.of(context).size.width * 0.05,
+                            child: Text(
+                              ' - ',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize:
+                                    MediaQuery.of(context).size.width * 0.05,
+                              ),
                             ),
                           ),
                         ),

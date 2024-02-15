@@ -1,8 +1,10 @@
 import 'package:flexify/SignInSignUp/choose.dart';
 import 'package:flexify/data/exerciseModels.dart';
 import 'package:flexify/main.dart';
+import 'package:flexify/pages/profile/widgets/GetPremium.dart';
+import 'package:flexify/pages/profile/widgets/PersonalElement.dart';
+import 'package:flexify/widgets/DeleteAlertBox.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
 
@@ -14,204 +16,150 @@ class DashboardProfile extends StatefulWidget {
 }
 
 class DashboardProfileState extends State<DashboardProfile> {
-  String username = '';
-  String firstname = '';
-  String surname = '';
-
-  List<Map<String, dynamic>> data = [
-    {
-      'title': 'workouts',
-      'count': 0,
-    },
-    {
-      'title': 'average sets',
-      'count': 0,
-    },
-    {
-      'title': 'friends',
-      'count': 0,
-    },
-  ];
-
-  getData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    username = prefs.getString('username')!;
-    firstname = prefs.getString('firstname')!;
-    surname = prefs.getString('surname')!;
-
-    // workouts
-    data[0]['count'] = 43;
-
-    // average sets
-    data[1]['count'] = 23;
-
-    // friends
-    data[2]['count'] = 7;
-
-    setState(() {});
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getData();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         SizedBox(height: global.height(context) * 0.025),
-        Container(
-          padding: const EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.background,
-            borderRadius: BorderRadius.circular(global.borderRadius),
-            boxShadow: [global.lightShadow(context)],
-          ),
+        //
+        const PersonalElement(),
+        //
+        SizedBox(height: global.height(context) * 0.015),
+        //
+        SizedBox(
           width: global.width(context) * global.containerWidthFactor,
-          child: Column(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(1000),
-                child: Image.network(
-                  'https://pbs.twimg.com/media/FaUuKhkWYAA3u5c.jpg:large',
-                  width: MediaQuery.of(context).size.height * 0.1,
-                ),
-              ),
-              SizedBox(height: global.height(context) * 0.025),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    username,
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.onBackground,
-                      fontWeight: FontWeight.bold,
-                      fontSize: global.width(context) * 0.06,
-                    ),
+              // add friends
+              ...[
+                {
+                  'title': 'invite friends',
+                  'icon': null,
+                },
+                {
+                  'title': 'add friends',
+                  'icon': null,
+                },
+                {
+                  'title': null,
+                  'icon': Icon(
+                    Icons.notifications_rounded,
+                    size: global.width(context) * 0.06,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
-                  SizedBox(width: global.width(context) * 0.025),
-                  SvgPicture.asset(
-                    'assets/PR.svg',
-                    width: global.width(context) * 0.075,
+                },
+              ].map(
+                (e) => Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: global.width(context) * .065,
+                    vertical: 20,
                   ),
-                ],
-              ),
-              SizedBox(height: global.height(context) * 0.0125 / 2),
-              Text(
-                '$firstname $surname',
-                style: TextStyle(
-                  color: Theme.of(context)
-                      .colorScheme
-                      .onBackground
-                      .withOpacity(0.3),
-                  fontWeight: FontWeight.bold,
-                  fontSize: global.width(context) * 0.04,
-                ),
-              ),
-              SizedBox(height: global.height(context) * 0.05),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  ...data.map(
-                    (e) => Column(
-                      children: [
-                        Text(
-                          e['count'].toString(),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.background,
+                    borderRadius:
+                        BorderRadius.circular(global.borderRadius - 10),
+                    boxShadow: [global.darkShadow(context)],
+                  ),
+                  child: e['title'] != null
+                      ? Text(
+                          e['title'] as String,
                           style: TextStyle(
-                            color: Theme.of(context).colorScheme.onBackground,
                             fontWeight: FontWeight.bold,
-                            fontSize: global.width(context) * 0.05,
+                            fontSize: global.width(context) * 0.04,
+                            color: Theme.of(context).colorScheme.onBackground,
                           ),
-                        ),
-                        Text(
-                          e['title'],
-                          style: TextStyle(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onBackground
-                                .withOpacity(0.3),
-                            // fontWeight: FontWeight.bold,
-                            fontSize: global.width(context) * 0.035,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+                        )
+                      : e['icon'] as Widget,
+                ),
               ),
-              SizedBox(height: global.height(context) * 0.0125),
             ],
           ),
         ),
-        SizedBox(height: global.height(context) * 0.015),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            // add friends
-            Container(
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.background,
-                borderRadius: BorderRadius.circular(global.borderRadius - 10),
-                boxShadow: [global.lightShadow(context)],
-              ),
-              width: global.width(context) * .7,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(
-                    'add friends',
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.onBackground,
-                      fontWeight: FontWeight.bold,
-                      fontSize: global.width(context) * 0.045,
+        //
+        SizedBox(height: global.height(context) * .04),
+        //
+        const GetPremium(),
+        //
+        SizedBox(height: global.height(context) * .04),
+        //
+        SizedBox(
+          width: global.width(context) * global.containerWidthFactor,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              ...[
+                {
+                  'title': 'rate app',
+                  'onTap': () {},
+                },
+                {
+                  'title': 'share app',
+                  'onTap': () {},
+                },
+                {
+                  'title': 'logout',
+                  'onTap': () async {
+                    await showDialog(
+                      context: context,
+                      builder: (BuildContext context) => DeleteAlertDialog(
+                        title: 'Are you sure to logout?',
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text('cancel'),
+                          ),
+                          TextButton(
+                            onPressed: () async {
+                              Navigator.pop(context);
+
+                              SharedPreferences prefs =
+                                  await SharedPreferences.getInstance();
+
+                              prefs.setString('username', '');
+                              prefs.setString('password', '');
+                              prefs.setString('jwt', '');
+                              Save.clearData();
+
+                              runApp(const MyApp(startWidget: Choose()));
+                            },
+                            child: const Text('logout'),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                },
+              ].map(
+                (e) => GestureDetector(
+                  onTap: e['onTap'] as void Function(),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 25, vertical: 15),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.background,
+                      borderRadius:
+                          BorderRadius.circular(global.borderRadius - 15),
+                      boxShadow: [global.lightShadow(context)],
+                    ),
+                    child: Text(
+                      e['title'] as String,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onBackground,
+                        fontWeight: FontWeight.bold,
+                        fontSize: global.width(context) * 0.04,
+                      ),
                     ),
                   ),
-                  Icon(Icons.add_rounded),
-                ],
+                ),
               ),
-            ),
-            Container(
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.background,
-                borderRadius: BorderRadius.circular(global.borderRadius - 10),
-                boxShadow: [global.lightShadow(context)],
-              ),
-              child: Icon(
-                Icons.ios_share_rounded,
-                size: global.width(context) * 0.05,
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: global.height(context) * 0.1),
-        GestureDetector(
-          onTap: () async {
-            SharedPreferences prefs = await SharedPreferences.getInstance();
-
-            prefs.setString('username', '');
-            prefs.setString('password', '');
-            prefs.setString('jwt', '');
-            Save.clearData();
-
-            runApp(const MyApp(startWidget: Choose()));
-          },
-          child: Text(
-            'logout',
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.onBackground,
-              fontWeight: FontWeight.bold,
-              fontSize: global.width(context) * 0.045,
-            ),
+            ],
           ),
         ),
+        SizedBox(height: global.height(context) * .04),
       ],
     );
   }

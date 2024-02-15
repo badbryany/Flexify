@@ -5,9 +5,11 @@ class DeleteAlertDialog extends StatelessWidget {
   DeleteAlertDialog({
     super.key,
     required this.actions,
+    required this.title,
   });
 
-  List<Widget> actions;
+  final String title;
+  final List<Widget> actions;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +41,7 @@ class DeleteAlertDialog extends StatelessWidget {
         content: Padding(
           padding: const EdgeInsets.only(top: 8),
           child: Text(
-            'Do you want to delete this set?',
+            title,
             style: TextStyle(
               fontSize: MediaQuery.of(context).size.width * 0.04,
               color: Theme.of(context).colorScheme.onBackground,

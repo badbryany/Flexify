@@ -36,3 +36,5 @@ String zeroBefore(int num) {
   }
   return '$num';
 }
+
+Color gold = const Color(0xffFFD700);

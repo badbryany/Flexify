@@ -192,6 +192,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
               await showDialog(
                 context: context,
                 builder: (BuildContext context) => DeleteAlertDialog(
+                  title: 'Do you want to delete this set?',
                   actions: [
                     TextButton(
                       onPressed: () {

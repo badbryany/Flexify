@@ -234,6 +234,7 @@ class _ExerciseButtonState extends State<ExerciseButton> {
         await showDialog(
           context: context,
           builder: (context) => DeleteAlertDialog(
+            title: 'Do you want to delete this exercise?',
             actions: [
               TextButton(
                 onPressed: () {
