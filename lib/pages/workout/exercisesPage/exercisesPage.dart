@@ -226,19 +226,6 @@ class _ExercisesPageState extends State<ExercisesPage> {
         await getData();
         _controller.clear();
       },
-      onSubmitted: (String exercise) {
-        print('---------- new exercise creat --------');
-        /* setState(
-          () {
-            Save.saveExercise(Exercise(
-                name: exercise,
-                type: 'Custom',
-                affectedMuscle: 'Custom',
-                equipment: 'Custom'));
-          },
-        ); */
-        // widget.reload();
-      },
       onToggle: (int open) {
         setState(() => _searchBarOpen = open);
         if (open == 1) {
