@@ -27,6 +27,9 @@ BoxShadow darkShadow(BuildContext context) => BoxShadow(
 bool isDarkMode(BuildContext context) =>
     Theme.of(context).scaffoldBackgroundColor != Colors.white;
 
+double width(BuildContext context) => MediaQuery.of(context).size.width;
+double height(BuildContext context) => MediaQuery.of(context).size.height;
+
 String zeroBefore(int num) {
   if (num <= 9) {
     return '0$num';

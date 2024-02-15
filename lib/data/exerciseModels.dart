@@ -166,16 +166,16 @@ class Save {
     Save.syncData();
   }
 
+  static Future<int> newSetId() async {
+    Database db = await getDatabase();
+    List<Map<String, Object?>> sets = await db.rawQuery('SELECT * FROM sets;');
+    return (sets.last['s_id'] as int) + 1;
+  }
+
   static Future<void> saveSet(Set set, int? s_id) async {
     Database db = await getDatabase();
-
-    int lastId = -1;
-    if ((await Save.getSetList()).isNotEmpty) {
-      lastId = (await Save.getSetList()).last.setID!;
-    }
-
     Set newSet = Set(
-      setID: s_id ?? lastId + 1,
+      setID: s_id ?? await Save.newSetId(),
       exerciseName: set.exerciseName,
       reps: set.reps,
       weight: set.weight,
@@ -189,7 +189,6 @@ class Save {
 
   static Future<void> deleteSet(Set set) async {
     Database db = await getDatabase();
-    print(set.setID);
     await db.rawUpdate(
       'UPDATE sets SET synced=-1 WHERE sets.s_id="${set.setID}";',
     );
@@ -201,7 +200,6 @@ class Save {
         's_id': set.setID.toString(),
       },
     ).then((res) async {
-      print(res.body);
       if (res.body == 'done') {
         await db.rawDelete(
           'DELETE FROM sets WHERE sets.s_id=${set.setID}',

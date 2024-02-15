@@ -24,9 +24,9 @@ class DeleteAlertDialog extends StatelessWidget {
           error: Colors.red,
           onError: Colors.red,
           background: Colors.green,
-          onBackground: Colors.transparent,
+          onBackground: Colors.red,
           surface: Theme.of(context).colorScheme.background,
-          onSurface: Theme.of(context).scaffoldBackgroundColor,
+          onSurface: Colors.white,
         ),
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(
@@ -42,7 +42,7 @@ class DeleteAlertDialog extends StatelessWidget {
             'Do you want to delete this set?',
             style: TextStyle(
               fontSize: MediaQuery.of(context).size.width * 0.04,
-              color: Theme.of(context).colorScheme.surface,
+              color: Theme.of(context).colorScheme.onBackground,
             ),
           ),
         ),

@@ -32,6 +32,7 @@ class _ExerciseStatsState extends State<ExerciseStats> {
   double maxY = 0;
 
   getData() {
+    lastDate = widget.sets.last.date;
     spots = [];
     maxX = 0;
     maxY = 0;
@@ -75,7 +76,6 @@ class _ExerciseStatsState extends State<ExerciseStats> {
       maxX = 1;
       maxY = 1;
     }
-
     setState(() {});
   }
 
@@ -162,10 +162,6 @@ class _ExerciseStatsState extends State<ExerciseStats> {
 
   @override
   Widget build(BuildContext context) {
-    String name = widget.exerciseName;
-    if (name.length > 30) {
-      name = '${name.substring(0, 27)}...';
-    }
     getData();
     return Container(
       alignment: Alignment.center,
