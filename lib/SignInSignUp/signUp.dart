@@ -150,6 +150,9 @@ class _SignUpState extends State<SignUp> {
 
                   prefs.setString('username', username);
                   prefs.setString('password', password);
+                  prefs.setString('firstname', firstNameController.text);
+                  prefs.setString('surname', surnameController.text);
+
                   prefs.setString('jwt', res.body);
 
                   await Save.clearData();
