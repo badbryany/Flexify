@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:async';
 import 'package:flexify/widgets/BounceElement.dart';
 import 'package:flexify/pages/workout/exercisesPage/widgets/exerciseButton.dart';
 import 'package:flexify/widgets/SearchBar.dart';
@@ -32,6 +33,8 @@ class _ExercisesPageState extends State<ExercisesPage> {
   bool connectedToInternet = true;
   int _searchBarOpen = 0;
   Duration loadingSpeed = Duration.zero;
+
+  StreamSubscription<http.Response>? searchStream;
 
   String previosSearchText = '';
 
@@ -99,45 +102,52 @@ class _ExercisesPageState extends State<ExercisesPage> {
     String url = '${global.host}/searchExercises';
     String searchString = _controller.text;
 
+    if (searchStream != null) {
+      searchStream!.cancel();
+    }
+
     DateTime start = DateTime.now();
-    http.Response res = await http.get(
-      Uri.parse('$url?q=$searchString'),
-    );
-    loadingSpeed = DateTime.now().difference(start);
 
-    List<dynamic> stringExercises = jsonDecode(res.body);
+    searchStream = http
+        .get(Uri.parse('$url?q=$searchString'))
+        .asStream()
+        .listen((http.Response res) {
+      loadingSpeed = DateTime.now().difference(start);
 
-    searchExercises = [];
-    for (int i = 0; i < stringExercises.length; i++) {
-      dynamic e = stringExercises[i];
-      Exercise exercise = Exercise(
-        name: e[0],
-        type: e[2],
-        affectedMuscle: e[1],
-        equipment: e[3],
-      );
+      List<dynamic> stringExercises = jsonDecode(res.body);
 
-      searchExercises.add({
-        'new': false,
-        'added': exerciseExistsAlready(exercise),
-        'exercise': exercise,
-      });
-    }
+      searchExercises = [];
+      for (int i = 0; i < stringExercises.length; i++) {
+        dynamic e = stringExercises[i];
+        Exercise exercise = Exercise(
+          name: e[0],
+          type: e[2],
+          affectedMuscle: e[1],
+          equipment: e[3],
+        );
 
-    if (searchExercises.isEmpty) {
-      searchExercises.add({
-        'new': true,
-        'added': false,
-        'exercise': Exercise(
-          name: searchString,
-          type: '',
-          affectedMuscle: '',
-          equipment: '',
-        ),
-      });
-    }
-    loadingDone = true;
-    setState(() {});
+        searchExercises.add({
+          'new': false,
+          'added': exerciseExistsAlready(exercise),
+          'exercise': exercise,
+        });
+      }
+
+      if (searchExercises.isEmpty) {
+        searchExercises.add({
+          'new': true,
+          'added': false,
+          'exercise': Exercise(
+            name: searchString,
+            type: '',
+            affectedMuscle: '',
+            equipment: '',
+          ),
+        });
+      }
+      loadingDone = true;
+      setState(() {});
+    });
   }
 
   List<Widget> exerciseWidgets() {
@@ -207,7 +217,10 @@ class _ExercisesPageState extends State<ExercisesPage> {
           global.containerWidthFactor *
           0.95,
       textController: _controller,
-      suffixIcon: const Icon(Icons.clear),
+      suffixIcon: Icon(
+        Icons.clear,
+        color: Theme.of(context).colorScheme.onBackground,
+      ),
       open: _searchBarOpen == 1,
       onSuffixTap: () async {
         await getData();
@@ -481,7 +494,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
                                                                         : Icon(
                                                                             Icons.add_rounded,
                                                                             color:
-                                                                                Theme.of(context).focusColor,
+                                                                                Theme.of(context).colorScheme.onBackground,
                                                                           ),
                                                                   ),
                                                                 ],
@@ -492,7 +505,8 @@ class _ExercisesPageState extends State<ExercisesPage> {
                                                                       style:
                                                                           TextStyle(
                                                                         color: Theme.of(context)
-                                                                            .scaffoldBackgroundColor,
+                                                                            .colorScheme
+                                                                            .onBackground,
                                                                       ),
                                                                     )
                                                                   : const SizedBox(),

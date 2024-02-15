@@ -180,7 +180,7 @@ class _AnimSearchBarState extends State<AnimSearchBar>
             ///Using Animated Positioned widget to expand and shrink the widget
             AnimatedPositioned(
               duration: Duration(milliseconds: widget.animationDurationInMilli),
-              top: MediaQuery.of(context).size.height * 0.024,
+              top: MediaQuery.of(context).size.height * 0.02,
               right: MediaQuery.of(context).size.width * 0.05,
               curve: Curves.easeOut,
               child: AnimatedOpacity(
@@ -239,8 +239,8 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                       child: widget.suffixIcon ??
                           Icon(
                             Icons.close,
-                            size: 20.0,
-                            color: widget.textFieldIconColor,
+                            size: 20,
+                            color: Theme.of(context).colorScheme.onBackground,
                           ),
                     ),
                   ),
@@ -251,7 +251,7 @@ class _AnimSearchBarState extends State<AnimSearchBar>
               duration: Duration(milliseconds: widget.animationDurationInMilli),
               left: (toggle == 0) ? 20.0 : 40.0,
               curve: Curves.easeOut,
-              top: MediaQuery.of(context).size.height * 0.025,
+              top: MediaQuery.of(context).size.height * 0.0185,
 
               ///Using Animated opacity to change the opacity of th textField while expanding
               child: AnimatedOpacity(
@@ -287,15 +287,21 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                     },
 
                     ///style is of type TextStyle, the default is just a color black
-                    style: widget.style ?? const TextStyle(color: Colors.black),
-                    cursorColor: Theme.of(context).focusColor,
+                    style: widget.style ??
+                        TextStyle(
+                          color: Theme.of(context).colorScheme.onBackground,
+                        ),
+                    cursorColor: Theme.of(context).colorScheme.onBackground,
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.only(bottom: 5),
                       isDense: true,
                       floatingLabelBehavior: FloatingLabelBehavior.never,
                       hintText: widget.helpText,
                       hintStyle: TextStyle(
-                        color: Theme.of(context).focusColor.withOpacity(0.7),
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onBackground
+                            .withOpacity(0.7),
                         fontSize: 17.0,
                         fontWeight: FontWeight.w500,
                       ),
