@@ -169,6 +169,9 @@ class Save {
   static Future<int> newSetId() async {
     Database db = await getDatabase();
     List<Map<String, Object?>> sets = await db.rawQuery('SELECT * FROM sets;');
+    if (sets.isEmpty) {
+      return 0;
+    }
     return (sets.last['s_id'] as int) + 1;
   }
 

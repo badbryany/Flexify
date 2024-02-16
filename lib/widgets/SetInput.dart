@@ -66,7 +66,7 @@ class SetInput extends StatelessWidget {
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 40,
-              color: Theme.of(context).focusColor,
+              color: Theme.of(context).colorScheme.onBackground,
             ),
           ),
         ),
@@ -114,7 +114,7 @@ class SetInput extends StatelessWidget {
                 child: TextFormField(
                   style: TextStyle(
                     fontSize: 60,
-                    color: Theme.of(context).focusColor,
+                    color: Theme.of(context).colorScheme.onBackground,
                   ),
                   textAlign: TextAlign.center,
                   controller: controller,
