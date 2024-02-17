@@ -57,7 +57,7 @@ class _DashboardState extends State<Dashboard> {
         body: SafeArea(
           child: SizedBox(
             width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * 1,
+            height: MediaQuery.of(context).size.height,
             child: ListView(
               physics: const BouncingScrollPhysics(),
               children: [
@@ -78,7 +78,10 @@ class _DashboardState extends State<Dashboard> {
                           width: MediaQuery.of(context).size.width * imageSize,
                           height: MediaQuery.of(context).size.width * imageSize,
                           decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.background,
+                            color: Theme.of(context).scaffoldBackgroundColor ==
+                                    Colors.white
+                                ? Theme.of(context).colorScheme.background
+                                : null,
                           ),
                           child: Image.asset(
                             'assets/img/logo.png',
@@ -153,7 +156,7 @@ class _DashboardState extends State<Dashboard> {
                     icon: e['icon'],
                     text: e['title'],
                     padding: const EdgeInsets.all(15),
-                    iconColor: Theme.of(context).scaffoldBackgroundColor,
+                    iconColor: Theme.of(context).colorScheme.onBackground,
                     iconActiveColor: Theme.of(context).focusColor,
                   ),
                 )

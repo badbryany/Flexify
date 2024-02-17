@@ -170,7 +170,7 @@ class _DashboardWorkoutStatsState extends State<DashboardWorkoutStats> {
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: selectedIntesity == i ? FontWeight.bold : null,
-                color: Theme.of(context).scaffoldBackgroundColor,
+                color: Theme.of(context).colorScheme.onBackground,
               ),
             )
           ],
@@ -191,7 +191,7 @@ class _DashboardWorkoutStatsState extends State<DashboardWorkoutStats> {
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.background,
         borderRadius: BorderRadius.circular(global.borderRadius),
-        boxShadow: [global.lightShadow],
+        boxShadow: [global.lightShadow(context)],
       ),
       child: Column(
         children: [
@@ -207,7 +207,8 @@ class _DashboardWorkoutStatsState extends State<DashboardWorkoutStats> {
                   style: TextStyle(
                     fontSize: 18,
                     color: Theme.of(context)
-                        .scaffoldBackgroundColor
+                        .colorScheme
+                        .onBackground
                         .withOpacity(0.6),
                   ),
                 ),
@@ -237,15 +238,16 @@ class _DashboardWorkoutStatsState extends State<DashboardWorkoutStats> {
                         Text(
                           'See more',
                           style: TextStyle(
-                              color: Theme.of(context).focusColor,
-                              fontSize:
-                                  MediaQuery.of(context).size.width * 0.02),
+                            color: Colors.black,
+                            fontSize: MediaQuery.of(context).size.width * 0.02,
+                          ),
                         ),
                         SizedBox(
                           width: MediaQuery.of(context).size.width * 0.005,
                         ),
                         Icon(
                           Icons.arrow_forward_rounded,
+                          color: Colors.black,
                           size: MediaQuery.of(context).size.width * 0.02,
                         )
                       ],
@@ -263,7 +265,7 @@ class _DashboardWorkoutStatsState extends State<DashboardWorkoutStats> {
                 style: TextStyle(
                   fontSize: 26,
                   fontWeight: FontWeight.bold,
-                  color: Theme.of(context).scaffoldBackgroundColor,
+                  color: Theme.of(context).colorScheme.onBackground,
                 ),
               ),
             ],

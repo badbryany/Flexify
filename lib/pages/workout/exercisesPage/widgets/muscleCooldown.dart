@@ -86,7 +86,7 @@ class _MuscleCooldownState extends State<MuscleCooldown> {
               width: (widget.width * 0.825),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(1000),
-                color: Theme.of(context).colorScheme.surface.withOpacity(0.1),
+                color: Colors.grey.shade900.withOpacity(0.8),
               ),
             ),
             AnimatedContainer(

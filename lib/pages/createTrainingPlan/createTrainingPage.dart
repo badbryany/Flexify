@@ -82,7 +82,9 @@ class _CreateTrainingPlanState extends State<CreateTrainingPlan> {
                                           MediaQuery.of(context).size.width *
                                               0.15,
                                       decoration: BoxDecoration(
-                                        boxShadow: [global.lightShadow],
+                                        boxShadow: [
+                                          global.lightShadow(context)
+                                        ],
                                         color: Theme.of(context)
                                             .scaffoldBackgroundColor,
                                         borderRadius:

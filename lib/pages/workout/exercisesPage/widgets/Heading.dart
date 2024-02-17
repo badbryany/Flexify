@@ -17,15 +17,16 @@ class Heading extends StatelessWidget {
       alignment: Alignment.center,
       width: MediaQuery.of(context).size.width * global.containerWidthFactor,
       decoration: BoxDecoration(
-        color: Theme.of(context).scaffoldBackgroundColor,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(global.borderRadius - 10),
-        boxShadow: [global.lightShadow],
+        boxShadow: [global.lightShadow(context)],
       ),
       child: Text(
         title,
         textAlign: TextAlign.center,
         style: TextStyle(
           fontSize: MediaQuery.of(context).size.width * 0.038,
+          color: Theme.of(context).focusColor,
         ),
       ),
     );

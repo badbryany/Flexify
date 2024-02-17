@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:async';
 import 'package:flexify/widgets/BounceElement.dart';
 import 'package:flexify/pages/workout/exercisesPage/widgets/exerciseButton.dart';
 import 'package:flexify/widgets/SearchBar.dart';
@@ -32,6 +33,8 @@ class _ExercisesPageState extends State<ExercisesPage> {
   bool connectedToInternet = true;
   int _searchBarOpen = 0;
   Duration loadingSpeed = Duration.zero;
+
+  StreamSubscription<http.Response>? searchStream;
 
   String previosSearchText = '';
 
@@ -99,45 +102,52 @@ class _ExercisesPageState extends State<ExercisesPage> {
     String url = '${global.host}/searchExercises';
     String searchString = _controller.text;
 
+    if (searchStream != null) {
+      searchStream!.cancel();
+    }
+
     DateTime start = DateTime.now();
-    http.Response res = await http.get(
-      Uri.parse('$url?q=$searchString'),
-    );
-    loadingSpeed = DateTime.now().difference(start);
 
-    List<dynamic> stringExercises = jsonDecode(res.body);
+    searchStream = http
+        .get(Uri.parse('$url?q=$searchString'))
+        .asStream()
+        .listen((http.Response res) {
+      loadingSpeed = DateTime.now().difference(start);
 
-    searchExercises = [];
-    for (int i = 0; i < stringExercises.length; i++) {
-      dynamic e = stringExercises[i];
-      Exercise exercise = Exercise(
-        name: e[0],
-        type: e[2],
-        affectedMuscle: e[1],
-        equipment: e[3],
-      );
+      List<dynamic> stringExercises = jsonDecode(res.body);
 
-      searchExercises.add({
-        'new': false,
-        'added': exerciseExistsAlready(exercise),
-        'exercise': exercise,
-      });
-    }
+      searchExercises = [];
+      for (int i = 0; i < stringExercises.length; i++) {
+        dynamic e = stringExercises[i];
+        Exercise exercise = Exercise(
+          name: e[0],
+          type: e[2],
+          affectedMuscle: e[1],
+          equipment: e[3],
+        );
 
-    if (searchExercises.isEmpty) {
-      searchExercises.add({
-        'new': true,
-        'added': false,
-        'exercise': Exercise(
-          name: searchString,
-          type: '',
-          affectedMuscle: '',
-          equipment: '',
-        ),
-      });
-    }
-    loadingDone = true;
-    setState(() {});
+        searchExercises.add({
+          'new': false,
+          'added': exerciseExistsAlready(exercise),
+          'exercise': exercise,
+        });
+      }
+
+      if (searchExercises.isEmpty) {
+        searchExercises.add({
+          'new': true,
+          'added': false,
+          'exercise': Exercise(
+            name: searchString,
+            type: '',
+            affectedMuscle: '',
+            equipment: '',
+          ),
+        });
+      }
+      loadingDone = true;
+      setState(() {});
+    });
   }
 
   List<Widget> exerciseWidgets() {
@@ -201,30 +211,20 @@ class _ExercisesPageState extends State<ExercisesPage> {
   @override
   Widget build(BuildContext context) {
     Widget animSearchBar = AnimSearchBar(
-      color: Theme.of(context).scaffoldBackgroundColor,
+      color: Theme.of(context).colorScheme.background,
       helpText: 'Add exercise',
       width: MediaQuery.of(context).size.width *
           global.containerWidthFactor *
           0.95,
       textController: _controller,
-      suffixIcon: const Icon(Icons.clear),
+      suffixIcon: Icon(
+        Icons.clear,
+        color: Theme.of(context).colorScheme.onBackground,
+      ),
       open: _searchBarOpen == 1,
       onSuffixTap: () async {
         await getData();
         _controller.clear();
-      },
-      onSubmitted: (String exercise) {
-        print('---------- new exercise creat --------');
-        /* setState(
-          () {
-            Save.saveExercise(Exercise(
-                name: exercise,
-                type: 'Custom',
-                affectedMuscle: 'Custom',
-                equipment: 'Custom'));
-          },
-        ); */
-        // widget.reload();
       },
       onToggle: (int open) {
         setState(() => _searchBarOpen = open);
@@ -235,6 +235,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
       closeSearchOnSuffixTap: true,
       autoFocus: true,
     );
+
     return Scaffold(
       body: SafeArea(
         child: PopScope(
@@ -272,10 +273,8 @@ class _ExercisesPageState extends State<ExercisesPage> {
                           width: MediaQuery.of(context).size.width * 0.15,
                           height: MediaQuery.of(context).size.width * 0.15,
                           decoration: BoxDecoration(
-                            boxShadow: ([
-                              global.lightShadow,
-                            ]),
-                            color: Theme.of(context).scaffoldBackgroundColor,
+                            boxShadow: ([global.darkShadow(context)]),
+                            color: Theme.of(context).colorScheme.background,
                             borderRadius: BorderRadius.circular(1000),
                           ),
                           child: IconButton(
@@ -286,7 +285,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
                               widget.reload();
                               Navigator.pop(context);
                             },
-                            color: Theme.of(context).focusColor,
+                            color: Theme.of(context).colorScheme.onBackground,
                             icon: const Icon(Icons.arrow_back_rounded),
                             iconSize: MediaQuery.of(context).size.width * 0.05,
                           ),
@@ -336,15 +335,17 @@ class _ExercisesPageState extends State<ExercisesPage> {
                                               0.1,
                                         ),
                                         child: SvgPicture.asset(
-                                            'assets/Squiggly Arrow.svg',
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.8,
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.6),
+                                          'assets/Squiggly Arrow.svg',
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.8,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.6,
+                                          color: Theme.of(context).focusColor,
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -356,6 +357,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
                                         fontSize:
                                             MediaQuery.of(context).size.width *
                                                 0.04,
+                                        color: Theme.of(context).focusColor,
                                       ),
                                     ),
                                   )
@@ -411,7 +413,8 @@ class _ExercisesPageState extends State<ExercisesPage> {
                                                           decoration:
                                                               BoxDecoration(
                                                             boxShadow: [
-                                                              global.darkShadow
+                                                              global.darkShadow(
+                                                                  context)
                                                             ],
                                                             borderRadius: BorderRadius
                                                                 .circular(global
@@ -445,7 +448,8 @@ class _ExercisesPageState extends State<ExercisesPage> {
                                                                       style:
                                                                           TextStyle(
                                                                         color: Theme.of(context)
-                                                                            .scaffoldBackgroundColor,
+                                                                            .colorScheme
+                                                                            .onBackground,
                                                                         fontWeight:
                                                                             FontWeight.bold,
                                                                         fontSize:
@@ -477,7 +481,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
                                                                         : Icon(
                                                                             Icons.add_rounded,
                                                                             color:
-                                                                                Theme.of(context).scaffoldBackgroundColor,
+                                                                                Theme.of(context).colorScheme.onBackground,
                                                                           ),
                                                                   ),
                                                                 ],
@@ -488,7 +492,8 @@ class _ExercisesPageState extends State<ExercisesPage> {
                                                                       style:
                                                                           TextStyle(
                                                                         color: Theme.of(context)
-                                                                            .scaffoldBackgroundColor,
+                                                                            .colorScheme
+                                                                            .onBackground,
                                                                       ),
                                                                     )
                                                                   : const SizedBox(),

@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flexify/data/globalVariables.dart' as global;
 
 class AnimSearchBar extends StatefulWidget {
   ///  width - double ,isRequired : Yes
@@ -39,7 +40,6 @@ class AnimSearchBar extends StatefulWidget {
   final Color? textFieldIconColor;
   final List<TextInputFormatter>? inputFormatters;
   final bool boxShadow;
-  final Function(String) onSubmitted;
   final Function(int) onToggle;
   const AnimSearchBar(
       {Key? key,
@@ -55,7 +55,7 @@ class AnimSearchBar extends StatefulWidget {
       this.helpText = "Search...",
 
       /// choose your custom color
-      this.color = Colors.white,
+      this.color = Colors.red,
 
       /// choose your custom color for the search when it is expanded
       this.textFieldColor = Colors.white,
@@ -69,9 +69,6 @@ class AnimSearchBar extends StatefulWidget {
       /// The onSuffixTap cannot be null
       required this.onSuffixTap,
       this.animationDurationInMilli = 375,
-
-      /// The onSubmitted cannot be null
-      required this.onSubmitted,
 
       /// make the search bar to open from right to left
       this.rtl = false,
@@ -160,19 +157,18 @@ class _AnimSearchBarState extends State<AnimSearchBar>
         curve: Curves.easeOut,
         decoration: BoxDecoration(
           /// can add custom  color or the color will be white
-          color: toggle == 1 ? widget.textFieldColor : widget.color,
+          color: toggle == 1
+              ? Theme.of(context).colorScheme.background
+              : widget.color,
           borderRadius: BorderRadius.circular(100),
 
           /// show boxShadow unless false was passed
           boxShadow: !widget.boxShadow
               ? null
               : [
-                  const BoxShadow(
-                    color: Colors.black26,
-                    spreadRadius: -10.0,
-                    blurRadius: 10.0,
-                    offset: Offset(0.0, 10.0),
-                  ),
+                  global.isDarkMode(context)
+                      ? global.darkShadow(context)
+                      : global.lightShadow(context)
                 ],
         ),
         child: Stack(
@@ -180,7 +176,7 @@ class _AnimSearchBarState extends State<AnimSearchBar>
             ///Using Animated Positioned widget to expand and shrink the widget
             AnimatedPositioned(
               duration: Duration(milliseconds: widget.animationDurationInMilli),
-              top: MediaQuery.of(context).size.height * 0.024,
+              top: MediaQuery.of(context).size.height * 0.02,
               right: MediaQuery.of(context).size.width * 0.05,
               curve: Curves.easeOut,
               child: AnimatedOpacity(
@@ -189,7 +185,6 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                 child: Container(
                   decoration: BoxDecoration(
                     /// can add custom color or the color will be white
-                    color: widget.color,
                     borderRadius: BorderRadius.circular(100),
                   ),
                   child: AnimatedBuilder(
@@ -240,8 +235,8 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                       child: widget.suffixIcon ??
                           Icon(
                             Icons.close,
-                            size: 20.0,
-                            color: widget.textFieldIconColor,
+                            size: 20,
+                            color: Theme.of(context).colorScheme.onBackground,
                           ),
                     ),
                   ),
@@ -252,7 +247,7 @@ class _AnimSearchBarState extends State<AnimSearchBar>
               duration: Duration(milliseconds: widget.animationDurationInMilli),
               left: (toggle == 0) ? 20.0 : 40.0,
               curve: Curves.easeOut,
-              top: MediaQuery.of(context).size.height * 0.025,
+              top: MediaQuery.of(context).size.height * 0.0185,
 
               ///Using Animated opacity to change the opacity of th textField while expanding
               child: AnimatedOpacity(
@@ -270,15 +265,6 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                     onChanged: (value) {
                       textFieldValue = value;
                     },
-                    onSubmitted: (value) => {
-                      widget.onSubmitted(value),
-                      unfocusKeyboard(),
-                      setState(() {
-                        toggle = 0;
-                        widget.onToggle(toggle);
-                      }),
-                      widget.textController.clear(),
-                    },
                     onEditingComplete: () {
                       /// on editing complete the keyboard will be closed and the search bar will be closed
                       unfocusKeyboard();
@@ -288,15 +274,21 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                     },
 
                     ///style is of type TextStyle, the default is just a color black
-                    style: widget.style ?? const TextStyle(color: Colors.black),
-                    cursorColor: Colors.black,
+                    style: widget.style ??
+                        TextStyle(
+                          color: Theme.of(context).colorScheme.onBackground,
+                        ),
+                    cursorColor: Theme.of(context).colorScheme.onBackground,
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.only(bottom: 5),
                       isDense: true,
                       floatingLabelBehavior: FloatingLabelBehavior.never,
                       hintText: widget.helpText,
                       hintStyle: TextStyle(
-                        color: Theme.of(context).focusColor.withOpacity(0.7),
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onBackground
+                            .withOpacity(0.7),
                         fontSize: 17.0,
                         fontWeight: FontWeight.w500,
                       ),
@@ -315,7 +307,8 @@ class _AnimSearchBarState extends State<AnimSearchBar>
             Material(
               /// can add custom color or the color will be white
               /// toggle button color based on toggle state
-              color: toggle == 0 ? widget.color : widget.textFieldColor,
+              color:
+                  toggle == 0 ? Theme.of(context).colorScheme.background : null,
               borderRadius: BorderRadius.circular(1000),
 
               child: Container(
@@ -332,7 +325,7 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                           icon: Center(
                             child: Icon(
                               Icons.add,
-                              color: widget.searchIconColor,
+                              color: Theme.of(context).colorScheme.onBackground,
                               size: MediaQuery.of(context).size.width * 0.05,
                             ),
                           ),

@@ -84,10 +84,8 @@ class _AddEditSetState extends State<AddEditSet> {
                       width: MediaQuery.of(context).size.width * 0.14,
                       height: MediaQuery.of(context).size.width * 0.14,
                       decoration: BoxDecoration(
-                        boxShadow: ([
-                          global.lightShadow,
-                        ]),
-                        color: Theme.of(context).scaffoldBackgroundColor,
+                        boxShadow: ([global.darkShadow(context)]),
+                        color: Theme.of(context).colorScheme.background,
                         borderRadius: BorderRadius.circular(1000),
                       ),
                       child: IconButton(
@@ -97,7 +95,7 @@ class _AddEditSetState extends State<AddEditSet> {
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        color: Theme.of(context).focusColor,
+                        color: Theme.of(context).colorScheme.onBackground,
                         icon: const Icon(Icons.arrow_back_rounded),
                         iconSize: MediaQuery.of(context).size.width * 0.05,
                       ),
@@ -124,10 +122,8 @@ class _AddEditSetState extends State<AddEditSet> {
                       width: MediaQuery.of(context).size.width * 0.14,
                       height: MediaQuery.of(context).size.width * 0.14,
                       decoration: BoxDecoration(
-                        boxShadow: ([
-                          global.lightShadow,
-                        ]),
-                        color: Theme.of(context).scaffoldBackgroundColor,
+                        boxShadow: ([global.darkShadow(context)]),
+                        color: Theme.of(context).colorScheme.background,
                         borderRadius: BorderRadius.circular(1000),
                       ),
                       child: IconButton(
@@ -143,6 +139,7 @@ class _AddEditSetState extends State<AddEditSet> {
                                 reps: int.parse(repsController.text),
                                 weight: double.tryParse(weightController.text)!,
                               ),
+                              null,
                             );
                           } else {
                             await Save.editSet(
@@ -159,7 +156,7 @@ class _AddEditSetState extends State<AddEditSet> {
                           Navigator.pop(context);
                           setState(() {});
                         },
-                        color: Theme.of(context).focusColor,
+                        color: Theme.of(context).colorScheme.onBackground,
                         icon: const Icon(Icons.check_rounded),
                         iconSize: MediaQuery.of(context).size.width * 0.065,
                       ),

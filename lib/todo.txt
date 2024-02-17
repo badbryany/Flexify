@@ -1,20 +1,5 @@
 Glitches/Bad: ---------------------------------------
 
-setsPage 
-    -> save state of page on navigator push so the search bar is closed
-    -> fix glitch where exercises come back after deleting and pressing back on a certain set
-    -> fix glitch where page doesn't reload onsubmit
-
-exercisesPage: 
-    -> searchRecommendation onclick:
-        -> addeditSetPage
-            -> Icons.check onclick -> setsPage
-            -> Icons.arrow_back onclick -> exercisesPage (searchBar closed)
-    exerciseButton
-        2. dismissable
-            -> Fix glitch where the delete cancel adds to bottom
-            -> Fix glitch where double delete cancel throws error
-
 Add: ------------------------------------------------
 
 General:
@@ -57,3 +42,23 @@ dashboardProfile ->
     -> Avg (GitHub Copy) (!!)
         -> Sets per Week 
         -> Workouts per Week
+Genereal:
+    -> Change Logo
+
+Home: 
+    -> Workout Calendar
+    -> Stats (Top Right)
+
+Detected Split:
+	-> AI Generated
+	-> Upper Lower
+	-> Push Pull Legs
+	-> Full Body
+	-> Bro Split
+	-> Calisthenics
+    
+
+
+Entry Page: 
+Kg/Lbs 
+Cm/in

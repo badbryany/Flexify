@@ -80,7 +80,7 @@ class _YourTrainingPlanState extends State<YourTrainingPlan> {
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(global.borderRadius),
-        boxShadow: [global.lightShadow],
+        boxShadow: [global.lightShadow(context)],
       ),
       width: MediaQuery.of(context).size.width * global.containerWidthFactor,
       child: Column(

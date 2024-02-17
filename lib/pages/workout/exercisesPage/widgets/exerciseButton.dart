@@ -69,10 +69,11 @@ class _ExerciseButtonState extends State<ExerciseButton> {
 
   bool thresholdReached = false;
   double thresholdProgress = 0.0;
+  int lastWorkoutSets = 0;
 
   String getPRWeight() {
     if (widget.sets.isEmpty) {
-      return '0kg';
+      return '--kg';
     }
     double max = widget.sets[0].weight;
 
@@ -175,10 +176,27 @@ class _ExerciseButtonState extends State<ExerciseButton> {
 
   @override
   Widget build(BuildContext context) {
+    lastWorkoutSets = 0;
+    if (widget.sets.isNotEmpty) {
+      List foo = widget.sets.reversed.toList();
+      for (int i = 0; i < foo.length; i++) {
+        if (foo.length - 1 == i) {
+          lastWorkoutSets = i + 1;
+          break;
+        }
+        if (foo[i].date.difference(foo[i + 1].date) >
+            const Duration(hours: 10)) {
+          lastWorkoutSets = i + 1;
+          break;
+        }
+      }
+    }
+
     String name = widget.exercise.name;
     if (name.length > 29) {
       name = '${name.substring(0, 26).trim()}...';
     }
+
     return Dismissible(
       key: ValueKey(name),
       dismissThresholds: const {DismissDirection.endToStart: 0.7},
@@ -206,7 +224,7 @@ class _ExerciseButtonState extends State<ExerciseButton> {
         child: Text(
           'delete',
           style: TextStyle(
-            color: Theme.of(context).scaffoldBackgroundColor,
+            color: Theme.of(context).colorScheme.onBackground,
             fontSize: MediaQuery.of(context).size.width * 0.035,
           ),
         ),
@@ -216,6 +234,7 @@ class _ExerciseButtonState extends State<ExerciseButton> {
         await showDialog(
           context: context,
           builder: (context) => DeleteAlertDialog(
+            title: 'Do you want to delete this exercise?',
             actions: [
               TextButton(
                 onPressed: () {
@@ -266,7 +285,7 @@ class _ExerciseButtonState extends State<ExerciseButton> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(global.borderRadius),
               color: Theme.of(context).colorScheme.background,
-              boxShadow: [global.darkShadow],
+              boxShadow: [global.darkShadow(context)],
             ),
             child: Column(
               children: [
@@ -286,7 +305,7 @@ class _ExerciseButtonState extends State<ExerciseButton> {
                           key: ValueKey(isExpanded),
                           maxLines: 1,
                           style: TextStyle(
-                            color: Theme.of(context).scaffoldBackgroundColor,
+                            color: Theme.of(context).colorScheme.onBackground,
                             fontSize:
                                 MediaQuery.of(context).size.width * 0.0525,
                             fontWeight: FontWeight.bold,
@@ -304,7 +323,7 @@ class _ExerciseButtonState extends State<ExerciseButton> {
                             ? Icons.expand_less_rounded
                             : Icons.expand_more_rounded,
                       ),
-                      color: Theme.of(context).scaffoldBackgroundColor,
+                      color: Theme.of(context).colorScheme.onBackground,
                     ),
                   ],
                 ),
@@ -332,7 +351,8 @@ class _ExerciseButtonState extends State<ExerciseButton> {
                           textAlign: TextAlign.left,
                           style: TextStyle(
                             color: Theme.of(context)
-                                .scaffoldBackgroundColor
+                                .colorScheme
+                                .onBackground
                                 .withOpacity(0.7),
                             fontWeight: FontWeight.bold,
                           ),
@@ -341,7 +361,8 @@ class _ExerciseButtonState extends State<ExerciseButton> {
                           getPRSet(),
                           style: TextStyle(
                             color: Theme.of(context)
-                                .scaffoldBackgroundColor
+                                .colorScheme
+                                .onBackground
                                 .withOpacity(0.7),
                             fontWeight: FontWeight.bold,
                           ),
@@ -437,13 +458,23 @@ class _ExerciseButtonState extends State<ExerciseButton> {
                               ],
                             ),
                           ),
-                          Text(
-                            'last 3 sets:',
-                            style: TextStyle(
-                              color: Theme.of(context)
-                                  .scaffoldBackgroundColor
-                                  .withOpacity(0.8),
-                            ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const SizedBox(),
+                              ...['last 3 sets:', '($lastWorkoutSets)'].map(
+                                (e) => Text(
+                                  e,
+                                  style: TextStyle(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onBackground
+                                        .withOpacity(0.8),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(),
+                            ],
                           ),
                           const SizedBox(height: 5),
                           ...smallSetWidgets(),
@@ -490,10 +521,8 @@ class SmallSetWidget extends StatelessWidget {
       margin: const EdgeInsets.all(4),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(global.borderRadius - 20),
-        color: Theme.of(context)
-            .colorScheme
-            .surface
-            .withOpacity(empty! ? 0.025 : 0.05),
+        color: Theme.of(context).colorScheme.surface.withOpacity(
+            empty! ? 0.025 : (global.isDarkMode(context) ? 1 : 0.05)),
       ),
       child: SizedBox(
         width: MediaQuery.of(context).size.width * 0.65,
@@ -514,14 +543,14 @@ class SmallSetWidget extends StatelessWidget {
                       Text(
                         '${global.zeroBefore(set.date.hour)}:${global.zeroBefore(set.date.minute)}',
                         style: TextStyle(
-                          color: Theme.of(context).scaffoldBackgroundColor,
+                          color: Theme.of(context).colorScheme.onBackground,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
                         'x${set.reps}',
                         style: TextStyle(
-                          color: Theme.of(context).scaffoldBackgroundColor,
+                          color: Theme.of(context).colorScheme.onBackground,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
