@@ -41,7 +41,7 @@ flutter:
   fonts:
     - family: JosefinSans
       fonts:
-        - asset: ./assets/fonts/JosefinSans-Regular.ttf
+        - asset: ./assets/fonts/KronaOne-Regular.ttf
     - family: Sacramento
       fonts:
         - asset: ./assets/fonts/Sacramento-Regular.ttf

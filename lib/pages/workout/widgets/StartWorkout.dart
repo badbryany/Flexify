@@ -3,7 +3,7 @@ import 'package:flexify/widgets/BounceElement.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flexify/data/AnalyseWorkoutData/analyseWorkoutData.dart'
-    as analize;
+    as analyse;
 import 'package:flexify/data/AnalyseWorkoutData/predictNextWorkout.dart';
 import 'package:flexify/data/AnalyseWorkoutData/WorkoutDay.dart';
 
@@ -30,7 +30,7 @@ class _StartWorkoutState extends State<StartWorkout> {
 
   getData() async {
     nextWorkoutDay = predictNextWorkout(
-      analize.analyseWorkout(widget.sets),
+      analyse.analyseWorkout(widget.sets),
       widget.sets,
     );
 
@@ -38,7 +38,7 @@ class _StartWorkoutState extends State<StartWorkout> {
   }
 
   List<Widget> showSets(WorkoutDay nextWorkoutDay) {
-    List<dynamic> realSets = analize.getAverageWorkoutString(
+    List<dynamic> realSets = analyse.getAverageWorkoutString(
       nextWorkoutDay,
       widget.sets,
     );

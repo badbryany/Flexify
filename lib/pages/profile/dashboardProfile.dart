@@ -1,6 +1,6 @@
-import 'package:flexify/SignInSignUp/mainSignIn.dart';
+import 'package:flexify/pages/login/mainSignIn.dart';
 import 'package:flexify/pages/createTrainingPlan/createTrainingPage.dart';
-import 'package:flexify/profilPage/mainProfilPage.dart';
+import 'package:flexify/pages/profile/profilePage/mainProfilePage.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 

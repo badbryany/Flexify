@@ -1,4 +1,5 @@
-import 'package:flexify/SignInSignUp/choose.dart';
+import 'package:flexify/pages/intro/0_introMain.dart';
+import 'package:flexify/pages/login/choose.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/pages/dashboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -82,7 +83,7 @@ class MyApp extends StatelessWidget {
           shadow: Color.fromARGB(255, 170, 170, 170),
         ),
       ),
-      home: startWidget,
+      home: ZeroIntro(),
     );
   }
 }

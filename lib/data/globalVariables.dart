@@ -10,6 +10,28 @@ Duration standardAnimationDuration = const Duration(milliseconds: 300);
 
 IconData arrow = Icons.arrow_back_rounded;
 
+final List<String> cardinals = [
+  "st",
+  "nd",
+  "rd",
+  "th",
+];
+
+final List<String> months = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec"
+];
+
 BoxShadow lightShadow = const BoxShadow(
   color: Color.fromARGB(136, 72, 72, 72),
   spreadRadius: -10.0,

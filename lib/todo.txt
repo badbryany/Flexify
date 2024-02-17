@@ -17,42 +17,43 @@ exercisesPage:
 
 Add: ------------------------------------------------
 
-setsPage
-    -> sort statistics by (1 rep, x rep max)
-    -> pr set with medal icon + previous pr with different color medal icon
-    -> infinite scroll + up button
+General:
+    -> Change Logo (!!)
 
-Genereal:
-    -> Sync positions of navbar elements
+intro: 
+    -> Animations
+        -> Next Button (Green on entry)
+    -> Global
+        -> kg/lbs (!!)
+        -> cm/in (!!)
+    -> 1_welcome
+        -> Blink animation
+        -> Start appears slowly and blinks
+    -> 2_gender
+        -> pressedAnimation
+    -> 3_height 
+        -> Initialise values (!!)
+        -> Values stay consistent between metric switch (!!)
+        -> Solution: Fix ListWheelScrollView glitch
+        -------------------------
+        -> when in++ -> ft++
+        -> when in++ -> ft++
+    -> 4_weight
+        -> If height given in inches initialise metric to lbs
+
+setsPage
+    -> Group Buttons by Day
 
 dashboardNavBar
-    -> Top left noti
-    -> Create text logo for navbar infix 
-    -> Create notification page layout
+    -> Text Logo (!!)
+    -> Settings Research
+    -> Settings Layout
 
-Start Workout -> (Progress Bar for each Path)
-    -> Strength (Red Background)
-        -> Push-Pull-Legs
-        -> Full Body
-        -> Upper-Lower
-        -> Bro Split
+dashboardProfile ->
+    -> Training Split
+        -> Push/Pull/Legs
         -> Calisthenics
-    -> Endurance (Blue Background)
-        -> HIIT
-        -> Cardio
-    -> Flexibility (Green Background)
-        -> Yoga
-        -> Stretches
-
-Profile ->
-    -> Strength Stats,
-    -> Endurance Stats,
-    -> Flexibility Stats,
-
-Detected Trainingplan:
-    -> Red Circle + Text
-        (e.g)'2 Improvements can be made'
-
-Entry Page: 
-Kg/Lbs 
-Cm/in
+        -> Full Body
+    -> Avg (GitHub Copy) (!!)
+        -> Sets per Week 
+        -> Workouts per Week

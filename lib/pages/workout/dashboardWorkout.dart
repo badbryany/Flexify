@@ -36,10 +36,6 @@ class _DashboardWorkoutState extends State<DashboardWorkout> {
           reload: getData,
         ),
         const SizedBox(height: 10),
-        YourTrainingPlan(
-          sets: sets,
-        ),
-        const SizedBox(height: 10),
       ],
     );
   }
