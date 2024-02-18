@@ -21,7 +21,7 @@ class AnimSearchBar extends StatefulWidget {
   ///  textFieldColor - Color ,isRequired : No
   ///  searchIconColor - Color ,isRequired : No
   ///  textFieldIconColor - Color ,isRequired : No
-  ///
+
   final double width;
   final TextEditingController textController;
   final Icon? suffixIcon;
@@ -38,9 +38,13 @@ class AnimSearchBar extends StatefulWidget {
   final Color? textFieldColor;
   final Color? searchIconColor;
   final Color? textFieldIconColor;
+  final Color? prefixIconColor;
+  final Color? hintTextColor;
+  final Color? textColor;
   final List<TextInputFormatter>? inputFormatters;
   final bool boxShadow;
   final Function(int) onToggle;
+
   const AnimSearchBar(
       {Key? key,
 
@@ -56,6 +60,15 @@ class AnimSearchBar extends StatefulWidget {
 
       /// choose your custom color
       this.color = Colors.red,
+
+      // choose your custom color for the prefix icon
+      this.prefixIconColor = Colors.black,
+
+      // choose your custom color for hint textm, when the search is expanded
+      this.hintTextColor = Colors.black,
+
+      // choose your custom color for text and cursor, when the search is expanded
+      this.textColor = Colors.black,
 
       /// choose your custom color for the search when it is expanded
       this.textFieldColor = Colors.white,
@@ -83,7 +96,7 @@ class AnimSearchBar extends StatefulWidget {
       this.closeSearchOnSuffixTap = false,
 
       /// enable/disable the box shadow decoration
-      this.boxShadow = true,
+      this.boxShadow = false,
 
       /// can add list of inputformatters to control the input
       this.inputFormatters,
@@ -157,9 +170,7 @@ class _AnimSearchBarState extends State<AnimSearchBar>
         curve: Curves.easeOut,
         decoration: BoxDecoration(
           /// can add custom  color or the color will be white
-          color: toggle == 1
-              ? Theme.of(context).colorScheme.background
-              : widget.color,
+          color: widget.color,
           borderRadius: BorderRadius.circular(100),
 
           /// show boxShadow unless false was passed
@@ -276,19 +287,16 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                     ///style is of type TextStyle, the default is just a color black
                     style: widget.style ??
                         TextStyle(
-                          color: Theme.of(context).colorScheme.onBackground,
+                          color: widget.textColor,
                         ),
-                    cursorColor: Theme.of(context).colorScheme.onBackground,
+                    cursorColor: widget.textColor,
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.only(bottom: 5),
                       isDense: true,
                       floatingLabelBehavior: FloatingLabelBehavior.never,
                       hintText: widget.helpText,
                       hintStyle: TextStyle(
-                        color: Theme.of(context)
-                            .colorScheme
-                            .onBackground
-                            .withOpacity(0.7),
+                        color: widget.hintTextColor,
                         fontSize: 17.0,
                         fontWeight: FontWeight.w500,
                       ),
@@ -307,8 +315,7 @@ class _AnimSearchBarState extends State<AnimSearchBar>
             Material(
               /// can add custom color or the color will be white
               /// toggle button color based on toggle state
-              color:
-                  toggle == 0 ? Theme.of(context).colorScheme.background : null,
+              color: widget.textFieldColor,
               borderRadius: BorderRadius.circular(1000),
 
               child: Container(
@@ -325,7 +332,7 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                           icon: Center(
                             child: Icon(
                               Icons.add,
-                              color: Theme.of(context).colorScheme.onBackground,
+                              color: widget.prefixIconColor,
                               size: MediaQuery.of(context).size.width * 0.05,
                             ),
                           ),

@@ -114,7 +114,7 @@ class MyApp extends StatelessWidget {
       //     shadow: Color.fromARGB(255, 170, 170, 170),
       //   ),
       // ),
-      home: SignInNew(),
+      home: Dashboard(),
     );
   }
 }
