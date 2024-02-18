@@ -1,7 +1,6 @@
+import 'package:flexify/SignInSignUp/choose.dart';
 import 'package:flexify/data/exerciseModels.dart';
 import 'package:flexify/main.dart';
-import 'package:flexify/pages/login/choose.dart';
-import 'package:flexify/pages/login/mainSignIn.dart';
 import 'package:flexify/pages/createTrainingPlan/createTrainingPage.dart';
 import 'package:flexify/pages/profile/profilePage/mainProfilePage.dart';
 import 'package:flexify/pages/profile/widgets/GetPremium.dart';

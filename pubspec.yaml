@@ -42,6 +42,10 @@ flutter:
     - family: JosefinSans
       fonts:
         - asset: ./assets/fonts/KronaOne-Regular.ttf
+    - family: OpenSans
+      fonts:
+        - asset: assets/fonts/OpenSans-Italic-VariableFont_wdth,wght.ttf
+        - asset: assets/fonts/OpenSans-VariableFont_wdth,wght.ttf
     - family: Sacramento
       fonts:
         - asset: ./assets/fonts/Sacramento-Regular.ttf

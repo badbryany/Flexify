@@ -307,7 +307,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
                               color: Theme.of(context).focusColor,
                               fontWeight: FontWeight.bold,
                               letterSpacing: -1,
-                              fontSize: MediaQuery.of(context).size.width * 0.1,
+                              fontSize: MediaQuery.of(context).size.width * 0.075,
                             ),
                           ),
                         ),

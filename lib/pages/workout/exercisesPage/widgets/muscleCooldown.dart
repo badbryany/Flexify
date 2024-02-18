@@ -83,7 +83,7 @@ class _MuscleCooldownState extends State<MuscleCooldown> {
           children: [
             Container(
               height: height,
-              width: (widget.width * 0.825),
+              width: (widget.width * 0.8),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(1000),
                 color: Colors.grey.shade900.withOpacity(0.8),
@@ -92,7 +92,7 @@ class _MuscleCooldownState extends State<MuscleCooldown> {
             AnimatedContainer(
               duration: global.standardAnimationDuration * 2,
               height: height,
-              width: (widget.width * 0.825) * recoverValue,
+              width: (widget.width * 0.8) * recoverValue,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(1000),
                 color: recoverColor,

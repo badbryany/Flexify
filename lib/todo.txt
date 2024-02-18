@@ -2,6 +2,12 @@ Glitches/Bad: ---------------------------------------
 
 Add: ------------------------------------------------
 
+Login UI:
+    -> Remember Me ?
+    -> Forgot Password ?
+    -> Sign in with Google
+    -> Sign in with Apple
+
 General:
     -> Change Logo (!!)
 
