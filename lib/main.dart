@@ -1,10 +1,6 @@
 import 'package:flexify/SignInSignUp/choose.dart';
-import 'package:flexify/SignInSignUp/signIn.dart';
 import 'package:flexify/SignInSignUp/signInNew.dart';
-import 'package:flexify/SignInSignUp/signUp.dart';
-import 'package:flexify/SignInSignUp/signUpNew.dart';
 import 'package:flexify/data/exerciseModels.dart';
-import 'package:flexify/pages/intro/8_schedule.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/pages/dashboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
