@@ -346,6 +346,9 @@ class _ExercisesPageState extends State<ExercisesPage> {
                                                   .size
                                                   .width *
                                               0.6,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onBackground,
                                         ),
                                       ),
                                     ],
