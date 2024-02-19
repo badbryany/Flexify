@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
 
@@ -128,7 +126,8 @@ class _ThreeHeightState extends State<ThreeHeight> {
                       bottom: MediaQuery.of(context).size.height * 0.3),
                   child: Container(
                     height: MediaQuery.of(context).size.height * 0.56,
-                    padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.05),
+                    padding: EdgeInsets.only(
+                        left: MediaQuery.of(context).size.width * 0.05),
                     decoration: BoxDecoration(
                       border: Border.all(width: 2),
                       borderRadius: BorderRadius.circular(

@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
 
@@ -123,7 +121,8 @@ class _TwelveLocationState extends State<TwelveLocation> {
                         child: Column(
                           children: [
                             SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.012,
+                              height:
+                                  MediaQuery.of(context).size.height * 0.012,
                             ),
                             Row(
                               children: [
@@ -196,7 +195,8 @@ class _TwelveLocationState extends State<TwelveLocation> {
                         child: Column(
                           children: [
                             SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.012,
+                              height:
+                                  MediaQuery.of(context).size.height * 0.012,
                             ),
                             Row(
                               children: [
@@ -269,15 +269,15 @@ class _TwelveLocationState extends State<TwelveLocation> {
                         child: Column(
                           children: [
                             SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.012,
+                              height:
+                                  MediaQuery.of(context).size.height * 0.012,
                             ),
                             Row(
                               children: [
                                 Text(
                                   'Basic Equipment',
                                   style: TextStyle(
-                                      color:
-                                          Theme.of(context).focusColor,
+                                      color: Theme.of(context).focusColor,
                                       fontSize: MediaQuery.of(context)
                                                   .size
                                                   .height *
@@ -295,8 +295,7 @@ class _TwelveLocationState extends State<TwelveLocation> {
                                 Text(
                                   'Dumbbells, Pull-Up Bar',
                                   style: TextStyle(
-                                      color:
-                                          Theme.of(context).focusColor,
+                                      color: Theme.of(context).focusColor,
                                       fontSize: MediaQuery.of(context)
                                                   .size
                                                   .height *
@@ -329,7 +328,8 @@ class _TwelveLocationState extends State<TwelveLocation> {
                         child: Column(
                           children: [
                             SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.012,
+                              height:
+                                  MediaQuery.of(context).size.height * 0.012,
                             ),
                             Row(
                               children: [

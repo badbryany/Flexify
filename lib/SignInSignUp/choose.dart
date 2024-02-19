@@ -1,6 +1,6 @@
+import 'package:flexify/SignInSignUp/signInNew.dart';
+import 'package:flexify/SignInSignUp/signUpNew.dart';
 import 'package:flutter/material.dart';
-import 'package:flexify/SignInSignUp/signIn.dart';
-import 'package:flexify/SignInSignUp/signUp.dart';
 import 'package:flexify/SignInSignUp/widgets/background.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -17,7 +17,7 @@ class _ChooseState extends State<Choose> {
       'icon': const SizedBox(),
       'title': 'SIGN UP FREE',
       'highlight': true,
-      'link': const SignUp(),
+      'link': const SignUpNew(),
     },
     {
       'icon': Image.asset('assets/icon/facebook.png', scale: 5),
@@ -26,7 +26,7 @@ class _ChooseState extends State<Choose> {
       'link': const SizedBox(),
     },
     {
-      'icon': Image.asset('assets/icon/google.png', scale: 10),
+      'icon': Image.asset('assets/icon/google.png', scale: 20),
       'title': 'Continue with Google',
       'highlight': false,
       'link': const SizedBox(),
@@ -149,17 +149,17 @@ class _ChooseState extends State<Choose> {
                   onTap: () => Navigator.push(
                     context,
                     PageTransition(
-                      child: const SignIn(),
+                      child: const SignInNew(),
                       type: PageTransitionType.fade,
                     ),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(20),
                     child: Text(
-                      'ANMELDEN',
+                      'SIGN IN',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: MediaQuery.of(context).size.width * 0.038,
+                        fontSize: MediaQuery.of(context).size.width * 0.04,
                         color: Theme.of(context).colorScheme.onBackground,
                       ),
                     ),

@@ -1,5 +1,4 @@
 import 'package:flexify/SignInSignUp/choose.dart';
-import 'package:flexify/SignInSignUp/signInNew.dart';
 import 'package:flexify/data/exerciseModels.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/pages/dashboard.dart';
@@ -10,7 +9,6 @@ import 'package:flutter/services.dart';
 
 checkLogin() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  prefs.setString('jwt', '');
   // prefs.setString('username', '');
   // prefs.setString('password', '');
   if (prefs.getString('username') == null ||
@@ -69,6 +67,14 @@ class MyApp extends StatelessWidget {
       ),
     );
     return MaterialApp(
+      builder: (BuildContext context, Widget? child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(
+            textScaler: const TextScaler.linear(.7),
+          ),
+          child: child!,
+        );
+      },
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: 'JosefinSans',
@@ -92,29 +98,29 @@ class MyApp extends StatelessWidget {
           shadow: Color.fromARGB(255, 170, 170, 170),
         ),
       ),
-      // darkTheme: ThemeData(
-      //   fontFamily: 'JosefinSans',
-      //   focusColor: Colors.white,
-      //   scaffoldBackgroundColor: const Color.fromARGB(255, 17, 17, 17),
-      //   canvasColor: const Color.fromARGB(255, 23, 23, 23),
-      //   colorScheme: const ColorScheme(
-      //     brightness: Brightness.dark,
-      //     primary: Color(0xffa4fba4),
-      //     onPrimary: Color(0xfff2f58d),
-      //     secondary: Color.fromARGB(255, 214, 140, 55),
-      //     onSecondary: Colors.red,
-      //     error: Colors.red,
-      //     onError: Colors.red,
-      //     background: Color.fromARGB(255, 38, 38, 43),
-      //     onBackground: Colors.white,
-      //     surface: Color.fromARGB(255, 27, 27, 31),
-      //     onSurface: Color.fromARGB(255, 37, 37, 37),
-      //     outline: Color.fromARGB(255, 125, 185, 125),
-      //     outlineVariant: Color.fromARGB(127, 125, 185, 125),
-      //     shadow: Color.fromARGB(255, 170, 170, 170),
-      //   ),
-      // ),
-      home: Dashboard(),
+      darkTheme: ThemeData(
+        fontFamily: 'JosefinSans',
+        focusColor: Colors.white,
+        scaffoldBackgroundColor: const Color.fromARGB(255, 17, 17, 17),
+        canvasColor: const Color.fromARGB(255, 23, 23, 23),
+        colorScheme: const ColorScheme(
+          brightness: Brightness.dark,
+          primary: Color(0xffa4fba4),
+          onPrimary: Color(0xfff2f58d),
+          secondary: Color.fromARGB(255, 214, 140, 55),
+          onSecondary: Colors.red,
+          error: Colors.red,
+          onError: Colors.red,
+          background: Color.fromARGB(255, 38, 38, 43),
+          onBackground: Colors.white,
+          surface: Color.fromARGB(255, 27, 27, 31),
+          onSurface: Color.fromARGB(255, 37, 37, 37),
+          outline: Color.fromARGB(255, 125, 185, 125),
+          outlineVariant: Color.fromARGB(127, 125, 185, 125),
+          shadow: Color.fromARGB(255, 170, 170, 170),
+        ),
+      ),
+      home: startWidget,
     );
   }
 }

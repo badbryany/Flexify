@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
 
@@ -70,15 +68,14 @@ class _SevenExperienceState extends State<SevenExperience> {
                   height: MediaQuery.of(context).size.height * 0.07,
                   width: MediaQuery.of(context).size.width * 0.8,
                   decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.background,
-                    borderRadius: BorderRadius.circular(
-                        MediaQuery.of(context).size.width * 0.0375),
-                    border: Border.all(
-                      color: Theme.of(context).focusColor,
-                      width: 2,
-                    ),
-                    boxShadow: [global.lightShadow(context)]
-                  ),
+                      color: Theme.of(context).colorScheme.background,
+                      borderRadius: BorderRadius.circular(
+                          MediaQuery.of(context).size.width * 0.0375),
+                      border: Border.all(
+                        color: Theme.of(context).focusColor,
+                        width: 2,
+                      ),
+                      boxShadow: [global.lightShadow(context)]),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -103,7 +100,8 @@ class _SevenExperienceState extends State<SevenExperience> {
                 ),
                 Container(
                   height: MediaQuery.of(context).size.height * 0.6,
-                  padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.05),
+                  padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.05),
                   child: Column(
                     children: [
                       Container(
@@ -276,8 +274,7 @@ class _SevenExperienceState extends State<SevenExperience> {
                                 Text(
                                   'Advanced',
                                   style: TextStyle(
-                                      color:
-                                          Theme.of(context).focusColor,
+                                      color: Theme.of(context).focusColor,
                                       fontSize: MediaQuery.of(context)
                                                   .size
                                                   .height *
@@ -295,8 +292,7 @@ class _SevenExperienceState extends State<SevenExperience> {
                                 Text(
                                   'You have been working out',
                                   style: TextStyle(
-                                      color:
-                                          Theme.of(context).focusColor,
+                                      color: Theme.of(context).focusColor,
                                       fontSize: MediaQuery.of(context)
                                                   .size
                                                   .height *
@@ -311,8 +307,7 @@ class _SevenExperienceState extends State<SevenExperience> {
                                 Text(
                                   'for more than 2 years',
                                   style: TextStyle(
-                                      color:
-                                          Theme.of(context).focusColor,
+                                      color: Theme.of(context).focusColor,
                                       fontSize: MediaQuery.of(context)
                                                   .size
                                                   .height *
@@ -398,7 +393,6 @@ class _SevenExperienceState extends State<SevenExperience> {
                           ],
                         ),
                       ),
-                    
                     ],
                   ),
                 ),

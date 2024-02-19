@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
 
@@ -144,7 +142,8 @@ class _FiveBodyFatState extends State<FiveBodyFat> {
                               child: Text(
                                 '${selectedBodyFatPercentage.toStringAsFixed(0)}%',
                                 style: TextStyle(
-                                    color: Theme.of(context).colorScheme.primary,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
                                     fontSize:
                                         MediaQuery.of(context).size.height *
                                             0.01),
@@ -159,7 +158,8 @@ class _FiveBodyFatState extends State<FiveBodyFat> {
                                     enabledThumbRadius:
                                         MediaQuery.of(context).size.height *
                                             0.0125),
-                                thumbColor: Theme.of(context).colorScheme.primary,
+                                thumbColor:
+                                    Theme.of(context).colorScheme.primary,
                                 trackHeight:
                                     MediaQuery.of(context).size.height * 0.01,
                                 activeTrackColor: Colors.transparent,

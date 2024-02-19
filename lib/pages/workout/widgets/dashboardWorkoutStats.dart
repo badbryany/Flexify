@@ -44,17 +44,12 @@ class _DashboardWorkoutStatsState extends State<DashboardWorkoutStats> {
         }
       }
       intensityPerDay[i] = thisDaySets;
+      if (initial && intensityPerDay[i] != 0) {
+        selectedIntesity = i;
+        break;
+      }
       await Future.delayed(const Duration(milliseconds: 125));
       setState(() {});
-    }
-    if (initial) {
-      for (int i = intensityPerDay.length - 1; i >= 0; i--) {
-        if (intensityPerDay[i] != 0) {
-          selectedIntesity = i;
-          break;
-        }
-      }
-      initial = false;
     }
   }
 
@@ -125,8 +120,8 @@ class _DashboardWorkoutStatsState extends State<DashboardWorkoutStats> {
                   alignment: Alignment.bottomCenter,
                   children: [
                     Container(
-                      height: (MediaQuery.of(context).size.height * 0.17),
-                      width: MediaQuery.of(context).size.width * 0.11,
+                      height: global.height(context) * 0.17,
+                      width: global.width(context) * 0.11,
                       color: Theme.of(context).colorScheme.background,
                     ),
                     AnimatedContainer(
@@ -185,7 +180,7 @@ class _DashboardWorkoutStatsState extends State<DashboardWorkoutStats> {
     getData();
     return Container(
       width: MediaQuery.of(context).size.width * global.containerWidthFactor,
-      height: MediaQuery.of(context).size.height * 0.45,
+      height: global.height(context) * 0.4,
       padding: EdgeInsets.all(global.containerPadding),
       margin: const EdgeInsets.only(top: 20),
       decoration: BoxDecoration(
