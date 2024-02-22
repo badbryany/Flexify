@@ -1,6 +1,6 @@
 import 'package:flexify/pages/food/dashboardFood.dart';
 import 'package:flexify/pages/profile/dashboardProfile.dart';
-import 'package:flexify/pages/measurements/dashboardMeasurements.dart';
+import 'package:flexify/pages/leaderboards/dashboardLeaderboards.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
@@ -15,7 +15,7 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 2;
 
   final List<dynamic> dashboardOptions = [
     {
@@ -29,8 +29,8 @@ class _DashboardState extends State<Dashboard> {
       'icon': Icons.restaurant_rounded,
     },
     {
-      'title': 'Measurements',
-      'widget': const DashboardMeasurements(),
+      'title': 'Leaderboards',
+      'widget': const DashboardLeaderboards(),
       'icon': Icons.bar_chart_rounded,
     },
     {
@@ -163,7 +163,7 @@ class _DashboardState extends State<Dashboard> {
                 .toList(),
 
             // FUNCTIONALITY
-            selectedIndex: 0,
+            selectedIndex: _selectedIndex,
             duration: duration,
             onTabChange: (index) => setState(() {
               _selectedIndex = index;
