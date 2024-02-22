@@ -1,7 +1,4 @@
-import 'dart:ffi';
-
 import 'package:flexify/pages/intro/14_targetWeight.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
 

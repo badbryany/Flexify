@@ -211,8 +211,8 @@ class _ExercisesPageState extends State<ExercisesPage> {
   @override
   Widget build(BuildContext context) {
     Widget animSearchBar = AnimSearchBar(
-      color: Theme.of(context).scaffoldBackgroundColor,
-      prefixIconColor: Theme.of(context).focusColor,
+      color: Theme.of(context).colorScheme.background,
+      prefixIconColor: Theme.of(context).colorScheme.onBackground,
       hintTextColor: Theme.of(context).focusColor.withOpacity(0.6),
       textFieldColor: Theme.of(context).scaffoldBackgroundColor,
       textColor: Theme.of(context).focusColor,
@@ -266,6 +266,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
                       : const EdgeInsets.all(0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Visibility(
                         visible: _searchBarOpen == 0,
@@ -276,6 +277,10 @@ class _ExercisesPageState extends State<ExercisesPage> {
                               MediaQuery.of(context).size.width * 0.005),
                           width: MediaQuery.of(context).size.width * 0.15,
                           height: MediaQuery.of(context).size.width * 0.15,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.background,
+                            borderRadius: BorderRadius.circular(100),
+                          ),
                           child: IconButton(
                             splashColor: Colors.transparent,
                             hoverColor: Colors.transparent,
@@ -284,7 +289,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
                               widget.reload();
                               Navigator.pop(context);
                             },
-                            color: Theme.of(context).focusColor,
+                            color: Theme.of(context).colorScheme.onBackground,
                             icon: const Icon(Icons.arrow_back_rounded),
                             iconSize: MediaQuery.of(context).size.width * 0.05,
                           ),
@@ -295,19 +300,17 @@ class _ExercisesPageState extends State<ExercisesPage> {
                         width: MediaQuery.of(context).size.width *
                             0.4 *
                             (_searchBarOpen == 0 ? 1 : 0),
-                        padding: const EdgeInsets.only(top: 10),
                         child: AnimatedOpacity(
                           duration: global.standardAnimationDuration,
                           opacity: _searchBarOpen == 0 ? 1 : 0,
                           child: Text(
                             'Workout',
-                            maxLines: 1,
+                            textAlign: TextAlign.center,
                             style: TextStyle(
                               color: Theme.of(context).focusColor,
                               fontWeight: FontWeight.bold,
                               letterSpacing: -1,
-                              fontSize:
-                                  MediaQuery.of(context).size.width * 0.075,
+                              fontSize: global.width(context) * 0.1,
                             ),
                           ),
                         ),
@@ -344,6 +347,9 @@ class _ExercisesPageState extends State<ExercisesPage> {
                                                   .size
                                                   .width *
                                               0.6,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onBackground,
                                         ),
                                       ),
                                     ],

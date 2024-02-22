@@ -1,7 +1,3 @@
-import 'dart:ffi';
-
-import 'package:flexify/pages/intro/8_schedule.dart';
-import 'package:flexify/pages/intro/9_duration.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
 
@@ -141,6 +137,8 @@ class _SevenExperienceState extends State<SevenExperience> {
                 ),
                 Container(
                   height: MediaQuery.of(context).size.height * 0.6,
+                  padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.05),
                   padding: EdgeInsets.only(
                       top: MediaQuery.of(context).size.height * 0.05),
                   child: Column(

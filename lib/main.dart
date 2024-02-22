@@ -1,4 +1,5 @@
 import 'package:flexify/SignInSignUp/choose.dart';
+import 'package:flexify/SignInSignUp/signInNew.dart';
 import 'package:flexify/data/exerciseModels.dart';
 import 'package:flexify/pages/intro/1_welcome.dart';
 import 'package:flexify/pages/intro/2_gender.dart';
@@ -12,7 +13,6 @@ import 'package:flutter/services.dart';
 
 checkLogin() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  prefs.setString('jwt', '');
   // prefs.setString('username', '');
   // prefs.setString('password', '');
   if (prefs.getString('username') == null ||
@@ -71,6 +71,14 @@ class MyApp extends StatelessWidget {
       ),
     );
     return MaterialApp(
+      builder: (BuildContext context, Widget? child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(
+            textScaler: const TextScaler.linear(.7),
+          ),
+          child: child!,
+        );
+      },
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: 'KronaOne',

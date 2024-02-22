@@ -1,6 +1,3 @@
-import 'dart:ffi';
-
-import 'package:flexify/pages/intro/12_location.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
 
@@ -140,7 +137,8 @@ class _ElevenTargetMusclesState extends State<ElevenTargetMuscles> {
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.6,
-                  child: const Center(child: Text("TODO: Clickable (Hightlights), 3d Model")),
+                  child: const Center(
+                      child: Text("TODO: Clickable (Hightlights), 3d Model")),
                 ),
                 GestureDetector(
                   onTap: () {

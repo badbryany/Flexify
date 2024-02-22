@@ -95,7 +95,7 @@ class SetInput extends StatelessWidget {
             child: Text(
               '$title:',
               style: TextStyle(
-                color: Theme.of(context).focusColor,
+                color: Theme.of(context).colorScheme.onBackground,
               ),
             ),
           ),
