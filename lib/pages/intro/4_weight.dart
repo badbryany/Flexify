@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flexify/pages/intro/5_bodyfat.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
@@ -20,7 +18,7 @@ class _FourWeightState extends State<FourWeight> {
   int lbsIdx = 190;
 
   int selected = 0;
-  
+
   var unitview = "kg";
 
   @override
@@ -292,12 +290,8 @@ class _FourWeightState extends State<FourWeight> {
                     decoration: BoxDecoration(
                       boxShadow: [global.darkShadow(context)],
                       color: selected != 0
-                                            ? Theme.of(context)
-                                                .colorScheme
-                                                .primary
-                                            : Theme.of(context)
-                                                .colorScheme
-                                                .surface,
+                          ? Theme.of(context).colorScheme.primary
+                          : Theme.of(context).colorScheme.surface,
                       borderRadius: BorderRadius.circular(1000),
                     ),
                     child: Row(

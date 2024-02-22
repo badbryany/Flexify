@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class DeleteAlertDialog extends StatelessWidget {
-  DeleteAlertDialog({
+  const DeleteAlertDialog({
     super.key,
     required this.actions,
     required this.title,
@@ -15,7 +15,7 @@ class DeleteAlertDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Theme(
       data: ThemeData(
-        fontFamily: 'JosefinSans',
+        fontFamily: 'KronaOne',
         brightness: Brightness.dark,
         colorScheme: ColorScheme(
           brightness: Brightness.dark,

@@ -77,3 +77,5 @@ String zeroBefore(int num) {
 }
 
 Color gold = const Color(0xffFFD700);
+Color silver = const Color(0xffC0C0C0);
+Color bronze = const Color(0xffD6B757);

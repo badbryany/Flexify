@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flexify/pages/intro/6_birthday.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
@@ -13,7 +11,7 @@ class FiveBodyFat extends StatefulWidget {
 
 class _FiveBodyFatState extends State<FiveBodyFat> {
   double selectedBodyFatPercentage = 20;
-  
+
   int selected = 0;
 
   @override
@@ -222,7 +220,6 @@ class _FiveBodyFatState extends State<FiveBodyFat> {
                                     max: 50,
                                     value: selectedBodyFatPercentage,
                                     onChanged: (double value) {
-
                                       setState(
                                         () {
                                           selected = 1;
@@ -258,12 +255,8 @@ class _FiveBodyFatState extends State<FiveBodyFat> {
                     decoration: BoxDecoration(
                       boxShadow: [global.darkShadow(context)],
                       color: selected != 0
-                                            ? Theme.of(context)
-                                                .colorScheme
-                                                .primary
-                                            : Theme.of(context)
-                                                .colorScheme
-                                                .surface,
+                          ? Theme.of(context).colorScheme.primary
+                          : Theme.of(context).colorScheme.surface,
                       borderRadius: BorderRadius.circular(1000),
                     ),
                     child: Row(

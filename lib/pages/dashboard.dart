@@ -1,7 +1,6 @@
 import 'package:flexify/pages/food/dashboardFood.dart';
 import 'package:flexify/pages/profile/dashboardProfile.dart';
-import 'package:flexify/pages/measurements/dashboardMeasurements.dart';
-import 'package:flexify/pages/profile/profilePageNew.dart';
+import 'package:flexify/pages/leaderboards/dashboardLeaderboards.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -31,8 +30,8 @@ class _DashboardState extends State<Dashboard> {
       'icon': Icons.restaurant_rounded,
     },
     {
-      'title': 'Measurements',
-      'widget': const DashboardMeasurements(),
+      'title': 'Leaderboards',
+      'widget': const DashboardLeaderboards(),
       'icon': Icons.bar_chart_rounded,
     },
     {
@@ -159,7 +158,7 @@ class _DashboardState extends State<Dashboard> {
                 .toList(),
 
             // FUNCTIONALITY
-            selectedIndex: 0,
+            selectedIndex: _selectedIndex,
             duration: duration,
             onTabChange: (index) => setState(() {
               _selectedIndex = index;

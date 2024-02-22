@@ -280,6 +280,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
                           decoration: BoxDecoration(
                             color: Theme.of(context).scaffoldBackgroundColor,
                             borderRadius: BorderRadius.circular(100),
+                            boxShadow: [global.darkShadow(context)],
                           ),
                           child: IconButton(
                             splashColor: Colors.transparent,
