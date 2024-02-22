@@ -64,7 +64,7 @@ class AnimSearchBar extends StatefulWidget {
       // choose your custom color for the prefix icon
       this.prefixIconColor = Colors.black,
 
-      // choose your custom color for hint textm, when the search is expanded
+      // choose your custom color for hint text, when the search is expanded
       this.hintTextColor = Colors.black,
 
       // choose your custom color for text and cursor, when the search is expanded
@@ -289,7 +289,7 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                         TextStyle(
                           color: widget.textColor,
                         ),
-                    cursorColor: Theme.of(context).colorScheme.onBackground,
+                    cursorColor: Theme.of(context).focusColor,
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.only(bottom: 5),
                       isDense: true,

@@ -4,11 +4,11 @@ Add: ------------------------------------------------
 
 intro: 
     -> Global
-        -> kg/lbs (!!)
-        -> cm/in (!!)
+        -> kg/lbs 
+        -> cm/in 
     -> 3_height 
-        -> Initialise values (!!)
-        -> Values stay consistent between metric switch (!!)
+        -> Initialise values 
+        -> Values stay consistent between metric switch 
         -> Solution: Fix ListWheelScrollView glitch
         -------------------------
         -> when in++ -> ft++

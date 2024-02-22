@@ -211,8 +211,8 @@ class _ExercisesPageState extends State<ExercisesPage> {
   @override
   Widget build(BuildContext context) {
     Widget animSearchBar = AnimSearchBar(
-      color: Theme.of(context).colorScheme.background,
-      prefixIconColor: Theme.of(context).colorScheme.onBackground,
+      color: Theme.of(context).scaffoldBackgroundColor,
+      prefixIconColor: Theme.of(context).focusColor,
       hintTextColor: Theme.of(context).focusColor.withOpacity(0.6),
       textFieldColor: Theme.of(context).scaffoldBackgroundColor,
       textColor: Theme.of(context).focusColor,
@@ -278,7 +278,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
                           width: MediaQuery.of(context).size.width * 0.15,
                           height: MediaQuery.of(context).size.width * 0.15,
                           decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.background,
+                            color: Theme.of(context).scaffoldBackgroundColor,
                             borderRadius: BorderRadius.circular(100),
                           ),
                           child: IconButton(
@@ -289,7 +289,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
                               widget.reload();
                               Navigator.pop(context);
                             },
-                            color: Theme.of(context).colorScheme.onBackground,
+                            color: Theme.of(context).focusColor,
                             icon: const Icon(Icons.arrow_back_rounded),
                             iconSize: MediaQuery.of(context).size.width * 0.05,
                           ),
@@ -347,9 +347,6 @@ class _ExercisesPageState extends State<ExercisesPage> {
                                                   .size
                                                   .width *
                                               0.6,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onBackground,
                                         ),
                                       ),
                                     ],

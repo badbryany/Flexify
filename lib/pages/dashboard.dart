@@ -1,6 +1,7 @@
 import 'package:flexify/pages/food/dashboardFood.dart';
 import 'package:flexify/pages/profile/dashboardProfile.dart';
 import 'package:flexify/pages/measurements/dashboardMeasurements.dart';
+import 'package:flexify/pages/profile/profilePageNew.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -36,7 +37,7 @@ class _DashboardState extends State<Dashboard> {
     },
     {
       'title': 'Profile',
-      'widget': const DashboardProfile(),
+      'widget': const ProfilePage(),
       'icon': Icons.person,
     },
   ];
@@ -72,6 +73,9 @@ class _DashboardState extends State<Dashboard> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.05,
+                      ),
                       SvgPicture.asset(
                         'assets/logo/Light\ Logo.svg',
                         width: MediaQuery.of(context).size.height * 0.075,

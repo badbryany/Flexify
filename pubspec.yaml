@@ -24,6 +24,7 @@ dependencies:
   http: ^1.1.2
   shared_preferences: ^2.2.2
   percent_indicator: ^4.2.3
+  flutter_animate: ^4.5.0
 
 dev_dependencies:
   flutter_test:
@@ -52,3 +53,4 @@ flutter:
     - assets/
     - assets/logo/Dark Logo.svg
     - assets/logo/Light Logo.svg
+    - assets/icon/google.png

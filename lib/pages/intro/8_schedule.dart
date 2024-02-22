@@ -1,3 +1,4 @@
+import 'package:flexify/pages/intro/9_duration.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
 

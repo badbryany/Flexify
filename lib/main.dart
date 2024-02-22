@@ -1,9 +1,13 @@
 import 'package:flexify/SignInSignUp/choose.dart';
 import 'package:flexify/SignInSignUp/signInNew.dart';
+import 'package:flexify/SignInSignUp/signUp.dart';
+import 'package:flexify/SignInSignUp/signUpNew.dart';
 import 'package:flexify/data/exerciseModels.dart';
 import 'package:flexify/pages/intro/1_welcome.dart';
 import 'package:flexify/pages/intro/2_gender.dart';
 import 'package:flexify/pages/intro/8_schedule.dart';
+import 'package:flexify/pages/profile/profilePageNew.dart';
+import 'package:flexify/pages/profile/widgets/Sets.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/pages/dashboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -124,7 +128,7 @@ class MyApp extends StatelessWidget {
       //     shadow: Color.fromARGB(255, 170, 170, 170),
       //   ),
       // ),
-      home: OneWelcome(),
+      home: Dashboard(),
     );
   }
 }
