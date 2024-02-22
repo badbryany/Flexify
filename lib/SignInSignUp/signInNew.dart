@@ -53,6 +53,8 @@ class _SignInNewState extends State<SignInNew> {
                   color: Theme.of(context).scaffoldBackgroundColor,
                   borderRadius: BorderRadius.circular(
                       MediaQuery.of(context).size.width * 0.0375),
+                  border:
+                      Border.all(color: Theme.of(context).focusColor, width: 1),
                   boxShadow: [
                     BoxShadow(
                       color: Theme.of(context).colorScheme.onSurface,
@@ -86,12 +88,18 @@ class _SignInNewState extends State<SignInNew> {
                               SizedBox(
                                   width: MediaQuery.of(context).size.width *
                                       0.033),
-                              const Icon(Icons.email_outlined),
+                              Icon(
+                                Icons.email_outlined,
+                                color: Theme.of(context).focusColor,
+                              ),
                               SizedBox(
                                   width:
                                       MediaQuery.of(context).size.width * 0.02),
-                              const Text(
+                              Text(
                                 "Email",
+                                style: TextStyle(
+                                  color: Theme.of(context).focusColor,
+                                ),
                               ),
                             ],
                           ),
@@ -120,7 +128,12 @@ class _SignInNewState extends State<SignInNew> {
                               SizedBox(
                                   width:
                                       MediaQuery.of(context).size.width * 0.02),
-                              const Text("Password"),
+                              Text(
+                                "Password",
+                                style: TextStyle(
+                                  color: Theme.of(context).focusColor,
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -132,12 +145,13 @@ class _SignInNewState extends State<SignInNew> {
                           width: MediaQuery.of(context).size.width * 0.7,
                           height: MediaQuery.of(context).size.height * 0.05,
                           decoration: BoxDecoration(
-                              color: Theme.of(context).primaryColor,
-                              borderRadius: BorderRadius.circular(1000),
-                              border: Border.all(
-                                color: Theme.of(context).focusColor,
-                                width: 1,
-                              )),
+                            color: Theme.of(context).colorScheme.primary,
+                            borderRadius: BorderRadius.circular(1000),
+                            border: Border.all(
+                              color: Theme.of(context).scaffoldBackgroundColor,
+                              width: 1,
+                            ),
+                          ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -145,6 +159,7 @@ class _SignInNewState extends State<SignInNew> {
                                 "Log in",
                                 style: TextStyle(
                                   letterSpacing: -0.2,
+                                  color: Colors.black,
                                   fontSize:
                                       MediaQuery.of(context).size.width * 0.03,
                                 ),
@@ -165,7 +180,12 @@ class _SignInNewState extends State<SignInNew> {
                             SizedBox(
                               width: MediaQuery.of(context).size.width * 0.025,
                             ),
-                            const Text("or continue with"),
+                            Text(
+                              "or continue with",
+                              style: TextStyle(
+                                color: Theme.of(context).focusColor,
+                              ),
+                            ),
                             SizedBox(
                               width: MediaQuery.of(context).size.width * 0.025,
                             ),
@@ -222,8 +242,7 @@ class _SignInNewState extends State<SignInNew> {
                           width: MediaQuery.of(context).size.width * 0.7,
                           height: MediaQuery.of(context).size.height * 0.05,
                           decoration: BoxDecoration(
-                              color:
-                                  Theme.of(context).focusColor.withOpacity(0.8),
+                              color: Theme.of(context).focusColor,
                               borderRadius: BorderRadius.circular(1000),
                               boxShadow: [global.lightShadow(context)]),
                           child: Row(

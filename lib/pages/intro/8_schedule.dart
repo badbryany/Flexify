@@ -1,5 +1,6 @@
 import 'dart:ffi';
 
+import 'package:flexify/pages/intro/9_duration.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
 
@@ -13,7 +14,8 @@ class EightSchedule extends StatefulWidget {
 class _EightScheduleState extends State<EightSchedule> {
   bool daysPerWeek = true;
   int daysPerWeekIdx = 1;
-  List<bool> whichDays = [false, false, false, false, false, false, false];
+  List<bool> whichDays = [true, false, false, false, false, false, false];
+  int selected = 0;
 
   @override
   void initState() {
@@ -35,7 +37,42 @@ class _EightScheduleState extends State<EightSchedule> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.087,
+                  height: MediaQuery.of(context).size.height * 0.05,
+                ),
+                Row(
+                  children: [
+                    IconButton(
+                      splashColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      color: Theme.of(context).focusColor,
+                      icon: const Icon(Icons.arrow_back_rounded),
+                      iconSize: MediaQuery.of(context).size.width * 0.04,
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.7,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => NineDuration(),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        'Skip',
+                        style: TextStyle(color: Theme.of(context).focusColor),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.03,
                 ),
                 Stack(
                   alignment: Alignment.centerLeft,
@@ -53,10 +90,10 @@ class _EightScheduleState extends State<EightSchedule> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(5),
+                      padding: EdgeInsets.all(5),
                       child: Container(
                         height: MediaQuery.of(context).size.height * 0.0225,
-                        width: MediaQuery.of(context).size.height * 0.08125,
+                        width: MediaQuery.of(context).size.height * 0.0325,
                         decoration: BoxDecoration(
                           color: Theme.of(context).colorScheme.primary,
                           borderRadius: BorderRadius.circular(
@@ -67,7 +104,7 @@ class _EightScheduleState extends State<EightSchedule> {
                   ],
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.055,
+                  height: MediaQuery.of(context).size.height * 0.03,
                 ),
                 Container(
                   alignment: Alignment.center,
@@ -159,6 +196,13 @@ class _EightScheduleState extends State<EightSchedule> {
                                     decoration: BoxDecoration(
                                       color:
                                           Theme.of(context).colorScheme.primary,
+                                      border: Border.all(
+                                          width: 2,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary,
+                                          strokeAlign:
+                                              BorderSide.strokeAlignCenter),
                                       borderRadius: BorderRadius.circular(
                                           MediaQuery.of(context).size.width),
                                     ),
@@ -195,8 +239,7 @@ class _EightScheduleState extends State<EightSchedule> {
                       ),
                       daysPerWeek
                           ? ClipRRect(
-                              borderRadius: BorderRadius.circular(
-                                  MediaQuery.of(context).size.width * 0.073),
+                              borderRadius: BorderRadius.circular(30),
                               child: Container(
                                 alignment: Alignment.centerLeft,
                                 height:
@@ -212,6 +255,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                       children: [
                                         GestureDetector(
                                           onTap: () {
+                                            selected = 1;
                                             setState(
                                               () {
                                                 daysPerWeekIdx = 1;
@@ -281,6 +325,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                         ),
                                         GestureDetector(
                                           onTap: () {
+                                            selected = 1;
                                             setState(
                                               () {
                                                 daysPerWeekIdx = 2;
@@ -350,6 +395,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                         ),
                                         GestureDetector(
                                           onTap: () {
+                                            selected = 1;
                                             setState(
                                               () {
                                                 daysPerWeekIdx = 3;
@@ -419,6 +465,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                         ),
                                         GestureDetector(
                                           onTap: () {
+                                            selected = 1;
                                             setState(
                                               () {
                                                 daysPerWeekIdx = 4;
@@ -488,6 +535,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                         ),
                                         GestureDetector(
                                           onTap: () {
+                                            selected = 1;
                                             setState(
                                               () {
                                                 daysPerWeekIdx = 5;
@@ -557,6 +605,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                         ),
                                         GestureDetector(
                                           onTap: () {
+                                            selected = 1;
                                             setState(
                                               () {
                                                 daysPerWeekIdx = 6;
@@ -626,6 +675,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                         ),
                                         GestureDetector(
                                           onTap: () {
+                                            selected = 1;
                                             setState(
                                               () {
                                                 daysPerWeekIdx = 7;
@@ -705,10 +755,6 @@ class _EightScheduleState extends State<EightSchedule> {
                                         color: Theme.of(context)
                                             .colorScheme
                                             .background,
-                                        borderRadius: BorderRadius.circular(
-                                          MediaQuery.of(context).size.width *
-                                              0.2,
-                                        ),
                                         border: Border.all(
                                           color: Theme.of(context).focusColor,
                                           width: 2,
@@ -720,6 +766,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                         children: [
                                           GestureDetector(
                                             onTap: () {
+                                              selected = 1;
                                               setState(
                                                 () {
                                                   daysPerWeekIdx = 1;
@@ -773,6 +820,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                           ),
                                           GestureDetector(
                                             onTap: () {
+                                              selected = 1;
                                               setState(
                                                 () {
                                                   daysPerWeekIdx = 2;
@@ -828,6 +876,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                           ),
                                           GestureDetector(
                                             onTap: () {
+                                              selected = 1;
                                               setState(
                                                 () {
                                                   daysPerWeekIdx = 3;
@@ -883,6 +932,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                           ),
                                           GestureDetector(
                                             onTap: () {
+                                              selected = 1;
                                               setState(
                                                 () {
                                                   daysPerWeekIdx = 4;
@@ -938,6 +988,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                           ),
                                           GestureDetector(
                                             onTap: () {
+                                              selected = 1;
                                               setState(
                                                 () {
                                                   daysPerWeekIdx = 5;
@@ -993,6 +1044,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                           ),
                                           GestureDetector(
                                             onTap: () {
+                                              selected = 1;
                                               setState(
                                                 () {
                                                   daysPerWeekIdx = 6;
@@ -1048,6 +1100,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                           ),
                                           GestureDetector(
                                             onTap: () {
+                                              selected = 1;
                                               setState(
                                                 () {
                                                   daysPerWeekIdx = 7;
@@ -1109,8 +1162,7 @@ class _EightScheduleState extends State<EightSchedule> {
                               ),
                             )
                           : ClipRRect(
-                              borderRadius: BorderRadius.circular(
-                                  MediaQuery.of(context).size.width * 0.073),
+                              borderRadius: BorderRadius.circular(30),
                               child: Container(
                                 alignment: Alignment.centerLeft,
                                 height:
@@ -1126,6 +1178,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                       children: [
                                         GestureDetector(
                                           onTap: () {
+                                            selected = 1;
                                             setState(
                                               () {
                                                 whichDays[0]
@@ -1194,6 +1247,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                           onTap: () {
                                             setState(
                                               () {
+                                                selected = 1;
                                                 whichDays[1]
                                                     ? whichDays[1] = false
                                                     : whichDays[1] = true;
@@ -1258,6 +1312,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                         ),
                                         GestureDetector(
                                           onTap: () {
+                                            selected = 1;
                                             setState(
                                               () {
                                                 whichDays[2]
@@ -1324,6 +1379,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                         ),
                                         GestureDetector(
                                           onTap: () {
+                                            selected = 1;
                                             setState(
                                               () {
                                                 whichDays[3]
@@ -1390,6 +1446,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                         ),
                                         GestureDetector(
                                           onTap: () {
+                                            selected = 1;
                                             setState(
                                               () {
                                                 whichDays[4]
@@ -1456,6 +1513,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                         ),
                                         GestureDetector(
                                           onTap: () {
+                                            selected = 1;
                                             setState(
                                               () {
                                                 whichDays[5]
@@ -1522,6 +1580,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                         ),
                                         GestureDetector(
                                           onTap: () {
+                                            selected = 1;
                                             setState(
                                               () {
                                                 whichDays[6]
@@ -1598,10 +1657,6 @@ class _EightScheduleState extends State<EightSchedule> {
                                         color: Theme.of(context)
                                             .colorScheme
                                             .background,
-                                        borderRadius: BorderRadius.circular(
-                                          MediaQuery.of(context).size.width *
-                                              0.2,
-                                        ),
                                         border: Border.all(
                                           color: Theme.of(context).focusColor,
                                           width: 2,
@@ -1613,6 +1668,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                         children: [
                                           GestureDetector(
                                             onTap: () {
+                                              selected = 1;
                                               setState(
                                                 () {
                                                   whichDays[0]
@@ -1668,6 +1724,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                           ),
                                           GestureDetector(
                                             onTap: () {
+                                              selected = 1;
                                               setState(
                                                 () {
                                                   whichDays[1]
@@ -1725,6 +1782,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                           ),
                                           GestureDetector(
                                             onTap: () {
+                                              selected = 1;
                                               setState(
                                                 () {
                                                   whichDays[2]
@@ -1782,6 +1840,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                           ),
                                           GestureDetector(
                                             onTap: () {
+                                              selected = 1;
                                               setState(
                                                 () {
                                                   whichDays[3]
@@ -1839,6 +1898,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                           ),
                                           GestureDetector(
                                             onTap: () {
+                                              selected = 1;
                                               setState(
                                                 () {
                                                   whichDays[4]
@@ -1896,6 +1956,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                           ),
                                           GestureDetector(
                                             onTap: () {
+                                              selected = 1;
                                               setState(
                                                 () {
                                                   whichDays[5]
@@ -1953,6 +2014,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                           ),
                                           GestureDetector(
                                             onTap: () {
+                                              selected = 1;
                                               setState(
                                                 () {
                                                   whichDays[6]
@@ -2018,25 +2080,39 @@ class _EightScheduleState extends State<EightSchedule> {
                     ],
                   ),
                 ),
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.05,
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  decoration: BoxDecoration(
-                    boxShadow: [global.darkShadow(context)],
-                    color: Theme.of(context).primaryColor,
-                    borderRadius: BorderRadius.circular(1000),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Next',
-                        style: TextStyle(
-                            color: Theme.of(context).focusColor,
-                            fontSize:
-                                MediaQuery.of(context).size.height * 0.02),
-                      ),
-                    ],
+                GestureDetector(
+                  onTap: () {
+                    if (selected != 0) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => NineDuration(),
+                        ),
+                      );
+                    }
+                  },
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 0.05,
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    decoration: BoxDecoration(
+                      boxShadow: [global.darkShadow(context)],
+                      color: selected != 0
+                          ? Theme.of(context).colorScheme.primary
+                          : Theme.of(context).colorScheme.surface,
+                      borderRadius: BorderRadius.circular(1000),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Next',
+                          style: TextStyle(
+                              color: Theme.of(context).focusColor,
+                              fontSize:
+                                  MediaQuery.of(context).size.height * 0.02),
+                        ),
+                      ],
+                    ),
                   ),
                 )
               ],

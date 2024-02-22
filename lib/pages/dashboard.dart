@@ -2,6 +2,7 @@ import 'package:flexify/pages/food/dashboardFood.dart';
 import 'package:flexify/pages/profile/dashboardProfile.dart';
 import 'package:flexify/pages/measurements/dashboardMeasurements.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
 import 'package:flexify/pages/workout/dashboardWorkout.dart';
@@ -41,7 +42,6 @@ class _DashboardState extends State<Dashboard> {
   ];
 
   Duration duration = const Duration(milliseconds: 250);
-  double imageSize = 0.125;
 
   @override
   Widget build(BuildContext context) {
@@ -70,34 +70,23 @@ class _DashboardState extends State<Dashboard> {
                     right: MediaQuery.of(context).size.width * 0.1,
                   ),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(100),
-                        child: Container(
-                          width: MediaQuery.of(context).size.width * imageSize,
-                          height: MediaQuery.of(context).size.width * imageSize,
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).scaffoldBackgroundColor ==
-                                    Colors.white
-                                ? Theme.of(context).colorScheme.background
-                                : null,
-                          ),
-                          child: Image.asset(
-                            'assets/img/logo.png',
-                            height:
-                                MediaQuery.of(context).size.width * imageSize,
-                          ),
-                        ),
+                      SvgPicture.asset(
+                        'assets/logo/Light\ Logo.svg',
+                        width: MediaQuery.of(context).size.height * 0.075,
+                        height: MediaQuery.of(context).size.height * 0.075,
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.1,
                       ),
                       Text(
-                        'flexify',
+                        "Flexify",
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Sacramento',
-                          fontSize: 40,
-                          color: Theme.of(context).focusColor,
-                        ),
+                            fontSize: MediaQuery.of(context).size.width * 0.07),
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.12,
                       ),
                       IconButton(
                         onPressed: () {},
@@ -107,6 +96,9 @@ class _DashboardState extends State<Dashboard> {
                           color: Theme.of(context).focusColor,
                         ),
                       ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.01,
+                      )
                     ],
                   ),
                 ),

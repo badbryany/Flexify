@@ -1,5 +1,6 @@
 import 'dart:ffi';
 
+import 'package:flexify/pages/intro/14_targetWeight.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
@@ -101,7 +102,42 @@ class _ThirteenEquipmentState extends State<ThirteenEquipment> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.087,
+                  height: MediaQuery.of(context).size.height * 0.05,
+                ),
+                Row(
+                  children: [
+                    IconButton(
+                      splashColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      color: Theme.of(context).focusColor,
+                      icon: const Icon(Icons.arrow_back_rounded),
+                      iconSize: MediaQuery.of(context).size.width * 0.04,
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.7,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => FourteenTargetWeight(),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        'Skip',
+                        style: TextStyle(color: Theme.of(context).focusColor),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.03,
                 ),
                 Stack(
                   alignment: Alignment.centerLeft,
@@ -122,7 +158,7 @@ class _ThirteenEquipmentState extends State<ThirteenEquipment> {
                       padding: EdgeInsets.all(5),
                       child: Container(
                         height: MediaQuery.of(context).size.height * 0.0225,
-                        width: MediaQuery.of(context).size.height * 0.1375,
+                        width: MediaQuery.of(context).size.height * 0.0325,
                         decoration: BoxDecoration(
                           color: Theme.of(context).colorScheme.primary,
                           borderRadius: BorderRadius.circular(
@@ -133,7 +169,7 @@ class _ThirteenEquipmentState extends State<ThirteenEquipment> {
                   ],
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.055,
+                  height: MediaQuery.of(context).size.height * 0.03,
                 ),
                 Container(
                   alignment: Alignment.center,
@@ -350,25 +386,35 @@ class _ThirteenEquipmentState extends State<ThirteenEquipment> {
                     ],
                   ),
                 ),
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.05,
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  decoration: BoxDecoration(
-                    boxShadow: [global.darkShadow(context)],
-                    color: Theme.of(context).primaryColor,
-                    borderRadius: BorderRadius.circular(1000),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Next',
-                        style: TextStyle(
-                            color: Theme.of(context).focusColor,
-                            fontSize:
-                                MediaQuery.of(context).size.height * 0.02),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => FourteenTargetWeight(),
                       ),
-                    ],
+                    );
+                  },
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 0.05,
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    decoration: BoxDecoration(
+                      boxShadow: [global.darkShadow(context)],
+                      color: Theme.of(context).colorScheme.primary,
+                      borderRadius: BorderRadius.circular(1000),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Next',
+                          style: TextStyle(
+                              color: Theme.of(context).focusColor,
+                              fontSize:
+                                  MediaQuery.of(context).size.height * 0.02),
+                        ),
+                      ],
+                    ),
                   ),
                 )
               ],

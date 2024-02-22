@@ -1,5 +1,6 @@
 import 'dart:ffi';
 
+import 'package:flexify/pages/intro/5_bodyfat.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
 
@@ -18,6 +19,8 @@ class _FourWeightState extends State<FourWeight> {
   // 195lbs
   int lbsIdx = 190;
 
+  int selected = 0;
+  
   var unitview = "kg";
 
   @override
@@ -44,7 +47,42 @@ class _FourWeightState extends State<FourWeight> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.087,
+                  height: MediaQuery.of(context).size.height * 0.05,
+                ),
+                Row(
+                  children: [
+                    IconButton(
+                      splashColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      color: Theme.of(context).focusColor,
+                      icon: const Icon(Icons.arrow_back_rounded),
+                      iconSize: MediaQuery.of(context).size.width * 0.04,
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.7,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => FiveBodyFat(),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        'Skip',
+                        style: TextStyle(color: Theme.of(context).focusColor),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.03,
                 ),
                 Stack(
                   alignment: Alignment.centerLeft,
@@ -65,7 +103,7 @@ class _FourWeightState extends State<FourWeight> {
                       padding: EdgeInsets.all(5),
                       child: Container(
                         height: MediaQuery.of(context).size.height * 0.0225,
-                        width: MediaQuery.of(context).size.height * 0.0425,
+                        width: MediaQuery.of(context).size.height * 0.0325,
                         decoration: BoxDecoration(
                           color: Theme.of(context).colorScheme.primary,
                           borderRadius: BorderRadius.circular(
@@ -76,7 +114,7 @@ class _FourWeightState extends State<FourWeight> {
                   ],
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.055,
+                  height: MediaQuery.of(context).size.height * 0.03,
                 ),
                 Container(
                   alignment: Alignment.center,
@@ -142,7 +180,10 @@ class _FourWeightState extends State<FourWeight> {
                                           0.1,
                                       child: ListWheelScrollView.useDelegate(
                                         controller: _kgController,
-                                        onSelectedItemChanged: (index) {},
+                                        onSelectedItemChanged: (index) {
+                                          selected = 1;
+                                          setState(() {});
+                                        },
                                         itemExtent: 50,
                                         perspective: 0.005,
                                         diameterRatio: 3.5,
@@ -174,7 +215,11 @@ class _FourWeightState extends State<FourWeight> {
                                           0.1,
                                       child: ListWheelScrollView.useDelegate(
                                         controller: _lbsController,
-                                        onSelectedItemChanged: (index) {},
+                                        onSelectedItemChanged: (index) {
+                                          setState(() {
+                                            selected = 1;
+                                          });
+                                        },
                                         itemExtent: 50,
                                         perspective: 0.005,
                                         diameterRatio: 3.5,
@@ -230,25 +275,43 @@ class _FourWeightState extends State<FourWeight> {
                     ),
                   ),
                 ),
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.05,
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  decoration: BoxDecoration(
-                    boxShadow: [global.darkShadow(context)],
-                    color: Theme.of(context).primaryColor,
-                    borderRadius: BorderRadius.circular(1000),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Next',
-                        style: TextStyle(
-                            color: Theme.of(context).focusColor,
-                            fontSize:
-                                MediaQuery.of(context).size.height * 0.02),
-                      ),
-                    ],
+                GestureDetector(
+                  onTap: () {
+                    if (selected != 0) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => FiveBodyFat(),
+                        ),
+                      );
+                    }
+                  },
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 0.05,
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    decoration: BoxDecoration(
+                      boxShadow: [global.darkShadow(context)],
+                      color: selected != 0
+                                            ? Theme.of(context)
+                                                .colorScheme
+                                                .primary
+                                            : Theme.of(context)
+                                                .colorScheme
+                                                .surface,
+                      borderRadius: BorderRadius.circular(1000),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Next',
+                          style: TextStyle(
+                              color: Theme.of(context).focusColor,
+                              fontSize:
+                                  MediaQuery.of(context).size.height * 0.02),
+                        ),
+                      ],
+                    ),
                   ),
                 )
               ],

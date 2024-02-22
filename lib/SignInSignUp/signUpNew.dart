@@ -83,8 +83,10 @@ class _SignUpNewState extends State<SignUpNew> {
                               SizedBox(
                                   width:
                                       MediaQuery.of(context).size.width * 0.02),
-                              const Text(
+                              Text(
                                 "Username",
+                                style: TextStyle(
+                                    color: Theme.of(context).focusColor),
                               ),
                             ],
                           ),
@@ -112,8 +114,10 @@ class _SignUpNewState extends State<SignUpNew> {
                               SizedBox(
                                   width:
                                       MediaQuery.of(context).size.width * 0.02),
-                              const Text(
+                              Text(
                                 "Email",
+                                style: TextStyle(
+                                    color: Theme.of(context).focusColor),
                               ),
                             ],
                           ),
@@ -142,7 +146,11 @@ class _SignUpNewState extends State<SignUpNew> {
                               SizedBox(
                                   width:
                                       MediaQuery.of(context).size.width * 0.02),
-                              const Text("Password"),
+                              Text(
+                                "Password",
+                                style: TextStyle(
+                                    color: Theme.of(context).focusColor),
+                              ),
                             ],
                           ),
                         ),
@@ -154,9 +162,9 @@ class _SignUpNewState extends State<SignUpNew> {
                           width: MediaQuery.of(context).size.width * 0.7,
                           height: MediaQuery.of(context).size.height * 0.05,
                           decoration: BoxDecoration(
-                              color: Theme.of(context).primaryColor,
+                              color: Theme.of(context).colorScheme.primary,
                               border: Border.all(
-                                color: Theme.of(context).focusColor,
+                                color: Colors.black,
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(1000),
@@ -165,8 +173,9 @@ class _SignUpNewState extends State<SignUpNew> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                "Sign Up",
+                                "Sign up",
                                 style: TextStyle(
+                                  color: Colors.black,
                                   letterSpacing: -0.2,
                                   fontSize:
                                       MediaQuery.of(context).size.width * 0.03,
@@ -188,7 +197,9 @@ class _SignUpNewState extends State<SignUpNew> {
                             SizedBox(
                               width: MediaQuery.of(context).size.width * 0.025,
                             ),
-                            const Text("or continue with"),
+                            Text(
+                                "or continue with", style: TextStyle(color: Theme.of(context).focusColor),
+                              ),
                             SizedBox(
                               width: MediaQuery.of(context).size.width * 0.025,
                             ),
@@ -246,7 +257,7 @@ class _SignUpNewState extends State<SignUpNew> {
                           height: MediaQuery.of(context).size.height * 0.05,
                           decoration: BoxDecoration(
                               color:
-                                  Theme.of(context).focusColor.withOpacity(0.8),
+                                  Theme.of(context).focusColor,
                               borderRadius: BorderRadius.circular(1000),
                               boxShadow: [global.lightShadow(context)]),
                           child: Row(
@@ -294,10 +305,11 @@ class _SignUpNewState extends State<SignUpNew> {
                               child: Text(
                                 "Log in",
                                 style: TextStyle(
-                                    fontFamily: 'OpenSans',
-                                    fontWeight: FontWeight.bold,
-                                    letterSpacing: -0.5,
-                                    color: Theme.of(context).focusColor),
+                                  fontFamily: 'OpenSans',
+                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: -0.5,
+                                  color: Theme.of(context).focusColor,
+                                ),
                               ),
                             )
                           ],

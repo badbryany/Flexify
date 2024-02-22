@@ -1,6 +1,8 @@
 import 'package:flexify/SignInSignUp/choose.dart';
-import 'package:flexify/SignInSignUp/signInNew.dart';
 import 'package:flexify/data/exerciseModels.dart';
+import 'package:flexify/pages/intro/1_welcome.dart';
+import 'package:flexify/pages/intro/2_gender.dart';
+import 'package:flexify/pages/intro/8_schedule.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/pages/dashboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -71,7 +73,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        fontFamily: 'JosefinSans',
+        fontFamily: 'KronaOne',
         focusColor: Colors.black,
         scaffoldBackgroundColor: Colors.white,
         canvasColor: const Color.fromARGB(255, 23, 23, 23),
@@ -93,7 +95,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       // darkTheme: ThemeData(
-      //   fontFamily: 'JosefinSans',
+      //   fontFamily: 'KronaOne',
       //   focusColor: Colors.white,
       //   scaffoldBackgroundColor: const Color.fromARGB(255, 17, 17, 17),
       //   canvasColor: const Color.fromARGB(255, 23, 23, 23),
@@ -114,7 +116,7 @@ class MyApp extends StatelessWidget {
       //     shadow: Color.fromARGB(255, 170, 170, 170),
       //   ),
       // ),
-      home: Dashboard(),
+      home: OneWelcome(),
     );
   }
 }

@@ -214,7 +214,8 @@ class _ExercisesPageState extends State<ExercisesPage> {
       color: Theme.of(context).scaffoldBackgroundColor,
       prefixIconColor: Theme.of(context).focusColor,
       hintTextColor: Theme.of(context).focusColor.withOpacity(0.6),
-      textFieldColor: Colors.white,
+      textFieldColor: Theme.of(context).scaffoldBackgroundColor,
+      textColor: Theme.of(context).focusColor,
       helpText: 'Add exercise',
       width: MediaQuery.of(context).size.width *
           global.containerWidthFactor *
