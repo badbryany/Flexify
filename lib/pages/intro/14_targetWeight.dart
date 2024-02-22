@@ -1,5 +1,4 @@
 import 'package:flexify/pages/dashboard.dart';
-import 'package:flexify/pages/intro/13_equipment.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
 
@@ -39,8 +38,7 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
         ((currentWeight - targetWeight).abs() / selectedKgPerWeek)
             .round()
             .clamp(0, 500);
-    withinRecommendedRange =
-        0 < selectedKgPerWeek && selectedKgPerWeek < 0.7;
+    withinRecommendedRange = 0 < selectedKgPerWeek && selectedKgPerWeek < 0.7;
     estimatedCompletion =
         DateTime.now().add(Duration(days: (weeksToCompletion * 7)));
   }
@@ -178,8 +176,12 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                         children: [
                           GestureDetector(
                             onTapDown: (details) async {
-                              if (selected == 0) {selected = 1;}
-                              if (selected == 2) {selected = 3;}
+                              if (selected == 0) {
+                                selected = 1;
+                              }
+                              if (selected == 2) {
+                                selected = 3;
+                              }
                               continueCount = true;
                               while (continueCount) {
                                 targetWeight--;
@@ -245,8 +247,12 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                           ),
                           GestureDetector(
                             onTapDown: (details) async {
-                              if (selected == 0) {selected = 1;}
-                              if (selected == 2) {selected = 3;}
+                              if (selected == 0) {
+                                selected = 1;
+                              }
+                              if (selected == 2) {
+                                selected = 3;
+                              }
                               continueCount = true;
                               while (continueCount) {
                                 targetWeight++;
@@ -398,8 +404,12 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                                   Slider(
                                     value: selectedKgPerWeek,
                                     onChanged: (double value) {
-                                      if (selected == 0) {selected = 2;}
-                                      if (selected == 1) {selected = 3;}
+                                      if (selected == 0) {
+                                        selected = 2;
+                                      }
+                                      if (selected == 1) {
+                                        selected = 3;
+                                      }
                                       setState(
                                         () {
                                           selectedKgPerWeek =
@@ -500,7 +510,6 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                     ],
                   ),
                 ),
-               
                 GestureDetector(
                   onTap: () {
                     if (selected == 3) {

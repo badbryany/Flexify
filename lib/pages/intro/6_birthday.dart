@@ -1,3 +1,4 @@
+import 'package:flexify/pages/intro/7_experience.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
 
@@ -178,9 +179,7 @@ class _SixBirthdayState extends State<SixBirthday> {
                                   controller: _dayController,
                                   onSelectedItemChanged: (index) {
                                     selected = 1;
-                                    setState(() {
-                                      
-                                    });
+                                    setState(() {});
                                   },
                                   itemExtent: 50,
                                   perspective: 0.005,
@@ -203,9 +202,7 @@ class _SixBirthdayState extends State<SixBirthday> {
                                   controller: _monthController,
                                   onSelectedItemChanged: (index) {
                                     selected = 1;
-                                    setState(() {
-                                      
-                                    });
+                                    setState(() {});
                                   },
                                   itemExtent: 50,
                                   perspective: 0.005,
@@ -229,9 +226,7 @@ class _SixBirthdayState extends State<SixBirthday> {
                                   controller: _yearController,
                                   onSelectedItemChanged: (index) {
                                     selected = 1;
-                                    setState(() {
-                                      
-                                    });
+                                    setState(() {});
                                   },
                                   itemExtent: 50,
                                   perspective: 0.005,
@@ -269,12 +264,8 @@ class _SixBirthdayState extends State<SixBirthday> {
                     decoration: BoxDecoration(
                       boxShadow: [global.darkShadow(context)],
                       color: selected != 0
-                                            ? Theme.of(context)
-                                                .colorScheme
-                                                .primary
-                                            : Theme.of(context)
-                                                .colorScheme
-                                                .surface,
+                          ? Theme.of(context).colorScheme.primary
+                          : Theme.of(context).colorScheme.surface,
                       borderRadius: BorderRadius.circular(1000),
                     ),
                     child: Row(

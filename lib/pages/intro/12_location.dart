@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flexify/pages/intro/13_equipment.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;

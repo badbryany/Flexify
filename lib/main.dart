@@ -1,9 +1,5 @@
 import 'package:flexify/SignInSignUp/choose.dart';
-import 'package:flexify/SignInSignUp/signInNew.dart';
 import 'package:flexify/data/exerciseModels.dart';
-import 'package:flexify/pages/intro/1_welcome.dart';
-import 'package:flexify/pages/intro/2_gender.dart';
-import 'package:flexify/pages/intro/8_schedule.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/pages/dashboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -102,29 +98,29 @@ class MyApp extends StatelessWidget {
           shadow: Color.fromARGB(255, 170, 170, 170),
         ),
       ),
-      // darkTheme: ThemeData(
-      //   fontFamily: 'KronaOne',
-      //   focusColor: Colors.white,
-      //   scaffoldBackgroundColor: const Color.fromARGB(255, 17, 17, 17),
-      //   canvasColor: const Color.fromARGB(255, 23, 23, 23),
-      //   colorScheme: const ColorScheme(
-      //     brightness: Brightness.dark,
-      //     primary: Color(0xffa4fba4),
-      //     onPrimary: Color(0xfff2f58d),
-      //     secondary: Color.fromARGB(255, 214, 140, 55),
-      //     onSecondary: Colors.red,
-      //     error: Colors.red,
-      //     onError: Colors.red,
-      //     background: Color.fromARGB(255, 38, 38, 43),
-      //     onBackground: Colors.white,
-      //     surface: Color.fromARGB(255, 27, 27, 31),
-      //     onSurface: Color.fromARGB(255, 37, 37, 37),
-      //     outline: Color.fromARGB(255, 125, 185, 125),
-      //     outlineVariant: Color.fromARGB(127, 125, 185, 125),
-      //     shadow: Color.fromARGB(255, 170, 170, 170),
-      //   ),
-      // ),
-      home: OneWelcome(),
+      darkTheme: ThemeData(
+        fontFamily: 'KronaOne',
+        focusColor: Colors.white,
+        scaffoldBackgroundColor: const Color.fromARGB(255, 17, 17, 17),
+        canvasColor: const Color.fromARGB(255, 23, 23, 23),
+        colorScheme: const ColorScheme(
+          brightness: Brightness.dark,
+          primary: Color(0xffa4fba4),
+          onPrimary: Color(0xfff2f58d),
+          secondary: Color.fromARGB(255, 214, 140, 55),
+          onSecondary: Colors.red,
+          error: Colors.red,
+          onError: Colors.red,
+          background: Color.fromARGB(255, 38, 38, 43),
+          onBackground: Colors.white,
+          surface: Color.fromARGB(255, 27, 27, 31),
+          onSurface: Color.fromARGB(255, 37, 37, 37),
+          outline: Color.fromARGB(255, 125, 185, 125),
+          outlineVariant: Color.fromARGB(127, 125, 185, 125),
+          shadow: Color.fromARGB(255, 170, 170, 170),
+        ),
+      ),
+      home: startWidget,
     );
   }
 }
