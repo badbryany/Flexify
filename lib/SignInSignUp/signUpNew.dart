@@ -133,7 +133,6 @@ class _SignUpNewState extends State<SignUpNew> {
                                   .onBackground
                                   .withOpacity(.3),
                             ),
-                            border: InputBorder.none,
                           ),
                           cursorColor:
                               Theme.of(context).colorScheme.onBackground,

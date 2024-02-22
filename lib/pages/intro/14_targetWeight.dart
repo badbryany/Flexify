@@ -1,3 +1,5 @@
+import 'package:flexify/pages/dashboard.dart';
+import 'package:flexify/pages/intro/13_equipment.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
 
@@ -24,6 +26,8 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
   DateTime estimatedCompletion = DateTime.now();
   bool withinRecommendedRange = true;
 
+  int selected = 0;
+
   @override
   void initState() {
     refresh();
@@ -36,7 +40,7 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
             .round()
             .clamp(0, 500);
     withinRecommendedRange =
-        0.15 < selectedKgPerWeek && selectedKgPerWeek < 0.28;
+        0 < selectedKgPerWeek && selectedKgPerWeek < 0.7;
     estimatedCompletion =
         DateTime.now().add(Duration(days: (weeksToCompletion * 7)));
   }
@@ -57,7 +61,42 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.087,
+                  height: MediaQuery.of(context).size.height * 0.05,
+                ),
+                Row(
+                  children: [
+                    IconButton(
+                      splashColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      color: Theme.of(context).focusColor,
+                      icon: const Icon(Icons.arrow_back_rounded),
+                      iconSize: MediaQuery.of(context).size.width * 0.04,
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.7,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Dashboard(),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        'Skip',
+                        style: TextStyle(color: Theme.of(context).focusColor),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.03,
                 ),
                 Stack(
                   alignment: Alignment.centerLeft,
@@ -75,10 +114,10 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(5),
+                      padding: EdgeInsets.all(5),
                       child: Container(
                         height: MediaQuery.of(context).size.height * 0.0225,
-                        width: MediaQuery.of(context).size.height * 0.1425,
+                        width: MediaQuery.of(context).size.height * 0.0325,
                         decoration: BoxDecoration(
                           color: Theme.of(context).colorScheme.primary,
                           borderRadius: BorderRadius.circular(
@@ -89,7 +128,7 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                   ],
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.055,
+                  height: MediaQuery.of(context).size.height * 0.03,
                 ),
                 Container(
                   alignment: Alignment.center,
@@ -139,6 +178,8 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                         children: [
                           GestureDetector(
                             onTapDown: (details) async {
+                              if (selected == 0) {selected = 1;}
+                              if (selected == 2) {selected = 3;}
                               continueCount = true;
                               while (continueCount) {
                                 targetWeight--;
@@ -204,6 +245,8 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                           ),
                           GestureDetector(
                             onTapDown: (details) async {
+                              if (selected == 0) {selected = 1;}
+                              if (selected == 2) {selected = 3;}
                               continueCount = true;
                               while (continueCount) {
                                 targetWeight++;
@@ -355,6 +398,8 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                                   Slider(
                                     value: selectedKgPerWeek,
                                     onChanged: (double value) {
+                                      if (selected == 0) {selected = 2;}
+                                      if (selected == 1) {selected = 3;}
                                       setState(
                                         () {
                                           selectedKgPerWeek =
@@ -374,7 +419,7 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                                           );
                                           withinRecommendedRange =
                                               0.15 < selectedKgPerWeek &&
-                                                  selectedKgPerWeek < 0.28;
+                                                  selectedKgPerWeek < 0.7;
                                         },
                                       );
                                     },
@@ -456,25 +501,39 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                   ),
                 ),
                
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.05,
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  decoration: BoxDecoration(
-                    boxShadow: [global.darkShadow(context)],
-                    color: Theme.of(context).primaryColor,
-                    borderRadius: BorderRadius.circular(1000),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Next',
-                        style: TextStyle(
-                            color: Theme.of(context).focusColor,
-                            fontSize:
-                                MediaQuery.of(context).size.height * 0.02),
-                      ),
-                    ],
+                GestureDetector(
+                  onTap: () {
+                    if (selected == 3) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Dashboard(),
+                        ),
+                      );
+                    }
+                  },
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 0.05,
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    decoration: BoxDecoration(
+                      boxShadow: [global.darkShadow(context)],
+                      color: selected == 3
+                          ? Theme.of(context).colorScheme.primary
+                          : Theme.of(context).colorScheme.surface,
+                      borderRadius: BorderRadius.circular(1000),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Next',
+                          style: TextStyle(
+                              color: Theme.of(context).focusColor,
+                              fontSize:
+                                  MediaQuery.of(context).size.height * 0.02),
+                        ),
+                      ],
+                    ),
                   ),
                 )
               ],
