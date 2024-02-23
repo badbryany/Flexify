@@ -1,5 +1,7 @@
+import 'package:flexify/pages/intro/2_gender.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
+import 'package:flutter_animate/flutter_animate.dart';
 
 class OneWelcome extends StatefulWidget {
   const OneWelcome({super.key});
@@ -28,7 +30,9 @@ class _OneWelcomeState extends State<OneWelcome> {
                     borderRadius: BorderRadius.circular(
                       MediaQuery.of(context).size.width * 0.0375,
                     ),
-                    boxShadow: [global.darkShadow(context)],
+                    boxShadow: [
+                      global.darkShadow(context),
+                    ],
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -39,39 +43,62 @@ class _OneWelcomeState extends State<OneWelcome> {
                             color: Colors.white,
                             fontSize:
                                 MediaQuery.of(context).size.width * 0.047),
-                      ),
+                      )
+                          .animate()
+                          .fadeIn(
+                              duration: const Duration(milliseconds: 1000),
+                              curve: Curves.bounceIn)
+                          .then(),
                       Text(
                         'Press Start to begin',
                         style: TextStyle(
                             color: Theme.of(context).colorScheme.shadow,
                             fontSize:
                                 MediaQuery.of(context).size.width * 0.034),
-                      )
+                      ).animate().fadeIn(
+                            delay: const Duration(milliseconds: 1500),
+                            curve: Curves.decelerate,
+                            duration: const Duration(milliseconds: 1000),
+                          )
                     ],
                   ),
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.05,
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  decoration: BoxDecoration(
-                    boxShadow: [global.darkShadow(context)],
-                    color: Theme.of(context).primaryColor,
-                    borderRadius: BorderRadius.circular(1000),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Start',
-                        style: TextStyle(
-                            color: Theme.of(context).focusColor,
-                            fontSize:
-                                MediaQuery.of(context).size.height * 0.02),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => TwoGender(),
                       ),
-                    ],
+                    );
+                  },
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 0.05,
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    decoration: BoxDecoration(
+                      boxShadow: [global.darkShadow(context)],
+                      color: Theme.of(context).primaryColor,
+                      borderRadius: BorderRadius.circular(1000),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Start',
+                          style: TextStyle(
+                              color: Theme.of(context).focusColor,
+                              fontSize:
+                                  MediaQuery.of(context).size.height * 0.02),
+                        ),
+                      ],
+                    ),
                   ),
-                )
+                ).animate().fadeIn(
+                      delay: const Duration(milliseconds: 1500),
+                      curve: Curves.decelerate,
+                      duration: const Duration(milliseconds: 1000),
+                    )
               ],
             ),
           ],

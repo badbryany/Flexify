@@ -7,8 +7,6 @@ import 'package:http/http.dart' as http;
 import 'package:flexify/data/globalVariables.dart' as global;
 import 'package:flutter/services.dart';
 
-import 'pages/food/dashboardFood.dart';
-
 checkLogin() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   // prefs.setString('username', '');
@@ -79,7 +77,7 @@ class MyApp extends StatelessWidget {
       },
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        fontFamily: 'JosefinSans',
+        fontFamily: 'KronaOne',
         focusColor: Colors.black,
         scaffoldBackgroundColor: Colors.white,
         canvasColor: const Color.fromARGB(255, 23, 23, 23),

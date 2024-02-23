@@ -9,6 +9,11 @@ class MainProfilPage extends StatefulWidget {
   State<MainProfilPage> createState() => _MainProfilPageState();
 }
 
+// Sets (GitHub)
+// Starts withOpacity(0.4) -> per extra set + 0.02 Opacity -> Caps at 30 sets
+
+
+
 class _MainProfilPageState extends State<MainProfilPage> {
   String? username;
   String? password;

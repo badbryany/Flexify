@@ -32,6 +32,23 @@ final List<String> months = [
   "Dec"
 ];
 
+final List<String> monthsLong = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December"
+];
+
+final List<int> monthsDays = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
 lightShadow(BuildContext context) => BoxShadow(
       color: Theme.of(context).colorScheme.onSurface.withOpacity(0.3),
       spreadRadius: -10.0,
@@ -60,3 +77,5 @@ String zeroBefore(int num) {
 }
 
 Color gold = const Color(0xffFFD700);
+Color silver = const Color(0xffC0C0C0);
+Color bronze = const Color(0xffD6B757);

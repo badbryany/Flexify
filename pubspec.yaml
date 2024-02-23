@@ -24,6 +24,7 @@ dependencies:
   http: ^1.1.2
   shared_preferences: ^2.2.2
   percent_indicator: ^4.2.3
+  flutter_animate: ^4.5.0
 
 dev_dependencies:
   flutter_test:
@@ -33,14 +34,12 @@ dev_dependencies:
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/img/logo.jpg"
-  adaptive_icon_background: "assets/icon/icon-background.png"
-  adaptive_icon_foreground: "assets/icon/icon.png"
+  image_path: "assets/logo/Light Logo.png"
 
 flutter:
   uses-material-design: true
   fonts:
-    - family: JosefinSans
+    - family: KronaOne
       fonts:
         - asset: ./assets/fonts/KronaOne-Regular.ttf
     - family: OpenSans
@@ -52,6 +51,6 @@ flutter:
         - asset: ./assets/fonts/Sacramento-Regular.ttf
   assets:
     - assets/
-    - assets/img/
-    - assets/Squiggly Arrow.svg
-    - assets/icon/
+    - assets/logo/Dark Logo.svg
+    - assets/logo/Light Logo.svg
+    - assets/icon/google.png

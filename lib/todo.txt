@@ -2,29 +2,13 @@ Glitches/Bad: ---------------------------------------
 
 Add: ------------------------------------------------
 
-Login UI:
-    -> Remember Me ?
-    -> Forgot Password ?
-    -> Sign in with Google
-    -> Sign in with Apple
-
-General:
-    -> Change Logo (!!)
-
 intro: 
-    -> Animations
-        -> Next Button (Green on entry)
     -> Global
-        -> kg/lbs (!!)
-        -> cm/in (!!)
-    -> 1_welcome
-        -> Blink animation
-        -> Start appears slowly and blinks
-    -> 2_gender
-        -> pressedAnimation
+        -> kg/lbs 
+        -> cm/in 
     -> 3_height 
-        -> Initialise values (!!)
-        -> Values stay consistent between metric switch (!!)
+        -> Initialise values 
+        -> Values stay consistent between metric switch 
         -> Solution: Fix ListWheelScrollView glitch
         -------------------------
         -> when in++ -> ft++
@@ -45,9 +29,10 @@ dashboardProfile ->
         -> Push/Pull/Legs
         -> Calisthenics
         -> Full Body
-    -> Avg (GitHub Copy) (!!)
-        -> Sets per Week 
-        -> Workouts per Week
+    -> (GitHub Copy) (!!)
+        -> Sets per day
+    
+
 Genereal:
     -> Change Logo
 

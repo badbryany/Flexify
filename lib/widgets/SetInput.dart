@@ -78,7 +78,7 @@ class SetInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
-      padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.018),
+      padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.005),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(global.borderRadius),
         color: Theme.of(context).colorScheme.background,
