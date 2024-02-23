@@ -7,6 +7,8 @@ import 'package:http/http.dart' as http;
 import 'package:flexify/data/globalVariables.dart' as global;
 import 'package:flutter/services.dart';
 
+import 'pages/food/dashboardFood.dart';
+
 checkLogin() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   // prefs.setString('username', '');
@@ -120,7 +122,7 @@ class MyApp extends StatelessWidget {
           shadow: Color.fromARGB(255, 170, 170, 170),
         ),
       ),
-      home: startWidget,
+      home: const Dashboard(),
     );
   }
 }

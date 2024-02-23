@@ -1,7 +1,7 @@
-import 'package:flexify/data/globalVariables.dart' as global;
 import 'package:flutter/material.dart';
 import 'package:flexify/SignInSignUp/widgets/shadow.dart';
 import 'package:flexify/widgets/BounceElement.dart';
+import 'package:flexify/data/globalVariables.dart' as global;
 
 class ButtonWithText extends StatefulWidget {
   const ButtonWithText({
