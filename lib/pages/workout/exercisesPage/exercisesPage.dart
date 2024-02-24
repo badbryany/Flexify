@@ -280,7 +280,6 @@ class _ExercisesPageState extends State<ExercisesPage> {
                           decoration: BoxDecoration(
                             color: Theme.of(context).scaffoldBackgroundColor,
                             borderRadius: BorderRadius.circular(100),
-                            boxShadow: [global.darkShadow(context)],
                           ),
                           child: IconButton(
                             splashColor: Colors.transparent,
@@ -311,7 +310,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
                               color: Theme.of(context).focusColor,
                               fontWeight: FontWeight.bold,
                               letterSpacing: -1,
-                              fontSize: global.width(context) * 0.1,
+                              fontSize: global.width(context) * 0.07,
                             ),
                           ),
                         ),
@@ -415,10 +414,6 @@ class _ExercisesPageState extends State<ExercisesPage> {
                                                                   .all(7.5),
                                                           decoration:
                                                               BoxDecoration(
-                                                            boxShadow: [
-                                                              global.darkShadow(
-                                                                  context)
-                                                            ],
                                                             borderRadius: BorderRadius
                                                                 .circular(global
                                                                     .borderRadius),

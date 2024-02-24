@@ -61,9 +61,10 @@ class _TwelveLocationState extends State<TwelveLocation> {
                       },
                       child: Text(
                         'Skip',
-                        style: TextStyle(color: Theme.of(context).focusColor),
+                        style: TextStyle(color: Theme.of(context).focusColor, fontSize: MediaQuery.of(context).size.width * 0.035),
                       ),
                     ),
+                    SizedBox(width: MediaQuery.of(context).size.width * 0.02)
                   ],
                 ),
                 SizedBox(
@@ -123,7 +124,7 @@ class _TwelveLocationState extends State<TwelveLocation> {
                             color: Colors.white,
                             fontSize:
                                 MediaQuery.of(context).size.height * 0.01 +
-                                    MediaQuery.of(context).size.width * 0.01),
+                                    MediaQuery.of(context).size.width * 0.02),
                       ),
                       Text(
                         'do your training?',
@@ -131,7 +132,7 @@ class _TwelveLocationState extends State<TwelveLocation> {
                             color: Colors.white,
                             fontSize:
                                 MediaQuery.of(context).size.height * 0.01 +
-                                    MediaQuery.of(context).size.width * 0.01),
+                                    MediaQuery.of(context).size.width * 0.02),
                       ),
                     ],
                   ),
@@ -180,7 +181,7 @@ class _TwelveLocationState extends State<TwelveLocation> {
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                0.01 +
+                                                0.02 +
                                             MediaQuery.of(context).size.width *
                                                 0.02),
                                   ),
@@ -199,7 +200,7 @@ class _TwelveLocationState extends State<TwelveLocation> {
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                0.01 +
+                                                0.015 +
                                             MediaQuery.of(context).size.width *
                                                 0.001),
                                   ),
@@ -214,7 +215,7 @@ class _TwelveLocationState extends State<TwelveLocation> {
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                0.01 +
+                                                0.015 +
                                             MediaQuery.of(context).size.width *
                                                 0.001),
                                   ),
@@ -265,7 +266,7 @@ class _TwelveLocationState extends State<TwelveLocation> {
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                0.01 +
+                                                0.02 +
                                             MediaQuery.of(context).size.width *
                                                 0.02),
                                   ),
@@ -284,7 +285,7 @@ class _TwelveLocationState extends State<TwelveLocation> {
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                0.01 +
+                                                0.015 +
                                             MediaQuery.of(context).size.width *
                                                 0.001),
                                   ),
@@ -299,7 +300,7 @@ class _TwelveLocationState extends State<TwelveLocation> {
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                0.01 +
+                                                0.015 +
                                             MediaQuery.of(context).size.width *
                                                 0.001),
                                   ),
@@ -350,7 +351,7 @@ class _TwelveLocationState extends State<TwelveLocation> {
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                0.01 +
+                                                0.02 +
                                             MediaQuery.of(context).size.width *
                                                 0.02),
                                   ),
@@ -369,7 +370,7 @@ class _TwelveLocationState extends State<TwelveLocation> {
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                0.01 +
+                                                0.015 +
                                             MediaQuery.of(context).size.width *
                                                 0.001),
                                   ),
@@ -420,7 +421,7 @@ class _TwelveLocationState extends State<TwelveLocation> {
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                0.01 +
+                                                0.02 +
                                             MediaQuery.of(context).size.width *
                                                 0.02),
                                   ),
@@ -439,7 +440,7 @@ class _TwelveLocationState extends State<TwelveLocation> {
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                0.01 +
+                                                0.015 +
                                             MediaQuery.of(context).size.width *
                                                 0.001),
                                   ),
@@ -454,7 +455,7 @@ class _TwelveLocationState extends State<TwelveLocation> {
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                0.01 +
+                                                0.015 +
                                             MediaQuery.of(context).size.width *
                                                 0.001),
                                   ),
@@ -496,7 +497,7 @@ class _TwelveLocationState extends State<TwelveLocation> {
                           style: TextStyle(
                               color: Theme.of(context).focusColor,
                               fontSize:
-                                  MediaQuery.of(context).size.height * 0.02),
+                                  MediaQuery.of(context).size.height * 0.025),
                         ),
                       ],
                     ),

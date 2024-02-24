@@ -68,15 +68,16 @@ class _FourWeightState extends State<FourWeight> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => FiveBodyFat(),
+                            builder: (context) => const FiveBodyFat(isFemale: false,),
                           ),
                         );
                       },
                       child: Text(
                         'Skip',
-                        style: TextStyle(color: Theme.of(context).focusColor),
+                        style: TextStyle(color: Theme.of(context).focusColor, fontSize: MediaQuery.of(context).size.width * 0.035),
                       ),
                     ),
+                    SizedBox(width: MediaQuery.of(context).size.width * 0.02)
                   ],
                 ),
                 SizedBox(
@@ -136,7 +137,7 @@ class _FourWeightState extends State<FourWeight> {
                             color: Colors.white,
                             fontSize:
                                 MediaQuery.of(context).size.height * 0.01 +
-                                    MediaQuery.of(context).size.width * 0.01),
+                                    MediaQuery.of(context).size.width * 0.02),
                       ),
                       Text(
                         'you weight?',
@@ -144,7 +145,7 @@ class _FourWeightState extends State<FourWeight> {
                             color: Colors.white,
                             fontSize:
                                 MediaQuery.of(context).size.height * 0.01 +
-                                    MediaQuery.of(context).size.width * 0.01),
+                                    MediaQuery.of(context).size.width * 0.02),
                       ),
                     ],
                   ),
@@ -279,7 +280,7 @@ class _FourWeightState extends State<FourWeight> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => FiveBodyFat(),
+                          builder: (context) => const FiveBodyFat(isFemale: true,),
                         ),
                       );
                     }
@@ -302,7 +303,7 @@ class _FourWeightState extends State<FourWeight> {
                           style: TextStyle(
                               color: Theme.of(context).focusColor,
                               fontSize:
-                                  MediaQuery.of(context).size.height * 0.02),
+                                  MediaQuery.of(context).size.height * 0.025),
                         ),
                       ],
                     ),
@@ -329,7 +330,7 @@ class KgTile extends StatelessWidget {
         kilogram.toString(),
         style: TextStyle(
             color: Theme.of(context).focusColor,
-            fontSize: MediaQuery.of(context).size.height * 0.005 +
+            fontSize: MediaQuery.of(context).size.height * 0.01 +
                 MediaQuery.of(context).size.width * 0.02),
       ),
     );
@@ -348,7 +349,7 @@ class LbsTile extends StatelessWidget {
         '${pounds}',
         style: TextStyle(
             color: Theme.of(context).focusColor,
-            fontSize: MediaQuery.of(context).size.height * 0.005 +
+            fontSize: MediaQuery.of(context).size.height * 0.01 +
                 MediaQuery.of(context).size.width * 0.02),
       ),
     );
@@ -367,7 +368,7 @@ class MetricTile extends StatelessWidget {
         isKg ? 'kg' : 'lbs',
         style: TextStyle(
             color: Theme.of(context).focusColor,
-            fontSize: MediaQuery.of(context).size.height * 0.005 +
+            fontSize: MediaQuery.of(context).size.height * 0.01 +
                 MediaQuery.of(context).size.width * 0.02),
       ),
     );

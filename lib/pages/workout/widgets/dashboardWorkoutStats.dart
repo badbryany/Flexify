@@ -1,4 +1,4 @@
-import 'package:flexify/pages/workout/widgets/workoutStatsPage/workoutStatsPage.dart';
+import 'package:flexify/pages/workout/workoutStatsPage/workoutStatsPage.dart';
 import 'package:flexify/widgets/BounceElement.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/exerciseModels.dart';
@@ -208,23 +208,25 @@ class _DashboardWorkoutStatsState extends State<DashboardWorkoutStats> {
                   ),
                 ),
               ),
-              Container(
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        Theme.of(context).colorScheme.primary,
-                        Theme.of(context).colorScheme.onPrimary,
-                      ],
-                    ),
-                    borderRadius: BorderRadius.circular(
-                        MediaQuery.of(context).size.width * 0.1)),
-                child: GestureDetector(
-                  onTap: () {
-                    PageTransition(
-                      child: const workoutStatsPage(),
-                      type: PageTransitionType.rightToLeft,
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const workoutStatsPage(),
+                      ),
                     );
-                  },
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          Theme.of(context).colorScheme.primary,
+                          Theme.of(context).colorScheme.onPrimary,
+                        ],
+                      ),
+                      borderRadius: BorderRadius.circular(
+                          MediaQuery.of(context).size.width * 0.1)),
                   child: Padding(
                     padding: EdgeInsets.all(
                         MediaQuery.of(context).size.width * 0.02),

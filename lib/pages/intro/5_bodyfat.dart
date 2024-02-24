@@ -1,18 +1,41 @@
 import 'package:flexify/pages/intro/6_birthday.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
+import 'package:flutter_svg/flutter_svg.dart';
 
 class FiveBodyFat extends StatefulWidget {
-  const FiveBodyFat({super.key});
+  final bool isFemale;
+  const FiveBodyFat({super.key, required this.isFemale});
 
   @override
   State<FiveBodyFat> createState() => _FiveBodyFatState();
 }
 
 class _FiveBodyFatState extends State<FiveBodyFat> {
-  double selectedBodyFatPercentage = 20;
-
+  final FixedExtentScrollController fixedExtentScrollController =
+      FixedExtentScrollController();
+  String selectedBodyFatPercentageRange = " ";
   int selected = 0;
+
+  List<String> maleSelectedRange = [
+    "4-6%",
+    "7-10%",
+    "11-15%",
+    "16-23%",
+    "23-30%",
+    "31-40%",
+    ">40%"
+  ];
+
+  List<String> femaleSelectedRange = [
+    "10-15%",
+    "16-20%",
+    "21-25%",
+    "26-30%",
+    "31-35%",
+    "36-45%",
+    ">45%"
+  ];
 
   @override
   void initState() {
@@ -63,9 +86,10 @@ class _FiveBodyFatState extends State<FiveBodyFat> {
                       },
                       child: Text(
                         'Skip',
-                        style: TextStyle(color: Theme.of(context).focusColor),
+                        style: TextStyle(color: Theme.of(context).focusColor, fontSize: MediaQuery.of(context).size.width * 0.035),
                       ),
                     ),
+                    SizedBox(width: MediaQuery.of(context).size.width * 0.02)
                   ],
                 ),
                 SizedBox(
@@ -123,119 +147,114 @@ class _FiveBodyFatState extends State<FiveBodyFat> {
                         'Estimate your current',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: MediaQuery.of(context).size.height * 0.005 +
-                              MediaQuery.of(context).size.width * 0.01,
+                          fontSize: MediaQuery.of(context).size.height * 0.01 +
+                              MediaQuery.of(context).size.width * 0.02,
                         ),
                       ),
                       Text(
                         'body fat percentage',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: MediaQuery.of(context).size.height * 0.005 +
-                              MediaQuery.of(context).size.width * 0.01,
+                          fontSize: MediaQuery.of(context).size.height * 0.01 +
+                              MediaQuery.of(context).size.width * 0.02,
                         ),
                       ),
                     ],
                   ),
                 ),
                 Container(
-                  alignment: Alignment.topCenter,
+                  alignment: Alignment.center,
                   height: MediaQuery.of(context).size.height * 0.6,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.4,
-                      ),
-                      Container(
-                        clipBehavior: Clip.hardEdge,
-                        height: MediaQuery.of(context).size.height * 0.15,
-                        width: MediaQuery.of(context).size.width * 0.8,
-                        decoration: BoxDecoration(
-                          color: Theme.of(context)
-                              .colorScheme
-                              .onBackground
-                              .withOpacity(0.2),
-                          border: Border.all(
-                            width: 1.2,
-                            color: Theme.of(context).focusColor,
+                  width: MediaQuery.of(context).size.width *
+                      global.containerWidthFactor,
+                  child: Container(
+                    height: MediaQuery.of(context).size.width * 0.8,
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.background,
+                        borderRadius: BorderRadius.circular(30),
+                        boxShadow: [global.darkShadow(context)]),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.08,
+                        ),
+                        Container(
+                          height: MediaQuery.of(context).size.width * 0.3,
+                          child: RotatedBox(
+                            quarterTurns: -1,
+                            child: ListWheelScrollView.useDelegate(
+                              onSelectedItemChanged: (value) {
+                                selectedBodyFatPercentageRange = widget.isFemale
+                                    ? femaleSelectedRange[value]
+                                    : maleSelectedRange[value];
+                                selected = 1;
+                                setState(() {});
+                              },
+                              itemExtent:
+                                  MediaQuery.of(context).size.width * 0.3,
+                              controller:
+                                  FixedExtentScrollController(initialItem: 3),
+                              physics: const FixedExtentScrollPhysics(),
+                              childDelegate: ListWheelChildBuilderDelegate(
+                                childCount: 7,
+                                builder: (context, index) {
+                                  return widget.isFemale
+                                      ? RotatedBox(
+                                          quarterTurns: 1,
+                                          child: Container(
+                                            clipBehavior: Clip.hardEdge,
+                                            decoration: BoxDecoration(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .background,
+                                              borderRadius:
+                                                  BorderRadius.circular(30),
+                                              boxShadow: [
+                                                global.lightShadow(context)
+                                              ],
+                                            ),
+                                            child: SvgPicture.asset(
+                                              'assets/bodyFatPercentage/female/${femaleSelectedRange[index]}.svg',
+                                            ),
+                                          ),
+                                        )
+                                      : RotatedBox(
+                                          quarterTurns: 1,
+                                          child: Container(
+                                            clipBehavior: Clip.hardEdge,
+                                            decoration: BoxDecoration(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .background,
+                                              borderRadius:
+                                                  BorderRadius.circular(30),
+                                              boxShadow: [
+                                                global.lightShadow(context)
+                                              ],
+                                            ),
+                                            child: SvgPicture.asset(
+                                              'assets/bodyFatPercentage/male/${maleSelectedRange[index]}.svg',
+                                            ),
+                                          ),
+                                        );
+                                },
+                              ),
+                            ),
                           ),
-                          borderRadius: BorderRadius.circular(
-                              MediaQuery.of(context).size.width * 0.0375),
                         ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              padding: EdgeInsets.all(
-                                  MediaQuery.of(context).size.height * 0.01),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(
-                                      MediaQuery.of(context).size.width *
-                                          0.0375),
-                                ),
-                                color: Theme.of(context).colorScheme.background,
-                              ),
-                              child: Text(
-                                '${selectedBodyFatPercentage.toStringAsFixed(0)}%',
-                                style: TextStyle(
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.01),
-                              ),
-                            ),
-                            SizedBox(
-                                height: MediaQuery.of(context).size.height *
-                                    0.0125),
-                            SliderTheme(
-                              data: SliderThemeData(
-                                thumbShape: RoundSliderThumbShape(
-                                    enabledThumbRadius:
-                                        MediaQuery.of(context).size.height *
-                                            0.0125),
-                                thumbColor:
-                                    Theme.of(context).colorScheme.primary,
-                                trackHeight:
-                                    MediaQuery.of(context).size.height * 0.01,
-                                activeTrackColor: Colors.transparent,
-                                inactiveTrackColor: Colors.transparent,
-                              ),
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: [
-                                  Container(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.0075,
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.8,
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background,
-                                  ),
-                                  Slider(
-                                    min: 5,
-                                    max: 50,
-                                    value: selectedBodyFatPercentage,
-                                    onChanged: (double value) {
-                                      setState(
-                                        () {
-                                          selected = 1;
-                                          selectedBodyFatPercentage =
-                                              value.clamp(5, 50);
-                                        },
-                                      );
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
+                        SizedBox(
+                          height: MediaQuery.of(context).size.width * 0.125,
                         ),
-                      ),
-                    ],
+                        Text(
+                          selectedBodyFatPercentageRange,
+                          style: TextStyle(
+                              color: Theme.of(context).scaffoldBackgroundColor,
+                              fontSize:
+                                  MediaQuery.of(context).size.width * 0.08),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 GestureDetector(
@@ -267,7 +286,7 @@ class _FiveBodyFatState extends State<FiveBodyFat> {
                           style: TextStyle(
                               color: Theme.of(context).focusColor,
                               fontSize:
-                                  MediaQuery.of(context).size.height * 0.02),
+                                  MediaQuery.of(context).size.height * 0.025),
                         ),
                       ],
                     ),
@@ -281,3 +300,102 @@ class _FiveBodyFatState extends State<FiveBodyFat> {
     );
   }
 }
+
+// Old Slider, mabye Needed in future
+
+// Column(
+//                     mainAxisAlignment: MainAxisAlignment.start,
+//                     children: [
+//                       SizedBox(
+//                         height: MediaQuery.of(context).size.height * 0.4,
+//                       ),
+//                       Container(
+//                         clipBehavior: Clip.hardEdge,
+//                         height: MediaQuery.of(context).size.height * 0.15,
+//                         width: MediaQuery.of(context).size.width * 0.8,
+//                         decoration: BoxDecoration(
+//                           color: Theme.of(context)
+//                               .colorScheme
+//                               .onBackground
+//                               .withOpacity(0.2),
+//                           border: Border.all(
+//                             width: 1.2,
+//                             color: Theme.of(context).focusColor,
+//                           ),
+//                           borderRadius: BorderRadius.circular(
+//                               MediaQuery.of(context).size.width * 0.0375),
+//                         ),
+//                         child: Column(
+//                           mainAxisAlignment: MainAxisAlignment.center,
+//                           children: [
+//                             Container(
+//                               padding: EdgeInsets.all(
+//                                   MediaQuery.of(context).size.height * 0.01),
+//                               decoration: BoxDecoration(
+//                                 borderRadius: BorderRadius.all(
+//                                   Radius.circular(
+//                                       MediaQuery.of(context).size.width *
+//                                           0.0375),
+//                                 ),
+//                                 color: Theme.of(context).colorScheme.background,
+//                               ),
+//                               child: Text(
+//                                 '${selectedBodyFatPercentage.toStringAsFixed(0)}%',
+//                                 style: TextStyle(
+//                                     color:
+//                                         Theme.of(context).colorScheme.primary,
+//                                     fontSize:
+//                                         MediaQuery.of(context).size.height *
+//                                             0.01),
+//                               ),
+//                             ),
+//                             SizedBox(
+//                                 height: MediaQuery.of(context).size.height *
+//                                     0.0125),
+//                             SliderTheme(
+//                               data: SliderThemeData(
+//                                 thumbShape: RoundSliderThumbShape(
+//                                     enabledThumbRadius:
+//                                         MediaQuery.of(context).size.height *
+//                                             0.0125),
+//                                 thumbColor:
+//                                     Theme.of(context).colorScheme.primary,
+//                                 trackHeight:
+//                                     MediaQuery.of(context).size.height * 0.01,
+//                                 activeTrackColor: Colors.transparent,
+//                                 inactiveTrackColor: Colors.transparent,
+//                               ),
+//                               child: Stack(
+//                                 alignment: Alignment.center,
+//                                 children: [
+//                                   Container(
+//                                     height: MediaQuery.of(context).size.height *
+//                                         0.0075,
+//                                     width:
+//                                         MediaQuery.of(context).size.width * 0.8,
+//                                     color: Theme.of(context)
+//                                         .colorScheme
+//                                         .background,
+//                                   ),
+//                                   Slider(
+//                                     min: 5,
+//                                     max: 50,
+//                                     value: selectedBodyFatPercentage,
+//                                     onChanged: (double value) {
+//                                       setState(
+//                                         () {
+//                                           selected = 1;
+//                                           selectedBodyFatPercentage =
+//                                               value.clamp(5, 50);
+//                                         },
+//                                       );
+//                                     },
+//                                   ),
+//                                 ],
+//                               ),
+//                             ),
+//                           ],
+//                         ),
+//                       ),
+//                     ],
+//                   ),

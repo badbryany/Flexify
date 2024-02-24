@@ -52,9 +52,10 @@ class _TwoGenderState extends State<TwoGender> {
                       },
                       child: Text(
                         'Skip',
-                        style: TextStyle(color: Theme.of(context).focusColor),
+                        style: TextStyle(color: Theme.of(context).focusColor, fontSize: MediaQuery.of(context).size.width * 0.035),
                       ),
                     ),
+                    SizedBox(width: MediaQuery.of(context).size.width * 0.02)
                   ],
                 ),
                 SizedBox(
@@ -112,7 +113,7 @@ class _TwoGenderState extends State<TwoGender> {
                             color: Colors.white,
                             fontSize:
                                 MediaQuery.of(context).size.height * 0.01 +
-                                    MediaQuery.of(context).size.width * 0.01),
+                                    MediaQuery.of(context).size.width * 0.02),
                       ),
                       Text(
                         'female?',
@@ -120,7 +121,7 @@ class _TwoGenderState extends State<TwoGender> {
                             color: Colors.white,
                             fontSize:
                                 MediaQuery.of(context).size.height * 0.01 +
-                                    MediaQuery.of(context).size.width * 0.01),
+                                    MediaQuery.of(context).size.width * 0.02),
                       ),
                     ],
                   ),
@@ -157,7 +158,6 @@ class _TwoGenderState extends State<TwoGender> {
                                       : Colors.transparent,
                                       strokeAlign: BorderSide.strokeAlignOutside
                                 ),
-                                boxShadow: [global.darkShadow(context)],
                               ),
                               child: Column(
                                 children: [
@@ -177,7 +177,7 @@ class _TwoGenderState extends State<TwoGender> {
                                                 .surface,
                                         fontSize:
                                             MediaQuery.of(context).size.width *
-                                                0.03),
+                                                0.045),
                                   ),
                                   Icon(
                                     Icons.female_outlined,
@@ -221,7 +221,6 @@ class _TwoGenderState extends State<TwoGender> {
                                       : Colors.transparent,
                                       strokeAlign: BorderSide.strokeAlignOutside
                                 ),
-                                boxShadow: [global.darkShadow(context)],
                               ),
                               child: Column(
                                 children: [
@@ -241,7 +240,7 @@ class _TwoGenderState extends State<TwoGender> {
                                               .surface,
                                       fontSize:
                                           MediaQuery.of(context).size.width *
-                                              0.03,
+                                              0.045,
                                     ),
                                   ),
                                   SizedBox(
@@ -294,7 +293,7 @@ class _TwoGenderState extends State<TwoGender> {
                           style: TextStyle(
                               color: Theme.of(context).focusColor,
                               fontSize:
-                                  MediaQuery.of(context).size.height * 0.02),
+                                  MediaQuery.of(context).size.height * 0.025),
                         ),
                       ],
                     ),

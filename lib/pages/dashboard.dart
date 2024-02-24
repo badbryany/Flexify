@@ -1,9 +1,12 @@
 import 'package:flexify/pages/food/dashboardFood.dart';
 import 'package:flexify/pages/profile/dashboardProfile.dart';
 import 'package:flexify/pages/leaderboards/dashboardLeaderboards.dart';
+import 'package:flexify/pages/profile/dashboardProfile.dart';
+import 'package:flexify/pages/workout/settingsPage/settingsPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:flexify/data/globalVariables.dart' as global;
 
 import 'package:flexify/pages/workout/dashboardWorkout.dart';
 import 'package:flutter/services.dart';
@@ -36,7 +39,7 @@ class _DashboardState extends State<Dashboard> {
     },
     {
       'title': 'Profile',
-      'widget': const ProfilePage(),
+      'widget': const DashboardProfile(),
       'icon': Icons.person,
     },
   ];
@@ -70,15 +73,15 @@ class _DashboardState extends State<Dashboard> {
                     right: MediaQuery.of(context).size.width * 0.1,
                   ),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.05,
                       ),
                       SvgPicture.asset(
-                        'assets/logo/Light\ Logo.svg',
-                        width: MediaQuery.of(context).size.height * 0.075,
-                        height: MediaQuery.of(context).size.height * 0.075,
+                        'assets/logo/Light Logo.svg',
+                        width: MediaQuery.of(context).size.width * 0.1,
+                        height: MediaQuery.of(context).size.width * 0.1,
                       ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.1,
@@ -86,13 +89,24 @@ class _DashboardState extends State<Dashboard> {
                       Text(
                         "Flexify",
                         style: TextStyle(
-                            fontSize: MediaQuery.of(context).size.width * 0.07),
+                          color: Theme.of(context).focusColor,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: -1,
+                          fontSize: global.width(context) * 0.07,
+                        ),
                       ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.12,
                       ),
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => settingsPage(),
+                            ),
+                          );
+                        },
                         iconSize: 30,
                         icon: Icon(
                           Icons.more_horiz_rounded,
@@ -100,12 +114,11 @@ class _DashboardState extends State<Dashboard> {
                         ),
                       ),
                       SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.01,
+                        width: MediaQuery.of(context).size.width * 0.05,
                       )
                     ],
                   ),
                 ),
-
                 AnimatedSwitcher(
                   duration: duration,
                   child: SizedBox(

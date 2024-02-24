@@ -174,7 +174,6 @@ class _AnimSearchBarState extends State<AnimSearchBar>
           borderRadius: BorderRadius.circular(100),
 
           /// show boxShadow unless false was passed
-          boxShadow: [global.darkShadow(context)],
         ),
         child: Stack(
           children: [

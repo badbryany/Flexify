@@ -77,9 +77,10 @@ class _SixBirthdayState extends State<SixBirthday> {
                       },
                       child: Text(
                         'Skip',
-                        style: TextStyle(color: Theme.of(context).focusColor),
+                        style: TextStyle(color: Theme.of(context).focusColor, fontSize: MediaQuery.of(context).size.width * 0.035),
                       ),
                     ),
+                    SizedBox(width: MediaQuery.of(context).size.width * 0.02)
                   ],
                 ),
                 SizedBox(
@@ -139,7 +140,7 @@ class _SixBirthdayState extends State<SixBirthday> {
                             color: Colors.white,
                             fontSize:
                                 MediaQuery.of(context).size.height * 0.01 +
-                                    MediaQuery.of(context).size.width * 0.01),
+                                    MediaQuery.of(context).size.width * 0.02),
                       ),
                       Text(
                         'birthday?',
@@ -147,7 +148,7 @@ class _SixBirthdayState extends State<SixBirthday> {
                             color: Colors.white,
                             fontSize:
                                 MediaQuery.of(context).size.height * 0.01 +
-                                    MediaQuery.of(context).size.width * 0.01),
+                                    MediaQuery.of(context).size.width * 0.02),
                       ),
                     ],
                   ),
@@ -276,7 +277,7 @@ class _SixBirthdayState extends State<SixBirthday> {
                           style: TextStyle(
                               color: Theme.of(context).focusColor,
                               fontSize:
-                                  MediaQuery.of(context).size.height * 0.02),
+                                  MediaQuery.of(context).size.height * 0.025),
                         ),
                       ],
                     ),
@@ -303,7 +304,7 @@ class DayTile extends StatelessWidget {
         (day + 1).toString(),
         style: TextStyle(
             color: Theme.of(context).focusColor,
-            fontSize: MediaQuery.of(context).size.height * 0.005 +
+            fontSize: MediaQuery.of(context).size.height * 0.01 +
                 MediaQuery.of(context).size.width * 0.02),
       ),
     );
@@ -322,7 +323,7 @@ class MonthTile extends StatelessWidget {
         (global.months[month]).toString(),
         style: TextStyle(
             color: Theme.of(context).focusColor,
-            fontSize: MediaQuery.of(context).size.height * 0.005 +
+            fontSize: MediaQuery.of(context).size.height * 0.01 +
                 MediaQuery.of(context).size.width * 0.02),
       ),
     );
@@ -341,7 +342,7 @@ class YearTile extends StatelessWidget {
         (year + 1923).toString(),
         style: TextStyle(
             color: Theme.of(context).focusColor,
-            fontSize: MediaQuery.of(context).size.height * 0.005 +
+            fontSize: MediaQuery.of(context).size.height * 0.01 +
                 MediaQuery.of(context).size.width * 0.02),
       ),
     );
