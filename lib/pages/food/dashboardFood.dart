@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:flexify/pages/food/widget/button.dart';
 
 class DashboardFood extends StatefulWidget {
   const DashboardFood({super.key});
@@ -13,7 +14,9 @@ class DashboardFood extends StatefulWidget {
 
 class DashboardFoodState extends State<DashboardFood> {
   double maxCalories = 2000;
-  double eatenCalories = 200;
+  double eatenCalories = 2000;
+
+  List<Map<String, dynamic>> meals = [];
 
   @override
   Widget build(BuildContext context) {

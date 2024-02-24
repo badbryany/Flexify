@@ -1,5 +1,4 @@
 import 'package:flexify/pages/food/dashboardFood.dart';
-import 'package:flexify/pages/profile/dashboardProfile.dart';
 import 'package:flexify/pages/leaderboards/dashboardLeaderboards.dart';
 import 'package:flexify/pages/profile/dashboardProfile.dart';
 import 'package:flexify/pages/workout/settingsPage/settingsPage.dart';
