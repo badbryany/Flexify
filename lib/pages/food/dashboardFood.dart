@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
+import 'package:page_transition/page_transition.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:flexify/pages/food/page/addMeal.dart';
 import 'package:flexify/pages/food/widget/button.dart';
 
 class DashboardFood extends StatefulWidget {
@@ -28,8 +30,8 @@ class DashboardFoodState extends State<DashboardFood> {
     }
 
     return Container(
-      padding: EdgeInsets.all(containerPadding),
-      width: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.only(top: containerPadding),
+      width: MediaQuery.of(context).size.width * 0.9,
       child: Column(
         children: [
           Container(
@@ -139,14 +141,20 @@ class DashboardFoodState extends State<DashboardFood> {
                       ),
                     ),
                     Container(
-                      alignment: Alignment(
-                          MediaQuery.of(context).size.width * 0.003,
-                          MediaQuery.of(context).size.width * 0.003),
-                      width: MediaQuery.of(context).size.width * 0.4,
-                      height: MediaQuery.of(context).size.height * 0.07,
+                      width: MediaQuery.of(context).size.width * 0.55,
+                      height: MediaQuery.of(context).size.height * 0.06,
+                      alignment: Alignment.bottomRight,
                       child: ButtonWithIcon(
                         icon: const Icon(Icons.add),
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            PageTransition(
+                              child: AddMeal(meals: meals,),
+                              type: PageTransitionType.fade,
+                            ),
+                          );
+                        },
                       ),
                     )
                   ],
