@@ -77,9 +77,10 @@ class _NineDurationState extends State<NineDuration> {
                       },
                       child: Text(
                         'Skip',
-                        style: TextStyle(color: Theme.of(context).focusColor),
+                        style: TextStyle(color: Theme.of(context).focusColor, fontSize: MediaQuery.of(context).size.width * 0.035),
                       ),
                     ),
+                    SizedBox(width: MediaQuery.of(context).size.width * 0.02)
                   ],
                 ),
                 SizedBox(
@@ -139,7 +140,7 @@ class _NineDurationState extends State<NineDuration> {
                             color: Colors.white,
                             fontSize:
                                 MediaQuery.of(context).size.height * 0.01 +
-                                    MediaQuery.of(context).size.width * 0.01),
+                                    MediaQuery.of(context).size.width * 0.02),
                       ),
                       Text(
                         'want to workout?',
@@ -147,7 +148,7 @@ class _NineDurationState extends State<NineDuration> {
                             color: Colors.white,
                             fontSize:
                                 MediaQuery.of(context).size.height * 0.01 +
-                                    MediaQuery.of(context).size.width * 0.01),
+                                    MediaQuery.of(context).size.width * 0.02),
                       ),
                     ],
                   ),
@@ -202,7 +203,7 @@ class _NineDurationState extends State<NineDuration> {
                                   style: TextStyle(
                                     fontSize:
                                         MediaQuery.of(context).size.height *
-                                                0.005 +
+                                                0.01 +
                                             MediaQuery.of(context).size.width *
                                                 0.02,
                                   ),
@@ -238,7 +239,7 @@ class _NineDurationState extends State<NineDuration> {
                                   style: TextStyle(
                                     fontSize:
                                         MediaQuery.of(context).size.height *
-                                                0.005 +
+                                                0.01 +
                                             MediaQuery.of(context).size.width *
                                                 0.02,
                                   ),
@@ -280,7 +281,7 @@ class _NineDurationState extends State<NineDuration> {
                           style: TextStyle(
                               color: Theme.of(context).focusColor,
                               fontSize:
-                                  MediaQuery.of(context).size.height * 0.02),
+                                  MediaQuery.of(context).size.height * 0.025),
                         ),
                       ],
                     ),
@@ -307,7 +308,7 @@ class MinuteTile extends StatelessWidget {
         minutes.toString(),
         style: TextStyle(
             color: Theme.of(context).focusColor,
-            fontSize: MediaQuery.of(context).size.height * 0.005 +
+            fontSize: MediaQuery.of(context).size.height * 0.01 +
                 MediaQuery.of(context).size.width * 0.02),
       ),
     );
@@ -326,7 +327,7 @@ class HourTile extends StatelessWidget {
         (hours + 1).toString(),
         style: TextStyle(
             color: Theme.of(context).focusColor,
-            fontSize: MediaQuery.of(context).size.height * 0.005 +
+            fontSize: MediaQuery.of(context).size.height * 0.01 +
                 MediaQuery.of(context).size.width * 0.02),
       ),
     );

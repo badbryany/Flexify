@@ -64,9 +64,10 @@ class _EightScheduleState extends State<EightSchedule> {
                       },
                       child: Text(
                         'Skip',
-                        style: TextStyle(color: Theme.of(context).focusColor),
+                        style: TextStyle(color: Theme.of(context).focusColor, fontSize: MediaQuery.of(context).size.width * 0.035),
                       ),
                     ),
+                    SizedBox(width: MediaQuery.of(context).size.width * 0.02)
                   ],
                 ),
                 SizedBox(
@@ -125,7 +126,7 @@ class _EightScheduleState extends State<EightSchedule> {
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: MediaQuery.of(context).size.height * 0.007 +
-                              MediaQuery.of(context).size.width * 0.01,
+                              MediaQuery.of(context).size.width * 0.02,
                         ),
                       ),
                       Text(
@@ -133,7 +134,7 @@ class _EightScheduleState extends State<EightSchedule> {
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: MediaQuery.of(context).size.height * 0.007 +
-                              MediaQuery.of(context).size.width * 0.01,
+                              MediaQuery.of(context).size.width * 0.02,
                         ),
                       ),
                     ],
@@ -213,7 +214,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                                       MediaQuery.of(context)
                                                               .size
                                                               .height *
-                                                          0.0085),
+                                                          0.015),
                                             )
                                           : Text(
                                               "Which days?",
@@ -222,7 +223,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                                       MediaQuery.of(context)
                                                               .size
                                                               .height *
-                                                          0.009),
+                                                          0.015),
                                             ),
                                     ),
                                   ),
@@ -315,7 +316,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                                           MediaQuery.of(context)
                                                                   .size
                                                                   .height *
-                                                              0.01),
+                                                              0.015),
                                                 ),
                                               ),
                                             ],
@@ -385,7 +386,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                                           MediaQuery.of(context)
                                                                   .size
                                                                   .height *
-                                                              0.01),
+                                                              0.015),
                                                 ),
                                               ),
                                             ],
@@ -455,7 +456,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                                           MediaQuery.of(context)
                                                                   .size
                                                                   .height *
-                                                              0.01),
+                                                              0.015),
                                                 ),
                                               ),
                                             ],
@@ -525,7 +526,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                                           MediaQuery.of(context)
                                                                   .size
                                                                   .height *
-                                                              0.01),
+                                                              0.015),
                                                 ),
                                               ),
                                             ],
@@ -595,7 +596,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                                           MediaQuery.of(context)
                                                                   .size
                                                                   .height *
-                                                              0.01),
+                                                              0.015),
                                                 ),
                                               ),
                                             ],
@@ -665,7 +666,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                                           MediaQuery.of(context)
                                                                   .size
                                                                   .height *
-                                                              0.01),
+                                                              0.015),
                                                 ),
                                               ),
                                             ],
@@ -735,7 +736,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                                           MediaQuery.of(context)
                                                                   .size
                                                                   .height *
-                                                              0.01),
+                                                              0.015),
                                                 ),
                                               ),
                                             ],
@@ -1235,7 +1236,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                                           MediaQuery.of(context)
                                                                   .size
                                                                   .height *
-                                                              0.01),
+                                                              0.017),
                                                 ),
                                               ),
                                             ],
@@ -1302,7 +1303,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                                           MediaQuery.of(context)
                                                                   .size
                                                                   .height *
-                                                              0.01),
+                                                              0.017),
                                                 ),
                                               ),
                                             ],
@@ -1369,7 +1370,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                                           MediaQuery.of(context)
                                                                   .size
                                                                   .height *
-                                                              0.01),
+                                                              0.017),
                                                 ),
                                               ),
                                             ],
@@ -1436,7 +1437,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                                           MediaQuery.of(context)
                                                                   .size
                                                                   .height *
-                                                              0.01),
+                                                              0.017),
                                                 ),
                                               ),
                                             ],
@@ -1503,7 +1504,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                                           MediaQuery.of(context)
                                                                   .size
                                                                   .height *
-                                                              0.01),
+                                                              0.017),
                                                 ),
                                               ),
                                             ],
@@ -1570,7 +1571,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                                           MediaQuery.of(context)
                                                                   .size
                                                                   .height *
-                                                              0.01),
+                                                              0.017),
                                                 ),
                                               ),
                                             ],
@@ -1637,7 +1638,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                                           MediaQuery.of(context)
                                                                   .size
                                                                   .height *
-                                                              0.01),
+                                                              0.017),
                                                 ),
                                               ),
                                             ],
@@ -1713,7 +1714,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                                           MediaQuery.of(context)
                                                                   .size
                                                                   .height *
-                                                              0.01,
+                                                              0.013,
                                                     ),
                                                   ),
                                                 ),
@@ -1771,7 +1772,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                                           MediaQuery.of(context)
                                                                   .size
                                                                   .height *
-                                                              0.01,
+                                                              0.013,
                                                     ),
                                                   ),
                                                 ),
@@ -1829,7 +1830,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                                           MediaQuery.of(context)
                                                                   .size
                                                                   .height *
-                                                              0.01,
+                                                              0.013,
                                                     ),
                                                   ),
                                                 ),
@@ -1887,7 +1888,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                                           MediaQuery.of(context)
                                                                   .size
                                                                   .height *
-                                                              0.01,
+                                                              0.013,
                                                     ),
                                                   ),
                                                 ),
@@ -1945,7 +1946,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                                           MediaQuery.of(context)
                                                                   .size
                                                                   .height *
-                                                              0.01,
+                                                              0.013,
                                                     ),
                                                   ),
                                                 ),
@@ -2003,7 +2004,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                                           MediaQuery.of(context)
                                                                   .size
                                                                   .height *
-                                                              0.01,
+                                                              0.013,
                                                     ),
                                                   ),
                                                 ),
@@ -2061,7 +2062,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                                           MediaQuery.of(context)
                                                                   .size
                                                                   .height *
-                                                              0.01,
+                                                              0.013,
                                                     ),
                                                   ),
                                                 ),
@@ -2107,7 +2108,7 @@ class _EightScheduleState extends State<EightSchedule> {
                           style: TextStyle(
                               color: Theme.of(context).focusColor,
                               fontSize:
-                                  MediaQuery.of(context).size.height * 0.02),
+                                  MediaQuery.of(context).size.height * 0.025),
                         ),
                       ],
                     ),

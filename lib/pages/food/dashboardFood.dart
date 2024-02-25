@@ -150,7 +150,9 @@ class DashboardFoodState extends State<DashboardFood> {
                           Navigator.push(
                             context,
                             PageTransition(
-                              child: AddMeal(meals: meals,),
+                              child: AddMeal(
+                                meals: meals,
+                              ),
                               type: PageTransitionType.fade,
                             ),
                           );
@@ -198,3 +200,4 @@ class DashboardFoodState extends State<DashboardFood> {
     );
   }
 }
+

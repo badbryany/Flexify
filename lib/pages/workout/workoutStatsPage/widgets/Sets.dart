@@ -20,7 +20,7 @@ class _SetsWidgetState extends State<SetsWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.4,
+      height: MediaQuery.of(context).size.height * 0.1 + MediaQuery.of(context).size.width * 0.6,
       width: MediaQuery.of(context).size.width * global.containerWidthFactor,
       padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.05),
       decoration: BoxDecoration(

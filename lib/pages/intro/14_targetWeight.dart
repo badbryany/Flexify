@@ -88,9 +88,10 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                       },
                       child: Text(
                         'Skip',
-                        style: TextStyle(color: Theme.of(context).focusColor),
+                        style: TextStyle(color: Theme.of(context).focusColor, fontSize: MediaQuery.of(context).size.width * 0.035),
                       ),
                     ),
+                    SizedBox(width: MediaQuery.of(context).size.width * 0.02)
                   ],
                 ),
                 SizedBox(
@@ -148,16 +149,16 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                         'Select your',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: MediaQuery.of(context).size.height * 0.007 +
-                              MediaQuery.of(context).size.width * 0.01,
+                          fontSize: MediaQuery.of(context).size.height * 0.01 +
+                              MediaQuery.of(context).size.width * 0.02,
                         ),
                       ),
                       Text(
                         'target weight',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: MediaQuery.of(context).size.height * 0.007 +
-                              MediaQuery.of(context).size.width * 0.01,
+                          fontSize: MediaQuery.of(context).size.height * 0.01 +
+                              MediaQuery.of(context).size.width * 0.02,
                         ),
                       ),
                     ],
@@ -238,7 +239,7 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                                     color: Theme.of(context).focusColor,
                                     fontSize:
                                         MediaQuery.of(context).size.width *
-                                            0.03),
+                                            0.05),
                               ),
                             ),
                           ),
@@ -312,8 +313,8 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: MediaQuery.of(context).size.height *
-                                        0.007 +
-                                    MediaQuery.of(context).size.width * 0.01,
+                                        0.01 +
+                                    MediaQuery.of(context).size.width * 0.02,
                               ),
                             ),
                             Text(
@@ -321,8 +322,8 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: MediaQuery.of(context).size.height *
-                                        0.007 +
-                                    MediaQuery.of(context).size.width * 0.01,
+                                        0.01 +
+                                    MediaQuery.of(context).size.width * 0.02,
                               ),
                             ),
                           ],
@@ -369,7 +370,7 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                                         : Theme.of(context).colorScheme.surface,
                                     fontSize:
                                         MediaQuery.of(context).size.height *
-                                            0.01),
+                                            0.015),
                               ),
                             ),
                             SizedBox(
@@ -469,9 +470,9 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                                     color: Colors.white,
                                     fontSize:
                                         MediaQuery.of(context).size.height *
-                                                0.012 +
+                                                0.015 +
                                             MediaQuery.of(context).size.width *
-                                                0.01,
+                                                0.02,
                                   ),
                                 ),
                                 Text(
@@ -482,9 +483,9 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                                         : Theme.of(context).colorScheme.surface,
                                     fontSize:
                                         MediaQuery.of(context).size.height *
-                                                0.012 +
+                                                0.015 +
                                             MediaQuery.of(context).size.width *
-                                                0.01,
+                                                0.02,
                                   ),
                                 ),
                               ],
@@ -539,7 +540,7 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                           style: TextStyle(
                               color: Theme.of(context).focusColor,
                               fontSize:
-                                  MediaQuery.of(context).size.height * 0.02),
+                                  MediaQuery.of(context).size.height * 0.025),
                         ),
                       ],
                     ),

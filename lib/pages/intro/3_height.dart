@@ -13,34 +13,14 @@ class ThreeHeight extends StatefulWidget {
 // When inches is dragged over the value of 11 the value of feet incremenets automatically
 
 class _ThreeHeightState extends State<ThreeHeight> {
-  late FixedExtentScrollController _cmController;
-  // 180cm
-  int cmIdx = 80;
-  late FixedExtentScrollController _ftController;
-  // 5ft
-  int ftIdx = 2;
-  late FixedExtentScrollController _inController;
-  // 10in
-  int inIdx = 0;
-
+  final FixedExtentScrollController _cmController =
+      FixedExtentScrollController(initialItem: 80);
+  final FixedExtentScrollController _ftController =
+      FixedExtentScrollController(initialItem: 2);
+  final FixedExtentScrollController _inController =
+      FixedExtentScrollController(initialItem: 10);
   int selected = 0;
-
   var unitview = "cm";
-
-  @override
-  void initState() {
-    _ftController = FixedExtentScrollController(initialItem: ftIdx);
-    _inController = FixedExtentScrollController(initialItem: inIdx);
-    _cmController = FixedExtentScrollController(initialItem: cmIdx);
-    super.initState();
-  }
-
-  void dispose() {
-    _ftController.dispose();
-    _inController.dispose();
-    _cmController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,9 +62,13 @@ class _ThreeHeightState extends State<ThreeHeight> {
                       },
                       child: Text(
                         'Skip',
-                        style: TextStyle(color: Theme.of(context).focusColor),
+                        style: TextStyle(
+                            color: Theme.of(context).focusColor,
+                            fontSize:
+                                MediaQuery.of(context).size.width * 0.035),
                       ),
                     ),
+                    SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                   ],
                 ),
                 SizedBox(
@@ -143,7 +127,7 @@ class _ThreeHeightState extends State<ThreeHeight> {
                             color: Colors.white,
                             fontSize:
                                 MediaQuery.of(context).size.height * 0.01 +
-                                    MediaQuery.of(context).size.width * 0.01),
+                                    MediaQuery.of(context).size.width * 0.02),
                       ),
                       Text(
                         'are you?',
@@ -151,7 +135,7 @@ class _ThreeHeightState extends State<ThreeHeight> {
                             color: Colors.white,
                             fontSize:
                                 MediaQuery.of(context).size.height * 0.01 +
-                                    MediaQuery.of(context).size.width * 0.01),
+                                    MediaQuery.of(context).size.width * 0.02),
                       ),
                     ],
                   ),
@@ -273,14 +257,11 @@ class _ThreeHeightState extends State<ThreeHeight> {
                                   ? setState(
                                       () {
                                         unitview = "cm";
-                                        _cmController.jumpToItem(cmIdx);
                                       },
                                     )
                                   : setState(
                                       () {
                                         unitview = "ft";
-                                        _ftController.jumpToItem(ftIdx);
-                                        _inController.jumpToItem(inIdx);
                                       },
                                     );
                             },
@@ -333,7 +314,7 @@ class _ThreeHeightState extends State<ThreeHeight> {
                           style: TextStyle(
                               color: Theme.of(context).focusColor,
                               fontSize:
-                                  MediaQuery.of(context).size.height * 0.02),
+                                  MediaQuery.of(context).size.height * 0.025),
                         ),
                       ],
                     ),
@@ -360,7 +341,7 @@ class FtTile extends StatelessWidget {
         ft.toString(),
         style: TextStyle(
             color: Theme.of(context).focusColor,
-            fontSize: MediaQuery.of(context).size.height * 0.005 +
+            fontSize: MediaQuery.of(context).size.height * 0.01 +
                 MediaQuery.of(context).size.width * 0.02),
       ),
     );
@@ -379,7 +360,7 @@ class CmTile extends StatelessWidget {
         (centimeter + 100).toString(),
         style: TextStyle(
             color: Theme.of(context).focusColor,
-            fontSize: MediaQuery.of(context).size.height * 0.005 +
+            fontSize: MediaQuery.of(context).size.height * 0.01 +
                 MediaQuery.of(context).size.width * 0.02),
       ),
     );
@@ -398,7 +379,7 @@ class InchTile extends StatelessWidget {
         '${inches % 12}',
         style: TextStyle(
             color: Theme.of(context).focusColor,
-            fontSize: MediaQuery.of(context).size.height * 0.005 +
+            fontSize: MediaQuery.of(context).size.height * 0.01 +
                 MediaQuery.of(context).size.width * 0.02),
       ),
     );
@@ -417,7 +398,7 @@ class MetricTile extends StatelessWidget {
         isCm ? 'cm' : 'ft',
         style: TextStyle(
             color: Theme.of(context).focusColor,
-            fontSize: MediaQuery.of(context).size.height * 0.005 +
+            fontSize: MediaQuery.of(context).size.height * 0.01 +
                 MediaQuery.of(context).size.width * 0.02),
       ),
     );

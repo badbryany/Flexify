@@ -42,7 +42,7 @@ class _OneWelcomeState extends State<OneWelcome> {
                         style: TextStyle(
                             color: Colors.white,
                             fontSize:
-                                MediaQuery.of(context).size.width * 0.047),
+                                MediaQuery.of(context).size.width * 0.07),
                       )
                           .animate()
                           .fadeIn(
@@ -54,7 +54,7 @@ class _OneWelcomeState extends State<OneWelcome> {
                         style: TextStyle(
                             color: Theme.of(context).colorScheme.shadow,
                             fontSize:
-                                MediaQuery.of(context).size.width * 0.034),
+                                MediaQuery.of(context).size.width * 0.05),
                       ).animate().fadeIn(
                             delay: const Duration(milliseconds: 1500),
                             curve: Curves.decelerate,
@@ -89,7 +89,7 @@ class _OneWelcomeState extends State<OneWelcome> {
                           style: TextStyle(
                               color: Theme.of(context).focusColor,
                               fontSize:
-                                  MediaQuery.of(context).size.height * 0.02),
+                                  MediaQuery.of(context).size.height * 0.025),
                         ),
                       ],
                     ),

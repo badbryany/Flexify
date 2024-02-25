@@ -61,9 +61,10 @@ class _SevenExperienceState extends State<SevenExperience> {
                       },
                       child: Text(
                         'Skip',
-                        style: TextStyle(color: Theme.of(context).focusColor),
+                        style: TextStyle(color: Theme.of(context).focusColor, fontSize: MediaQuery.of(context).size.width * 0.035),
                       ),
                     ),
+                    SizedBox(width: MediaQuery.of(context).size.width * 0.02)
                   ],
                 ),
                 SizedBox(
@@ -123,7 +124,7 @@ class _SevenExperienceState extends State<SevenExperience> {
                             color: Colors.white,
                             fontSize:
                                 MediaQuery.of(context).size.height * 0.01 +
-                                    MediaQuery.of(context).size.width * 0.01),
+                                    MediaQuery.of(context).size.width * 0.02),
                       ),
                       Text(
                         'are you?',
@@ -131,7 +132,7 @@ class _SevenExperienceState extends State<SevenExperience> {
                             color: Colors.white,
                             fontSize:
                                 MediaQuery.of(context).size.height * 0.01 +
-                                    MediaQuery.of(context).size.width * 0.01),
+                                    MediaQuery.of(context).size.width * 0.02),
                       ),
                     ],
                   ),
@@ -150,7 +151,7 @@ class _SevenExperienceState extends State<SevenExperience> {
                         child: Container(
                           padding: EdgeInsets.only(
                               left: MediaQuery.of(context).size.width * 0.03),
-                          height: MediaQuery.of(context).size.height * 0.1,
+                          height: MediaQuery.of(context).size.height * 0.11,
                           width: MediaQuery.of(context).size.width * 0.8,
                           decoration: BoxDecoration(
                             color: selected == 1
@@ -167,7 +168,7 @@ class _SevenExperienceState extends State<SevenExperience> {
                             children: [
                               SizedBox(
                                 height:
-                                    MediaQuery.of(context).size.height * 0.01,
+                                    MediaQuery.of(context).size.height * 0.015,
                               ),
                               Row(
                                 children: [
@@ -178,7 +179,7 @@ class _SevenExperienceState extends State<SevenExperience> {
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                0.01 +
+                                                0.02 +
                                             MediaQuery.of(context).size.width *
                                                 0.02),
                                   ),
@@ -186,7 +187,7 @@ class _SevenExperienceState extends State<SevenExperience> {
                               ),
                               SizedBox(
                                 height:
-                                    MediaQuery.of(context).size.height * 0.01,
+                                    MediaQuery.of(context).size.height * 0.005,
                               ),
                               Row(
                                 children: [
@@ -197,7 +198,7 @@ class _SevenExperienceState extends State<SevenExperience> {
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                0.01 +
+                                                0.015 +
                                             MediaQuery.of(context).size.width *
                                                 0.001),
                                   ),
@@ -212,7 +213,7 @@ class _SevenExperienceState extends State<SevenExperience> {
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                0.01 +
+                                                0.015 +
                                             MediaQuery.of(context).size.width *
                                                 0.001),
                                   ),
@@ -233,7 +234,7 @@ class _SevenExperienceState extends State<SevenExperience> {
                         child: Container(
                           padding: EdgeInsets.only(
                               left: MediaQuery.of(context).size.width * 0.03),
-                          height: MediaQuery.of(context).size.height * 0.1,
+                          height: MediaQuery.of(context).size.height * 0.11,
                           width: MediaQuery.of(context).size.width * 0.8,
                           decoration: BoxDecoration(
                             color: selected == 2
@@ -250,7 +251,7 @@ class _SevenExperienceState extends State<SevenExperience> {
                             children: [
                               SizedBox(
                                 height:
-                                    MediaQuery.of(context).size.height * 0.01,
+                                    MediaQuery.of(context).size.height * 0.015,
                               ),
                               Row(
                                 children: [
@@ -261,7 +262,7 @@ class _SevenExperienceState extends State<SevenExperience> {
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                0.01 +
+                                                0.02 +
                                             MediaQuery.of(context).size.width *
                                                 0.02),
                                   ),
@@ -269,7 +270,7 @@ class _SevenExperienceState extends State<SevenExperience> {
                               ),
                               SizedBox(
                                 height:
-                                    MediaQuery.of(context).size.height * 0.01,
+                                    MediaQuery.of(context).size.height * 0.005,
                               ),
                               Row(
                                 children: [
@@ -280,7 +281,7 @@ class _SevenExperienceState extends State<SevenExperience> {
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                0.01 +
+                                                0.015 +
                                             MediaQuery.of(context).size.width *
                                                 0.001),
                                   ),
@@ -295,7 +296,7 @@ class _SevenExperienceState extends State<SevenExperience> {
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                0.01 +
+                                                0.015 +
                                             MediaQuery.of(context).size.width *
                                                 0.001),
                                   ),
@@ -316,7 +317,7 @@ class _SevenExperienceState extends State<SevenExperience> {
                         child: Container(
                           padding: EdgeInsets.only(
                               left: MediaQuery.of(context).size.width * 0.03),
-                          height: MediaQuery.of(context).size.height * 0.1,
+                          height: MediaQuery.of(context).size.height * 0.11,
                           width: MediaQuery.of(context).size.width * 0.8,
                           decoration: BoxDecoration(
                             color: selected == 3
@@ -333,7 +334,7 @@ class _SevenExperienceState extends State<SevenExperience> {
                             children: [
                               SizedBox(
                                 height:
-                                    MediaQuery.of(context).size.height * 0.01,
+                                    MediaQuery.of(context).size.height * 0.015,
                               ),
                               Row(
                                 children: [
@@ -344,7 +345,7 @@ class _SevenExperienceState extends State<SevenExperience> {
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                0.01 +
+                                                0.02 +
                                             MediaQuery.of(context).size.width *
                                                 0.02),
                                   ),
@@ -352,7 +353,7 @@ class _SevenExperienceState extends State<SevenExperience> {
                               ),
                               SizedBox(
                                 height:
-                                    MediaQuery.of(context).size.height * 0.01,
+                                    MediaQuery.of(context).size.height * 0.005,
                               ),
                               Row(
                                 children: [
@@ -363,7 +364,7 @@ class _SevenExperienceState extends State<SevenExperience> {
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                0.01 +
+                                                0.015 +
                                             MediaQuery.of(context).size.width *
                                                 0.001),
                                   ),
@@ -378,7 +379,7 @@ class _SevenExperienceState extends State<SevenExperience> {
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                0.01 +
+                                                0.015 +
                                             MediaQuery.of(context).size.width *
                                                 0.001),
                                   ),
@@ -399,7 +400,7 @@ class _SevenExperienceState extends State<SevenExperience> {
                         child: Container(
                           padding: EdgeInsets.only(
                               left: MediaQuery.of(context).size.width * 0.03),
-                          height: MediaQuery.of(context).size.height * 0.1,
+                          height: MediaQuery.of(context).size.height * 0.11,
                           width: MediaQuery.of(context).size.width * 0.8,
                           decoration: BoxDecoration(
                             color: selected == 4
@@ -416,7 +417,7 @@ class _SevenExperienceState extends State<SevenExperience> {
                             children: [
                               SizedBox(
                                 height:
-                                    MediaQuery.of(context).size.height * 0.01,
+                                    MediaQuery.of(context).size.height * 0.015,
                               ),
                               Row(
                                 children: [
@@ -427,7 +428,7 @@ class _SevenExperienceState extends State<SevenExperience> {
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                0.01 +
+                                                0.02 +
                                             MediaQuery.of(context).size.width *
                                                 0.02),
                                   ),
@@ -435,7 +436,7 @@ class _SevenExperienceState extends State<SevenExperience> {
                               ),
                               SizedBox(
                                 height:
-                                    MediaQuery.of(context).size.height * 0.01,
+                                    MediaQuery.of(context).size.height * 0.005,
                               ),
                               Row(
                                 children: [
@@ -446,7 +447,7 @@ class _SevenExperienceState extends State<SevenExperience> {
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                0.01 +
+                                                0.015 +
                                             MediaQuery.of(context).size.width *
                                                 0.001),
                                   ),
@@ -461,7 +462,7 @@ class _SevenExperienceState extends State<SevenExperience> {
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                0.01 +
+                                                0.015 +
                                             MediaQuery.of(context).size.width *
                                                 0.001),
                                   ),
@@ -503,7 +504,7 @@ class _SevenExperienceState extends State<SevenExperience> {
                           style: TextStyle(
                               color: Theme.of(context).focusColor,
                               fontSize:
-                                  MediaQuery.of(context).size.height * 0.02),
+                                  MediaQuery.of(context).size.height * 0.025),
                         ),
                       ],
                     ),

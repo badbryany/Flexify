@@ -16,40 +16,41 @@ intro:
     -> 4_weight
         -> If height given in inches initialise metric to lbs
 
-setsPage
+setsPage (!!)
     -> Group Buttons by Day
 
-dashboardNavBar
-    -> Text Logo (!!)
-    -> Settings Research
-    -> Settings Layout
+premiumPage (!!)
+    -> Monthly / Annual / Lifetime || (0.99€ / 5.99€ / 18,99€)
+    -> For every new part that spawns add a widget for that part htat spawns it
 
-dashboardProfile ->
-    -> Training Split
+dashboardWorkout (!!)
+    -> See more (Spawns Premium Page)
+    -> Detected Training Split
         -> Push/Pull/Legs
         -> Calisthenics
         -> Full Body
-    -> (GitHub Copy) (!!)
-        -> Sets per day
-    
+        -> Bro Split
+    -> Tips (Spawns Premium Page)
 
-Genereal:
-    -> Change Logo
+dashboardNavBar
+    -> Dark Mode / Light Mode
+    -> Notifications
+    -> Rate the app
+    -> Send feedback
+    -> Privacy Policy
+    -> Terms of Use
+    -> Website
+    -> Logout
+
+dashboardProfile
+    -> "Workout" Calendar
+    -> "BeReal" Calendar
+    -> "BeReal" Widget
 
 Home: 
     -> Workout Calendar
     -> Stats (Top Right)
-
-Detected Split:
-	-> AI Generated
-	-> Upper Lower
-	-> Push Pull Legs
-	-> Full Body
-	-> Bro Split
-	-> Calisthenics
     
-
-
 Entry Page: 
 Kg/Lbs 
 Cm/in

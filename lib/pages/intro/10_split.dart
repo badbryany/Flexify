@@ -62,9 +62,10 @@ class _TenSplitState extends State<TenSplit> {
                       },
                       child: Text(
                         'Skip',
-                        style: TextStyle(color: Theme.of(context).focusColor),
+                        style: TextStyle(color: Theme.of(context).focusColor, fontSize: MediaQuery.of(context).size.width * 0.035),
                       ),
                     ),
+                    SizedBox(width: MediaQuery.of(context).size.width * 0.02)
                   ],
                 ),
                 SizedBox(
@@ -124,7 +125,7 @@ class _TenSplitState extends State<TenSplit> {
                             color: Colors.white,
                             fontSize:
                                 MediaQuery.of(context).size.height * 0.01 +
-                                    MediaQuery.of(context).size.width * 0.01),
+                                    MediaQuery.of(context).size.width * 0.02),
                       ),
                       Text(
                         'training split',
@@ -132,7 +133,7 @@ class _TenSplitState extends State<TenSplit> {
                             color: Colors.white,
                             fontSize:
                                 MediaQuery.of(context).size.height * 0.01 +
-                                    MediaQuery.of(context).size.width * 0.01),
+                                    MediaQuery.of(context).size.width * 0.02),
                       ),
                     ],
                   ),
@@ -169,7 +170,7 @@ class _TenSplitState extends State<TenSplit> {
                             children: [
                               SizedBox(
                                 height:
-                                    MediaQuery.of(context).size.height * 0.01,
+                                    MediaQuery.of(context).size.height * 0.015,
                               ),
                               Padding(
                                 padding: EdgeInsets.only(
@@ -190,22 +191,18 @@ class _TenSplitState extends State<TenSplit> {
                                           fontSize: MediaQuery.of(context)
                                                       .size
                                                       .height *
-                                                  0.0075 +
+                                                  0.02 +
                                               MediaQuery.of(context)
                                                       .size
                                                       .width *
-                                                  0.02),
+                                                  0.015),
                                     ),
                                     Container(
                                       padding: EdgeInsets.all(
-                                          MediaQuery.of(context).size.height *
-                                              0.009),
+                                          MediaQuery.of(context).size.width *
+                                              0.02),
                                       decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(
-                                              MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.025),
+                                          borderRadius: BorderRadius.circular(10),
                                           border: Border.all(
                                             color: selectedSplit == 1
                                                 ? Theme.of(context).focusColor
@@ -228,7 +225,7 @@ class _TenSplitState extends State<TenSplit> {
                                             fontSize: MediaQuery.of(context)
                                                         .size
                                                         .height *
-                                                    0.01 +
+                                                    0.0125 +
                                                 MediaQuery.of(context)
                                                         .size
                                                         .width *
@@ -251,7 +248,7 @@ class _TenSplitState extends State<TenSplit> {
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                0.01 +
+                                                0.0125 +
                                             MediaQuery.of(context).size.width *
                                                 0.001),
                                   ),
@@ -270,7 +267,7 @@ class _TenSplitState extends State<TenSplit> {
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                0.01 +
+                                                0.0125 +
                                             MediaQuery.of(context).size.width *
                                                 0.001),
                                   ),
@@ -309,7 +306,7 @@ class _TenSplitState extends State<TenSplit> {
                             children: [
                               SizedBox(
                                 height:
-                                    MediaQuery.of(context).size.height * 0.01,
+                                    MediaQuery.of(context).size.height * 0.02,
                               ),
                               Row(
                                 children: [
@@ -324,7 +321,7 @@ class _TenSplitState extends State<TenSplit> {
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                0.01 +
+                                                0.015 +
                                             MediaQuery.of(context).size.width *
                                                 0.02),
                                   ),
@@ -347,7 +344,7 @@ class _TenSplitState extends State<TenSplit> {
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                0.01 +
+                                                0.0125 +
                                             MediaQuery.of(context).size.width *
                                                 0.001),
                                   ),
@@ -366,7 +363,7 @@ class _TenSplitState extends State<TenSplit> {
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                0.01 +
+                                                0.0125 +
                                             MediaQuery.of(context).size.width *
                                                 0.001),
                                   ),
@@ -405,7 +402,7 @@ class _TenSplitState extends State<TenSplit> {
                             children: [
                               SizedBox(
                                 height:
-                                    MediaQuery.of(context).size.height * 0.01,
+                                    MediaQuery.of(context).size.height * 0.02,
                               ),
                               Row(
                                 children: [
@@ -420,7 +417,7 @@ class _TenSplitState extends State<TenSplit> {
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                0.01 +
+                                                0.015 +
                                             MediaQuery.of(context).size.width *
                                                 0.02),
                                   ),
@@ -443,7 +440,7 @@ class _TenSplitState extends State<TenSplit> {
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                0.01 +
+                                                0.0125 +
                                             MediaQuery.of(context).size.width *
                                                 0.001),
                                   ),
@@ -462,7 +459,7 @@ class _TenSplitState extends State<TenSplit> {
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                0.01 +
+                                                0.0125 +
                                             MediaQuery.of(context).size.width *
                                                 0.001),
                                   ),
@@ -501,7 +498,7 @@ class _TenSplitState extends State<TenSplit> {
                             children: [
                               SizedBox(
                                 height:
-                                    MediaQuery.of(context).size.height * 0.01,
+                                    MediaQuery.of(context).size.height * 0.02,
                               ),
                               Row(
                                 children: [
@@ -516,7 +513,7 @@ class _TenSplitState extends State<TenSplit> {
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                0.01 +
+                                                0.015 +
                                             MediaQuery.of(context).size.width *
                                                 0.02),
                                   ),
@@ -539,7 +536,7 @@ class _TenSplitState extends State<TenSplit> {
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                0.01 +
+                                                0.0125 +
                                             MediaQuery.of(context).size.width *
                                                 0.001),
                                   ),
@@ -558,7 +555,7 @@ class _TenSplitState extends State<TenSplit> {
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                0.01 +
+                                                0.0125 +
                                             MediaQuery.of(context).size.width *
                                                 0.001),
                                   ),
@@ -603,7 +600,7 @@ class _TenSplitState extends State<TenSplit> {
                           style: TextStyle(
                               color: Theme.of(context).focusColor,
                               fontSize:
-                                  MediaQuery.of(context).size.height * 0.02),
+                                  MediaQuery.of(context).size.height * 0.025),
                         ),
                       ],
                     ),

@@ -128,9 +128,10 @@ class _ThirteenEquipmentState extends State<ThirteenEquipment> {
                       },
                       child: Text(
                         'Skip',
-                        style: TextStyle(color: Theme.of(context).focusColor),
+                        style: TextStyle(color: Theme.of(context).focusColor, fontSize: MediaQuery.of(context).size.width * 0.035),
                       ),
                     ),
+                    SizedBox(width: MediaQuery.of(context).size.width * 0.02)
                   ],
                 ),
                 SizedBox(
@@ -188,16 +189,16 @@ class _ThirteenEquipmentState extends State<ThirteenEquipment> {
                         'Make changes if',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: MediaQuery.of(context).size.height * 0.007 +
-                              MediaQuery.of(context).size.width * 0.01,
+                          fontSize: MediaQuery.of(context).size.height * 0.01 +
+                              MediaQuery.of(context).size.width * 0.02,
                         ),
                       ),
                       Text(
                         'neccessary',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: MediaQuery.of(context).size.height * 0.007 +
-                              MediaQuery.of(context).size.width * 0.01,
+                          fontSize: MediaQuery.of(context).size.height * 0.01 +
+                              MediaQuery.of(context).size.width * 0.02,
                         ),
                       ),
                     ],
@@ -256,7 +257,7 @@ class _ThirteenEquipmentState extends State<ThirteenEquipment> {
                                             fontSize: MediaQuery.of(context)
                                                     .size
                                                     .width *
-                                                0.02,
+                                                0.03,
                                             fontWeight: FontWeight.w100)),
                                   ),
                                   SizedBox(
@@ -408,7 +409,7 @@ class _ThirteenEquipmentState extends State<ThirteenEquipment> {
                           style: TextStyle(
                               color: Theme.of(context).focusColor,
                               fontSize:
-                                  MediaQuery.of(context).size.height * 0.02),
+                                  MediaQuery.of(context).size.height * 0.025),
                         ),
                       ],
                     ),

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
 
-class CaloriesWidget extends StatefulWidget {
-  const CaloriesWidget({super.key});
+class MacrosWidget extends StatefulWidget {
+  const MacrosWidget({super.key});
 
   @override
-  State<CaloriesWidget> createState() => _CaloriesWidgetState();
+  State<MacrosWidget> createState() => _MacrosWidgetState();
 }
 
-class _CaloriesWidgetState extends State<CaloriesWidget> {
+class _MacrosWidgetState extends State<MacrosWidget> {
   int averageKcal = 2500;
   int targetKcal = 3000;
   List<List<dynamic>> macroPercentages = [
@@ -20,12 +20,13 @@ class _CaloriesWidgetState extends State<CaloriesWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.3,
+      height: MediaQuery.of(context).size.height * 0.1 + MediaQuery.of(context).size.width * 0.3,
       width: MediaQuery.of(context).size.width * global.containerWidthFactor,
       padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.05),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.background,
         borderRadius: BorderRadius.circular(20),
+        boxShadow: [global.darkShadow(context)]
       ),
       child: Column(
         children: [
@@ -144,7 +145,7 @@ class MacroTile extends StatelessWidget {
                   ],
                 ),
                 Transform.scale(
-                  scale: 2.75,
+                  scale: MediaQuery.of(context).size.width * 0.004,
                   child: CircularProgressIndicator(
                     value: percentage / 100,
                   ),
