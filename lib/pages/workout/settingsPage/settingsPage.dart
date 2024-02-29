@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
 
-class settingsPage extends StatelessWidget {
-  settingsPage({super.key});
+class SettingsPage extends StatelessWidget {
+  SettingsPage({super.key});
 
-  List<String> sections = [
+  final List<String> sections = [
     "Theme",
     "Notifications",
     "Rate the app",
@@ -16,7 +16,7 @@ class settingsPage extends StatelessWidget {
     "Logout"
   ];
 
-  List<IconData> sectionIcons = [
+  final List<IconData> sectionIcons = [
     // Theme
     Icons.color_lens_outlined,
     // Notifacitons

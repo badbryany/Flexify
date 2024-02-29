@@ -227,23 +227,22 @@ class DashboardLeaderboardsState extends State<DashboardLeaderboards> {
                         vertical: 5,
                       ),
                       decoration: BoxDecoration(
-                        borderRadius:
-                            BorderRadius.circular(global.borderRadius),
-                        boxShadow: [global.lightShadow(context)],
-                        color: selectedStatIndex == e[0]
-                            ? Colors.red
-                            : Theme.of(context).colorScheme.background,
-                        gradient: selectedStatIndex == e[0]
-                            ? LinearGradient(
-                                colors: [
-                                  Theme.of(context).colorScheme.primary,
-                                  Theme.of(context).colorScheme.onPrimary,
-                                ],
-                                begin: Alignment.bottomLeft,
-                                end: Alignment.topRight,
-                              )
-                            : null,
-                      ),
+                          borderRadius:
+                              BorderRadius.circular(global.borderRadius),
+                          boxShadow: [global.lightShadow(context)],
+                          gradient: LinearGradient(
+                            colors: selectedStatIndex == e[0]
+                                ? [
+                                    Theme.of(context).colorScheme.primary,
+                                    Theme.of(context).colorScheme.onPrimary,
+                                  ]
+                                : [
+                                    Theme.of(context).colorScheme.background,
+                                    Theme.of(context).colorScheme.background,
+                                  ],
+                            begin: Alignment.bottomLeft,
+                            end: Alignment.topRight,
+                          )),
                       child: Text(
                         e[1],
                         style: TextStyle(
