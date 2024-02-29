@@ -17,7 +17,7 @@ class DashboardFoodState extends State<DashboardFood> {
   double maxCalories = 2000;
   double eatenCalories = 2000;
 
-  List<Map<String, dynamic>> meals = [];
+  List<Map<String, dynamic>> meal = [];
 
   @override
   Widget build(BuildContext context) {
@@ -150,9 +150,7 @@ class DashboardFoodState extends State<DashboardFood> {
                           Navigator.push(
                             context,
                             PageTransition(
-                              child: AddMeal(
-                                meals: meals,
-                              ),
+                              child: AddMeal(meal: meal,),
                               type: PageTransitionType.fade,
                             ),
                           );
@@ -161,7 +159,7 @@ class DashboardFoodState extends State<DashboardFood> {
                     )
                   ],
                 ),
-                ...meals.map(
+                ...meal.map(
                   (e) => Column(
                     children: [
                       Container(
@@ -178,7 +176,7 @@ class DashboardFoodState extends State<DashboardFood> {
                         ),
                       ),
                       SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.5,
+                        height: MediaQuery.of(context).size.height * 0.03,
                         child: ListView.builder(
                           itemCount: e['meal.list'].length,
                           itemBuilder: (context, index) => Text(
@@ -200,4 +198,3 @@ class DashboardFoodState extends State<DashboardFood> {
     );
   }
 }
-
