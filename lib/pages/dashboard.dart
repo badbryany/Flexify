@@ -3,7 +3,6 @@ import 'package:flexify/pages/leaderboards/dashboardLeaderboards.dart';
 import 'package:flexify/pages/profile/dashboardProfile.dart';
 import 'package:flexify/pages/workout/settingsPage/settingsPage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
 
@@ -50,7 +49,7 @@ class _DashboardState extends State<Dashboard> {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
         systemNavigationBarColor: Theme.of(context).colorScheme.background,
-        systemNavigationBarIconBrightness: Brightness.dark,
+        systemNavigationBarIconBrightness: Theme.of(context).brightness,
       ),
     );
     return PopScope(
@@ -77,16 +76,18 @@ class _DashboardState extends State<Dashboard> {
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.05,
                       ),
-                      SvgPicture.asset(
-                        'assets/logo/Light Logo.svg',
-                        width: MediaQuery.of(context).size.width * 0.1,
-                        height: MediaQuery.of(context).size.width * 0.1,
+                      Image.asset(
+                        global.isDarkMode(context)
+                            ? 'assets/logo/darklogo.png'
+                            : 'assets/logo/lightlogo.png',
+                        width: MediaQuery.of(context).size.width * 0.11,
+                        height: MediaQuery.of(context).size.width * 0.11,
                       ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.1,
                       ),
                       Text(
-                        "Flexify",
+                        'Flexify',
                         style: TextStyle(
                           color: Theme.of(context).focusColor,
                           fontWeight: FontWeight.bold,
@@ -102,7 +103,7 @@ class _DashboardState extends State<Dashboard> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => settingsPage(),
+                              builder: (context) => SettingsPage(),
                             ),
                           );
                         },

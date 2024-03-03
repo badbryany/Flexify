@@ -136,8 +136,11 @@ class _AddEditSetState extends State<AddEditSet> {
                               Set(
                                 date: DateTime.now(),
                                 exerciseName: widget.exerciseName,
-                                reps: int.parse(repsController.text),
-                                weight: double.tryParse(weightController.text)!,
+                                reps: int.parse(
+                                    repsController.text.replaceAll(',', '.')),
+                                weight: double.tryParse(
+                                  weightController.text.replaceAll(',', '.'),
+                                )!,
                               ),
                               null,
                             );

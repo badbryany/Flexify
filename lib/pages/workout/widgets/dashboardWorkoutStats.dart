@@ -47,6 +47,7 @@ class _DashboardWorkoutStatsState extends State<DashboardWorkoutStats> {
         selectedIntesity = i;
         break;
       }
+      initial = false;
       await Future.delayed(const Duration(milliseconds: 125));
       setState(() {});
     }
@@ -210,11 +211,11 @@ class _DashboardWorkoutStatsState extends State<DashboardWorkoutStats> {
               GestureDetector(
                 onTap: () {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const workoutStatsPage(),
-                      ),
-                    );
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const workoutStatsPage(),
+                    ),
+                  );
                 },
                 child: Container(
                   decoration: BoxDecoration(

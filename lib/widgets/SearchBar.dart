@@ -236,12 +236,11 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                       },
 
                       ///suffixIcon is of type Icon
-                      child: widget.suffixIcon ??
-                          Icon(
-                            Icons.close,
-                            size: 20,
-                            color: Theme.of(context).colorScheme.onBackground,
-                          ),
+                      child: Icon(
+                        Icons.close,
+                        size: 20,
+                        color: Theme.of(context).colorScheme.onBackground,
+                      ),
                     ),
                   ),
                 ),
@@ -284,13 +283,15 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                         ),
                     cursorColor: Theme.of(context).focusColor,
                     decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.only(bottom: 5),
+                      contentPadding: EdgeInsets.only(
+                        top: global.height(context) * .01235,
+                      ),
                       isDense: true,
                       floatingLabelBehavior: FloatingLabelBehavior.never,
                       hintText: widget.helpText,
                       hintStyle: TextStyle(
-                        color: widget.hintTextColor,
-                        fontSize: 17.0,
+                        color: Theme.of(context).colorScheme.onBackground,
+                        fontSize: global.width(context) * .045,
                         fontWeight: FontWeight.w500,
                       ),
                       alignLabelWithHint: true,
@@ -325,7 +326,7 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                           icon: Center(
                             child: Icon(
                               Icons.add,
-                              color: widget.prefixIconColor,
+                              color: Theme.of(context).colorScheme.onBackground,
                               size: MediaQuery.of(context).size.width * 0.05,
                             ),
                           ),

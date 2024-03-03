@@ -169,7 +169,9 @@ class Leaderboard extends StatelessWidget {
         padding: const EdgeInsets.all(10),
         margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 0),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.background,
+          color: global.isDarkMode(context)
+              ? Theme.of(context).colorScheme.background.withOpacity(.3)
+              : Theme.of(context).colorScheme.background,
           borderRadius: BorderRadius.circular(global.borderRadius - 15),
         ),
         child: Row(
@@ -279,7 +281,9 @@ class Leaderboard extends StatelessWidget {
       padding: EdgeInsets.all(global.containerPadding - 10),
       margin: const EdgeInsets.only(top: 20),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.background.withOpacity(.3),
+        color: global.isDarkMode(context)
+            ? Theme.of(context).colorScheme.background.withOpacity(.3)
+            : Theme.of(context).colorScheme.background,
         borderRadius: BorderRadius.circular(global.borderRadius),
       ),
       child: Column(

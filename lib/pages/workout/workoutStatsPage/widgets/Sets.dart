@@ -240,11 +240,11 @@ class _SetsWidgetState extends State<SetsWidget> {
 }
 
 class SetsTile extends StatelessWidget {
-  final DateTime date;
-
   SetsTile({super.key, required this.date});
 
-  int numberOfSets = 0 + Random().nextInt(30 - 0 + 1);
+  final DateTime date;
+
+  final int numberOfSets = 0 + Random().nextInt(30 - 0 + 1);
 
   int getNumberOfSets() {
     return numberOfSets;

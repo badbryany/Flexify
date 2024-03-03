@@ -58,12 +58,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
-        systemNavigationBarColor: Theme.of(context).colorScheme.background,
-        systemNavigationBarIconBrightness: Brightness.dark,
-      ),
-    );
     return MaterialApp(
       builder: (BuildContext context, Widget? child) {
         return MediaQuery(
@@ -97,7 +91,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       darkTheme: ThemeData(
-        fontFamily: 'JosefinSans',
+        fontFamily: 'KronaOne',
         focusColor: Colors.white,
         scaffoldBackgroundColor: const Color.fromARGB(255, 17, 17, 17),
         canvasColor: const Color.fromARGB(255, 23, 23, 23),
