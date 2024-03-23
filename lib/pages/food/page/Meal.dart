@@ -1,43 +1,27 @@
+import 'package:flexify/pages/food/page/AddMeal.dart';
 import 'package:flutter/material.dart';
+import 'package:flexify/data/globalVariables.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
-import 'package:flexify/pages/food/widget/button.dart';
-import 'package:flexify/pages/food/widget/input.dart';
+import 'package:page_transition/page_transition.dart';
 
-class AddMeal extends StatefulWidget {
-  const AddMeal({
+class Meal extends StatefulWidget {
+  const Meal({
     super.key,
+    required this.title,
     required this.meal,
   });
+  final String title;
   final List<Map<String, dynamic>> meal;
 
   @override
-  State<AddMeal> createState() => _AddMealState();
+  State<Meal> createState() => _MealState();
 }
 
-class _AddMealState extends State<AddMeal> {
+class _MealState extends State<Meal> {
   TextEditingController newMeal = TextEditingController();
-  Color borderColorBreakfast = Colors.transparent;
-  Color borderColorLunch = Colors.transparent;
-  Color borderColorDinner = Colors.transparent;
-  String mealTimeString = '';
 
   @override
   Widget build(BuildContext context) {
-    List<Map<String, dynamic>> mealTime = [
-      {
-        'meal.time': 'Breakfast',
-        'border.color': borderColorBreakfast,
-      },
-      {
-        'meal.time': 'Lunch',
-        'border.color': borderColorLunch,
-      },
-      {
-        'meal.time': 'Dinner',
-        'border.color': borderColorDinner,
-      },
-    ];
-
     return Scaffold(
       body: SafeArea(
         child: SizedBox(
@@ -79,7 +63,7 @@ class _AddMealState extends State<AddMeal> {
                         top: 10,
                       ),
                       child: Text(
-                        'Add Meal',
+                        'Add ${widget.title}',
                         style: TextStyle(
                           color: Theme.of(context).focusColor,
                           fontSize: MediaQuery.of(context).size.width * 0.08,
@@ -87,7 +71,7 @@ class _AddMealState extends State<AddMeal> {
                         ),
                       ),
                     ),
-// BACK BUTTON
+// ADD BUTTON
                     Container(
                       alignment: Alignment.center,
                       padding: EdgeInsets.all(
@@ -101,76 +85,36 @@ class _AddMealState extends State<AddMeal> {
                       ),
                       child: IconButton(
                         onPressed: () {
-                          if (newMeal.text != '' && mealTimeString != '') {
-                            widget.meal.add(
-                              {
-                                'meal': mealTimeString,
-                                'meal.list': newMeal.text,
-                              },
-                            );
-                            Navigator.pop(context);
-                          }
-                          setState(() {});
+                          Navigator.of(context).push(
+                            PageTransition(
+                              child: AddMeal(
+                                meal: widget.meal,
+                              ),
+                              type: PageTransitionType.fade,
+                            ),
+                          );
                         },
                         color: Theme.of(context).colorScheme.onBackground,
-                        icon: const Icon(Icons.check_rounded),
+                        icon: const Icon(Icons.add),
                         iconSize: MediaQuery.of(context).size.width * 0.065,
                       ),
                     ),
                   ],
                 ),
               ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.05),
 // BODY
-              Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-// MAP MEAL TIME
-                      ...mealTime.map(
-                        (e) => ButtonWithText(
-                          text: e['meal.time'],
-                          borderColor: e['border.color'],
-                          onTap: () {
-                            if (e['meal.time'] == 'Breakfast') {
-                              borderColorBreakfast =
-                                  Theme.of(context).colorScheme.primary;
-                              borderColorLunch = Colors.transparent;
-                              borderColorDinner = Colors.transparent;
-                              mealTimeString = 'Breakfast';
-                            }
-                            if (e['meal.time'] == 'Lunch') {
-                              borderColorBreakfast = Colors.transparent;
-                              borderColorLunch =
-                                  Theme.of(context).colorScheme.primary;
-                              borderColorDinner = Colors.transparent;
-                              mealTimeString = 'Lunch';
-                            }
-                            if (e['meal.time'] == 'Dinner') {
-                              borderColorBreakfast = Colors.transparent;
-                              borderColorLunch = Colors.transparent;
-                              borderColorDinner =
-                                  Theme.of(context).colorScheme.primary;
-                              mealTimeString = 'Dinner';
-                            }
-                            setState(() {});
-                          },
-                        ),
-                      ),
-                    ],
+              SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+              ...widget.meal.map(
+                (e) => Container(
+                  padding: EdgeInsets.all(containerPadding * 0.5),
+                  width: MediaQuery.of(context).size.width * 0.2,
+                  height: MediaQuery.of(context).size.height * 0.5,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(borderRadius),
+                    color: Theme.of(context).colorScheme.background,
                   ),
-// SEARCH BAR
-                  Container(
-                    alignment: Alignment.center,
-                    height: MediaQuery.of(context).size.height * 0.2,
-                    child: Input(
-                      hintText: 'Search For New Meal',
-                      textInputType: TextInputType.text,
-                      controller: newMeal,
-                    ),
-                  )
-                ],
+                  child: Text(e['meal']),
+                ),
               ),
             ],
           ),
