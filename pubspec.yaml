@@ -14,7 +14,6 @@ dependencies:
   google_nav_bar: ^5.0.6
   page_transition: "^2.1.0"
   fl_chart: ^0.65.0
-  flutter_launcher_icons: ^0.13.1
   sqflite: ^2.3.0
   path_provider: ^2.1.1
   path: ^1.8.3
@@ -29,12 +28,13 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.13.1
   flutter_lints: ^2.0.0
 
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/logo/Light Logo.png"
+  image_path: "assets/logo/darklogo.png"
 
 flutter:
   uses-material-design: true
