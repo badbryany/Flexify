@@ -55,7 +55,7 @@ class _ChooseState extends State<Choose> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Image.asset(
-                  'assets/img/logo.png',
+                  'assets/logo/darklogo.png',
                   width: MediaQuery.of(context).size.width * 0.25,
                   height: MediaQuery.of(context).size.width * 0.25,
                 ),

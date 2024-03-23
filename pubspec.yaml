@@ -52,6 +52,10 @@ flutter:
         - asset: ./assets/fonts/Sacramento-Regular.ttf
   assets:
     - assets/
+
+    - assets/img/
+    - assets/icon/
+
     - assets/logo/Dark Logo.svg
     - assets/logo/Light Logo.svg
     - assets/logo/darklogo.png
