@@ -1,3 +1,4 @@
+import 'package:flexify/SignInSignUp/uploadProfilePicture.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/SignInSignUp/signInNew.dart';
 import 'package:flexify/SignInSignUp/widgets/LoadingButton.dart';
@@ -5,7 +6,6 @@ import 'package:flexify/data/exerciseModels.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flexify/pages/dashboard.dart';
 import 'package:http/http.dart' as http;
 
 class SignUpNew extends StatefulWidget {
@@ -195,6 +195,7 @@ class _SignUpNewState extends State<SignUpNew> {
                           );
                           print(res.body);
                           if (res.body == 'username already taken') {
+                            loading = false;
                             errorText = res.body;
                             setState(() {});
                             return;
@@ -214,8 +215,8 @@ class _SignUpNewState extends State<SignUpNew> {
 
                           Navigator.of(context).push(
                             PageTransition(
-                              child: const Dashboard(),
-                              type: PageTransitionType.fade,
+                              child: const UploadProfilePicture(),
+                              type: PageTransitionType.rightToLeft,
                             ),
                           );
                           return;

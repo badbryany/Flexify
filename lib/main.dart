@@ -5,10 +5,13 @@ import 'package:flexify/pages/dashboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:flexify/data/globalVariables.dart' as global;
-import 'package:flutter/services.dart';
 
 checkLogin() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
+
+  // prefs.setString('username', '');
+  // prefs.setString('password', '');
+
   if (prefs.getString('username') == null ||
       prefs.getString('username') == '' ||
       prefs.getString('password') == null ||
@@ -73,6 +76,7 @@ class MyApp extends StatelessWidget {
         focusColor: Colors.black,
         scaffoldBackgroundColor: Colors.white,
         canvasColor: const Color.fromARGB(255, 23, 23, 23),
+        brightness: Brightness.light,
         colorScheme: const ColorScheme(
           brightness: Brightness.light,
           primary: Color(0xffa4fba4),
@@ -95,6 +99,7 @@ class MyApp extends StatelessWidget {
         focusColor: Colors.white,
         scaffoldBackgroundColor: const Color.fromARGB(255, 17, 17, 17),
         canvasColor: const Color.fromARGB(255, 23, 23, 23),
+        brightness: Brightness.dark,
         colorScheme: const ColorScheme(
           brightness: Brightness.dark,
           primary: Color(0xffa4fba4),
