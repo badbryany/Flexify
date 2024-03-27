@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:ui';
 
 import 'package:flexify/data/exerciseModels.dart';
+import 'package:flexify/widgets/LoadingImage.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
 import 'package:flutter_svg/flutter_svg.dart';
@@ -19,7 +21,7 @@ class _PersonalElementState extends State<PersonalElement> {
   int friends = -1;
   int streak = -1;
 
-  bool isPremium = true;
+  bool isPremium = false;
 
   DateTime joinDate = DateTime.now();
 
@@ -105,11 +107,54 @@ class _PersonalElementState extends State<PersonalElement> {
         children: [
           Row(
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(1000),
-                child: Image.network(
-                  'https://pbs.twimg.com/media/FaUuKhkWYAA3u5c.jpg',
-                  width: MediaQuery.of(context).size.height * 0.075,
+              SizedBox(
+                width: global.width(context) * .18,
+                height: global.width(context) * .18,
+                child: Stack(
+                  children: [
+                    Center(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.background,
+                          borderRadius: BorderRadius.circular(1000),
+                        ),
+                      ),
+                    ),
+                    Center(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(1000),
+                        child: AnimatedScale(
+                          duration: global.standardAnimationDuration,
+                          scale: 2,
+                          child: ImageFiltered(
+                            imageFilter: ImageFilter.blur(
+                              sigmaX: 30,
+                              sigmaY: 30,
+                            ),
+                            child: LoadingImage(
+                              url:
+                                  '${global.host}/getProfilePicture?username=$username',
+                              width: global.width(context) * .2,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Center(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(1000),
+                        child: Stack(
+                          children: [
+                            LoadingImage(
+                              url:
+                                  '${global.host}/getProfilePicture?username=$username',
+                              width: global.width(context) * .2,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               SizedBox(width: global.width(context) * 0.05),

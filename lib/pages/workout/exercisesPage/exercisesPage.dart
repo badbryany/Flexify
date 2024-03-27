@@ -98,6 +98,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
       setState(() {});
       return;
     }
+    connectedToInternet = true;
 
     String url = '${global.host}/searchExercises';
     String searchString = _controller.text;
