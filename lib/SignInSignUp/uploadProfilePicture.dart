@@ -115,7 +115,7 @@ class UploadStateProfilePicture extends State<UploadProfilePicture> {
                     margin: const EdgeInsets.only(bottom: 20),
                     width: global.width(context),
                     child: Text(
-                      'Your profile picture',
+                      'Add a picture',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: MediaQuery.of(context).size.width * 0.1,

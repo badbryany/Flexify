@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flexify/pages/food/dashboardFood.dart';
 import 'package:flexify/pages/leaderboards/dashboardLeaderboards.dart';
 import 'package:flexify/pages/profile/dashboardProfile.dart';
@@ -5,9 +7,11 @@ import 'package:flexify/pages/workout/settingsPage/settingsPage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
+import 'package:http/http.dart' as http;
 
 import 'package:flexify/pages/workout/dashboardWorkout.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -18,6 +22,7 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   int _selectedIndex = 0;
+  bool gotRequests = false;
 
   final List<dynamic> dashboardOptions = [
     {
@@ -42,10 +47,21 @@ class _DashboardState extends State<Dashboard> {
     },
   ];
 
-  Duration duration = const Duration(milliseconds: 250);
+  getData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    http.Response res = await http.get(Uri.parse(
+        '${global.host}/getFriendshipRequests?jwt=${prefs.getString('jwt')}'));
+
+    if ((jsonDecode(res.body) as List).isNotEmpty) {
+      gotRequests = true;
+      setState(() {});
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    getData();
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
         systemNavigationBarColor: Theme.of(context).colorScheme.background,
@@ -120,7 +136,7 @@ class _DashboardState extends State<Dashboard> {
                   ),
                 ),
                 AnimatedSwitcher(
-                  duration: duration,
+                  duration: global.standardAnimationDuration,
                   child: SizedBox(
                     key: ValueKey(_selectedIndex),
                     child: dashboardOptions[_selectedIndex]['widget'],
@@ -160,19 +176,37 @@ class _DashboardState extends State<Dashboard> {
             gap: 10,
             tabs: dashboardOptions
                 .map(
-                  (e) => GButton(
-                    icon: e['icon'],
-                    text: e['title'],
-                    padding: const EdgeInsets.all(15),
-                    iconColor: Theme.of(context).colorScheme.onBackground,
-                    iconActiveColor: Theme.of(context).focusColor,
-                  ),
+                  (e) => e['title'] == 'Profile'
+                      ? GButton(
+                          icon: e['icon'],
+                          text: e['title'],
+                          padding: const EdgeInsets.all(15),
+                          textStyle: gotRequests
+                              ? TextStyle(
+                                  color: Theme.of(context).colorScheme.primary,
+                                )
+                              : null,
+                          iconColor: gotRequests
+                              ? Theme.of(context).colorScheme.primary
+                              : Theme.of(context).colorScheme.onBackground,
+                          iconActiveColor: gotRequests
+                              ? Theme.of(context).colorScheme.primary
+                              : Theme.of(context).colorScheme.onBackground,
+                        )
+                      : GButton(
+                          icon: e['icon'],
+                          text: e['title'],
+                          padding: const EdgeInsets.all(15),
+                          iconColor: Theme.of(context).colorScheme.onBackground,
+                          iconActiveColor:
+                              Theme.of(context).colorScheme.onBackground,
+                        ),
                 )
                 .toList(),
 
             // FUNCTIONALITY
             selectedIndex: _selectedIndex,
-            duration: duration,
+            duration: global.standardAnimationDuration,
             onTabChange: (index) => setState(() {
               _selectedIndex = index;
             }),
