@@ -99,7 +99,7 @@ class _PersonalElementState extends State<PersonalElement> {
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.background,
         borderRadius: BorderRadius.circular(global.borderRadius),
-        boxShadow: [global.darkShadow(context)],
+        boxShadow: [global.lightShadow(context)],
       ),
       width: global.width(context) * global.containerWidthFactor,
       child: Row(
