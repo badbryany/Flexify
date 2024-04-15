@@ -8,7 +8,6 @@ import 'package:flexify/widgets/DeleteAlertBox.dart';
 import 'package:flexify/widgets/LoadingImage.dart';
 import 'package:flexify/widgets/SearchBar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -34,7 +33,17 @@ class _AddFriendsState extends State<AddFriends> {
   List<dynamic> openRequests = [];
   List<List<String>> searchUsers = [];
 
+  Widget loadingWidget(double size) => Center(
+        child: SizedBox(
+          width: global.width(context) * .09 * size,
+          height: global.width(context) * .09 * size,
+          child: CircularProgressIndicator(strokeWidth: 4 * size),
+        ),
+      );
+
   List<Widget> friendsWidgets(BuildContext context) {
+    if (!loadingDone) return [loadingWidget(.75)];
+
     List<Widget> returnWidgets = [];
     if (friends.isEmpty) {
       return [
@@ -160,6 +169,8 @@ class _AddFriendsState extends State<AddFriends> {
   }
 
   List<Widget> openRequestsWidgets(BuildContext context) {
+    if (!loadingDone) return [loadingWidget(.75)];
+
     List<Widget> returnWidgets = [];
 
     if (openRequests.isEmpty) {
@@ -555,13 +566,32 @@ class _AddFriendsState extends State<AddFriends> {
                                       ),
                                     )
                                   ]
-                                : searchUsers.map(
-                                    (e) => UserWidget(
-                                      username: e[0],
-                                      firstname: e[1],
-                                      friends: friends,
-                                    ),
-                                  ))
+                                : (searchUsers.isNotEmpty
+                                    ? searchUsers.map(
+                                        (e) => UserWidget(
+                                          username: e[0],
+                                          firstname: e[1],
+                                          friends: friends,
+                                        ),
+                                      )
+                                    : [
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                            top: global.height(context) * .05,
+                                          ),
+                                          child: Text(
+                                            'no users with the name "${_controller.text}"',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .onBackground,
+                                              fontSize:
+                                                  global.width(context) * .04,
+                                            ),
+                                          ),
+                                        )
+                                      ]))
                             : [
                                 Center(
                                   child: Text(
@@ -614,7 +644,7 @@ class _AddFriendsState extends State<AddFriends> {
               ],
             ),
             Visibility(
-              visible: !loadingDone,
+              visible: false,
               child: Container(
                 width: global.width(context),
                 height: global.height(context),
