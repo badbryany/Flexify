@@ -157,6 +157,9 @@ class _AnimSearchBarState extends State<AnimSearchBar>
       ///if the rtl is true, search bar will be from right to left
       alignment:
           widget.rtl ? Alignment.centerRight : const Alignment(-1.0, 0.0),
+      decoration: BoxDecoration(
+        boxShadow: [global.lightShadow(context)],
+      ),
 
       ///Using Animated container to expand and shrink the widget
       child: AnimatedContainer(

@@ -504,6 +504,7 @@ class _AddFriendsState extends State<AddFriends> {
                           width: MediaQuery.of(context).size.width * 0.15,
                           height: MediaQuery.of(context).size.width * 0.15,
                           decoration: BoxDecoration(
+                            boxShadow: [global.darkShadow(context)],
                             color: Theme.of(context).colorScheme.background,
                             borderRadius: BorderRadius.circular(100),
                           ),
@@ -707,6 +708,7 @@ class _UserWidgetState extends State<UserWidget> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(global.borderRadius),
         color: Theme.of(context).colorScheme.background,
+        boxShadow: [global.darkShadow(context)],
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
