@@ -49,7 +49,7 @@ class _DashboardProfileState extends State<DashboardProfile> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Icon(Icons.person_add_rounded),
+                          const Icon(Icons.person_add_rounded),
                           Text(
                             'add friends',
                             style: TextStyle(

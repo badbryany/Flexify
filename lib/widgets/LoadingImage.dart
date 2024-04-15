@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
@@ -17,24 +18,80 @@ class LoadingImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return path != null
-        ? Image.file(
-            width: global.width(context) * .2,
-            height: global.width(context) * .2,
-            File(path!),
-          )
-        : Image.network(
-            url,
-            loadingBuilder: (context, child, loadingProgress) {
-              if (loadingProgress == null) return child;
+    return SizedBox(
+      width: width,
+      height: width,
+      child: Stack(
+        children: [
+          Center(
+            child: Container(
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.background,
+                borderRadius: BorderRadius.circular(1000),
+              ),
+            ),
+          ),
+          Center(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(1000),
+              child: AnimatedScale(
+                duration: global.standardAnimationDuration,
+                scale: 2,
+                child: ImageFiltered(
+                  imageFilter: ImageFilter.blur(
+                    sigmaX: 30,
+                    sigmaY: 30,
+                  ),
+                  child: path != null
+                      ? Image.file(
+                          File(path!),
+                        )
+                      : Image.network(
+                          url,
+                          loadingBuilder: (context, child, loadingProgress) {
+                            if (loadingProgress == null) return child;
 
-              return SizedBox(
-                width: global.width(context) * .05,
-                height: global.width(context) * .05,
-                child: const CircularProgressIndicator(),
-              );
-            },
-            width: width,
-          );
+                            return SizedBox(
+                              width: global.width(context) * .05,
+                              height: global.width(context) * .05,
+                              child: const CircularProgressIndicator(),
+                            );
+                          },
+                          width: width,
+                        ),
+                ),
+              ),
+            ),
+          ),
+          Center(
+            child: ClipRRect(
+                borderRadius: BorderRadius.circular(1000),
+                child: path != null
+                    ? Image.file(
+                        File(path!),
+                      )
+                    : Image.network(
+                        url,
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) return child;
+
+                          return SizedBox(
+                            width: global.width(context) * .05,
+                            height: global.width(context) * .05,
+                            child: const CircularProgressIndicator(),
+                          );
+                        },
+                        width: width,
+                      )),
+          ),
+        ],
+      ),
+    );
   }
 }
+
+
+
+/* 
+
+ */

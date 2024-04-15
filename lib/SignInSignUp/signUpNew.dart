@@ -31,7 +31,7 @@ class _SignUpNewState extends State<SignUpNew> {
     },
     {
       'title': 'firstname',
-      'icon': const Icon(Icons.text_fields),
+      'icon': const Icon(Icons.person_2),
       'controller': TextEditingController(),
       'obscure': false,
     },

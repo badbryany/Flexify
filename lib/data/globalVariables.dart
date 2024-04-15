@@ -79,3 +79,20 @@ String zeroBefore(int num) {
 Color gold = const Color(0xffFFD700);
 Color silver = const Color(0xffC0C0C0);
 Color bronze = const Color(0xffD6B757);
+
+Color darken(Color color, [double amount = .1]) {
+  assert(amount >= 0 && amount <= 1);
+
+  final hsl = HSLColor.fromColor(color);
+  final hslDark = hsl.withLightness((hsl.lightness - amount).clamp(0.0, 1.0));
+
+  return hslDark.toColor();
+}
+
+Widget loadingWidget(BuildContext context, double size) => Center(
+      child: SizedBox(
+        width: width(context) * .09 * size,
+        height: width(context) * .09 * size,
+        child: CircularProgressIndicator(strokeWidth: 4 * size),
+      ),
+    );
