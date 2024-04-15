@@ -298,108 +298,114 @@ class _PersonalElementState extends State<PersonalElement> {
                     ],
                   ),
                 ),
-                ListView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  children: [
-                    AnimatedOpacity(
-                      duration: global.standardAnimationDuration,
-                      opacity: editing ? 1 : 0,
-                      child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            GestureDetector(
-                              onTap: () async => await pickImage(),
-                              child: Container(
-                                width: global.width(context) * .25,
-                                height: global.width(context) * .25,
-                                margin: const EdgeInsets.only(bottom: 20),
-                                child: Stack(
-                                  children: [
-                                    LoadingImage(
-                                      url: profilePicturePath,
-                                      path: image?.path,
-                                      width: global.width(context) * .25,
-                                    ),
-                                    Container(
-                                      alignment: Alignment.bottomRight,
-                                      child: Container(
-                                        margin: EdgeInsets.only(
-                                          bottom: global.width(context) * .035,
-                                          right: global.width(context) * .035,
-                                        ),
-                                        padding: const EdgeInsets.all(5),
-                                        decoration: BoxDecoration(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .background
-                                              .withOpacity(.9),
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                        ),
-                                        child: Icon(
-                                          Icons.edit,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onBackground,
-                                          size: global.width(context) * .04,
+                AnimatedContainer(
+                  duration: global.standardAnimationDuration,
+                  height: editing ? global.height(context) * .5 : 0,
+                  child: ListView(
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: [
+                      AnimatedOpacity(
+                        duration: global.standardAnimationDuration,
+                        opacity: editing ? 1 : 0,
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              GestureDetector(
+                                onTap: () async => await pickImage(),
+                                child: Container(
+                                  width: global.width(context) * .25,
+                                  height: global.width(context) * .25,
+                                  margin: const EdgeInsets.only(bottom: 20),
+                                  child: Stack(
+                                    children: [
+                                      LoadingImage(
+                                        url: profilePicturePath,
+                                        path: image?.path,
+                                        width: global.width(context) * .25,
+                                      ),
+                                      Container(
+                                        alignment: Alignment.bottomRight,
+                                        child: Container(
+                                          margin: EdgeInsets.only(
+                                            bottom:
+                                                global.width(context) * .035,
+                                            right: global.width(context) * .035,
+                                          ),
+                                          padding: const EdgeInsets.all(5),
+                                          decoration: BoxDecoration(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .background
+                                                .withOpacity(.9),
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
+                                          child: Icon(
+                                            Icons.edit,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onBackground,
+                                            size: global.width(context) * .04,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                            ...inputs.map(
-                              (e) => Container(
-                                width: global.width(context) * .8,
-                                margin:
-                                    const EdgeInsets.only(top: 5, bottom: 5),
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 5,
-                                  horizontal: 10,
-                                ),
-                                decoration: BoxDecoration(
-                                  color:
-                                      Theme.of(context).colorScheme.background,
-                                  borderRadius: BorderRadius.circular(
-                                      global.borderRadius - 10),
-                                ),
-                                child: TextField(
-                                  enabled: false,
-                                  obscureText: e['obscure'],
-                                  controller: e['controller'],
-                                  style: TextStyle(
+                              ...inputs.map(
+                                (e) => Container(
+                                  width: global.width(context) * .8,
+                                  margin:
+                                      const EdgeInsets.only(top: 5, bottom: 5),
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 5,
+                                    horizontal: 10,
+                                  ),
+                                  decoration: BoxDecoration(
                                     color: Theme.of(context)
                                         .colorScheme
-                                        .onBackground,
+                                        .background,
+                                    borderRadius: BorderRadius.circular(
+                                        global.borderRadius - 10),
                                   ),
-                                  decoration: InputDecoration(
-                                    prefixIcon: e['icon'],
-                                    prefixIconColor: Theme.of(context)
-                                        .colorScheme
-                                        .onBackground,
-                                    labelText: e['title'],
-                                    labelStyle: TextStyle(
+                                  child: TextField(
+                                    enabled: false,
+                                    obscureText: e['obscure'],
+                                    controller: e['controller'],
+                                    style: TextStyle(
                                       color: Theme.of(context)
                                           .colorScheme
-                                          .onBackground
-                                          .withOpacity(.3),
+                                          .onBackground,
                                     ),
-                                    border: InputBorder.none,
+                                    decoration: InputDecoration(
+                                      prefixIcon: e['icon'],
+                                      prefixIconColor: Theme.of(context)
+                                          .colorScheme
+                                          .onBackground,
+                                      labelText: e['title'],
+                                      labelStyle: TextStyle(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onBackground
+                                            .withOpacity(.3),
+                                      ),
+                                      border: InputBorder.none,
+                                    ),
+                                    cursorColor: Theme.of(context)
+                                        .colorScheme
+                                        .onBackground,
                                   ),
-                                  cursorColor: Theme.of(context)
-                                      .colorScheme
-                                      .onBackground,
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),
