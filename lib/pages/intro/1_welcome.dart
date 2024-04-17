@@ -69,7 +69,7 @@ class _OneWelcomeState extends State<OneWelcome> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => TwoGender(),
+                        builder: (context) => const TwoGender(isSettings: false,),
                       ),
                     );
                   },

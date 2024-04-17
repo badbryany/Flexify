@@ -1,11 +1,14 @@
 import 'package:flexify/pages/intro/6_birthday.dart';
+import 'package:flexify/pages/intro/widgets/IntroNavbarIcon.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
 import 'package:flutter_svg/flutter_svg.dart';
 
 class FiveBodyFat extends StatefulWidget {
   final bool isFemale;
-  const FiveBodyFat({super.key, required this.isFemale});
+  final bool isSettings;
+  const FiveBodyFat(
+      {super.key, required this.isFemale, required this.isSettings});
 
   @override
   State<FiveBodyFat> createState() => _FiveBodyFatState();
@@ -14,7 +17,7 @@ class FiveBodyFat extends StatefulWidget {
 class _FiveBodyFatState extends State<FiveBodyFat> {
   final FixedExtentScrollController fixedExtentScrollController =
       FixedExtentScrollController();
-  String selectedBodyFatPercentageRange = " ";
+  String selectedBodyFatPercentageRange = "____";
   int selected = 0;
 
   List<String> maleSelectedRange = [
@@ -61,32 +64,42 @@ class _FiveBodyFatState extends State<FiveBodyFat> {
                 ),
                 Row(
                   children: [
-                    IconButton(
-                      splashColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      color: Theme.of(context).focusColor,
-                      icon: const Icon(Icons.arrow_back_rounded),
-                      iconSize: MediaQuery.of(context).size.width * 0.04,
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.7,
-                    ),
+                    IntroNavBarIcon(),
+                    widget.isSettings
+                        ? Padding(
+                          padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.05, right:  MediaQuery.of(context).size.width * 0.075),
+                          child: Text(
+                              "Body Fat Percentage",
+                              style:
+                                  TextStyle(color: Theme.of(context).focusColor, fontSize: MediaQuery.of(context).size.width * 0.06),
+                            ),
+                        )
+                        : SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.7,
+                          ),
+                    widget.isSettings
+                        ? const SizedBox()
+                        : 
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => SixBirthday(),
-                          ),
-                        );
+                        if (widget.isSettings == false) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const SixBirthday(isSettings: false,),
+                            ),
+                          );
+                        }
+                        else {
+                          Navigator.pop(context);
+                        }
                       },
                       child: Text(
                         'Skip',
-                        style: TextStyle(color: Theme.of(context).focusColor, fontSize: MediaQuery.of(context).size.width * 0.035),
+                        style: TextStyle(
+                            color: Theme.of(context).focusColor,
+                            fontSize:
+                                MediaQuery.of(context).size.width * 0.035),
                       ),
                     ),
                     SizedBox(width: MediaQuery.of(context).size.width * 0.02)
@@ -95,35 +108,40 @@ class _FiveBodyFatState extends State<FiveBodyFat> {
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.03,
                 ),
-                Stack(
-                  alignment: Alignment.centerLeft,
-                  children: [
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.03,
-                      width: MediaQuery.of(context).size.width * 0.8,
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.background,
-                        border: Border.all(
-                            color: Theme.of(context).focusColor,
-                            width: 2,
-                            style: BorderStyle.solid),
-                        borderRadius: BorderRadius.circular(1000),
+                widget.isSettings
+                    ? SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.01,
+                      )
+                    : Stack(
+                        alignment: Alignment.centerLeft,
+                        children: [
+                          Container(
+                            height: MediaQuery.of(context).size.width * 0.045,
+                            width: MediaQuery.of(context).size.width * 0.8,
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.background,
+                              border: Border.all(
+                                  color: Theme.of(context).focusColor,
+                                  width: 2,
+                                  style: BorderStyle.solid),
+                              borderRadius: BorderRadius.circular(1000),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(
+                                MediaQuery.of(context).size.width * 0.005),
+                            child: Container(
+                              height: MediaQuery.of(context).size.width * 0.035,
+                              width: MediaQuery.of(context).size.width * 0.035,
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.primary,
+                                borderRadius: BorderRadius.circular(
+                                    MediaQuery.of(context).size.width),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(5),
-                      child: Container(
-                        height: MediaQuery.of(context).size.height * 0.0225,
-                        width: MediaQuery.of(context).size.height * 0.0325,
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.primary,
-                          borderRadius: BorderRadius.circular(
-                              MediaQuery.of(context).size.width),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.03,
                 ),
@@ -259,13 +277,16 @@ class _FiveBodyFatState extends State<FiveBodyFat> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    if (selected != 0) {
+                    if (selected != 0 && widget.isSettings == false) {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => SixBirthday(),
+                          builder: (context) => SixBirthday(isSettings: false,),
                         ),
                       );
+                    }
+                    else {
+                      Navigator.pop(context);
                     }
                   },
                   child: Container(

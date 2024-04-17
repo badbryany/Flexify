@@ -1,9 +1,11 @@
 import 'package:flexify/pages/intro/10_split.dart';
+import 'package:flexify/pages/intro/widgets/IntroNavbarIcon.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
 
 class NineDuration extends StatefulWidget {
-  const NineDuration({super.key});
+  final bool isSettings;
+  const NineDuration({super.key, required this.isSettings});
 
   @override
   State<NineDuration> createState() => _NineDurationState();
@@ -52,28 +54,35 @@ class _NineDurationState extends State<NineDuration> {
                 ),
                 Row(
                   children: [
-                    IconButton(
-                      splashColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      color: Theme.of(context).focusColor,
-                      icon: const Icon(Icons.arrow_back_rounded),
-                      iconSize: MediaQuery.of(context).size.width * 0.04,
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.7,
-                    ),
+                    const IntroNavBarIcon(),
+                    widget.isSettings
+                        ? Padding(
+                          padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.08, right:  MediaQuery.of(context).size.width * 0.13),
+                          child: Text(
+                              "Training Duration",
+                              style:
+                                  TextStyle(color: Theme.of(context).focusColor, fontSize: MediaQuery.of(context).size.width * 0.06),
+                            ),
+                        )
+                        : SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.7,
+                          ),
+                    widget.isSettings
+                        ? const SizedBox()
+                        : 
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => TenSplit(),
-                          ),
-                        );
+                        if (widget.isSettings == false) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const TenSplit(isSettings: false,),
+                            ),
+                          );
+                        }
+                        else {
+                          Navigator.pop(context);
+                        }
                       },
                       child: Text(
                         'Skip',
@@ -86,35 +95,40 @@ class _NineDurationState extends State<NineDuration> {
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.03,
                 ),
-                Stack(
-                  alignment: Alignment.centerLeft,
-                  children: [
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.03,
-                      width: MediaQuery.of(context).size.width * 0.8,
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.background,
-                        border: Border.all(
-                            color: Theme.of(context).focusColor,
-                            width: 2,
-                            style: BorderStyle.solid),
-                        borderRadius: BorderRadius.circular(1000),
+                widget.isSettings
+                    ? SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.01,
+                      )
+                    : Stack(
+                        alignment: Alignment.centerLeft,
+                        children: [
+                          Container(
+                            height: MediaQuery.of(context).size.width * 0.045,
+                            width: MediaQuery.of(context).size.width * 0.8,
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.background,
+                              border: Border.all(
+                                  color: Theme.of(context).focusColor,
+                                  width: 2,
+                                  style: BorderStyle.solid),
+                              borderRadius: BorderRadius.circular(1000),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(
+                                MediaQuery.of(context).size.width * 0.005),
+                            child: Container(
+                              height: MediaQuery.of(context).size.width * 0.035,
+                              width: MediaQuery.of(context).size.width * 0.035,
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.primary,
+                                borderRadius: BorderRadius.circular(
+                                    MediaQuery.of(context).size.width),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(5),
-                      child: Container(
-                        height: MediaQuery.of(context).size.height * 0.0225,
-                        width: MediaQuery.of(context).size.height * 0.0325,
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.primary,
-                          borderRadius: BorderRadius.circular(
-                              MediaQuery.of(context).size.width),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.03,
                 ),
@@ -254,13 +268,16 @@ class _NineDurationState extends State<NineDuration> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    if (selected != 0) {
+                    if (selected != 0 && widget.isSettings == false) {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => TenSplit(),
+                          builder: (context) => TenSplit(isSettings: false,),
                         ),
                       );
+                    }
+                    else {
+                      Navigator.pop(context);
                     }
                   },
                   child: Container(
