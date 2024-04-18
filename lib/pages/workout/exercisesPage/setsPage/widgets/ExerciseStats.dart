@@ -174,7 +174,12 @@ class _ExerciseStatsState extends State<ExerciseStats> {
             width:
                 MediaQuery.of(context).size.width * global.containerWidthFactor,
             margin: const EdgeInsets.all(10),
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.only(
+              top: 20,
+              right: 20,
+              left: 20,
+              bottom: 5,
+            ),
             alignment: Alignment.center,
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.background,
@@ -282,7 +287,7 @@ class _ExerciseStatsState extends State<ExerciseStats> {
                     ],
                   ),
                 ),
-                SizedBox(height: MediaQuery.of(context).size.width * 0.06),
+                SizedBox(height: global.width(context) * .04),
                 (maxX == 0 && maxY == 0
                     ? noSetLoadingWrapper(
                         SizedBox(
@@ -336,7 +341,10 @@ class _ExerciseStatsState extends State<ExerciseStats> {
                         ...statsValueTags.map(
                           (e) => DropdownMenuItem(
                             value: e,
-                            child: Text(e),
+                            child: Text(
+                              e,
+                              style: const TextStyle(fontFamily: 'KronaOne'),
+                            ),
                           ),
                         )
                       ],

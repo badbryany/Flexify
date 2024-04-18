@@ -1,3 +1,4 @@
+import 'package:flexify/pages/workout/exercisesPage/setsPage/widgets/ExerciseTimer.dart';
 import 'package:flexify/pages/workout/exercisesPage/widgets/Heading.dart';
 import 'package:flexify/widgets/DeleteAlertBox.dart';
 import 'package:flutter/material.dart';
@@ -315,9 +316,24 @@ class _ExerciseSetsState extends State<ExerciseSets> {
   }
 
   PageController pageController = PageController();
+  CarouselController carouselController = CarouselController();
+  int pageIndex = 0;
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> pannels = [
+      ExerciseStats(
+        exerciseName: exerciseName,
+        sets: sets,
+      ),
+      ExerciseTimer(
+        sets: sets,
+      ),
+      ExerciseTimer(
+        sets: sets,
+      ),
+    ];
+
     return PopScope(
       onPopInvoked: (foo) => widget.refresh(),
       child: Scaffold(
@@ -410,16 +426,42 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                   ...(loadingDone
                       ? (sets.isNotEmpty
                           ? [
-                            
-                              SmoothPageIndicator(
-                                controller: pageController,
-                                count: 6,
-                                effect: WormEffect(),
+                              CarouselSlider(
+                                items: pannels,
+                                carouselController: carouselController,
+                                options: CarouselOptions(
+                                  onPageChanged: (index, reason) =>
+                                      setState(() => pageIndex = index),
+                                  viewportFraction: 1,
+                                  height: global.height(context) * .5,
+                                  enlargeCenterPage: true,
+                                  enlargeFactor: .25,
+                                  initialPage: pageIndex,
+                                  padEnds: true,
+                                  enableInfiniteScroll: false,
+                                  scrollPhysics: const BouncingScrollPhysics(),
+                                ),
                               ),
-                              ExerciseStats(
-                                exerciseName: exerciseName,
-                                sets: sets,
+                              AnimatedSmoothIndicator(
+                                count: pannels.length,
+                                activeIndex: pageIndex,
+                                onDotClicked: (int index) =>
+                                    carouselController.animateToPage(
+                                  index,
+                                  duration: global.standardAnimationDuration,
+                                ),
+                                effect: WormEffect(
+                                  dotColor:
+                                      Theme.of(context).colorScheme.background,
+                                  activeDotColor:
+                                      Theme.of(context).colorScheme.primary,
+                                  spacing: 5,
+                                  dotHeight: global.width(context) * .025,
+                                  dotWidth: global.width(context) * .025,
+                                  type: WormType.thin,
+                                ),
                               ),
+                              SizedBox(height: global.height(context) * .005),
                               ...setWidgetsBySetList(sets, context),
                             ]
                           : [
