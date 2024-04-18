@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flexify/pages/food/dashboardFood.dart';
 import 'package:flexify/pages/leaderboards/dashboardLeaderboards.dart';
 import 'package:flexify/pages/profile/dashboardProfile.dart';
-import 'package:flexify/pages/workout/settingsPage/settingsPage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
@@ -12,6 +11,8 @@ import 'package:http/http.dart' as http;
 import 'package:flexify/pages/workout/dashboardWorkout.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'settings/settingsPage.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
