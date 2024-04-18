@@ -9,6 +9,8 @@ import 'package:flexify/data/globalVariables.dart' as global;
 import 'package:collection/collection.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'dart:math';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class ExerciseSets extends StatefulWidget {
   const ExerciseSets({
@@ -312,6 +314,8 @@ class _ExerciseSetsState extends State<ExerciseSets> {
     getData();
   }
 
+  PageController pageController = PageController();
+
   @override
   Widget build(BuildContext context) {
     return PopScope(
@@ -406,6 +410,12 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                   ...(loadingDone
                       ? (sets.isNotEmpty
                           ? [
+                            
+                              SmoothPageIndicator(
+                                controller: pageController,
+                                count: 6,
+                                effect: WormEffect(),
+                              ),
                               ExerciseStats(
                                 exerciseName: exerciseName,
                                 sets: sets,
