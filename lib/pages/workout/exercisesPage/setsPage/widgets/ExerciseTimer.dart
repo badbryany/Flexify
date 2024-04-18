@@ -20,7 +20,6 @@ class ExerciseTimer extends StatefulWidget {
 class _ExerciseTimerState extends State<ExerciseTimer> {
   getNewTime() {
     if (widget.sets.isEmpty) {
-      // currentDuration = Duration.zero;
       minutes = 0;
       seconds = 0;
       setState(() {});
@@ -29,7 +28,6 @@ class _ExerciseTimerState extends State<ExerciseTimer> {
     Duration difference =
         widget.sets.last.date.difference(DateTime.now()).abs();
     if (difference > const Duration(minutes: 6)) {
-      // currentDuration = Duration.zero;
       minutes = 0;
       seconds = 0;
       setState(() {});
@@ -39,26 +37,38 @@ class _ExerciseTimerState extends State<ExerciseTimer> {
     minutes = (difference.inSeconds / 60).floor();
     seconds = (difference.inSeconds - minutes * 60).round();
 
-    // currentDuration = Duration(minutes: minutes, seconds: seconds);
+    getHintText();
 
     setState(() {});
   }
-
-  /* Map<String, int> durationToMinSec(Duration dur) {
-    int minutes = (dur.inSeconds / 60).floor();
-    int seconds = (dur.inSeconds - minutes * 60).round();
-
-    return {
-      'minutes': minutes,
-      'seconds': seconds,
-    };
-  } */
 
   int minutes = 0;
   int seconds = 0;
 
   int currentValueSec = 0;
   int currentValueMin = 0;
+
+  String hintText = '';
+
+  getHintText() {
+    Duration dur = Duration(minutes: minutes, seconds: seconds);
+
+    if (dur >= const Duration(minutes: 1, seconds: 30)) {
+      hintText = 'Get ready for the next set!';
+    }
+
+    if (dur < const Duration(minutes: 1, seconds: 30)) {
+      hintText = 'Rest at least till 01:00!';
+    }
+
+    if (dur > const Duration(minutes: 2, seconds: 15)) {
+      hintText = 'Let\'s go!';
+    }
+
+    if (dur > const Duration(minutes: 6)) {
+      hintText = 'Nice job!';
+    }
+  }
 
   @override
   void initState() {
@@ -104,7 +114,7 @@ class _ExerciseTimerState extends State<ExerciseTimer> {
 
   double digitHeight(BuildContext context) => global.height(context) * .08;
 
-  double blockHeightFactor = .2;
+  double blockHeightFactor = .16;
   double blockWidthFactor = .12;
   double listHeightFactor = 3;
 
@@ -128,166 +138,182 @@ class _ExerciseTimerState extends State<ExerciseTimer> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
-      child: Container(
-        height: MediaQuery.of(context).size.height * 0.2,
-        width: MediaQuery.of(context).size.width * global.containerWidthFactor,
-        margin: const EdgeInsets.all(10),
-        padding: EdgeInsets.all(global.containerPadding),
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.background,
-          borderRadius:
-              BorderRadius.circular(MediaQuery.of(context).size.width * 0.1),
-          boxShadow: [global.darkShadow(context)],
-        ),
-        child: Column(
-          children: [
-            Container(
-              width: double.infinity,
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Rest-Timer',
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.onBackground,
-                  fontWeight: FontWeight.bold,
-                  fontSize: global.width(context) * .08,
+      child: SizedBox(
+        child: Container(
+          width:
+              MediaQuery.of(context).size.width * global.containerWidthFactor,
+          margin: EdgeInsets.symmetric(
+            horizontal: 10,
+            vertical: global.height(context) * .07,
+          ),
+          padding: EdgeInsets.all(global.containerPadding),
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.background,
+            borderRadius:
+                BorderRadius.circular(MediaQuery.of(context).size.width * 0.1),
+            boxShadow: [global.darkShadow(context)],
+          ),
+          child: Column(
+            children: [
+              Container(
+                width: double.infinity,
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Rest-Timer',
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onBackground,
+                    fontWeight: FontWeight.bold,
+                    fontSize: global.width(context) * .08,
+                  ),
                 ),
               ),
-            ),
 
-            // TIMER
-            IgnorePointer(
-              ignoring: true,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    height: global.height(context) * blockHeightFactor,
-                    width: global.width(context) * blockWidthFactor,
-                    child: Row(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(
-                            top: digitHeight(context) * .5,
+              // TIMER
+              IgnorePointer(
+                ignoring: true,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: global.height(context) * blockHeightFactor,
+                      width: global.width(context) * blockWidthFactor,
+                      child: Row(
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(
+                              top: digitHeight(context),
+                            ),
+                            alignment: Alignment.center,
+                            width: global.width(context) * blockWidthFactor,
+                            height: digitHeight(context) * listHeightFactor,
+                            child: digit('0'),
                           ),
-                          alignment: Alignment.center,
-                          width: global.width(context) * blockWidthFactor,
-                          height: digitHeight(context) * listHeightFactor,
-                          child: digit('0'),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: global.height(context) * blockHeightFactor,
-                    width: global.width(context) * blockWidthFactor,
-                    child: Row(
-                      children: [
-                        Container(
-                          alignment: Alignment.center,
-                          width: global.width(context) * blockWidthFactor,
-                          height: digitHeight(context) * listHeightFactor,
-                          child: ListView(
-                            controller: listController3,
-                            children: [
-                              digit(''),
-                              ...List.generate(10, (index) => index).map((e) {
-                                bool visible = minutes % 10 == e;
-
-                                return AnimatedOpacity(
-                                  duration: global.standardAnimationDuration,
-                                  opacity: visible ? 1 : 0,
-                                  child: digit('$e'),
-                                );
-                              }),
-                              digit(''),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: global.height(context) * blockHeightFactor,
-                    width: global.width(context) * blockWidthFactor,
-                    child: Container(
-                      margin: EdgeInsets.only(
-                        top: digitHeight(context) * .5,
-                      ),
-                      alignment: Alignment.center,
-                      width: global.width(context) * .04,
-                      height: digitHeight(context),
-                      child: Text(
-                        ':',
-                        textAlign: TextAlign.center,
-                        style: digitTextStyle(context),
+                        ],
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: global.height(context) * blockHeightFactor,
-                    width: global.width(context) * blockWidthFactor,
-                    child: Row(
-                      children: [
-                        Container(
-                          alignment: Alignment.center,
-                          width: global.width(context) * blockWidthFactor,
-                          height: digitHeight(context) * listHeightFactor,
-                          child: ListView(
-                            controller: listController2,
-                            children: [
-                              digit(' '),
-                              ...List.generate(10, (index) => index).map((e) {
-                                bool visible =
-                                    ((seconds - (seconds % 10)) / 10) == e;
+                    SizedBox(
+                      height: global.height(context) * blockHeightFactor,
+                      width: global.width(context) * blockWidthFactor,
+                      child: Row(
+                        children: [
+                          Container(
+                            alignment: Alignment.center,
+                            width: global.width(context) * blockWidthFactor,
+                            height: digitHeight(context) * listHeightFactor,
+                            child: ListView(
+                              controller: listController3,
+                              children: [
+                                digit(''),
+                                ...List.generate(10, (index) => index).map((e) {
+                                  bool visible = minutes % 10 == e;
 
-                                return AnimatedOpacity(
-                                  duration: global.standardAnimationDuration,
-                                  opacity: visible ? 1 : 0,
-                                  child: digit('$e'),
-                                );
-                              }),
-                              digit(' '),
-                            ],
+                                  return AnimatedOpacity(
+                                    duration: global.standardAnimationDuration,
+                                    opacity: visible ? 1 : 0,
+                                    child: digit('$e'),
+                                  );
+                                }),
+                                digit(''),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: global.height(context) * blockHeightFactor,
-                    width: global.width(context) * blockWidthFactor,
-                    child: Row(
-                      children: [
-                        Container(
-                          alignment: Alignment.center,
-                          width: global.width(context) * blockWidthFactor,
-                          height: digitHeight(context) * listHeightFactor,
-                          child: ListView(
-                            controller: listController1,
-                            children: [
-                              digit(' '),
-                              ...List.generate(10, (index) => index).map((e) {
-                                bool visible = (seconds % 10) == e;
+                    SizedBox(
+                      height: global.height(context) * blockHeightFactor,
+                      width: global.width(context) * blockWidthFactor,
+                      child: Container(
+                        margin: EdgeInsets.only(
+                          top: digitHeight(context),
+                        ),
+                        alignment: Alignment.center,
+                        width: global.width(context) * .04,
+                        height: digitHeight(context),
+                        child: Text(
+                          ':',
+                          textAlign: TextAlign.center,
+                          style: digitTextStyle(context),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: global.height(context) * blockHeightFactor,
+                      width: global.width(context) * blockWidthFactor,
+                      child: Row(
+                        children: [
+                          Container(
+                            alignment: Alignment.center,
+                            width: global.width(context) * blockWidthFactor,
+                            height: digitHeight(context) * listHeightFactor,
+                            child: ListView(
+                              controller: listController2,
+                              children: [
+                                digit(' '),
+                                ...List.generate(10, (index) => index).map((e) {
+                                  bool visible =
+                                      ((seconds - (seconds % 10)) / 10) == e;
 
-                                return AnimatedOpacity(
-                                  duration: global.standardAnimationDuration,
-                                  opacity: visible ? 1 : 0,
-                                  child: digit('$e'),
-                                );
-                              }),
-                              digit(' '),
-                            ],
+                                  return AnimatedOpacity(
+                                    duration: global.standardAnimationDuration,
+                                    opacity: visible ? 1 : 0,
+                                    child: digit('$e'),
+                                  );
+                                }),
+                                digit(' '),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                    SizedBox(
+                      height: global.height(context) * blockHeightFactor,
+                      width: global.width(context) * blockWidthFactor,
+                      child: Row(
+                        children: [
+                          Container(
+                            alignment: Alignment.center,
+                            width: global.width(context) * blockWidthFactor,
+                            height: digitHeight(context) * listHeightFactor,
+                            child: ListView(
+                              controller: listController1,
+                              children: [
+                                digit(' '),
+                                ...List.generate(10, (index) => index).map((e) {
+                                  bool visible = (seconds % 10) == e;
+
+                                  return AnimatedOpacity(
+                                    duration: global.standardAnimationDuration,
+                                    opacity: visible ? 1 : 0,
+                                    child: digit('$e'),
+                                  );
+                                }),
+                                digit(' '),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            )
-          ],
+              SizedBox(height: global.height(context) * .075),
+              /* Text(
+                hintText,
+                style: TextStyle(
+                  color: Theme.of(context)
+                      .colorScheme
+                      .onBackground
+                      .withOpacity(.75),
+                  fontSize: global.width(context) * .05,
+                ),
+              ), */
+            ],
+          ),
         ),
       ),
     );
