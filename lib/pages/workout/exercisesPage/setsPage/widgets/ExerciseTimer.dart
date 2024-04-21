@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/exerciseModels.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
@@ -112,9 +113,9 @@ class _ExerciseTimerState extends State<ExerciseTimer> {
   ScrollController listController2 = ScrollController();
   ScrollController listController3 = ScrollController();
 
-  double digitHeight(BuildContext context) => global.height(context) * .08;
+  double digitHeight(BuildContext context) => global.height(context) * .0775;
 
-  double blockHeightFactor = .16;
+  double blockHeightFactor = .175;
   double blockWidthFactor = .12;
   double listHeightFactor = 3;
 
@@ -136,6 +137,8 @@ class _ExerciseTimerState extends State<ExerciseTimer> {
 
   @override
   Widget build(BuildContext context) {
+    double sliderWidth = global.width(context) * .6;
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: SizedBox(
@@ -183,7 +186,7 @@ class _ExerciseTimerState extends State<ExerciseTimer> {
                         children: [
                           Container(
                             margin: EdgeInsets.only(
-                              top: digitHeight(context),
+                              top: digitHeight(context) * .75,
                             ),
                             alignment: Alignment.center,
                             width: global.width(context) * blockWidthFactor,
@@ -301,17 +304,57 @@ class _ExerciseTimerState extends State<ExerciseTimer> {
                   ],
                 ),
               ),
-              SizedBox(height: global.height(context) * .075),
-              /* Text(
-                hintText,
-                style: TextStyle(
-                  color: Theme.of(context)
-                      .colorScheme
-                      .onBackground
-                      .withOpacity(.75),
-                  fontSize: global.width(context) * .05,
-                ),
-              ), */
+              SizedBox(height: global.height(context) * .02),
+              Column(
+                children: [
+                  Stack(
+                    children: [
+                      Container(
+                        height: 6,
+                        width: sliderWidth,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(1000),
+                          color: Theme.of(context).colorScheme.surface,
+                        ),
+                      ),
+                      AnimatedContainer(
+                        duration: global.standardAnimationDuration,
+                        height: 6,
+                        width: (minutes == 0 && seconds == 0) ||
+                                (minutes > 2 && seconds > 30)
+                            ? sliderWidth
+                            : ((Duration(minutes: minutes, seconds: seconds)
+                                        .inSeconds) /
+                                    (const Duration(minutes: 2, seconds: 30)
+                                        .inSeconds)) *
+                                100 *
+                                (sliderWidth / 100),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(1000),
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: global.height(context) * .015),
+                  SizedBox(
+                    width: sliderWidth,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: ['00:00', '01:30', '02:30']
+                          .map((e) => Text(
+                                e,
+                                style: TextStyle(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onBackground,
+                                ),
+                              ))
+                          .toList(),
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ),

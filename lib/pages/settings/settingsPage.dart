@@ -1,6 +1,4 @@
 import 'package:flexify/SignInSignUp/choose.dart';
-import 'package:flexify/data/exerciseModels.dart';
-import 'package:flexify/main.dart';
 import 'package:flexify/pages/settings/widgets/biometricPage.dart';
 import 'package:flexify/pages/settings/widgets/feedbackPage.dart';
 import 'package:flexify/pages/settings/widgets/notificationsPage.dart';
@@ -140,7 +138,6 @@ class SettingsPage extends StatelessWidget {
 
                                   prefs.setString('username', '');
                                   prefs.setString('password', '');
-                                  print('jojo');
 
                                   Navigator.push(
                                       context,

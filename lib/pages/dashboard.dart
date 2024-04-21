@@ -32,14 +32,14 @@ class _DashboardState extends State<Dashboard> {
       'icon': Icons.fitness_center_rounded,
     },
     {
-      'title': 'Food',
-      'widget': const DashboardFood(),
-      'icon': Icons.restaurant_rounded,
-    },
-    {
       'title': 'Leaderboards',
       'widget': const DashboardLeaderboards(),
       'icon': Icons.bar_chart_rounded,
+    },
+    {
+      'title': 'Food',
+      'widget': const DashboardFood(),
+      'icon': Icons.restaurant_rounded,
     },
     {
       'title': 'Profile',
