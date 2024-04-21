@@ -1,3 +1,6 @@
+import 'package:flexify/SignInSignUp/choose.dart';
+import 'package:flexify/data/exerciseModels.dart';
+import 'package:flexify/main.dart';
 import 'package:flexify/pages/settings/widgets/biometricPage.dart';
 import 'package:flexify/pages/settings/widgets/feedbackPage.dart';
 import 'package:flexify/pages/settings/widgets/notificationsPage.dart';
@@ -6,9 +9,12 @@ import 'package:flexify/pages/settings/widgets/ratingPage.dart';
 import 'package:flexify/pages/settings/widgets/termsPage.dart';
 import 'package:flexify/pages/settings/widgets/LightDarkSwitch.dart';
 import 'package:flexify/pages/settings/widgets/websitePage.dart';
+import 'package:flexify/widgets/DeleteAlertDialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
+import 'package:page_transition/page_transition.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsPage extends StatelessWidget {
   SettingsPage({super.key});
@@ -63,25 +69,30 @@ class SettingsPage extends StatelessWidget {
               height: MediaQuery.of(context).size.height * 0.03,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.11,
-                ),
-                IconButton(
-                  highlightColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  splashColor: Colors.transparent,
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(
-                    Icons.close_rounded,
-                    size: MediaQuery.of(context).size.width * 0.06,
+                Container(
+                  alignment: Alignment.center,
+                  padding:
+                      EdgeInsets.all(MediaQuery.of(context).size.width * 0.005),
+                  width: MediaQuery.of(context).size.width * 0.14,
+                  height: MediaQuery.of(context).size.width * 0.14,
+                  decoration: BoxDecoration(
+                    boxShadow: ([global.darkShadow(context)]),
+                    color: Theme.of(context).colorScheme.background,
+                    borderRadius: BorderRadius.circular(1000),
                   ),
-                ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.17,
+                  child: IconButton(
+                    splashColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    color: Theme.of(context).colorScheme.onBackground,
+                    icon: const Icon(Icons.close_rounded),
+                    iconSize: MediaQuery.of(context).size.width * 0.05,
+                  ),
                 ),
                 Text(
                   "Settings",
@@ -89,11 +100,8 @@ class SettingsPage extends StatelessWidget {
                     color: Theme.of(context).focusColor,
                     fontWeight: FontWeight.bold,
                     letterSpacing: -1,
-                    fontSize: global.width(context) * 0.07,
+                    fontSize: global.width(context) * .08,
                   ),
-                ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.13,
                 ),
                 const LightDarkSwitch(),
               ],
@@ -107,9 +115,7 @@ class SettingsPage extends StatelessWidget {
               height: MediaQuery.of(context).size.height * 0.8,
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.background,
-                border:
-                    Border.all(width: 1, color: Theme.of(context).focusColor),
-                borderRadius: BorderRadius.circular(30),
+                borderRadius: BorderRadius.circular(global.borderRadius),
               ),
               child: ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
@@ -117,14 +123,49 @@ class SettingsPage extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () {
-                      if (index != 7) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => sectionPages[index],
+                      if (index == 7) {
+                        showDialog(
+                          context: context,
+                          builder: (context) => DeleteAlertDialog(
+                            title: 'Sure to log off?',
+                            actions: [
+                              TextButton(
+                                onPressed: () => Navigator.pop(context),
+                                child: const Text('cancle'),
+                              ),
+                              TextButton(
+                                onPressed: () async {
+                                  SharedPreferences prefs =
+                                      await SharedPreferences.getInstance();
+
+                                  prefs.setString('username', '');
+                                  prefs.setString('password', '');
+                                  print('jojo');
+
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => const PopScope(
+                                          canPop: false,
+                                          child: Choose(),
+                                        ),
+                                      ));
+                                },
+                                child: const Text('log off'),
+                              ),
+                            ],
                           ),
                         );
+                        return;
                       }
+
+                      Navigator.push(
+                        context,
+                        PageTransition(
+                          child: sectionPages[index],
+                          type: PageTransitionType.rightToLeft,
+                        ),
+                      );
                     },
                     child: Container(
                       padding: EdgeInsets.only(
@@ -138,9 +179,10 @@ class SettingsPage extends StatelessWidget {
                           border: index != 7
                               ? Border(
                                   bottom: BorderSide(
-                                      width: 1,
-                                      color: Theme.of(context)
-                                          .scaffoldBackgroundColor),
+                                    width: 1,
+                                    color: Theme.of(context)
+                                        .scaffoldBackgroundColor,
+                                  ),
                                 )
                               : Border.all(width: 0, color: Colors.transparent),
                           color: Colors.transparent),
@@ -149,19 +191,18 @@ class SettingsPage extends StatelessWidget {
                         children: [
                           Icon(
                             sectionIcons[index],
-                            color: Theme.of(context).scaffoldBackgroundColor,
+                            color: Theme.of(context).colorScheme.onBackground,
                           ),
                           Text(
                             sections[index],
                             style: TextStyle(
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor,
-                                fontSize:
-                                    MediaQuery.of(context).size.width * 0.05),
+                              color: Theme.of(context).colorScheme.onBackground,
+                              fontSize: global.width(context) * 0.05,
+                            ),
                           ),
                           Icon(
                             Icons.arrow_forward_rounded,
-                            color: Theme.of(context).scaffoldBackgroundColor,
+                            color: Theme.of(context).colorScheme.onBackground,
                           )
                         ],
                       ),

@@ -1,6 +1,6 @@
 import 'package:flexify/pages/workout/exercisesPage/setsPage/widgets/ExerciseTimer.dart';
 import 'package:flexify/pages/workout/exercisesPage/widgets/Heading.dart';
-import 'package:flexify/widgets/DeleteAlertBox.dart';
+import 'package:flexify/widgets/DeleteAlertDialog.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:flexify/pages/workout/exercisesPage/setsPage/widgets/ExerciseStats.dart';
