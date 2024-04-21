@@ -21,6 +21,7 @@ class ModalBottomSheet extends StatelessWidget {
     this.submitButtonText,
     this.onPop,
     this.bigTitle,
+    this.height,
   }) : super(key: key);
 
   final String title;
@@ -29,6 +30,7 @@ class ModalBottomSheet extends StatelessWidget {
   Map<String, dynamic>? extraButton; // {'onTap': () {}, 'child': Container(),}
   Function? onPop;
   bool? bigTitle;
+  double? height;
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +47,7 @@ class ModalBottomSheet extends StatelessWidget {
       ),
       child: SizedBox(
         width: global.width(context),
+        height: height,
         child: Stack(
           children: [
             Container(
@@ -114,7 +117,10 @@ class ModalBottomSheet extends StatelessWidget {
                             borderRadius: const BorderRadius.all(
                               Radius.circular(10),
                             ),
-                            color: Theme.of(context).primaryColor,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .primary
+                                .withOpacity(.3),
                           ),
                           child: Center(
                             child: Text(

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flexify/widgets/ModalBottomSheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/exerciseModels.dart';
@@ -38,8 +39,6 @@ class _ExerciseTimerState extends State<ExerciseTimer> {
     minutes = (difference.inSeconds / 60).floor();
     seconds = (difference.inSeconds - minutes * 60).round();
 
-    getHintText();
-
     setState(() {});
   }
 
@@ -48,28 +47,6 @@ class _ExerciseTimerState extends State<ExerciseTimer> {
 
   int currentValueSec = 0;
   int currentValueMin = 0;
-
-  String hintText = '';
-
-  getHintText() {
-    Duration dur = Duration(minutes: minutes, seconds: seconds);
-
-    if (dur >= const Duration(minutes: 1, seconds: 30)) {
-      hintText = 'Get ready for the next set!';
-    }
-
-    if (dur < const Duration(minutes: 1, seconds: 30)) {
-      hintText = 'Rest at least till 01:00!';
-    }
-
-    if (dur > const Duration(minutes: 2, seconds: 15)) {
-      hintText = 'Let\'s go!';
-    }
-
-    if (dur > const Duration(minutes: 6)) {
-      hintText = 'Nice job!';
-    }
-  }
 
   @override
   void initState() {
@@ -113,7 +90,7 @@ class _ExerciseTimerState extends State<ExerciseTimer> {
   ScrollController listController2 = ScrollController();
   ScrollController listController3 = ScrollController();
 
-  double digitHeight(BuildContext context) => global.height(context) * .0775;
+  double digitHeight(BuildContext context) => global.height(context) * .08;
 
   double blockHeightFactor = .175;
   double blockWidthFactor = .12;
@@ -157,21 +134,8 @@ class _ExerciseTimerState extends State<ExerciseTimer> {
                 BorderRadius.circular(MediaQuery.of(context).size.width * 0.1),
             boxShadow: [global.darkShadow(context)],
           ),
-          child: Column(
+          child: Stack(
             children: [
-              Container(
-                width: double.infinity,
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Rest-Timer',
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.onBackground,
-                    fontWeight: FontWeight.bold,
-                    fontSize: global.width(context) * .08,
-                  ),
-                ),
-              ),
-
               // TIMER
               IgnorePointer(
                 ignoring: true,
@@ -186,7 +150,7 @@ class _ExerciseTimerState extends State<ExerciseTimer> {
                         children: [
                           Container(
                             margin: EdgeInsets.only(
-                              top: digitHeight(context) * .75,
+                              top: digitHeight(context) * .8,
                             ),
                             alignment: Alignment.center,
                             width: global.width(context) * blockWidthFactor,
@@ -277,8 +241,7 @@ class _ExerciseTimerState extends State<ExerciseTimer> {
                       width: global.width(context) * blockWidthFactor,
                       child: Row(
                         children: [
-                          Container(
-                            alignment: Alignment.center,
+                          SizedBox(
                             width: global.width(context) * blockWidthFactor,
                             height: digitHeight(context) * listHeightFactor,
                             child: ListView(
@@ -304,53 +267,97 @@ class _ExerciseTimerState extends State<ExerciseTimer> {
                   ],
                 ),
               ),
-              SizedBox(height: global.height(context) * .02),
-              Column(
+              Container(
+                margin: EdgeInsets.only(top: global.height(context) * .2),
+                width: double.infinity,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Stack(
+                      children: [
+                        Container(
+                          height: 6,
+                          width: sliderWidth,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(1000),
+                            color: Theme.of(context).colorScheme.surface,
+                          ),
+                        ),
+                        AnimatedContainer(
+                          duration: global.standardAnimationDuration,
+                          height: 6,
+                          width: (minutes == 0 && seconds == 0) ||
+                                  (minutes > 2 && seconds > 30)
+                              ? sliderWidth
+                              : ((Duration(minutes: minutes, seconds: seconds)
+                                          .inSeconds) /
+                                      (const Duration(minutes: 2, seconds: 30)
+                                          .inSeconds)) *
+                                  100 *
+                                  (sliderWidth / 100),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(1000),
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: global.height(context) * .015),
+                    SizedBox(
+                      width: sliderWidth,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: ['00:00', '01:30', '02:30']
+                            .map((e) => Text(
+                                  e,
+                                  style: TextStyle(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onBackground,
+                                  ),
+                                ))
+                            .toList(),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Stack(
-                    children: [
-                      Container(
-                        height: 6,
-                        width: sliderWidth,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(1000),
-                          color: Theme.of(context).colorScheme.surface,
-                        ),
-                      ),
-                      AnimatedContainer(
-                        duration: global.standardAnimationDuration,
-                        height: 6,
-                        width: (minutes == 0 && seconds == 0) ||
-                                (minutes > 2 && seconds > 30)
-                            ? sliderWidth
-                            : ((Duration(minutes: minutes, seconds: seconds)
-                                        .inSeconds) /
-                                    (const Duration(minutes: 2, seconds: 30)
-                                        .inSeconds)) *
-                                100 *
-                                (sliderWidth / 100),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(1000),
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                      ),
-                    ],
+                  Text(
+                    'Rest-Timer',
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onBackground,
+                      fontWeight: FontWeight.bold,
+                      fontSize: global.width(context) * .08,
+                    ),
                   ),
-                  SizedBox(height: global.height(context) * .015),
-                  SizedBox(
-                    width: sliderWidth,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: ['00:00', '01:30', '02:30']
-                          .map((e) => Text(
-                                e,
-                                style: TextStyle(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onBackground,
-                                ),
-                              ))
-                          .toList(),
+                  IconButton(
+                    onPressed: () => showCustomModalBottomSheet(
+                      context,
+                      ModalBottomSheet(
+                        title: 'Rest-Timer Info',
+                        height: global.height(context) * .425,
+                        content: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: global.width(context) * .1),
+                          child: Text(
+                            'The "Rest-Timer" is a feature(also found in the Exercise-Button(expanded state)) is a timer which counts up after you submitted a set, just to give you a feeling of your Rest-Time.\nYou can\'t stop it. It will automaticly stop after 6 minutes.',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.onBackground,
+                              fontSize: global.width(context) * .04,
+                            ),
+                          ),
+                        ),
+                        bigTitle: true,
+                        submitButtonText: 'Got it!',
+                      ),
+                    ),
+                    icon: Icon(
+                      CupertinoIcons.info_circle,
+                      color: Theme.of(context).colorScheme.onBackground,
                     ),
                   ),
                 ],
