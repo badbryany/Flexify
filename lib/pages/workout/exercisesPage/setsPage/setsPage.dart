@@ -329,32 +329,6 @@ class _ExerciseSetsState extends State<ExerciseSets> {
       ExerciseTimer(
         sets: sets,
       ),
-      Padding(
-        padding: const EdgeInsets.only(bottom: 8.0),
-        child: Container(
-          height: MediaQuery.of(context).size.height * 0.46,
-          width:
-              MediaQuery.of(context).size.width * global.containerWidthFactor,
-          margin: const EdgeInsets.all(10),
-          padding: const EdgeInsets.only(
-            top: 20,
-            right: 20,
-            left: 20,
-            bottom: 5,
-          ),
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.background,
-            borderRadius:
-                BorderRadius.circular(MediaQuery.of(context).size.width * 0.1),
-            boxShadow: [global.darkShadow(context)],
-          ),
-          child: Text(
-            'description oder so?\n kommt bald ;)',
-            style: TextStyle(color: Theme.of(context).colorScheme.onBackground),
-          ),
-        ),
-      ),
     ];
 
     return PopScope(

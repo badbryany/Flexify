@@ -119,7 +119,7 @@ class _ExerciseStatsState extends State<ExerciseStats> {
       context: context,
       builder: (context, child) => Theme(
         data: ThemeData(
-          fontFamily: 'JosefinSans',
+          fontFamily: 'KronaOne',
           brightness: Brightness.dark,
           colorScheme: ColorScheme(
             brightness: Brightness.dark,
@@ -194,21 +194,10 @@ class _ExerciseStatsState extends State<ExerciseStats> {
                       global.containerWidthFactor,
                   height: MediaQuery.of(context).size.width * 0.1,
                   decoration: BoxDecoration(
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Color.fromARGB(134, 190, 190, 190),
-                        spreadRadius: -15.0,
-                        blurRadius: 7.0,
-                        offset: Offset(-8, -10),
-                      ),
-                      BoxShadow(
-                        color: Color.fromARGB(137, 0, 0, 0),
-                        spreadRadius: -10.0,
-                        blurRadius: 10.0,
-                        offset: Offset(10, 10),
-                      ),
-                    ],
-                    color: Theme.of(context).colorScheme.background,
+                    color: global.darken(
+                      Theme.of(context).colorScheme.background,
+                      .05,
+                    ),
                     borderRadius: BorderRadius.circular(
                         MediaQuery.of(context).size.width * 0.1),
                   ),
@@ -329,7 +318,7 @@ class _ExerciseStatsState extends State<ExerciseStats> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Text(
-                      'choose your Stats:',
+                      'diagram value:',
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.onBackground,
                       ),
@@ -350,7 +339,6 @@ class _ExerciseStatsState extends State<ExerciseStats> {
                       ],
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.onBackground,
-                        fontFamily: 'JosefinSans',
                       ),
                       borderRadius:
                           BorderRadius.circular(global.borderRadius - 15),
