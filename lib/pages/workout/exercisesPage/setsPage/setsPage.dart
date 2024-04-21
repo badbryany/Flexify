@@ -65,7 +65,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
         context: context,
         builder: (context) => Theme(
               data: ThemeData(
-                fontFamily: 'JosefinSans',
+                fontFamily: 'KronaOne',
                 brightness: Brightness.dark,
                 colorScheme: ColorScheme(
                   brightness: Brightness.dark,

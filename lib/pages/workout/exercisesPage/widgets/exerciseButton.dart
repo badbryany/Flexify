@@ -521,8 +521,9 @@ class SmallSetWidget extends StatelessWidget {
       margin: const EdgeInsets.all(4),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(global.borderRadius - 20),
-        color: Theme.of(context).colorScheme.surface.withOpacity(
-            empty! ? 0.025 : (global.isDarkMode(context) ? 1 : 0.05)),
+        color: Theme.of(context).colorScheme.surface.withOpacity(empty!
+            ? (global.isDarkMode(context) ? .4 : 0.025)
+            : (global.isDarkMode(context) ? 1 : 0.05)),
       ),
       child: SizedBox(
         width: MediaQuery.of(context).size.width * 0.65,
