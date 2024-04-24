@@ -50,17 +50,17 @@ final List<String> monthsLong = [
 final List<int> monthsDays = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 lightShadow(BuildContext context) => BoxShadow(
-      color: Theme.of(context).colorScheme.onSurface.withOpacity(0.3),
+      color: const Color.fromARGB(255, 27, 27, 31).withOpacity(0.3),
       spreadRadius: -10.0,
       blurRadius: 10.0,
       offset: const Offset(0.0, 10.0),
     );
 
-BoxShadow darkShadow(BuildContext context) => BoxShadow(
-      color: Theme.of(context).colorScheme.onSurface,
+BoxShadow darkShadow(BuildContext context) => const BoxShadow(
+      color: Color.fromARGB(255, 27, 27, 31),
       spreadRadius: -5.0,
       blurRadius: 10.0,
-      offset: const Offset(0.0, 10.0),
+      offset: Offset(0.0, 10.0),
     );
 
 bool isDarkMode(BuildContext context) =>

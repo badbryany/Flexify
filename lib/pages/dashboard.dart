@@ -189,10 +189,10 @@ class _DashboardState extends State<Dashboard> {
                               : null,
                           iconColor: gotRequests
                               ? Theme.of(context).colorScheme.primary
-                              : Theme.of(context).colorScheme.onBackground,
+                              : Theme.of(context).colorScheme.onSurface,
                           iconActiveColor: gotRequests
                               ? Theme.of(context).colorScheme.primary
-                              : Theme.of(context).colorScheme.onBackground,
+                              : Theme.of(context).colorScheme.onSurface,
                         )
                       : GButton(
                           icon: e['icon'],
@@ -200,7 +200,7 @@ class _DashboardState extends State<Dashboard> {
                           padding: const EdgeInsets.all(15),
                           iconColor: Theme.of(context).colorScheme.onBackground,
                           iconActiveColor:
-                              Theme.of(context).colorScheme.onBackground,
+                              Theme.of(context).colorScheme.onSurface,
                         ),
                 )
                 .toList(),
