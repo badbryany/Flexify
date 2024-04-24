@@ -452,6 +452,7 @@ class _ExerciseButtonState extends State<ExerciseButton> {
                                     ),
                                     child: const Icon(
                                       Icons.add,
+                                      color: Colors.black,
                                     ),
                                   ),
                                 ),
