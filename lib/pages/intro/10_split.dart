@@ -42,38 +42,47 @@ class _TenSplitState extends State<TenSplit> {
                     const IntroNavBarIcon(),
                     widget.isSettings
                         ? Padding(
-                          padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.13, right:  MediaQuery.of(context).size.width * 0.19),
-                          child: Text(
+                            padding: EdgeInsets.only(
+                                left: MediaQuery.of(context).size.width * 0.13,
+                                right:
+                                    MediaQuery.of(context).size.width * 0.19),
+                            child: Text(
                               "Training Split",
-                              style:
-                                  TextStyle(color: Theme.of(context).focusColor, fontSize: MediaQuery.of(context).size.width * 0.06),
+                              style: TextStyle(
+                                  color: Theme.of(context).focusColor,
+                                  fontSize:
+                                      MediaQuery.of(context).size.width * 0.06),
                             ),
-                        )
+                          )
                         : SizedBox(
                             width: MediaQuery.of(context).size.width * 0.7,
                           ),
                     widget.isSettings
                         ? const SizedBox()
-                        : 
-                    GestureDetector(
-                      onTap: () {
-                        if (widget.isSettings == false) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const ElevenTargetMuscles(isSettings: false,),
+                        : GestureDetector(
+                            onTap: () {
+                              if (widget.isSettings == false) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const ElevenTargetMuscles(
+                                      isSettings: false,
+                                    ),
+                                  ),
+                                );
+                              } else {
+                                Navigator.pop(context);
+                              }
+                            },
+                            child: Text(
+                              'Skip',
+                              style: TextStyle(
+                                  color: Theme.of(context).focusColor,
+                                  fontSize: MediaQuery.of(context).size.width *
+                                      0.035),
                             ),
-                          );
-                        }
-                        else {
-                          Navigator.pop(context);
-                        }
-                      },
-                      child: Text(
-                        'Skip',
-                        style: TextStyle(color: Theme.of(context).focusColor, fontSize: MediaQuery.of(context).size.width * 0.035),
-                      ),
-                    ),
+                          ),
                     SizedBox(width: MediaQuery.of(context).size.width * 0.02)
                   ],
                 ),
@@ -198,7 +207,7 @@ class _TenSplitState extends State<TenSplit> {
                                       'AI Generated',
                                       style: TextStyle(
                                           color: selectedSplit == 1
-                                              ? Theme.of(context).focusColor
+                                              ? Colors.black
                                               : Theme.of(context)
                                                   .colorScheme
                                                   .primary,
@@ -216,12 +225,12 @@ class _TenSplitState extends State<TenSplit> {
                                           MediaQuery.of(context).size.width *
                                               0.02),
                                       decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(10),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
                                           border: Border.all(
                                             color: selectedSplit == 1
                                                 ? Theme.of(context).focusColor
-                                                : Theme.of(context)
-                                                    .scaffoldBackgroundColor,
+                                                : Colors.white,
                                             width: 2,
                                           ),
                                           color: Theme.of(context)
@@ -234,8 +243,7 @@ class _TenSplitState extends State<TenSplit> {
                                                 ? Theme.of(context)
                                                     .colorScheme
                                                     .primary
-                                                : Theme.of(context)
-                                                    .scaffoldBackgroundColor,
+                                                : Colors.white,
                                             fontSize: MediaQuery.of(context)
                                                         .size
                                                         .height *
@@ -255,7 +263,7 @@ class _TenSplitState extends State<TenSplit> {
                                     'Optimized based on your',
                                     style: TextStyle(
                                         color: selectedSplit == 1
-                                            ? Theme.of(context).focusColor
+                                            ? Colors.black
                                             : Theme.of(context)
                                                 .colorScheme
                                                 .shadow,
@@ -274,7 +282,7 @@ class _TenSplitState extends State<TenSplit> {
                                     'personal fitness journey',
                                     style: TextStyle(
                                         color: selectedSplit == 1
-                                            ? Theme.of(context).focusColor
+                                            ? Colors.black
                                             : Theme.of(context)
                                                 .colorScheme
                                                 .shadow,
@@ -328,7 +336,7 @@ class _TenSplitState extends State<TenSplit> {
                                     'Push/Pull/Legs',
                                     style: TextStyle(
                                         color: selectedSplit == 2
-                                            ? Theme.of(context).focusColor
+                                            ? Colors.black
                                             : Theme.of(context)
                                                 .colorScheme
                                                 .primary,
@@ -351,7 +359,7 @@ class _TenSplitState extends State<TenSplit> {
                                     'Well suited for beginners',
                                     style: TextStyle(
                                         color: selectedSplit == 2
-                                            ? Theme.of(context).focusColor
+                                            ? Colors.black
                                             : Theme.of(context)
                                                 .colorScheme
                                                 .shadow,
@@ -370,7 +378,7 @@ class _TenSplitState extends State<TenSplit> {
                                     'and intermediate trainees',
                                     style: TextStyle(
                                         color: selectedSplit == 2
-                                            ? Theme.of(context).focusColor
+                                            ? Colors.black
                                             : Theme.of(context)
                                                 .colorScheme
                                                 .shadow,
@@ -424,7 +432,7 @@ class _TenSplitState extends State<TenSplit> {
                                     'Upper Lower',
                                     style: TextStyle(
                                         color: selectedSplit == 3
-                                            ? Theme.of(context).focusColor
+                                            ? Colors.black
                                             : Theme.of(context)
                                                 .colorScheme
                                                 .primary,
@@ -447,7 +455,7 @@ class _TenSplitState extends State<TenSplit> {
                                     'Separate training days into upper',
                                     style: TextStyle(
                                         color: selectedSplit == 3
-                                            ? Theme.of(context).focusColor
+                                            ? Colors.black
                                             : Theme.of(context)
                                                 .colorScheme
                                                 .shadow,
@@ -466,7 +474,7 @@ class _TenSplitState extends State<TenSplit> {
                                     'or lower body workouts',
                                     style: TextStyle(
                                         color: selectedSplit == 3
-                                            ? Theme.of(context).focusColor
+                                            ? Colors.black
                                             : Theme.of(context)
                                                 .colorScheme
                                                 .shadow,
@@ -520,7 +528,7 @@ class _TenSplitState extends State<TenSplit> {
                                     'Full Body',
                                     style: TextStyle(
                                         color: selectedSplit == 4
-                                            ? Theme.of(context).focusColor
+                                            ? Colors.black
                                             : Theme.of(context)
                                                 .colorScheme
                                                 .primary,
@@ -543,7 +551,7 @@ class _TenSplitState extends State<TenSplit> {
                                     'No restrictions. Well suited',
                                     style: TextStyle(
                                         color: selectedSplit == 4
-                                            ? Theme.of(context).focusColor
+                                            ? Colors.black
                                             : Theme.of(context)
                                                 .colorScheme
                                                 .shadow,
@@ -562,7 +570,7 @@ class _TenSplitState extends State<TenSplit> {
                                     'for more experienced trainees',
                                     style: TextStyle(
                                         color: selectedSplit == 4
-                                            ? Theme.of(context).focusColor
+                                            ? Colors.black
                                             : Theme.of(context)
                                                 .colorScheme
                                                 .shadow,
@@ -591,11 +599,12 @@ class _TenSplitState extends State<TenSplit> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => ElevenTargetMuscles(isSettings: false,),
+                          builder: (context) => ElevenTargetMuscles(
+                            isSettings: false,
+                          ),
                         ),
                       );
-                    }
-                    else {
+                    } else {
                       Navigator.pop(context);
                     }
                   },
@@ -613,11 +622,12 @@ class _TenSplitState extends State<TenSplit> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Next',
+                          widget.isSettings ? "Enter" : 'Next',
                           style: TextStyle(
-                              color: Theme.of(context).focusColor,
-                              fontSize:
-                                  MediaQuery.of(context).size.height * 0.025),
+                              color: selected != 0
+                                  ? Colors.black
+                                  : Theme.of(context).focusColor,
+                              fontSize: global.height(context) * 0.025),
                         ),
                       ],
                     ),

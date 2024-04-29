@@ -18,15 +18,15 @@ class DashboardLeaderboardsState extends State<DashboardLeaderboards> {
   List stats = [
     [
       0,
-      'total sets',
+      'Total Sets',
     ],
     [
       1,
-      'moved weight',
+      'Moved Weight',
     ],
     [
       2,
-      'total workout time',
+      'Total Workout Time',
     ],
   ];
 
@@ -85,7 +85,7 @@ class DashboardLeaderboardsState extends State<DashboardLeaderboards> {
           profilePictureUrl:
               'https://i.pinimg.com/736x/d4/53/07/d453076ca0b5fc48989d3c9a2a2fc209.jpg',
         ));
-        suffix = 'stats';
+        suffix = 'Sets';
         break;
       case 1:
         data = [

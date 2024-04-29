@@ -1,5 +1,9 @@
 Glitches/Bad: ---------------------------------------
 
+dashBoardWorkout:
+    -> See more button bigger / Icon
+
+
 Add: ------------------------------------------------
 
 intro: 
@@ -15,25 +19,37 @@ intro:
         -> when in++ -> ft++
     -> 4_weight
         -> If height given in inches initialise metric to lbs
+    -> 8_schedule
+        -> border glitch green lines (darkmode)
+
+statsPage
+    -> When do I workout? (x-axis 00:00 - 23:59, y-axis amount of sets at that time)
+    -> Which muscles are fatigued (3d Body Diagram)
+    -> What muscles do I usually work? (3d Body Diagram)
+
+setsPage
+    -> When do I hit PRs? (x-axis Date, y-axis amount of PRs on that day)
 
 setsPage (!!)
     -> Group Buttons by Day
 
-premiumPage (!!)
-    -> Monthly / Annual / Lifetime || (0.99€ / 5.99€ / 18,99€)
-    -> For every new part that spawns add a widget for that part htat spawns it
-
 dashboardWorkout (!!)
-    -> See more (Spawns Premium Page)
     -> Detected Training Split
         -> Push/Pull/Legs
         -> Calisthenics
         -> Full Body
         -> Bro Split
-    -> Tips (Spawns Premium Page)
+    -> Tips
+
+dashboardProfile
+    -> Calendar Widget
+        -> "Workout" Calendar Widget
+        -> "BeReal" Calendar
+    -> "BeReal" Widget
+    -> Sets widget to profile
+    -> Favourites (Muscle Group, Workout, Equipment)
 
 dashboardNavBar
-    -> Dark Mode / Light Mode
     -> Notifications
     -> Rate the app
     -> Send feedback
@@ -41,16 +57,3 @@ dashboardNavBar
     -> Terms of Use
     -> Website
     -> Logout
-
-dashboardProfile
-    -> "Workout" Calendar
-    -> "BeReal" Calendar
-    -> "BeReal" Widget
-
-Home: 
-    -> Workout Calendar
-    -> Stats (Top Right)
-    
-Entry Page: 
-Kg/Lbs 
-Cm/in

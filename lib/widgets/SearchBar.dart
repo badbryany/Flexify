@@ -284,7 +284,7 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                         TextStyle(
                           color: widget.textColor,
                         ),
-                    cursorColor: Theme.of(context).focusColor,
+                    cursorColor: Colors.white,
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.only(
                         top: global.height(context) * .01235,

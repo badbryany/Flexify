@@ -12,16 +12,17 @@ class EightSchedule extends StatefulWidget {
 }
 
 class _EightScheduleState extends State<EightSchedule> {
-  bool daysPerWeek = true;
-  int daysPerWeekIdx = 1;
-  List<bool> whichDays = [true, false, false, false, false, false, false];
   int selected = 0;
+  int daysPerWeekIdx = 1;
+  bool daysPerWeek = true;
+  List<bool> whichDays = [true, false, false, false, false, false, false];
 
   @override
   void initState() {
     super.initState();
   }
 
+  @override
   void dispose() {
     super.dispose();
   }
@@ -41,41 +42,49 @@ class _EightScheduleState extends State<EightSchedule> {
                 ),
                 Row(
                   children: [
-                    IntroNavBarIcon(),
+                    const IntroNavBarIcon(),
                     widget.isSettings
                         ? Padding(
-                          padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.07, right:  MediaQuery.of(context).size.width * 0.12),
-                          child: Text(
+                            padding: EdgeInsets.only(
+                                left: MediaQuery.of(context).size.width * 0.07,
+                                right:
+                                    MediaQuery.of(context).size.width * 0.12),
+                            child: Text(
                               "Training Schedule",
-                              style:
-                                  TextStyle(color: Theme.of(context).focusColor, fontSize: MediaQuery.of(context).size.width * 0.06),
+                              style: TextStyle(
+                                  color: Theme.of(context).focusColor,
+                                  fontSize:
+                                      MediaQuery.of(context).size.width * 0.06),
                             ),
-                        )
+                          )
                         : SizedBox(
                             width: MediaQuery.of(context).size.width * 0.7,
                           ),
                     widget.isSettings
                         ? const SizedBox()
-                        : 
-                    GestureDetector(
-                      onTap: () {
-                        if (widget.isSettings == false) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const NineDuration(isSettings: false,),
+                        : GestureDetector(
+                            onTap: () {
+                              if (widget.isSettings == false) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const NineDuration(
+                                      isSettings: false,
+                                    ),
+                                  ),
+                                );
+                              } else {
+                                Navigator.pop(context);
+                              }
+                            },
+                            child: Text(
+                              'Skip',
+                              style: TextStyle(
+                                  color: Theme.of(context).focusColor,
+                                  fontSize: MediaQuery.of(context).size.width *
+                                      0.035),
                             ),
-                          );
-                        }
-                        else {
-                          Navigator.pop(context);
-                        }
-                      },
-                      child: Text(
-                        'Skip',
-                        style: TextStyle(color: Theme.of(context).focusColor, fontSize: MediaQuery.of(context).size.width * 0.035),
-                      ),
-                    ),
+                          ),
                     SizedBox(width: MediaQuery.of(context).size.width * 0.02)
                   ],
                 ),
@@ -224,6 +233,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                           ? Text(
                                               "Days per Week",
                                               style: TextStyle(
+                                                  color: Colors.black,
                                                   fontSize:
                                                       MediaQuery.of(context)
                                                               .size
@@ -233,6 +243,7 @@ class _EightScheduleState extends State<EightSchedule> {
                                           : Text(
                                               "Which days?",
                                               style: TextStyle(
+                                                  color: Colors.black,
                                                   fontSize:
                                                       MediaQuery.of(context)
                                                               .size
@@ -250,1860 +261,312 @@ class _EightScheduleState extends State<EightSchedule> {
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.035,
                       ),
-                      daysPerWeek
-                          ? ClipRRect(
-                              borderRadius: BorderRadius.circular(30),
-                              child: Container(
-                                alignment: Alignment.centerLeft,
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(30),
+                        clipBehavior: Clip.hardEdge,
+                        child: Container(
+                          alignment: Alignment.centerLeft,
+                          height: MediaQuery.of(context).size.height * 0.4,
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.background,
+                          ),
+                          child: Stack(
+                            children: [
+                              Column(
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      setState(
+                                        () {
+                                          selected = 1;
+                                          daysPerWeek
+                                              ? daysPerWeekIdx = 1
+                                              : whichDays[0] = !whichDays[0];
+                                        },
+                                      );
+                                    },
+                                    child: RightButton(
+                                      daysPerWeekText: "Once per Week",
+                                      whichDaysText: "Monday",
+                                      index: 1,
+                                      daysPerWeek: daysPerWeek,
+                                      daysPerWeekIdx: daysPerWeekIdx,
+                                      whichDays: whichDays,
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        selected = 1;
+                                        daysPerWeek
+                                            ? daysPerWeekIdx = 2
+                                            : whichDays[1] = !whichDays[1];
+                                      });
+                                    },
+                                    child: RightButton(
+                                      daysPerWeekText: "Twice per Week",
+                                      whichDaysText: "Tuesday",
+                                      index: 2,
+                                      daysPerWeek: daysPerWeek,
+                                      daysPerWeekIdx: daysPerWeekIdx,
+                                      whichDays: whichDays,
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        selected = 1;
+                                        daysPerWeek
+                                            ? daysPerWeekIdx = 3
+                                            : whichDays[2] = !whichDays[2];
+                                      });
+                                    },
+                                    child: RightButton(
+                                      daysPerWeekText: "Three times per Week",
+                                      whichDaysText: "Wednesday",
+                                      index: 3,
+                                      daysPerWeek: daysPerWeek,
+                                      daysPerWeekIdx: daysPerWeekIdx,
+                                      whichDays: whichDays,
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        selected = 1;
+                                        daysPerWeek
+                                            ? daysPerWeekIdx = 4
+                                            : whichDays[3] = !whichDays[3];
+                                      });
+                                    },
+                                    child: RightButton(
+                                      daysPerWeekText: "Four times per Week",
+                                      whichDaysText: "Thursday",
+                                      index: 4,
+                                      daysPerWeek: daysPerWeek,
+                                      daysPerWeekIdx: daysPerWeekIdx,
+                                      whichDays: whichDays,
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        selected = 1;
+                                        daysPerWeek
+                                            ? daysPerWeekIdx = 5
+                                            : whichDays[4] = !whichDays[4];
+                                      });
+                                    },
+                                    child: RightButton(
+                                      daysPerWeekText: "Five times per Week",
+                                      whichDaysText: "Friday",
+                                      index: 5,
+                                      daysPerWeek: daysPerWeek,
+                                      daysPerWeekIdx: daysPerWeekIdx,
+                                      whichDays: whichDays,
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        selected = 1;
+                                        daysPerWeek
+                                            ? daysPerWeekIdx = 6
+                                            : whichDays[5] = !whichDays[5];
+                                      });
+                                    },
+                                    child: RightButton(
+                                      daysPerWeekText: "Six times per Week",
+                                      whichDaysText: "Saturday",
+                                      index: 6,
+                                      daysPerWeek: daysPerWeek,
+                                      daysPerWeekIdx: daysPerWeekIdx,
+                                      whichDays: whichDays,
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        selected = 1;
+                                        daysPerWeek
+                                            ? daysPerWeekIdx = 7
+                                            : whichDays[6] = !whichDays[6];
+                                      });
+                                    },
+                                    child: RightButton(
+                                      daysPerWeekText: "Seven times per Week",
+                                      whichDaysText: "Sunday",
+                                      index: 7,
+                                      daysPerWeek: daysPerWeek,
+                                      daysPerWeekIdx: daysPerWeekIdx,
+                                      whichDays: whichDays,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Container(
                                 height:
                                     MediaQuery.of(context).size.height * 0.4,
-                                width: MediaQuery.of(context).size.width * 0.8,
+                                width: MediaQuery.of(context).size.width * 0.15,
                                 decoration: BoxDecoration(
                                   color:
                                       Theme.of(context).colorScheme.background,
                                 ),
-                                child: Stack(
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    Column(
-                                      children: [
-                                        GestureDetector(
-                                          onTap: () {
+                                    GestureDetector(
+                                      onTap: () {
+                                        setState(
+                                          () {
                                             selected = 1;
-                                            setState(
-                                              () {
-                                                daysPerWeekIdx = 1;
-                                              },
-                                            );
+                                            daysPerWeek
+                                                ? daysPerWeekIdx = 1
+                                                : whichDays[0] = !whichDays[0];
                                           },
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.4 /
-                                                    7,
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.8,
-                                                alignment: Alignment.center,
-                                                padding: EdgeInsets.only(
-                                                    left: MediaQuery.of(context)
-                                                            .size
-                                                            .width *
-                                                        0.05),
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                    color: daysPerWeekIdx == 1
-                                                        ? Theme.of(context)
-                                                            .focusColor
-                                                        : Theme.of(context)
-                                                            .colorScheme
-                                                            .background,
-                                                    width: 2,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
-                                                              0.1),
-                                                  color: daysPerWeekIdx == 1
-                                                      ? Theme.of(context)
-                                                          .colorScheme
-                                                          .primary
-                                                      : Theme.of(context)
-                                                          .colorScheme
-                                                          .background,
-                                                ),
-                                                child: Text(
-                                                  "Once per Week",
-                                                  style: TextStyle(
-                                                      color: daysPerWeekIdx == 1
-                                                          ? Theme.of(context)
-                                                              .focusColor
-                                                          : Theme.of(context)
-                                                              .colorScheme
-                                                              .background,
-                                                      fontSize:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height *
-                                                              0.015),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            selected = 1;
-                                            setState(
-                                              () {
-                                                daysPerWeekIdx = 2;
-                                              },
-                                            );
-                                          },
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.4 /
-                                                    7,
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.8,
-                                                alignment: Alignment.center,
-                                                padding: EdgeInsets.only(
-                                                    left: MediaQuery.of(context)
-                                                            .size
-                                                            .width *
-                                                        0.05),
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                    color: daysPerWeekIdx == 2
-                                                        ? Theme.of(context)
-                                                            .focusColor
-                                                        : Theme.of(context)
-                                                            .colorScheme
-                                                            .background,
-                                                    width: 2,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
-                                                              0.1),
-                                                  color: daysPerWeekIdx == 2
-                                                      ? Theme.of(context)
-                                                          .colorScheme
-                                                          .primary
-                                                      : Theme.of(context)
-                                                          .colorScheme
-                                                          .background,
-                                                ),
-                                                child: Text(
-                                                  "Twice per Week",
-                                                  style: TextStyle(
-                                                      color: daysPerWeekIdx == 2
-                                                          ? Theme.of(context)
-                                                              .focusColor
-                                                          : Theme.of(context)
-                                                              .colorScheme
-                                                              .background,
-                                                      fontSize:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height *
-                                                              0.015),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            selected = 1;
-                                            setState(
-                                              () {
-                                                daysPerWeekIdx = 3;
-                                              },
-                                            );
-                                          },
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.4 /
-                                                    7,
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.8,
-                                                alignment: Alignment.center,
-                                                padding: EdgeInsets.only(
-                                                    left: MediaQuery.of(context)
-                                                            .size
-                                                            .width *
-                                                        0.05),
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                    color: daysPerWeekIdx == 3
-                                                        ? Theme.of(context)
-                                                            .focusColor
-                                                        : Theme.of(context)
-                                                            .colorScheme
-                                                            .background,
-                                                    width: 2,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
-                                                              0.1),
-                                                  color: daysPerWeekIdx == 3
-                                                      ? Theme.of(context)
-                                                          .colorScheme
-                                                          .primary
-                                                      : Theme.of(context)
-                                                          .colorScheme
-                                                          .background,
-                                                ),
-                                                child: Text(
-                                                  "Three times per Week",
-                                                  style: TextStyle(
-                                                      color: daysPerWeekIdx == 3
-                                                          ? Theme.of(context)
-                                                              .focusColor
-                                                          : Theme.of(context)
-                                                              .colorScheme
-                                                              .background,
-                                                      fontSize:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height *
-                                                              0.015),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            selected = 1;
-                                            setState(
-                                              () {
-                                                daysPerWeekIdx = 4;
-                                              },
-                                            );
-                                          },
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.4 /
-                                                    7,
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.8,
-                                                alignment: Alignment.center,
-                                                padding: EdgeInsets.only(
-                                                    left: MediaQuery.of(context)
-                                                            .size
-                                                            .width *
-                                                        0.05),
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                    color: daysPerWeekIdx == 4
-                                                        ? Theme.of(context)
-                                                            .focusColor
-                                                        : Theme.of(context)
-                                                            .colorScheme
-                                                            .background,
-                                                    width: 2,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
-                                                              0.1),
-                                                  color: daysPerWeekIdx == 4
-                                                      ? Theme.of(context)
-                                                          .colorScheme
-                                                          .primary
-                                                      : Theme.of(context)
-                                                          .colorScheme
-                                                          .background,
-                                                ),
-                                                child: Text(
-                                                  "Four times per Week",
-                                                  style: TextStyle(
-                                                      color: daysPerWeekIdx == 4
-                                                          ? Theme.of(context)
-                                                              .focusColor
-                                                          : Theme.of(context)
-                                                              .colorScheme
-                                                              .background,
-                                                      fontSize:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height *
-                                                              0.015),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            selected = 1;
-                                            setState(
-                                              () {
-                                                daysPerWeekIdx = 5;
-                                              },
-                                            );
-                                          },
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.4 /
-                                                    7,
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.8,
-                                                alignment: Alignment.center,
-                                                padding: EdgeInsets.only(
-                                                    left: MediaQuery.of(context)
-                                                            .size
-                                                            .width *
-                                                        0.05),
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                    color: daysPerWeekIdx == 5
-                                                        ? Theme.of(context)
-                                                            .focusColor
-                                                        : Theme.of(context)
-                                                            .colorScheme
-                                                            .background,
-                                                    width: 2,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
-                                                              0.1),
-                                                  color: daysPerWeekIdx == 5
-                                                      ? Theme.of(context)
-                                                          .colorScheme
-                                                          .primary
-                                                      : Theme.of(context)
-                                                          .colorScheme
-                                                          .background,
-                                                ),
-                                                child: Text(
-                                                  "Five times per Week",
-                                                  style: TextStyle(
-                                                      color: daysPerWeekIdx == 5
-                                                          ? Theme.of(context)
-                                                              .focusColor
-                                                          : Theme.of(context)
-                                                              .colorScheme
-                                                              .background,
-                                                      fontSize:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height *
-                                                              0.015),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            selected = 1;
-                                            setState(
-                                              () {
-                                                daysPerWeekIdx = 6;
-                                              },
-                                            );
-                                          },
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.4 /
-                                                    7,
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.8,
-                                                alignment: Alignment.center,
-                                                padding: EdgeInsets.only(
-                                                    left: MediaQuery.of(context)
-                                                            .size
-                                                            .width *
-                                                        0.05),
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                    color: daysPerWeekIdx == 6
-                                                        ? Theme.of(context)
-                                                            .focusColor
-                                                        : Theme.of(context)
-                                                            .colorScheme
-                                                            .background,
-                                                    width: 2,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
-                                                              0.1),
-                                                  color: daysPerWeekIdx == 6
-                                                      ? Theme.of(context)
-                                                          .colorScheme
-                                                          .primary
-                                                      : Theme.of(context)
-                                                          .colorScheme
-                                                          .background,
-                                                ),
-                                                child: Text(
-                                                  "Six times per Week",
-                                                  style: TextStyle(
-                                                      color: daysPerWeekIdx == 6
-                                                          ? Theme.of(context)
-                                                              .focusColor
-                                                          : Theme.of(context)
-                                                              .colorScheme
-                                                              .background,
-                                                      fontSize:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height *
-                                                              0.015),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            selected = 1;
-                                            setState(
-                                              () {
-                                                daysPerWeekIdx = 7;
-                                              },
-                                            );
-                                          },
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.4 /
-                                                    7,
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.8,
-                                                alignment: Alignment.center,
-                                                padding: EdgeInsets.only(
-                                                    left: MediaQuery.of(context)
-                                                            .size
-                                                            .width *
-                                                        0.05),
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                    color: daysPerWeekIdx == 7
-                                                        ? Theme.of(context)
-                                                            .focusColor
-                                                        : Theme.of(context)
-                                                            .colorScheme
-                                                            .background,
-                                                    width: 2,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
-                                                              0.1),
-                                                  color: daysPerWeekIdx == 7
-                                                      ? Theme.of(context)
-                                                          .colorScheme
-                                                          .primary
-                                                      : Theme.of(context)
-                                                          .colorScheme
-                                                          .background,
-                                                ),
-                                                child: Text(
-                                                  "Seven times per Week",
-                                                  style: TextStyle(
-                                                      color: daysPerWeekIdx == 7
-                                                          ? Theme.of(context)
-                                                              .focusColor
-                                                          : Theme.of(context)
-                                                              .colorScheme
-                                                              .background,
-                                                      fontSize:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height *
-                                                              0.015),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Container(
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.4,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.15,
-                                      decoration: BoxDecoration(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .background,
-                                        border: Border.all(
-                                          color: Theme.of(context).focusColor,
-                                          width: 2,
-                                        ),
+                                        );
+                                      },
+                                      child: LeftButton(
+                                        daysPerWeekText: "1",
+                                        whichDaysText: "Mon",
+                                        index: 1,
+                                        daysPerWeek: daysPerWeek,
+                                        daysPerWeekIdx: daysPerWeekIdx,
+                                        whichDays: whichDays,
                                       ),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          GestureDetector(
-                                            onTap: () {
-                                              selected = 1;
-                                              setState(
-                                                () {
-                                                  daysPerWeekIdx = 1;
-                                                },
-                                              );
-                                            },
-                                            child: Stack(
-                                              alignment: Alignment.center,
-                                              children: [
-                                                Container(
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      (0.4 / 8),
-                                                ),
-                                                Container(
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      ((0.4 / 8) * 3 / 4),
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      ((0.4 / 8) * 3 / 4),
-                                                  alignment: Alignment.center,
-                                                  decoration: BoxDecoration(
-                                                    color: daysPerWeekIdx == 1
-                                                        ? Theme.of(context)
-                                                            .colorScheme
-                                                            .primary
-                                                        : Theme.of(context)
-                                                            .colorScheme
-                                                            .surface,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            1000),
-                                                  ),
-                                                  child: Text(
-                                                    "1",
-                                                    style: TextStyle(
-                                                      fontSize:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height *
-                                                              0.02,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              selected = 1;
-                                              setState(
-                                                () {
-                                                  daysPerWeekIdx = 2;
-                                                },
-                                              );
-                                            },
-                                            child: Stack(
-                                              alignment: Alignment.center,
-                                              children: [
-                                                Container(
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      (0.4 / 8),
-                                                  decoration:
-                                                      const BoxDecoration(),
-                                                ),
-                                                Container(
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      ((0.4 / 8) * 3 / 4),
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      ((0.4 / 8) * 3 / 4),
-                                                  alignment: Alignment.center,
-                                                  decoration: BoxDecoration(
-                                                    color: daysPerWeekIdx == 2
-                                                        ? Theme.of(context)
-                                                            .colorScheme
-                                                            .primary
-                                                        : Theme.of(context)
-                                                            .colorScheme
-                                                            .surface,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            1000),
-                                                  ),
-                                                  child: Text(
-                                                    "2",
-                                                    style: TextStyle(
-                                                      fontSize:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height *
-                                                              0.02,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              selected = 1;
-                                              setState(
-                                                () {
-                                                  daysPerWeekIdx = 3;
-                                                },
-                                              );
-                                            },
-                                            child: Stack(
-                                              alignment: Alignment.center,
-                                              children: [
-                                                Container(
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      (0.4 / 8),
-                                                  decoration:
-                                                      const BoxDecoration(),
-                                                ),
-                                                Container(
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      ((0.4 / 8) * 3 / 4),
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      ((0.4 / 8) * 3 / 4),
-                                                  alignment: Alignment.center,
-                                                  decoration: BoxDecoration(
-                                                    color: daysPerWeekIdx == 3
-                                                        ? Theme.of(context)
-                                                            .colorScheme
-                                                            .primary
-                                                        : Theme.of(context)
-                                                            .colorScheme
-                                                            .surface,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            1000),
-                                                  ),
-                                                  child: Text(
-                                                    "3",
-                                                    style: TextStyle(
-                                                      fontSize:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height *
-                                                              0.02,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              selected = 1;
-                                              setState(
-                                                () {
-                                                  daysPerWeekIdx = 4;
-                                                },
-                                              );
-                                            },
-                                            child: Stack(
-                                              alignment: Alignment.center,
-                                              children: [
-                                                Container(
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      (0.4 / 8),
-                                                  decoration:
-                                                      const BoxDecoration(),
-                                                ),
-                                                Container(
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      ((0.4 / 8) * 3 / 4),
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      ((0.4 / 8) * 3 / 4),
-                                                  alignment: Alignment.center,
-                                                  decoration: BoxDecoration(
-                                                    color: daysPerWeekIdx == 4
-                                                        ? Theme.of(context)
-                                                            .colorScheme
-                                                            .primary
-                                                        : Theme.of(context)
-                                                            .colorScheme
-                                                            .surface,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            1000),
-                                                  ),
-                                                  child: Text(
-                                                    "4",
-                                                    style: TextStyle(
-                                                      fontSize:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height *
-                                                              0.02,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              selected = 1;
-                                              setState(
-                                                () {
-                                                  daysPerWeekIdx = 5;
-                                                },
-                                              );
-                                            },
-                                            child: Stack(
-                                              alignment: Alignment.center,
-                                              children: [
-                                                Container(
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      (0.4 / 8),
-                                                  decoration:
-                                                      const BoxDecoration(),
-                                                ),
-                                                Container(
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      ((0.4 / 8) * 3 / 4),
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      ((0.4 / 8) * 3 / 4),
-                                                  alignment: Alignment.center,
-                                                  decoration: BoxDecoration(
-                                                    color: daysPerWeekIdx == 5
-                                                        ? Theme.of(context)
-                                                            .colorScheme
-                                                            .primary
-                                                        : Theme.of(context)
-                                                            .colorScheme
-                                                            .surface,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            1000),
-                                                  ),
-                                                  child: Text(
-                                                    "5",
-                                                    style: TextStyle(
-                                                      fontSize:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height *
-                                                              0.02,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              selected = 1;
-                                              setState(
-                                                () {
-                                                  daysPerWeekIdx = 6;
-                                                },
-                                              );
-                                            },
-                                            child: Stack(
-                                              alignment: Alignment.center,
-                                              children: [
-                                                Container(
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      (0.4 / 8),
-                                                  decoration:
-                                                      const BoxDecoration(),
-                                                ),
-                                                Container(
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      ((0.4 / 8) * 3 / 4),
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      ((0.4 / 8) * 3 / 4),
-                                                  alignment: Alignment.center,
-                                                  decoration: BoxDecoration(
-                                                    color: daysPerWeekIdx == 6
-                                                        ? Theme.of(context)
-                                                            .colorScheme
-                                                            .primary
-                                                        : Theme.of(context)
-                                                            .colorScheme
-                                                            .surface,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            1000),
-                                                  ),
-                                                  child: Text(
-                                                    "6",
-                                                    style: TextStyle(
-                                                      fontSize:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height *
-                                                              0.02,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              selected = 1;
-                                              setState(
-                                                () {
-                                                  daysPerWeekIdx = 7;
-                                                },
-                                              );
-                                            },
-                                            child: Stack(
-                                              alignment: Alignment.center,
-                                              children: [
-                                                Container(
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      (0.4 / 8),
-                                                  decoration:
-                                                      const BoxDecoration(),
-                                                ),
-                                                Container(
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      ((0.4 / 8) * 3 / 4),
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      ((0.4 / 8) * 3 / 4),
-                                                  alignment: Alignment.center,
-                                                  decoration: BoxDecoration(
-                                                    color: daysPerWeekIdx == 7
-                                                        ? Theme.of(context)
-                                                            .colorScheme
-                                                            .primary
-                                                        : Theme.of(context)
-                                                            .colorScheme
-                                                            .surface,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            1000),
-                                                  ),
-                                                  child: Text(
-                                                    "7",
-                                                    style: TextStyle(
-                                                      fontSize:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height *
-                                                              0.02,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          selected = 1;
+                                          daysPerWeek
+                                              ? daysPerWeekIdx = 2
+                                              : whichDays[1] = !whichDays[1];
+                                        });
+                                      },
+                                      child: LeftButton(
+                                        daysPerWeekText: "2",
+                                        whichDaysText: "Tue",
+                                        index: 2,
+                                        daysPerWeek: daysPerWeek,
+                                        daysPerWeekIdx: daysPerWeekIdx,
+                                        whichDays: whichDays,
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          selected = 1;
+                                          daysPerWeek
+                                              ? daysPerWeekIdx = 3
+                                              : whichDays[2] = !whichDays[2];
+                                        });
+                                      },
+                                      child: LeftButton(
+                                        daysPerWeekText: "3",
+                                        whichDaysText: "Wed",
+                                        index: 3,
+                                        daysPerWeek: daysPerWeek,
+                                        daysPerWeekIdx: daysPerWeekIdx,
+                                        whichDays: whichDays,
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          selected = 1;
+                                          daysPerWeek
+                                              ? daysPerWeekIdx = 4
+                                              : whichDays[3] = !whichDays[3];
+                                        });
+                                      },
+                                      child: LeftButton(
+                                        daysPerWeekText: "4",
+                                        whichDaysText: "Thu",
+                                        index: 4,
+                                        daysPerWeek: daysPerWeek,
+                                        daysPerWeekIdx: daysPerWeekIdx,
+                                        whichDays: whichDays,
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          selected = 1;
+                                          daysPerWeek
+                                              ? daysPerWeekIdx = 5
+                                              : whichDays[4] = !whichDays[4];
+                                        });
+                                      },
+                                      child: LeftButton(
+                                        daysPerWeekText: "5",
+                                        whichDaysText: "Fri",
+                                        index: 5,
+                                        daysPerWeek: daysPerWeek,
+                                        daysPerWeekIdx: daysPerWeekIdx,
+                                        whichDays: whichDays,
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          selected = 1;
+                                          daysPerWeek
+                                              ? daysPerWeekIdx = 6
+                                              : whichDays[5] = !whichDays[5];
+                                        });
+                                      },
+                                      child: LeftButton(
+                                        daysPerWeekText: "6",
+                                        whichDaysText: "Sat",
+                                        index: 6,
+                                        daysPerWeek: daysPerWeek,
+                                        daysPerWeekIdx: daysPerWeekIdx,
+                                        whichDays: whichDays,
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          selected = 1;
+                                          daysPerWeek
+                                              ? daysPerWeekIdx = 7
+                                              : whichDays[6] = !whichDays[6];
+                                        });
+                                      },
+                                      child: LeftButton(
+                                        daysPerWeekText: "7",
+                                        whichDaysText: "Sun",
+                                        index: 7,
+                                        daysPerWeek: daysPerWeek,
+                                        daysPerWeekIdx: daysPerWeekIdx,
+                                        whichDays: whichDays,
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
-                            )
-                          : ClipRRect(
-                              borderRadius: BorderRadius.circular(30),
-                              child: Container(
-                                alignment: Alignment.centerLeft,
-                                height:
-                                    MediaQuery.of(context).size.height * 0.4,
-                                width: MediaQuery.of(context).size.width * 0.8,
-                                decoration: BoxDecoration(
-                                  color:
-                                      Theme.of(context).colorScheme.background,
-                                ),
-                                child: Stack(
-                                  children: [
-                                    Column(
-                                      children: [
-                                        GestureDetector(
-                                          onTap: () {
-                                            selected = 1;
-                                            setState(
-                                              () {
-                                                whichDays[0]
-                                                    ? whichDays[0] = false
-                                                    : whichDays[0] = true;
-                                              },
-                                            );
-                                          },
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.4 /
-                                                    7,
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.8,
-                                                alignment: Alignment.center,
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                    color: whichDays[0]
-                                                        ? Theme.of(context)
-                                                            .focusColor
-                                                        : Theme.of(context)
-                                                            .colorScheme
-                                                            .background,
-                                                    width: 2,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
-                                                              0.1),
-                                                  color: whichDays[0]
-                                                      ? Theme.of(context)
-                                                          .colorScheme
-                                                          .primary
-                                                      : Theme.of(context)
-                                                          .colorScheme
-                                                          .background,
-                                                ),
-                                                child: Text(
-                                                  "Monday",
-                                                  style: TextStyle(
-                                                      color: whichDays[0]
-                                                          ? Theme.of(context)
-                                                              .focusColor
-                                                          : Theme.of(context)
-                                                              .colorScheme
-                                                              .background,
-                                                      fontSize:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height *
-                                                              0.017),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            setState(
-                                              () {
-                                                selected = 1;
-                                                whichDays[1]
-                                                    ? whichDays[1] = false
-                                                    : whichDays[1] = true;
-                                              },
-                                            );
-                                          },
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.4 /
-                                                    7,
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.8,
-                                                alignment: Alignment.center,
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                    color: whichDays[1]
-                                                        ? Theme.of(context)
-                                                            .focusColor
-                                                        : Theme.of(context)
-                                                            .colorScheme
-                                                            .background,
-                                                    width: 2,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
-                                                              0.1),
-                                                  color: whichDays[1]
-                                                      ? Theme.of(context)
-                                                          .colorScheme
-                                                          .primary
-                                                      : Theme.of(context)
-                                                          .colorScheme
-                                                          .background,
-                                                ),
-                                                child: Text(
-                                                  "Tuesday",
-                                                  style: TextStyle(
-                                                      color: whichDays[1]
-                                                          ? Theme.of(context)
-                                                              .focusColor
-                                                          : Theme.of(context)
-                                                              .colorScheme
-                                                              .background,
-                                                      fontSize:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height *
-                                                              0.017),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            selected = 1;
-                                            setState(
-                                              () {
-                                                whichDays[2]
-                                                    ? whichDays[2] = false
-                                                    : whichDays[2] = true;
-                                              },
-                                            );
-                                          },
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.4 /
-                                                    7,
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.8,
-                                                alignment: Alignment.center,
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                    color: whichDays[2]
-                                                        ? Theme.of(context)
-                                                            .focusColor
-                                                        : Theme.of(context)
-                                                            .colorScheme
-                                                            .background,
-                                                    width: 2,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
-                                                              0.1),
-                                                  color: whichDays[2]
-                                                      ? Theme.of(context)
-                                                          .colorScheme
-                                                          .primary
-                                                      : Theme.of(context)
-                                                          .colorScheme
-                                                          .background,
-                                                ),
-                                                child: Text(
-                                                  "Wednesday",
-                                                  style: TextStyle(
-                                                      color: whichDays[2]
-                                                          ? Theme.of(context)
-                                                              .focusColor
-                                                          : Theme.of(context)
-                                                              .colorScheme
-                                                              .background,
-                                                      fontSize:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height *
-                                                              0.017),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            selected = 1;
-                                            setState(
-                                              () {
-                                                whichDays[3]
-                                                    ? whichDays[3] = false
-                                                    : whichDays[3] = true;
-                                              },
-                                            );
-                                          },
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.4 /
-                                                    7,
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.8,
-                                                alignment: Alignment.center,
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                    color: whichDays[3]
-                                                        ? Theme.of(context)
-                                                            .focusColor
-                                                        : Theme.of(context)
-                                                            .colorScheme
-                                                            .background,
-                                                    width: 2,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
-                                                              0.1),
-                                                  color: whichDays[3]
-                                                      ? Theme.of(context)
-                                                          .colorScheme
-                                                          .primary
-                                                      : Theme.of(context)
-                                                          .colorScheme
-                                                          .background,
-                                                ),
-                                                child: Text(
-                                                  "Thursday",
-                                                  style: TextStyle(
-                                                      color: whichDays[3]
-                                                          ? Theme.of(context)
-                                                              .focusColor
-                                                          : Theme.of(context)
-                                                              .colorScheme
-                                                              .background,
-                                                      fontSize:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height *
-                                                              0.017),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            selected = 1;
-                                            setState(
-                                              () {
-                                                whichDays[4]
-                                                    ? whichDays[4] = false
-                                                    : whichDays[4] = true;
-                                              },
-                                            );
-                                          },
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.4 /
-                                                    7,
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.8,
-                                                alignment: Alignment.center,
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                    color: whichDays[4]
-                                                        ? Theme.of(context)
-                                                            .focusColor
-                                                        : Theme.of(context)
-                                                            .colorScheme
-                                                            .background,
-                                                    width: 2,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
-                                                              0.1),
-                                                  color: whichDays[4]
-                                                      ? Theme.of(context)
-                                                          .colorScheme
-                                                          .primary
-                                                      : Theme.of(context)
-                                                          .colorScheme
-                                                          .background,
-                                                ),
-                                                child: Text(
-                                                  "Friday",
-                                                  style: TextStyle(
-                                                      color: whichDays[4]
-                                                          ? Theme.of(context)
-                                                              .focusColor
-                                                          : Theme.of(context)
-                                                              .colorScheme
-                                                              .background,
-                                                      fontSize:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height *
-                                                              0.017),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            selected = 1;
-                                            setState(
-                                              () {
-                                                whichDays[5]
-                                                    ? whichDays[5] = false
-                                                    : whichDays[5] = true;
-                                              },
-                                            );
-                                          },
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.4 /
-                                                    7,
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.8,
-                                                alignment: Alignment.center,
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                    color: whichDays[5]
-                                                        ? Theme.of(context)
-                                                            .focusColor
-                                                        : Theme.of(context)
-                                                            .colorScheme
-                                                            .background,
-                                                    width: 2,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
-                                                              0.1),
-                                                  color: whichDays[5]
-                                                      ? Theme.of(context)
-                                                          .colorScheme
-                                                          .primary
-                                                      : Theme.of(context)
-                                                          .colorScheme
-                                                          .background,
-                                                ),
-                                                child: Text(
-                                                  "Saturday",
-                                                  style: TextStyle(
-                                                      color: whichDays[5]
-                                                          ? Theme.of(context)
-                                                              .focusColor
-                                                          : Theme.of(context)
-                                                              .colorScheme
-                                                              .background,
-                                                      fontSize:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height *
-                                                              0.017),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            selected = 1;
-                                            setState(
-                                              () {
-                                                whichDays[6]
-                                                    ? whichDays[6] = false
-                                                    : whichDays[6] = true;
-                                              },
-                                            );
-                                          },
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.4 /
-                                                    7,
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.8,
-                                                alignment: Alignment.center,
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                    color: whichDays[6]
-                                                        ? Theme.of(context)
-                                                            .focusColor
-                                                        : Theme.of(context)
-                                                            .colorScheme
-                                                            .background,
-                                                    width: 2,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
-                                                              0.1),
-                                                  color: whichDays[6]
-                                                      ? Theme.of(context)
-                                                          .colorScheme
-                                                          .primary
-                                                      : Theme.of(context)
-                                                          .colorScheme
-                                                          .background,
-                                                ),
-                                                child: Text(
-                                                  "Sunday",
-                                                  style: TextStyle(
-                                                      color: whichDays[6]
-                                                          ? Theme.of(context)
-                                                              .focusColor
-                                                          : Theme.of(context)
-                                                              .colorScheme
-                                                              .background,
-                                                      fontSize:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height *
-                                                              0.017),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Container(
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.4,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.15,
-                                      decoration: BoxDecoration(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .background,
-                                        border: Border.all(
-                                          color: Theme.of(context).focusColor,
-                                          width: 2,
-                                        ),
-                                      ),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          GestureDetector(
-                                            onTap: () {
-                                              selected = 1;
-                                              setState(
-                                                () {
-                                                  whichDays[0]
-                                                      ? whichDays[0] = false
-                                                      : whichDays[0] = true;
-                                                },
-                                              );
-                                            },
-                                            child: Stack(
-                                              alignment: Alignment.center,
-                                              children: [
-                                                Container(
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      (0.4 / 8),
-                                                ),
-                                                Container(
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      ((0.4 / 8) * 3 / 4),
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      ((0.4 / 8) * 3 / 4),
-                                                  alignment: Alignment.center,
-                                                  decoration: BoxDecoration(
-                                                    color: whichDays[0]
-                                                        ? Theme.of(context)
-                                                            .colorScheme
-                                                            .primary
-                                                        : Theme.of(context)
-                                                            .colorScheme
-                                                            .surface,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            1000),
-                                                  ),
-                                                  child: Text(
-                                                    "Mon",
-                                                    style: TextStyle(
-                                                      fontSize:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height *
-                                                              0.013,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              selected = 1;
-                                              setState(
-                                                () {
-                                                  whichDays[1]
-                                                      ? whichDays[1] = false
-                                                      : whichDays[1] = true;
-                                                },
-                                              );
-                                            },
-                                            child: Stack(
-                                              alignment: Alignment.center,
-                                              children: [
-                                                Container(
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      (0.4 / 8),
-                                                  decoration:
-                                                      const BoxDecoration(),
-                                                ),
-                                                Container(
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      ((0.4 / 8) * 3 / 4),
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      ((0.4 / 8) * 3 / 4),
-                                                  alignment: Alignment.center,
-                                                  decoration: BoxDecoration(
-                                                    color: whichDays[1]
-                                                        ? Theme.of(context)
-                                                            .colorScheme
-                                                            .primary
-                                                        : Theme.of(context)
-                                                            .colorScheme
-                                                            .surface,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            1000),
-                                                  ),
-                                                  child: Text(
-                                                    "Tue",
-                                                    style: TextStyle(
-                                                      fontSize:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height *
-                                                              0.013,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              selected = 1;
-                                              setState(
-                                                () {
-                                                  whichDays[2]
-                                                      ? whichDays[2] = false
-                                                      : whichDays[2] = true;
-                                                },
-                                              );
-                                            },
-                                            child: Stack(
-                                              alignment: Alignment.center,
-                                              children: [
-                                                Container(
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      (0.4 / 8),
-                                                  decoration:
-                                                      const BoxDecoration(),
-                                                ),
-                                                Container(
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      ((0.4 / 8) * 3 / 4),
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      ((0.4 / 8) * 3 / 4),
-                                                  alignment: Alignment.center,
-                                                  decoration: BoxDecoration(
-                                                    color: whichDays[2]
-                                                        ? Theme.of(context)
-                                                            .colorScheme
-                                                            .primary
-                                                        : Theme.of(context)
-                                                            .colorScheme
-                                                            .surface,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            1000),
-                                                  ),
-                                                  child: Text(
-                                                    "Wed",
-                                                    style: TextStyle(
-                                                      fontSize:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height *
-                                                              0.013,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              selected = 1;
-                                              setState(
-                                                () {
-                                                  whichDays[3]
-                                                      ? whichDays[3] = false
-                                                      : whichDays[3] = true;
-                                                },
-                                              );
-                                            },
-                                            child: Stack(
-                                              alignment: Alignment.center,
-                                              children: [
-                                                Container(
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      (0.4 / 8),
-                                                  decoration:
-                                                      const BoxDecoration(),
-                                                ),
-                                                Container(
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      ((0.4 / 8) * 3 / 4),
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      ((0.4 / 8) * 3 / 4),
-                                                  alignment: Alignment.center,
-                                                  decoration: BoxDecoration(
-                                                    color: whichDays[3]
-                                                        ? Theme.of(context)
-                                                            .colorScheme
-                                                            .primary
-                                                        : Theme.of(context)
-                                                            .colorScheme
-                                                            .surface,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            1000),
-                                                  ),
-                                                  child: Text(
-                                                    "Thu",
-                                                    style: TextStyle(
-                                                      fontSize:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height *
-                                                              0.013,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              selected = 1;
-                                              setState(
-                                                () {
-                                                  whichDays[4]
-                                                      ? whichDays[4] = false
-                                                      : whichDays[4] = true;
-                                                },
-                                              );
-                                            },
-                                            child: Stack(
-                                              alignment: Alignment.center,
-                                              children: [
-                                                Container(
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      (0.4 / 8),
-                                                  decoration:
-                                                      const BoxDecoration(),
-                                                ),
-                                                Container(
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      ((0.4 / 8) * 3 / 4),
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      ((0.4 / 8) * 3 / 4),
-                                                  alignment: Alignment.center,
-                                                  decoration: BoxDecoration(
-                                                    color: whichDays[4]
-                                                        ? Theme.of(context)
-                                                            .colorScheme
-                                                            .primary
-                                                        : Theme.of(context)
-                                                            .colorScheme
-                                                            .surface,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            1000),
-                                                  ),
-                                                  child: Text(
-                                                    "Fri",
-                                                    style: TextStyle(
-                                                      fontSize:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height *
-                                                              0.013,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              selected = 1;
-                                              setState(
-                                                () {
-                                                  whichDays[5]
-                                                      ? whichDays[5] = false
-                                                      : whichDays[5] = true;
-                                                },
-                                              );
-                                            },
-                                            child: Stack(
-                                              alignment: Alignment.center,
-                                              children: [
-                                                Container(
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      (0.4 / 8),
-                                                  decoration:
-                                                      const BoxDecoration(),
-                                                ),
-                                                Container(
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      ((0.4 / 8) * 3 / 4),
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      ((0.4 / 8) * 3 / 4),
-                                                  alignment: Alignment.center,
-                                                  decoration: BoxDecoration(
-                                                    color: whichDays[5]
-                                                        ? Theme.of(context)
-                                                            .colorScheme
-                                                            .primary
-                                                        : Theme.of(context)
-                                                            .colorScheme
-                                                            .surface,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            1000),
-                                                  ),
-                                                  child: Text(
-                                                    "Sat",
-                                                    style: TextStyle(
-                                                      fontSize:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height *
-                                                              0.013,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              selected = 1;
-                                              setState(
-                                                () {
-                                                  whichDays[6]
-                                                      ? whichDays[6] = false
-                                                      : whichDays[6] = true;
-                                                },
-                                              );
-                                            },
-                                            child: Stack(
-                                              alignment: Alignment.center,
-                                              children: [
-                                                Container(
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      (0.4 / 8),
-                                                  decoration:
-                                                      const BoxDecoration(),
-                                                ),
-                                                Container(
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      ((0.4 / 8) * 3 / 4),
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      ((0.4 / 8) * 3 / 4),
-                                                  alignment: Alignment.center,
-                                                  decoration: BoxDecoration(
-                                                    color: whichDays[6]
-                                                        ? Theme.of(context)
-                                                            .colorScheme
-                                                            .primary
-                                                        : Theme.of(context)
-                                                            .colorScheme
-                                                            .surface,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            1000),
-                                                  ),
-                                                  child: Text(
-                                                    "Sun",
-                                                    style: TextStyle(
-                                                      fontSize:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height *
-                                                              0.013,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
+                            ],
+                          ),
+                        ),
+                      )
                     ],
                   ),
                 ),
                 GestureDetector(
-                 onTap: () {
+                  onTap: () {
                     if (selected != 0 && widget.isSettings == false) {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => NineDuration(isSettings: false,),
+                          builder: (context) => const NineDuration(
+                            isSettings: false,
+                          ),
                         ),
                       );
-                    }
-                    else {
+                    } else {
                       Navigator.pop(context);
                     }
                   },
@@ -2121,11 +584,12 @@ class _EightScheduleState extends State<EightSchedule> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Next',
+                          widget.isSettings ? "Enter" : 'Next',
                           style: TextStyle(
-                              color: Theme.of(context).focusColor,
-                              fontSize:
-                                  MediaQuery.of(context).size.height * 0.025),
+                              color: selected != 0
+                                  ? Colors.black
+                                  : Theme.of(context).focusColor,
+                              fontSize: global.height(context) * 0.025),
                         ),
                       ],
                     ),
@@ -2136,6 +600,144 @@ class _EightScheduleState extends State<EightSchedule> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class LeftButton extends StatefulWidget {
+  final String daysPerWeekText;
+  final String whichDaysText;
+  final int index;
+
+  final bool daysPerWeek;
+  final int daysPerWeekIdx;
+  final List<bool> whichDays;
+
+  const LeftButton({
+    super.key,
+    required this.daysPerWeekText,
+    required this.whichDaysText,
+    required this.index,
+    required this.daysPerWeek,
+    required this.daysPerWeekIdx,
+    required this.whichDays,
+  });
+
+  @override
+  State<LeftButton> createState() => _LeftButtonState();
+}
+
+class _LeftButtonState extends State<LeftButton> {
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Container(
+          height: MediaQuery.of(context).size.height * (0.4 / 8),
+        ),
+        Container(
+          height: MediaQuery.of(context).size.height * ((0.4 / 8) * 3 / 4),
+          width: MediaQuery.of(context).size.height * ((0.4 / 8) * 3 / 4),
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            border: Border(
+              left: BorderSide(
+                  color: Theme.of(context).colorScheme.background, width: 1),
+            ),
+            color: widget.daysPerWeek
+                ? (widget.daysPerWeekIdx == widget.index
+                    ? Theme.of(context).colorScheme.primary
+                    : Theme.of(context).colorScheme.surface)
+                : (widget.whichDays[widget.index - 1]
+                    ? Theme.of(context).colorScheme.primary
+                    : Theme.of(context).colorScheme.surface),
+            borderRadius: BorderRadius.circular(1000),
+          ),
+          child: Text(
+            widget.daysPerWeek ? widget.daysPerWeekText : widget.whichDaysText,
+            style: TextStyle(
+                color: widget.daysPerWeek
+                    ? (widget.daysPerWeekIdx == widget.index
+                        ? Colors.black
+                        : Theme.of(context).focusColor)
+                    : (widget.whichDays[widget.index - 1]
+                        ? Colors.black
+                        : Theme.of(context).focusColor),
+                fontSize: widget.daysPerWeek
+                    ? MediaQuery.of(context).size.height * 0.02
+                    : MediaQuery.of(context).size.height * 0.013),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class RightButton extends StatefulWidget {
+  final String daysPerWeekText;
+  final String whichDaysText;
+  final int index;
+
+  final bool daysPerWeek;
+  final int daysPerWeekIdx;
+  final List<bool> whichDays;
+
+  const RightButton({
+    super.key,
+    required this.daysPerWeekText,
+    required this.whichDaysText,
+    required this.index,
+    required this.daysPerWeek,
+    required this.daysPerWeekIdx,
+    required this.whichDays,
+  });
+
+  @override
+  State<RightButton> createState() => _RightButtonState();
+}
+
+class _RightButtonState extends State<RightButton> {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Container(
+          height: MediaQuery.of(context).size.height * 0.4 / 7,
+          width: MediaQuery.of(context).size.width * 0.8,
+          alignment: Alignment.center,
+          padding:
+              EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.05),
+          decoration: BoxDecoration(
+            border: widget.index != 7
+                ? Border(
+                    bottom: BorderSide(
+                        color: Theme.of(context).colorScheme.background,
+                        width: 5),
+                  )
+                : const Border(),
+            color: widget.daysPerWeek
+                ? (widget.daysPerWeekIdx == widget.index
+                    ? Theme.of(context).colorScheme.primary
+                    : Theme.of(context).colorScheme.background)
+                : (widget.whichDays[widget.index - 1]
+                    ? Theme.of(context).colorScheme.primary
+                    : Theme.of(context).colorScheme.background),
+          ),
+          child: Text(
+            widget.daysPerWeek ? widget.daysPerWeekText : widget.whichDaysText,
+            style: TextStyle(
+                color: widget.daysPerWeek
+                    ? (widget.daysPerWeekIdx == widget.index
+                        ? Colors.black
+                        : Theme.of(context).colorScheme.background)
+                    : (widget.whichDays[widget.index - 1]
+                        ? Colors.black
+                        : Theme.of(context).colorScheme.background),
+                fontSize: MediaQuery.of(context).size.height * 0.015),
+          ),
+        ),
+      ],
     );
   }
 }

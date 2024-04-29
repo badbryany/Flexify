@@ -1,5 +1,5 @@
-import 'package:flexify/SignInSignUp/signInNew.dart';
-import 'package:flexify/SignInSignUp/signUpNew.dart';
+import 'package:flexify/SignInSignUp/signIn.dart';
+import 'package:flexify/SignInSignUp/signUp.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/SignInSignUp/widgets/background.dart';
 import 'package:page_transition/page_transition.dart';
@@ -17,7 +17,7 @@ class _ChooseState extends State<Choose> {
       'icon': const SizedBox(),
       'title': 'SIGN UP FREE',
       'highlight': true,
-      'link': const SignUpNew(),
+      'link': const SignUp(),
     },
     {
       'icon': Image.asset('assets/icon/facebook.png', scale: 5),
@@ -95,13 +95,18 @@ class _ChooseState extends State<Choose> {
                 // buttons
                 ...buttons.map(
                   (e) => GestureDetector(
-                    onTap: () => Navigator.push(
-                      context,
-                      PageTransition(
-                        child: e['link'],
-                        type: PageTransitionType.fade,
-                      ),
-                    ),
+                    onTap: () {
+                      if (!e['highlight']) {
+                        return;
+                      }
+                      Navigator.push(
+                        context,
+                        PageTransition(
+                          child: e['link'],
+                          type: PageTransitionType.fade,
+                        ),
+                      );
+                    },
                     child: Container(
                       padding: const EdgeInsets.all(15),
                       margin: const EdgeInsets.all(12),
@@ -146,13 +151,15 @@ class _ChooseState extends State<Choose> {
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                 GestureDetector(
-                  onTap: () => Navigator.push(
-                    context,
-                    PageTransition(
-                      child: const SignInNew(),
-                      type: PageTransitionType.fade,
-                    ),
-                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      PageTransition(
+                        child: const SignIn(),
+                        type: PageTransitionType.fade,
+                      ),
+                    );
+                  },
                   child: Padding(
                     padding: const EdgeInsets.all(20),
                     child: Text(

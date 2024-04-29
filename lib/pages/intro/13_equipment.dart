@@ -108,38 +108,47 @@ class _ThirteenEquipmentState extends State<ThirteenEquipment> {
                     const IntroNavBarIcon(),
                     widget.isSettings
                         ? Padding(
-                          padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.16, right:  MediaQuery.of(context).size.width * 0.19),
-                          child: Text(
+                            padding: EdgeInsets.only(
+                                left: MediaQuery.of(context).size.width * 0.16,
+                                right:
+                                    MediaQuery.of(context).size.width * 0.19),
+                            child: Text(
                               "Equipment",
-                              style:
-                                  TextStyle(color: Theme.of(context).focusColor, fontSize: MediaQuery.of(context).size.width * 0.06),
+                              style: TextStyle(
+                                  color: Theme.of(context).focusColor,
+                                  fontSize:
+                                      MediaQuery.of(context).size.width * 0.06),
                             ),
-                        )
+                          )
                         : SizedBox(
                             width: MediaQuery.of(context).size.width * 0.7,
                           ),
                     widget.isSettings
                         ? const SizedBox()
-                        : 
-                    GestureDetector(
-                     onTap: () {
-                        if (widget.isSettings == false) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const FourteenTargetWeight(isSettings: false,),
+                        : GestureDetector(
+                            onTap: () {
+                              if (widget.isSettings == false) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const FourteenTargetWeight(
+                                      isSettings: false,
+                                    ),
+                                  ),
+                                );
+                              } else {
+                                Navigator.pop(context);
+                              }
+                            },
+                            child: Text(
+                              'Skip',
+                              style: TextStyle(
+                                  color: Theme.of(context).focusColor,
+                                  fontSize: MediaQuery.of(context).size.width *
+                                      0.035),
                             ),
-                          );
-                        }
-                        else {
-                          Navigator.pop(context);
-                        }
-                      },
-                      child: Text(
-                        'Skip',
-                        style: TextStyle(color: Theme.of(context).focusColor, fontSize: MediaQuery.of(context).size.width * 0.035),
-                      ),
-                    ),
+                          ),
                     SizedBox(width: MediaQuery.of(context).size.width * 0.02)
                   ],
                 ),
@@ -267,7 +276,9 @@ class _ThirteenEquipmentState extends State<ThirteenEquipment> {
                                     ),
                                     child: Text(selectedTypeName[index],
                                         style: TextStyle(
-                                            color: Theme.of(context).focusColor,
+                                            color: selectedType == index
+                                                ? Colors.black
+                                                : Theme.of(context).focusColor,
                                             fontSize: MediaQuery.of(context)
                                                     .size
                                                     .width *
@@ -358,8 +369,14 @@ class _ThirteenEquipmentState extends State<ThirteenEquipment> {
                                                   .keys
                                                   .elementAt(index),
                                               style: TextStyle(
-                                                  color: Theme.of(context)
-                                                      .focusColor,
+                                                  color: items[selectedType]
+                                                                  .values
+                                                                  .toList()[
+                                                              index] ==
+                                                          true
+                                                      ? Colors.black
+                                                      : Theme.of(context)
+                                                          .focusColor,
                                                   fontSize:
                                                       MediaQuery.of(context)
                                                                   .size
@@ -375,8 +392,14 @@ class _ThirteenEquipmentState extends State<ThirteenEquipment> {
                                                     .toList()[index]
                                                 ? Icon(
                                                     Icons.check_circle_outlined,
-                                                    color: Theme.of(context)
-                                                        .focusColor,
+                                                    color: items[selectedType]
+                                                                  .values
+                                                                  .toList()[
+                                                              index] ==
+                                                          true
+                                                      ? Colors.black
+                                                      : Theme.of(context)
+                                                          .focusColor,
                                                     size: MediaQuery.of(context)
                                                             .size
                                                             .width *
@@ -404,11 +427,12 @@ class _ThirteenEquipmentState extends State<ThirteenEquipment> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => FourteenTargetWeight(isSettings: false,),
+                          builder: (context) => FourteenTargetWeight(
+                            isSettings: false,
+                          ),
                         ),
                       );
-                    }
-                    else {
+                    } else {
                       Navigator.pop(context);
                     }
                   },
@@ -426,7 +450,7 @@ class _ThirteenEquipmentState extends State<ThirteenEquipment> {
                         Text(
                           'Next',
                           style: TextStyle(
-                              color: Theme.of(context).focusColor,
+                              color: Colors.black,
                               fontSize:
                                   MediaQuery.of(context).size.height * 0.025),
                         ),

@@ -177,31 +177,13 @@ class _DashboardState extends State<Dashboard> {
             gap: 10,
             tabs: dashboardOptions
                 .map(
-                  (e) => e['title'] == 'Profile'
-                      ? GButton(
-                          icon: e['icon'],
-                          text: e['title'],
-                          padding: const EdgeInsets.all(15),
-                          textStyle: gotRequests
-                              ? TextStyle(
-                                  color: Theme.of(context).colorScheme.primary,
-                                )
-                              : null,
-                          iconColor: gotRequests
-                              ? Theme.of(context).colorScheme.primary
-                              : Theme.of(context).colorScheme.onSurface,
-                          iconActiveColor: gotRequests
-                              ? Theme.of(context).colorScheme.primary
-                              : Theme.of(context).colorScheme.onSurface,
-                        )
-                      : GButton(
-                          icon: e['icon'],
-                          text: e['title'],
-                          padding: const EdgeInsets.all(15),
-                          iconColor: Theme.of(context).colorScheme.onBackground,
-                          iconActiveColor:
-                              Theme.of(context).colorScheme.onSurface,
-                        ),
+                  (e) => GButton(
+                    icon: e['icon'],
+                    text: e['title'],
+                    padding: const EdgeInsets.all(15),
+                    iconColor: Theme.of(context).colorScheme.onBackground,
+                    iconActiveColor: Theme.of(context).colorScheme.onSurface,
+                  ),
                 )
                 .toList(),
 

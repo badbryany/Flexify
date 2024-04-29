@@ -267,7 +267,7 @@ class _FiveBodyFatState extends State<FiveBodyFat> {
                         Text(
                           selectedBodyFatPercentageRange,
                           style: TextStyle(
-                              color: Theme.of(context).scaffoldBackgroundColor,
+                              color: Colors.white,
                               fontSize:
                                   MediaQuery.of(context).size.width * 0.08),
                         ),
@@ -281,7 +281,7 @@ class _FiveBodyFatState extends State<FiveBodyFat> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => SixBirthday(isSettings: false,),
+                          builder: (context) => const SixBirthday(isSettings: false,),
                         ),
                       );
                     }
@@ -303,11 +303,12 @@ class _FiveBodyFatState extends State<FiveBodyFat> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Next',
+                          widget.isSettings ? "Enter" : 'Next',
                           style: TextStyle(
-                              color: Theme.of(context).focusColor,
-                              fontSize:
-                                  MediaQuery.of(context).size.height * 0.025),
+                              color: selected != 0
+                                  ? Colors.black
+                                  : Theme.of(context).focusColor,
+                              fontSize: global.height(context) * 0.025),
                         ),
                       ],
                     ),

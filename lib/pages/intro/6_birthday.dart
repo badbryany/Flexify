@@ -179,7 +179,7 @@ class _SixBirthdayState extends State<SixBirthday> {
                   child: Container(
                     height: MediaQuery.of(context).size.height * 0.01,
                     decoration: BoxDecoration(
-                      border: Border.all(width: 2),
+                      border: Border.all(width: 2, color: Theme.of(context).focusColor),
                       borderRadius: BorderRadius.circular(
                           MediaQuery.of(context).size.width * 0.2),
                     ),
@@ -293,11 +293,12 @@ class _SixBirthdayState extends State<SixBirthday> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Next',
+                          widget.isSettings ? "Enter" : 'Next',
                           style: TextStyle(
-                              color: Theme.of(context).focusColor,
-                              fontSize:
-                                  MediaQuery.of(context).size.height * 0.025),
+                              color: selected != 0
+                                  ? Colors.black
+                                  : Theme.of(context).focusColor,
+                              fontSize: global.height(context) * 0.025),
                         ),
                       ],
                     ),

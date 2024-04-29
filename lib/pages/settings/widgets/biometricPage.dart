@@ -183,19 +183,18 @@ class _BiometricPageState extends State<BiometricPage> {
                         children: [
                           Icon(
                             sectionIcons[index],
-                            color: Theme.of(context).scaffoldBackgroundColor,
+                            color: Theme.of(context).colorScheme.onBackground,
                           ),
                           Text(
                             sections[index],
                             style: TextStyle(
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor,
+                                color: Theme.of(context).colorScheme.onBackground,
                                 fontSize:
                                     MediaQuery.of(context).size.width * 0.05),
                           ),
                           Icon(
                             Icons.arrow_forward_rounded,
-                            color: Theme.of(context).scaffoldBackgroundColor,
+                            color: Theme.of(context).colorScheme.onBackground,
                           )
                         ],
                       ),

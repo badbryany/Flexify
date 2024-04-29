@@ -1,3 +1,6 @@
+import 'package:collection/collection.dart';
+import 'package:flexify/pages/workout/workoutStatsPage/widgets/Sets.dart';
+import 'package:flexify/widgets/ModalBottomSheet.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
@@ -96,6 +99,34 @@ class _ExerciseStatsState extends State<ExerciseStats> {
     ][date.month - 1];
 
     return '$month ${date.day}';
+  }
+
+  List<List<String>> calculateMonth(DateTime date) {
+    List<List<String>> calendarMonth = List.empty(growable: true);
+    int daysInMonth = global.daysInMonth(date);
+    int firstWeekday = 3;
+    int day = 1;
+
+    for (int i = 0; i < 6; i++) {
+      List<String> week = ['', '', '', '', '', '', ''];
+      if (i == 0) {
+        for (int j = firstWeekday; j < 7; j++) {
+          week[j] = day.toString();
+          day++;
+        }
+      } else {
+        for (int j = 0; j < 7; j++) {
+          if (day <= daysInMonth) {
+            week[j] = day.toString();
+          }
+          day++;
+        }
+      }
+      if (!week.equals(['', '', '', '', '', '', ''])) {
+        calendarMonth.add(week);
+      }
+    }
+    return calendarMonth;
   }
 
   Widget noSetLoadingWrapper(Widget child) => Container(
@@ -204,7 +235,69 @@ class _ExerciseStatsState extends State<ExerciseStats> {
                   child: Stack(
                     children: [
                       GestureDetector(
-                        onTap: () => pickNewDate(true),
+                        onTap: () => showCustomModalBottomSheet(
+                          context,
+                          ModalBottomSheet(
+                            title: '',
+                            height: global.height(context) * .7,
+                            content: Container(
+                              width: MediaQuery.of(context).size.width,
+                              height: MediaQuery.of(context).size.height * .2,
+                              decoration: BoxDecoration(
+                                color: Theme.of(context)
+                                    .focusColor
+                                    .withOpacity(.3),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    color: Colors.amber,
+                                    alignment: Alignment.center,
+                                    height: global.height(context) * .03,
+                                    width: global.width(context),
+                                    child: Text(
+                                      "Selected Range",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: global.height(context) * .03,
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    color: Colors.red,
+                                    alignment: Alignment.center,
+                                    height: global.height(context) * .02,
+                                    width: global.width(context),
+                                    child: Text(
+                                      "${dateString(firstDate)} - ${dateString(lastDate)}",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: global.height(context) * .02,
+                                      ),
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      print(calculateMonth(DateTime.now()));
+                                    },
+                                    child: Container(
+                                      color: Colors.green,
+                                      alignment: Alignment.center,
+                                      height: global.height(context) * .15,
+                                      width: global.width(context),
+                                      child: SizedBox(),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            bigTitle: true,
+                            submitButtonText: 'Enter',
+                          ),
+                        ),
                         child: Container(
                           color: Colors.transparent,
                           alignment: Alignment.center,
@@ -458,6 +551,63 @@ class Statistics extends StatelessWidget {
         ),
         duration: global.standardAnimationDuration,
         curve: Curves.linear,
+      ),
+    );
+  }
+}
+
+class DayTile extends StatelessWidget {
+  final int day;
+
+  const DayTile({super.key, required this.day});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        day.toString(),
+        style: TextStyle(
+            color: Theme.of(context).focusColor,
+            fontSize: MediaQuery.of(context).size.height * 0.01 +
+                MediaQuery.of(context).size.width * 0.02),
+      ),
+    );
+  }
+}
+
+class MonthTile extends StatelessWidget {
+  final int month;
+
+  const MonthTile({super.key, required this.month});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        month.toString(),
+        style: TextStyle(
+            color: Theme.of(context).focusColor,
+            fontSize: MediaQuery.of(context).size.height * 0.01 +
+                MediaQuery.of(context).size.width * 0.02),
+      ),
+    );
+  }
+}
+
+class YearTile extends StatelessWidget {
+  final int year;
+
+  const YearTile({super.key, required this.year});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        year.toString(),
+        style: TextStyle(
+            color: Theme.of(context).focusColor,
+            fontSize: MediaQuery.of(context).size.height * 0.01 +
+                MediaQuery.of(context).size.width * 0.02),
       ),
     );
   }

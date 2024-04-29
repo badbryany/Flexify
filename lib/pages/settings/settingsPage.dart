@@ -140,13 +140,14 @@ class SettingsPage extends StatelessWidget {
                                   prefs.setString('password', '');
 
                                   Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => const PopScope(
-                                          canPop: false,
-                                          child: Choose(),
-                                        ),
-                                      ));
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const PopScope(
+                                        canPop: false,
+                                        child: Choose(),
+                                      ),
+                                    ),
+                                  );
                                 },
                                 child: const Text('log off'),
                               ),

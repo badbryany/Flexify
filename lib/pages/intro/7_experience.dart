@@ -197,7 +197,10 @@ class _SevenExperienceState extends State<SevenExperience> {
                                   Text(
                                     'Beginner',
                                     style: TextStyle(
-                                        color: Theme.of(context).focusColor,
+                                        color: selected == 1
+                                            ? Colors.black
+                                            : Theme.of(context)
+                                                .focusColor,
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
@@ -216,7 +219,10 @@ class _SevenExperienceState extends State<SevenExperience> {
                                   Text(
                                     'You have been working out',
                                     style: TextStyle(
-                                        color: Theme.of(context).focusColor,
+                                        color: selected == 1
+                                            ? Colors.black
+                                            : Theme.of(context)
+                                                .focusColor,
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
@@ -231,7 +237,10 @@ class _SevenExperienceState extends State<SevenExperience> {
                                   Text(
                                     'for less than a year',
                                     style: TextStyle(
-                                        color: Theme.of(context).focusColor,
+                                        color: selected == 1
+                                            ? Colors.black
+                                            : Theme.of(context)
+                                                .focusColor,
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
@@ -280,7 +289,10 @@ class _SevenExperienceState extends State<SevenExperience> {
                                   Text(
                                     'Intermediate',
                                     style: TextStyle(
-                                        color: Theme.of(context).focusColor,
+                                        color: selected == 2
+                                            ? Colors.black
+                                            : Theme.of(context)
+                                                .focusColor,
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
@@ -299,7 +311,10 @@ class _SevenExperienceState extends State<SevenExperience> {
                                   Text(
                                     'You have been working out',
                                     style: TextStyle(
-                                        color: Theme.of(context).focusColor,
+                                        color: selected == 2
+                                            ? Colors.black
+                                            : Theme.of(context)
+                                                .focusColor,
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
@@ -314,7 +329,10 @@ class _SevenExperienceState extends State<SevenExperience> {
                                   Text(
                                     'for more than a year',
                                     style: TextStyle(
-                                        color: Theme.of(context).focusColor,
+                                        color: selected == 2
+                                            ? Colors.black
+                                            : Theme.of(context)
+                                                .focusColor,
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
@@ -363,7 +381,10 @@ class _SevenExperienceState extends State<SevenExperience> {
                                   Text(
                                     'Advanced',
                                     style: TextStyle(
-                                        color: Theme.of(context).focusColor,
+                                        color: selected == 3
+                                            ? Colors.black
+                                            : Theme.of(context)
+                                                .focusColor,
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
@@ -382,7 +403,10 @@ class _SevenExperienceState extends State<SevenExperience> {
                                   Text(
                                     'You have been working out',
                                     style: TextStyle(
-                                        color: Theme.of(context).focusColor,
+                                        color: selected == 3
+                                            ? Colors.black
+                                            : Theme.of(context)
+                                                .focusColor,
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
@@ -397,7 +421,10 @@ class _SevenExperienceState extends State<SevenExperience> {
                                   Text(
                                     'for more than 2 years',
                                     style: TextStyle(
-                                        color: Theme.of(context).focusColor,
+                                        color: selected == 3
+                                            ? Colors.black
+                                            : Theme.of(context)
+                                                .focusColor,
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
@@ -446,13 +473,17 @@ class _SevenExperienceState extends State<SevenExperience> {
                                   Text(
                                     'Pro',
                                     style: TextStyle(
-                                        color: Theme.of(context).focusColor,
-                                        fontSize: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.02 +
-                                            MediaQuery.of(context).size.width *
-                                                0.02),
+                                      color: selected == 4
+                                          ? Colors.black
+                                          : Theme.of(context)
+                                              .focusColor,
+                                      fontSize: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.02 +
+                                          MediaQuery.of(context).size.width *
+                                              0.02,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -465,7 +496,10 @@ class _SevenExperienceState extends State<SevenExperience> {
                                   Text(
                                     'You have been working out',
                                     style: TextStyle(
-                                        color: Theme.of(context).focusColor,
+                                        color: selected == 4
+                                            ? Colors.black
+                                            : Theme.of(context)
+                                                .focusColor,
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
@@ -480,7 +514,10 @@ class _SevenExperienceState extends State<SevenExperience> {
                                   Text(
                                     'for more than 5 years',
                                     style: TextStyle(
-                                        color: Theme.of(context).focusColor,
+                                        color: selected == 4
+                                            ? Colors.black
+                                            : Theme.of(context)
+                                                .focusColor,
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
@@ -503,7 +540,7 @@ class _SevenExperienceState extends State<SevenExperience> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => EightSchedule(
+                          builder: (context) => const EightSchedule(
                             isSettings: false,
                           ),
                         ),
@@ -526,11 +563,12 @@ class _SevenExperienceState extends State<SevenExperience> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Next',
+                          widget.isSettings ? "Enter" : 'Next',
                           style: TextStyle(
-                              color: Theme.of(context).focusColor,
-                              fontSize:
-                                  MediaQuery.of(context).size.height * 0.025),
+                              color: selected != 0
+                                  ? Colors.black
+                                  : Theme.of(context).focusColor,
+                              fontSize: global.height(context) * 0.025),
                         ),
                       ],
                     ),

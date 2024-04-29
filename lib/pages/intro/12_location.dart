@@ -191,7 +191,10 @@ class _TwelveLocationState extends State<TwelveLocation> {
                                   Text(
                                     'Commercial Gym',
                                     style: TextStyle(
-                                        color: Theme.of(context).focusColor,
+                                        color: selected == 1
+                                          ? Colors.black
+                                          : Theme.of(context)
+                                              .focusColor,
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
@@ -210,7 +213,10 @@ class _TwelveLocationState extends State<TwelveLocation> {
                                   Text(
                                     'Access to machines, ',
                                     style: TextStyle(
-                                        color: Theme.of(context).focusColor,
+                                        color: selected == 1
+                                          ? Colors.black
+                                          : Theme.of(context)
+                                              .focusColor,
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
@@ -225,7 +231,10 @@ class _TwelveLocationState extends State<TwelveLocation> {
                                   Text(
                                     'free weights and cables',
                                     style: TextStyle(
-                                        color: Theme.of(context).focusColor,
+                                        color: selected == 1
+                                          ? Colors.black
+                                          : Theme.of(context)
+                                              .focusColor,
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
@@ -276,7 +285,10 @@ class _TwelveLocationState extends State<TwelveLocation> {
                                   Text(
                                     'Home Gym',
                                     style: TextStyle(
-                                        color: Theme.of(context).focusColor,
+                                       color: selected == 2
+                                          ? Colors.black
+                                          : Theme.of(context)
+                                              .focusColor,
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
@@ -295,7 +307,10 @@ class _TwelveLocationState extends State<TwelveLocation> {
                                   Text(
                                     'Barbell, Squat Rack,',
                                     style: TextStyle(
-                                        color: Theme.of(context).focusColor,
+                                       color: selected == 2
+                                          ? Colors.black
+                                          : Theme.of(context)
+                                              .focusColor,
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
@@ -310,7 +325,10 @@ class _TwelveLocationState extends State<TwelveLocation> {
                                   Text(
                                     'Dumbbells, Pull-Up Bar',
                                     style: TextStyle(
-                                        color: Theme.of(context).focusColor,
+                                       color: selected == 2
+                                          ? Colors.black
+                                          : Theme.of(context)
+                                              .focusColor,
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
@@ -361,7 +379,10 @@ class _TwelveLocationState extends State<TwelveLocation> {
                                   Text(
                                     'Basic Equipment',
                                     style: TextStyle(
-                                        color: Theme.of(context).focusColor,
+                                        color: selected == 3
+                                          ? Colors.black
+                                          : Theme.of(context)
+                                              .focusColor,
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
@@ -380,7 +401,10 @@ class _TwelveLocationState extends State<TwelveLocation> {
                                   Text(
                                     'Dumbbells, Pull-Up Bar',
                                     style: TextStyle(
-                                        color: Theme.of(context).focusColor,
+                                        color: selected == 3
+                                          ? Colors.black
+                                          : Theme.of(context)
+                                              .focusColor,
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
@@ -431,7 +455,10 @@ class _TwelveLocationState extends State<TwelveLocation> {
                                   Text(
                                     'No Equipment',
                                     style: TextStyle(
-                                        color: Theme.of(context).focusColor,
+                                        color: selected == 4
+                                          ? Colors.black
+                                          : Theme.of(context)
+                                              .focusColor,
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
@@ -450,7 +477,10 @@ class _TwelveLocationState extends State<TwelveLocation> {
                                   Text(
                                     'You don\'t have access to',
                                     style: TextStyle(
-                                        color: Theme.of(context).focusColor,
+                                        color: selected == 4
+                                          ? Colors.black
+                                          : Theme.of(context)
+                                              .focusColor,
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
@@ -465,7 +495,10 @@ class _TwelveLocationState extends State<TwelveLocation> {
                                   Text(
                                     'any fitness equipment',
                                     style: TextStyle(
-                                        color: Theme.of(context).focusColor,
+                                        color: selected == 4
+                                          ? Colors.black
+                                          : Theme.of(context)
+                                              .focusColor,
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
@@ -510,11 +543,12 @@ class _TwelveLocationState extends State<TwelveLocation> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Next',
+                          widget.isSettings ? "Enter" : 'Next',
                           style: TextStyle(
-                              color: Theme.of(context).focusColor,
-                              fontSize:
-                                  MediaQuery.of(context).size.height * 0.025),
+                              color: selected != 0
+                                  ? Colors.black
+                                  : Theme.of(context).focusColor,
+                              fontSize: global.height(context) * 0.025),
                         ),
                       ],
                     ),

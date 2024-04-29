@@ -55,11 +55,11 @@ class ModalBottomSheet extends StatelessWidget {
               width: global.width(context),
               child: Container(
                 margin: const EdgeInsets.all(10),
-                width: global.width(context) * .35,
+                width: global.width(context) * .3,
                 height: 5,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(100),
-                  color: Theme.of(context).colorScheme.primary,
+                  color: Colors.white.withOpacity(0.6),
                 ),
               ),
             ),
@@ -120,7 +120,7 @@ class ModalBottomSheet extends StatelessWidget {
                             color: Theme.of(context)
                                 .colorScheme
                                 .primary
-                                .withOpacity(.3),
+                                .withOpacity(.5),
                           ),
                           child: Center(
                             child: Text(

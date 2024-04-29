@@ -213,10 +213,8 @@ class _ExercisesPageState extends State<ExercisesPage> {
   Widget build(BuildContext context) {
     Widget animSearchBar = AnimSearchBar(
       color: Theme.of(context).colorScheme.background,
-      prefixIconColor: Theme.of(context).focusColor,
-      hintTextColor: Theme.of(context).focusColor.withOpacity(0.6),
       textFieldColor: Theme.of(context).colorScheme.background,
-      textColor: Theme.of(context).focusColor,
+      textColor: Colors.white,
       helpText: 'Add exercise',
       width: MediaQuery.of(context).size.width *
           global.containerWidthFactor *

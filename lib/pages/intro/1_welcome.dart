@@ -41,8 +41,7 @@ class _OneWelcomeState extends State<OneWelcome> {
                         'Welcome to Flexify!',
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize:
-                                MediaQuery.of(context).size.width * 0.07),
+                            fontSize: MediaQuery.of(context).size.width * 0.07),
                       )
                           .animate()
                           .fadeIn(
@@ -53,8 +52,7 @@ class _OneWelcomeState extends State<OneWelcome> {
                         'Press Start to begin',
                         style: TextStyle(
                             color: Theme.of(context).colorScheme.shadow,
-                            fontSize:
-                                MediaQuery.of(context).size.width * 0.05),
+                            fontSize: MediaQuery.of(context).size.width * 0.05),
                       ).animate().fadeIn(
                             delay: const Duration(milliseconds: 1500),
                             curve: Curves.decelerate,
@@ -69,7 +67,9 @@ class _OneWelcomeState extends State<OneWelcome> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const TwoGender(isSettings: false,),
+                        builder: (context) => const TwoGender(
+                          isSettings: false,
+                        ),
                       ),
                     );
                   },

@@ -47,6 +47,49 @@ final List<String> monthsLong = [
   "December"
 ];
 
+final List<String> weekdaysVeryShort = [
+  "S",
+  "M",
+  "T",
+  "W",
+  "T",
+  "F",
+  "S",
+];
+
+final List<String> weekdaysShort = [
+  "Sun",
+  "Mon",
+  "Tue",
+  "Wed",
+  "Thu",
+  "Fri",
+  "Sat",
+];
+
+final List<String> weekdaysLong = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
+
+leapYear(int year) {
+  return ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0);
+}
+
+daysInMonth(DateTime date) {
+  List<int> monthLength = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  if (leapYear(date.year) == true) {
+    monthLength[1] = 29;
+  }
+  return monthLength[date.month - 1];
+}
+
+// Bruder.
 final List<int> monthsDays = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 lightShadow(BuildContext context) => BoxShadow(

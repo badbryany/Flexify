@@ -25,7 +25,7 @@ class _TwoGenderState extends State<TwoGender> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.05,
+                  height: global.height(context) * 0.05,
                 ),
                 Row(
                   children: [
@@ -33,17 +33,17 @@ class _TwoGenderState extends State<TwoGender> {
                     widget.isSettings
                         ? Padding(
                             padding: EdgeInsets.only(
-                                left: MediaQuery.of(context).size.width * 0.23, right: MediaQuery.of(context).size.width * 0.25),
+                                left: global.width(context) * 0.23,
+                                right: global.width(context) * 0.25),
                             child: Text(
                               "Gender",
                               style: TextStyle(
                                   color: Theme.of(context).focusColor,
-                                  fontSize:
-                                      MediaQuery.of(context).size.width * 0.06),
+                                  fontSize: global.width(context) * 0.06),
                             ),
                           )
                         : SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.7,
+                            width: global.width(context) * 0.7,
                           ),
                     widget.isSettings
                         ? const SizedBox()
@@ -62,61 +62,59 @@ class _TwoGenderState extends State<TwoGender> {
                               'Skip',
                               style: TextStyle(
                                   color: Theme.of(context).focusColor,
-                                  fontSize: MediaQuery.of(context).size.width *
-                                      0.035),
+                                  fontSize: global.width(context) * 0.035),
                             ),
                           ),
-                    SizedBox(width: MediaQuery.of(context).size.width * 0.02)
+                    SizedBox(width: global.width(context) * 0.02)
                   ],
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.03,
+                  height: global.height(context) * 0.03,
                 ),
                 widget.isSettings
                     ? SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.01,
+                        height: global.height(context) * 0.01,
                       )
                     : Stack(
                         alignment: Alignment.centerLeft,
                         children: [
                           Container(
-                            height: MediaQuery.of(context).size.width * 0.045,
-                            width: MediaQuery.of(context).size.width * 0.8,
+                            height: global.width(context) * 0.045,
+                            width: global.width(context) * 0.8,
                             decoration: BoxDecoration(
                               color: Theme.of(context).colorScheme.background,
                               border: Border.all(
-                                  color: Theme.of(context).focusColor,
-                                  width: 2,
-                                  style: BorderStyle.solid),
+                                color: Theme.of(context).colorScheme.background,
+                                width: 2,
+                                style: BorderStyle.solid,
+                              ),
                               borderRadius: BorderRadius.circular(1000),
                             ),
                           ),
-                          Padding(
-                            padding: EdgeInsets.all(
-                                MediaQuery.of(context).size.width * 0.005),
-                            child: Container(
-                              height: MediaQuery.of(context).size.width * 0.035,
-                              width: MediaQuery.of(context).size.width * 0.035,
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.primary,
-                                borderRadius: BorderRadius.circular(
-                                    MediaQuery.of(context).size.width),
-                              ),
+                          Container(
+                            margin:
+                                EdgeInsets.all(global.width(context) * 0.005),
+                            height: global.width(context) * 0.035,
+                            width: global.width(context) * 0.035,
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.primary,
+                              borderRadius:
+                                  BorderRadius.circular(global.width(context)),
                             ),
                           ),
                         ],
                       ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.03,
+                  height: global.height(context) * 0.03,
                 ),
                 Container(
                   alignment: Alignment.center,
-                  height: MediaQuery.of(context).size.height * 0.07,
-                  width: MediaQuery.of(context).size.width * 0.8,
+                  height: global.height(context) * 0.07,
+                  width: global.width(context) * 0.8,
                   decoration: BoxDecoration(
                     color: Theme.of(context).colorScheme.background,
                     borderRadius: BorderRadius.circular(
-                      MediaQuery.of(context).size.width * 0.0375,
+                      global.width(context) * 0.0375,
                     ),
                     boxShadow: [global.lightShadow(context)],
                   ),
@@ -127,26 +125,23 @@ class _TwoGenderState extends State<TwoGender> {
                         'Are you male or',
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize:
-                                MediaQuery.of(context).size.height * 0.01 +
-                                    MediaQuery.of(context).size.width * 0.02),
+                            fontSize: global.height(context) * 0.01 +
+                                global.width(context) * 0.02),
                       ),
                       Text(
                         'female?',
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize:
-                                MediaQuery.of(context).size.height * 0.01 +
-                                    MediaQuery.of(context).size.width * 0.02),
+                            fontSize: global.height(context) * 0.01 +
+                                global.width(context) * 0.02),
                       ),
                     ],
                   ),
                 ),
                 Container(
-                  height: MediaQuery.of(context).size.height * 0.6,
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.width * 0.1),
+                  height: global.height(context) * 0.6,
+                  width: global.width(context) * 0.8,
+                  padding: EdgeInsets.only(top: global.width(context) * 0.1),
                   child: Row(
                     children: [
                       Column(
@@ -156,16 +151,16 @@ class _TwoGenderState extends State<TwoGender> {
                               selected = -1;
                               setState(() {});
                             },
-                            child: Container(
-                              width: MediaQuery.of(context).size.width * 0.35,
-                              height: MediaQuery.of(context).size.width * 0.35,
+                            child: AnimatedContainer(
+                              duration: global.standardAnimationDuration,
+                              width: global.width(context) * 0.35,
+                              height: global.width(context) * 0.35,
                               padding: EdgeInsets.only(
-                                  top:
-                                      MediaQuery.of(context).size.width * 0.02),
+                                  top: global.width(context) * 0.02),
                               decoration: BoxDecoration(
                                 color: Theme.of(context).colorScheme.background,
                                 borderRadius: BorderRadius.circular(
-                                  MediaQuery.of(context).size.width * 0.0375,
+                                  global.width(context) * 0.0375,
                                 ),
                                 boxShadow: selected == -1
                                     ? [
@@ -184,30 +179,29 @@ class _TwoGenderState extends State<TwoGender> {
                               child: Column(
                                 children: [
                                   SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.width *
-                                              0.05),
+                                    height: global.width(context) * 0.05,
+                                  ),
                                   Text(
                                     "Female",
                                     style: TextStyle(
-                                        color: selected == -1
-                                            ? Theme.of(context)
-                                                .colorScheme
-                                                .primary
-                                            : Theme.of(context)
-                                                .colorScheme
-                                                .surface,
-                                        fontSize:
-                                            MediaQuery.of(context).size.width *
-                                                0.045),
+                                      color: selected == -1
+                                          ? Theme.of(context)
+                                              .colorScheme
+                                              .primary
+                                          : Theme.of(context)
+                                              .colorScheme
+                                              .onBackground,
+                                      fontSize: global.width(context) * 0.045,
+                                    ),
                                   ),
                                   Icon(
                                     Icons.female_outlined,
                                     color: selected == -1
                                         ? Theme.of(context).colorScheme.primary
-                                        : Theme.of(context).colorScheme.surface,
-                                    size: MediaQuery.of(context).size.width *
-                                        0.17,
+                                        : Theme.of(context)
+                                            .colorScheme
+                                            .onBackground,
+                                    size: global.width(context) * 0.17,
                                   ),
                                 ],
                               ),
@@ -216,7 +210,7 @@ class _TwoGenderState extends State<TwoGender> {
                         ],
                       ),
                       SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.1,
+                        width: global.width(context) * 0.1,
                       ),
                       GestureDetector(
                         onTap: () {
@@ -226,15 +220,14 @@ class _TwoGenderState extends State<TwoGender> {
                         child: Column(
                           children: [
                             Container(
-                              width: MediaQuery.of(context).size.width * 0.35,
-                              height: MediaQuery.of(context).size.width * 0.35,
+                              width: global.width(context) * 0.35,
+                              height: global.width(context) * 0.35,
                               padding: EdgeInsets.only(
-                                  top:
-                                      MediaQuery.of(context).size.width * 0.02),
+                                  top: global.width(context) * 0.02),
                               decoration: BoxDecoration(
                                 color: Theme.of(context).colorScheme.background,
                                 borderRadius: BorderRadius.circular(
-                                  MediaQuery.of(context).size.width * 0.0375,
+                                  global.width(context) * 0.0375,
                                 ),
                                 boxShadow: selected == 1
                                     ? [
@@ -253,9 +246,7 @@ class _TwoGenderState extends State<TwoGender> {
                               child: Column(
                                 children: [
                                   SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.width *
-                                              0.05),
+                                      height: global.width(context) * 0.05),
                                   Text(
                                     "Male",
                                     style: TextStyle(
@@ -265,23 +256,21 @@ class _TwoGenderState extends State<TwoGender> {
                                               .primary
                                           : Theme.of(context)
                                               .colorScheme
-                                              .surface,
-                                      fontSize:
-                                          MediaQuery.of(context).size.width *
-                                              0.045,
+                                              .onBackground,
+                                      fontSize: global.width(context) * 0.045,
                                     ),
                                   ),
                                   SizedBox(
-                                    height: MediaQuery.of(context).size.width *
-                                        0.007,
+                                    height: global.width(context) * 0.007,
                                   ),
                                   Icon(
                                     Icons.male_outlined,
                                     color: selected == 1
                                         ? Theme.of(context).colorScheme.primary
-                                        : Theme.of(context).colorScheme.surface,
-                                    size: MediaQuery.of(context).size.width *
-                                        0.17,
+                                        : Theme.of(context)
+                                            .colorScheme
+                                            .onBackground,
+                                    size: global.width(context) * 0.17,
                                   ),
                                 ],
                               ),
@@ -308,8 +297,8 @@ class _TwoGenderState extends State<TwoGender> {
                     }
                   },
                   child: Container(
-                    height: MediaQuery.of(context).size.height * 0.05,
-                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: global.height(context) * 0.05,
+                    width: global.width(context) * 0.8,
                     decoration: BoxDecoration(
                       boxShadow: [global.darkShadow(context)],
                       color: selected != 0
@@ -323,9 +312,10 @@ class _TwoGenderState extends State<TwoGender> {
                         Text(
                           widget.isSettings ? "Enter" : 'Next',
                           style: TextStyle(
-                              color: Theme.of(context).focusColor,
-                              fontSize:
-                                  MediaQuery.of(context).size.height * 0.025),
+                              color: selected != 0
+                                  ? Colors.black
+                                  : Theme.of(context).focusColor,
+                              fontSize: global.height(context) * 0.025),
                         ),
                       ],
                     ),

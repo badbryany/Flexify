@@ -39,7 +39,7 @@ class _SetsWidgetState extends State<SetsWidget> {
                   Container(
                     height: MediaQuery.of(context).size.height * 0.07,
                     width: 3,
-                    color: Theme.of(context).scaffoldBackgroundColor,
+                    color: Theme.of(context).colorScheme.onBackground,
                   ),
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.03,
@@ -58,7 +58,7 @@ class _SetsWidgetState extends State<SetsWidget> {
                       Text(
                         currentMonthString,
                         style: TextStyle(
-                            color: Theme.of(context).scaffoldBackgroundColor,
+                            color: Theme.of(context).colorScheme.onBackground,
                             fontSize: MediaQuery.of(context).size.width * 0.05 +
                                 MediaQuery.of(context).size.height * 0.01),
                       ),
@@ -80,7 +80,7 @@ class _SetsWidgetState extends State<SetsWidget> {
                     Text(
                       getCurrentDateString(days.elementAt(selectedDay).date),
                       style: TextStyle(
-                        color: Theme.of(context).scaffoldBackgroundColor,
+                        color: Theme.of(context).colorScheme.onBackground,
                         fontSize: MediaQuery.of(context).size.width * 0.03,
                       ),
                     ),

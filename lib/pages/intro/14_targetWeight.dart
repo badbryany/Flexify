@@ -256,7 +256,7 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                               child: Text(
                                 '${(targetWeight).toString()}kg',
                                 style: TextStyle(
-                                    color: Theme.of(context).focusColor,
+                                    color: Colors.black,
                                     fontSize:
                                         MediaQuery.of(context).size.width *
                                             0.05),
@@ -387,7 +387,7 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                                 style: TextStyle(
                                     color: withinRecommendedRange
                                         ? Theme.of(context).colorScheme.primary
-                                        : Theme.of(context).colorScheme.surface,
+                                        : Theme.of(context).focusColor,
                                     fontSize:
                                         MediaQuery.of(context).size.height *
                                             0.015),
@@ -404,7 +404,7 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                                             0.0125),
                                 thumbColor: withinRecommendedRange
                                     ? Theme.of(context).colorScheme.primary
-                                    : Theme.of(context).colorScheme.surface,
+                                    : Theme.of(context).focusColor,
                                 trackHeight:
                                     MediaQuery.of(context).size.height * 0.01,
                                 activeTrackColor: Colors.transparent,
@@ -500,7 +500,7 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                                   style: TextStyle(
                                     color: withinRecommendedRange
                                         ? Theme.of(context).colorScheme.primary
-                                        : Theme.of(context).colorScheme.surface,
+                                        : Theme.of(context).focusColor,
                                     fontSize:
                                         MediaQuery.of(context).size.height *
                                                 0.015 +
@@ -560,7 +560,7 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                         Text(
                           'Next',
                           style: TextStyle(
-                              color: Theme.of(context).focusColor,
+                              color: Colors.black,
                               fontSize:
                                   MediaQuery.of(context).size.height * 0.025),
                         ),

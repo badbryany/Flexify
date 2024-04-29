@@ -49,7 +49,10 @@ class _DashboardProfileState extends State<DashboardProfile> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          const Icon(Icons.person_add_rounded),
+                          Icon(
+                            Icons.person_add_rounded,
+                            color: Theme.of(context).colorScheme.onBackground,
+                          ),
                           Text(
                             'add friends',
                             style: TextStyle(
@@ -77,8 +80,12 @@ class _DashboardProfileState extends State<DashboardProfile> {
                         ? Icon(
                             Icons.share,
                             size: global.width(context) * .05,
+                            color: Theme.of(context).colorScheme.onBackground,
                           )
-                        : const Icon(Icons.ios_share_rounded),
+                        : Icon(
+                            Icons.ios_share_rounded,
+                            color: Theme.of(context).colorScheme.onBackground,
+                          ),
                   ),
                 ),
               )

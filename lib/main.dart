@@ -123,7 +123,7 @@ class MyApp extends StatelessWidget {
           darkTheme: ThemeData(
             fontFamily: 'KronaOne',
             focusColor: Colors.white,
-            scaffoldBackgroundColor: const Color.fromARGB(255, 17, 17, 17),
+            scaffoldBackgroundColor: Colors.black,
             canvasColor: const Color.fromARGB(255, 23, 23, 23),
             brightness: Brightness.dark,
             colorScheme: const ColorScheme(
@@ -143,7 +143,7 @@ class MyApp extends StatelessWidget {
               shadow: Color.fromARGB(255, 170, 170, 170),
             ),
           ),
-          home: startWidget,
+          home: Dashboard(),
         );
       },
     );
