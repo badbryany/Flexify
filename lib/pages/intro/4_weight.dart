@@ -172,7 +172,7 @@ class _FourWeightState extends State<FourWeight> {
                 Container(
                   clipBehavior: Clip.none,
                   alignment: Alignment.center,
-                  height: MediaQuery.of(context).size.height * 0.7,
+                  height: MediaQuery.of(context).size.height * 0.6,
                   width: MediaQuery.of(context).size.width * 0.8,
                   padding: EdgeInsets.only(
                       top: MediaQuery.of(context).size.height * 0.25,

@@ -636,7 +636,8 @@ class _LeftButtonState extends State<LeftButton> {
         Container(
           height: MediaQuery.of(context).size.height * (0.4 / 8),
         ),
-        Container(
+        AnimatedContainer(
+          duration: global.standardAnimationDuration * .5,
           height: MediaQuery.of(context).size.height * ((0.4 / 8) * 3 / 4),
           width: MediaQuery.of(context).size.height * ((0.4 / 8) * 3 / 4),
           alignment: Alignment.center,
@@ -702,7 +703,8 @@ class _RightButtonState extends State<RightButton> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Container(
+        AnimatedContainer(
+          duration: global.standardAnimationDuration * .5,
           height: MediaQuery.of(context).size.height * 0.4 / 7,
           width: MediaQuery.of(context).size.width * 0.8,
           alignment: Alignment.center,

@@ -173,7 +173,8 @@ class _TenSplitState extends State<TenSplit> {
                           selectedSplit = 1;
                           setState(() {});
                         },
-                        child: Container(
+                        child: AnimatedContainer(
+                          duration: global.standardAnimationDuration,
                           padding: EdgeInsets.only(
                               left: MediaQuery.of(context).size.width * 0.03),
                           height: MediaQuery.of(context).size.height * 0.105,
@@ -308,7 +309,8 @@ class _TenSplitState extends State<TenSplit> {
                           selectedSplit = 2;
                           setState(() {});
                         },
-                        child: Container(
+                        child: AnimatedContainer(
+                          duration: global.standardAnimationDuration,
                           padding: EdgeInsets.only(
                               left: MediaQuery.of(context).size.width * 0.03),
                           height: MediaQuery.of(context).size.height * 0.105,
@@ -404,7 +406,8 @@ class _TenSplitState extends State<TenSplit> {
                           selectedSplit = 3;
                           setState(() {});
                         },
-                        child: Container(
+                        child: AnimatedContainer(
+                          duration: global.standardAnimationDuration,
                           padding: EdgeInsets.only(
                               left: MediaQuery.of(context).size.width * 0.03),
                           height: MediaQuery.of(context).size.height * 0.105,
@@ -500,7 +503,8 @@ class _TenSplitState extends State<TenSplit> {
                           selectedSplit = 4;
                           setState(() {});
                         },
-                        child: Container(
+                        child: AnimatedContainer(
+                          duration: global.standardAnimationDuration,
                           padding: EdgeInsets.only(
                               left: MediaQuery.of(context).size.width * 0.03),
                           height: MediaQuery.of(context).size.height * 0.105,

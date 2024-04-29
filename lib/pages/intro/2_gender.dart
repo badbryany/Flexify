@@ -219,7 +219,8 @@ class _TwoGenderState extends State<TwoGender> {
                         },
                         child: Column(
                           children: [
-                            Container(
+                            AnimatedContainer(
+                              duration: global.standardAnimationDuration,
                               width: global.width(context) * 0.35,
                               height: global.width(context) * 0.35,
                               padding: EdgeInsets.only(

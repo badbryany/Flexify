@@ -387,7 +387,7 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                                 style: TextStyle(
                                     color: withinRecommendedRange
                                         ? Theme.of(context).colorScheme.primary
-                                        : Theme.of(context).focusColor,
+                                        : Colors.white,
                                     fontSize:
                                         MediaQuery.of(context).size.height *
                                             0.015),
@@ -404,7 +404,7 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                                             0.0125),
                                 thumbColor: withinRecommendedRange
                                     ? Theme.of(context).colorScheme.primary
-                                    : Theme.of(context).focusColor,
+                                    : Colors.black.withOpacity(0.6),
                                 trackHeight:
                                     MediaQuery.of(context).size.height * 0.01,
                                 activeTrackColor: Colors.transparent,
@@ -500,7 +500,7 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                                   style: TextStyle(
                                     color: withinRecommendedRange
                                         ? Theme.of(context).colorScheme.primary
-                                        : Theme.of(context).focusColor,
+                                        : Colors.white,
                                     fontSize:
                                         MediaQuery.of(context).size.height *
                                                 0.015 +

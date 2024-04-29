@@ -254,7 +254,8 @@ class _ThirteenEquipmentState extends State<ThirteenEquipment> {
                               },
                               child: Row(
                                 children: [
-                                  Container(
+                                  AnimatedContainer(
+                                    duration: global.standardAnimationDuration,
                                     alignment: Alignment.center,
                                     width:
                                         MediaQuery.of(context).size.width * 0.3,
@@ -327,7 +328,8 @@ class _ThirteenEquipmentState extends State<ThirteenEquipment> {
                                       () {},
                                     );
                                   },
-                                  child: Container(
+                                  child: AnimatedContainer(
+                                    duration: global.standardAnimationDuration,
                                     padding: EdgeInsets.only(
                                         left:
                                             MediaQuery.of(context).size.width *
@@ -427,7 +429,7 @@ class _ThirteenEquipmentState extends State<ThirteenEquipment> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => FourteenTargetWeight(
+                          builder: (context) => const FourteenTargetWeight(
                             isSettings: false,
                           ),
                         ),

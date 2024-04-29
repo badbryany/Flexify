@@ -170,7 +170,8 @@ class _SevenExperienceState extends State<SevenExperience> {
                           selected = 1;
                           setState(() {});
                         },
-                        child: Container(
+                        child: AnimatedContainer(
+                          duration: global.standardAnimationDuration,
                           padding: EdgeInsets.only(
                               left: MediaQuery.of(context).size.width * 0.03),
                           height: MediaQuery.of(context).size.height * 0.11,
@@ -262,7 +263,8 @@ class _SevenExperienceState extends State<SevenExperience> {
                           selected = 2;
                           setState(() {});
                         },
-                        child: Container(
+                        child: AnimatedContainer(
+                          duration: global.standardAnimationDuration,
                           padding: EdgeInsets.only(
                               left: MediaQuery.of(context).size.width * 0.03),
                           height: MediaQuery.of(context).size.height * 0.11,
@@ -354,7 +356,8 @@ class _SevenExperienceState extends State<SevenExperience> {
                           selected = 3;
                           setState(() {});
                         },
-                        child: Container(
+                        child: AnimatedContainer(
+                          duration: global.standardAnimationDuration,
                           padding: EdgeInsets.only(
                               left: MediaQuery.of(context).size.width * 0.03),
                           height: MediaQuery.of(context).size.height * 0.11,
@@ -446,7 +449,8 @@ class _SevenExperienceState extends State<SevenExperience> {
                           selected = 4;
                           setState(() {});
                         },
-                        child: Container(
+                        child: AnimatedContainer(
+                          duration: global.standardAnimationDuration,
                           padding: EdgeInsets.only(
                               left: MediaQuery.of(context).size.width * 0.03),
                           height: MediaQuery.of(context).size.height * 0.11,

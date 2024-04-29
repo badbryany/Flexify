@@ -17,6 +17,7 @@ class _TwelveLocationState extends State<TwelveLocation> {
     super.initState();
   }
 
+  @override
   void dispose() {
     super.dispose();
   }
@@ -162,7 +163,8 @@ class _TwelveLocationState extends State<TwelveLocation> {
                           selected = 1;
                           setState(() {});
                         },
-                        child: Container(
+                        child: AnimatedContainer(
+                          duration: global.standardAnimationDuration,
                           padding: EdgeInsets.only(
                             top: MediaQuery.of(context).size.height * 0.01,
                             left: MediaQuery.of(context).size.width * 0.03,
@@ -256,7 +258,8 @@ class _TwelveLocationState extends State<TwelveLocation> {
                           selected = 2;
                           setState(() {});
                         },
-                        child: Container(
+                        child: AnimatedContainer(
+                          duration: global.standardAnimationDuration,
                           padding: EdgeInsets.only(
                             top: MediaQuery.of(context).size.height * 0.01,
                             left: MediaQuery.of(context).size.width * 0.03,
@@ -350,7 +353,8 @@ class _TwelveLocationState extends State<TwelveLocation> {
                           selected = 3;
                           setState(() {});
                         },
-                        child: Container(
+                        child: AnimatedContainer(
+                          duration: global.standardAnimationDuration,
                           padding: EdgeInsets.only(
                             top: MediaQuery.of(context).size.height * 0.005,
                             left: MediaQuery.of(context).size.width * 0.03,
@@ -426,7 +430,8 @@ class _TwelveLocationState extends State<TwelveLocation> {
                           selected = 4;
                           setState(() {});
                         },
-                        child: Container(
+                        child: AnimatedContainer(
+                          duration: global.standardAnimationDuration,
                           padding: EdgeInsets.only(
                             top: MediaQuery.of(context).size.height * 0.01,
                             left: MediaQuery.of(context).size.width * 0.03,
@@ -521,7 +526,7 @@ class _TwelveLocationState extends State<TwelveLocation> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => ThirteenEquipment(isSettings: false,),
+                          builder: (context) => const ThirteenEquipment(isSettings: false,),
                         ),
                       );
                     }

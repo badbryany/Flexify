@@ -197,7 +197,7 @@ class _FiveBodyFatState extends State<FiveBodyFat> {
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.08,
                         ),
-                        Container(
+                        SizedBox(
                           height: MediaQuery.of(context).size.width * 0.3,
                           child: RotatedBox(
                             quarterTurns: -1,
