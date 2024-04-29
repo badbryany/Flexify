@@ -19,7 +19,7 @@ class _SixBirthdayState extends State<SixBirthday> {
   late FixedExtentScrollController _monthController;
   int monthIdx = 0;
   late FixedExtentScrollController _yearController;
-  int yearIdx = 99;
+  int yearIdx = 88;
 
   int selected = 0;
 
@@ -57,41 +57,46 @@ class _SixBirthdayState extends State<SixBirthday> {
                     IntroNavBarIcon(),
                     widget.isSettings
                         ? Padding(
-                          padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.2, right:  MediaQuery.of(context).size.width * 0.27),
-                          child: Text(
+                            padding: EdgeInsets.only(
+                                left: MediaQuery.of(context).size.width * 0.2,
+                                right:
+                                    MediaQuery.of(context).size.width * 0.27),
+                            child: Text(
                               "Birthday",
-                              style:
-                                  TextStyle(color: Theme.of(context).focusColor, fontSize: MediaQuery.of(context).size.width * 0.06),
+                              style: TextStyle(
+                                  color: Theme.of(context).focusColor,
+                                  fontSize:
+                                      MediaQuery.of(context).size.width * 0.06),
                             ),
-                        )
+                          )
                         : SizedBox(
                             width: MediaQuery.of(context).size.width * 0.7,
                           ),
                     widget.isSettings
                         ? const SizedBox()
-                        : 
-                    GestureDetector(
-                      onTap: () {
-                        if (widget.isSettings == false) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const SevenExperience(isSettings: false,),
+                        : GestureDetector(
+                            onTap: () {
+                              if (widget.isSettings == false) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const SevenExperience(
+                                      isSettings: false,
+                                    ),
+                                  ),
+                                );
+                              } else {
+                                Navigator.pop(context);
+                              }
+                            },
+                            child: Text(
+                              'Skip',
+                              style: TextStyle(
+                                  color: Theme.of(context).focusColor,
+                                  fontSize: MediaQuery.of(context).size.width *
+                                      0.035),
                             ),
-                          );
-                        }
-                        else {
-                          Navigator.pop(context);
-                        }
-                      },
-                      child: Text(
-                        'Skip',
-                        style: TextStyle(
-                            color: Theme.of(context).focusColor,
-                            fontSize:
-                                MediaQuery.of(context).size.width * 0.035),
-                      ),
-                    ),
+                          ),
                     SizedBox(width: MediaQuery.of(context).size.width * 0.02)
                   ],
                 ),
@@ -171,28 +176,42 @@ class _SixBirthdayState extends State<SixBirthday> {
                   ),
                 ),
                 Container(
-                  height: MediaQuery.of(context).size.height * 0.6,
+                  clipBehavior: Clip.none,
+                  alignment: Alignment.center,
+                  height: MediaQuery.of(context).size.height * 0.7,
                   width: MediaQuery.of(context).size.width * 0.8,
                   padding: EdgeInsets.only(
                       top: MediaQuery.of(context).size.height * 0.25,
                       bottom: MediaQuery.of(context).size.height * 0.3),
                   child: Container(
-                    height: MediaQuery.of(context).size.height * 0.01,
+                    alignment: Alignment.center,
+                    height: MediaQuery.of(context).size.height * 0.56,
                     decoration: BoxDecoration(
-                      border: Border.all(width: 2, color: Theme.of(context).focusColor),
                       borderRadius: BorderRadius.circular(
                           MediaQuery.of(context).size.width * 0.2),
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    child: Stack(
+                      alignment: Alignment.center,
                       children: [
+                        Container(
+                          height: MediaQuery.of(context).size.height * .04,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Theme.of(context).focusColor,
+                            ),
+                            borderRadius: BorderRadius.circular(
+                              MediaQuery.of(context).size.width * 0.2,
+                            ),
+                          ),
+                        ),
                         SizedBox(
                           width: MediaQuery.of(context).size.width * 0.7,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.1,
+                                width:
+                                    MediaQuery.of(context).size.width * 0.1,
                                 child: ListWheelScrollView.useDelegate(
                                   controller: _dayController,
                                   onSelectedItemChanged: (index) {
@@ -203,7 +222,8 @@ class _SixBirthdayState extends State<SixBirthday> {
                                   perspective: 0.005,
                                   diameterRatio: 3.5,
                                   physics: const FixedExtentScrollPhysics(),
-                                  childDelegate: ListWheelChildBuilderDelegate(
+                                  childDelegate:
+                                      ListWheelChildBuilderDelegate(
                                     childCount: 31,
                                     builder: (context, index) {
                                       return DayTile(day: index);
@@ -212,10 +232,12 @@ class _SixBirthdayState extends State<SixBirthday> {
                                 ),
                               ),
                               SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.05,
+                                width: MediaQuery.of(context).size.width *
+                                    0.05,
                               ),
                               SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.1,
+                                width:
+                                    MediaQuery.of(context).size.width * 0.1,
                                 child: ListWheelScrollView.useDelegate(
                                   controller: _monthController,
                                   onSelectedItemChanged: (index) {
@@ -226,7 +248,8 @@ class _SixBirthdayState extends State<SixBirthday> {
                                   perspective: 0.005,
                                   diameterRatio: 3.5,
                                   physics: const FixedExtentScrollPhysics(),
-                                  childDelegate: ListWheelChildBuilderDelegate(
+                                  childDelegate:
+                                      ListWheelChildBuilderDelegate(
                                     childCount: 12,
                                     builder: (context, index) {
                                       return MonthTile(month: index);
@@ -235,11 +258,12 @@ class _SixBirthdayState extends State<SixBirthday> {
                                 ),
                               ),
                               SizedBox(
-                                width:
-                                    MediaQuery.of(context).size.width * 0.065,
+                                width: MediaQuery.of(context).size.width *
+                                    0.065,
                               ),
                               SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.15,
+                                width: MediaQuery.of(context).size.width *
+                                    0.15,
                                 child: ListWheelScrollView.useDelegate(
                                   controller: _yearController,
                                   onSelectedItemChanged: (index) {
@@ -250,7 +274,8 @@ class _SixBirthdayState extends State<SixBirthday> {
                                   perspective: 0.005,
                                   diameterRatio: 3.5,
                                   physics: const FixedExtentScrollPhysics(),
-                                  childDelegate: ListWheelChildBuilderDelegate(
+                                  childDelegate:
+                                      ListWheelChildBuilderDelegate(
                                     childCount: 100,
                                     builder: (context, index) {
                                       return YearTile(year: index);
@@ -266,16 +291,17 @@ class _SixBirthdayState extends State<SixBirthday> {
                   ),
                 ),
                 GestureDetector(
-                 onTap: () {
+                  onTap: () {
                     if (selected != 0 && widget.isSettings == false) {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => SevenExperience(isSettings: false,),
+                          builder: (context) => SevenExperience(
+                            isSettings: false,
+                          ),
                         ),
                       );
-                    }
-                    else {
+                    } else {
                       Navigator.pop(context);
                     }
                   },

@@ -8,6 +8,8 @@ String host = 'https://flexify.kellermann.team/api';
 
 Duration standardAnimationDuration = const Duration(milliseconds: 300);
 
+int yearsSinceRelease = 1;
+
 IconData arrow = Icons.arrow_back_rounded;
 
 final List<String> cardinals = [
@@ -81,12 +83,12 @@ leapYear(int year) {
   return ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0);
 }
 
-daysInMonth(DateTime date) {
+daysInMonth(int m, int y) {
   List<int> monthLength = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-  if (leapYear(date.year) == true) {
+  if (leapYear(y) == true) {
     monthLength[1] = 29;
   }
-  return monthLength[date.month - 1];
+  return monthLength[m - 1];
 }
 
 // Bruder.

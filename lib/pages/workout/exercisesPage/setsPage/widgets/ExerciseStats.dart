@@ -1,5 +1,4 @@
 import 'package:collection/collection.dart';
-import 'package:flexify/pages/workout/workoutStatsPage/widgets/Sets.dart';
 import 'package:flexify/widgets/ModalBottomSheet.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -33,6 +32,16 @@ class _ExerciseStatsState extends State<ExerciseStats> {
   List<FlSpot> spots = [];
   double maxX = 0;
   double maxY = 0;
+
+  late FixedExtentScrollController _dayController;
+  int dayIdx = 0;
+  bool daySelected = false;
+  late FixedExtentScrollController _monthController;
+  int monthIdx = 0;
+  bool monthSelected = false;
+  late FixedExtentScrollController _yearController;
+  int yearIdx = 0;
+  bool yearSelected = false;
 
   getData() {
     lastDate = widget.sets.last.date;
@@ -101,9 +110,9 @@ class _ExerciseStatsState extends State<ExerciseStats> {
     return '$month ${date.day}';
   }
 
-  List<List<String>> calculateMonth(DateTime date) {
+  List<List<String>> calculateMonth(int m, int y) {
     List<List<String>> calendarMonth = List.empty(growable: true);
-    int daysInMonth = global.daysInMonth(date);
+    int daysInMonth = global.daysInMonth(m, y);
     int firstWeekday = 3;
     int day = 1;
 
@@ -143,6 +152,9 @@ class _ExerciseStatsState extends State<ExerciseStats> {
     firstDate = widget.sets.first.date;
     lastDate = widget.sets.last.date;
     super.initState();
+    _dayController = FixedExtentScrollController(initialItem: dayIdx);
+    _monthController = FixedExtentScrollController(initialItem: monthIdx);
+    _yearController = FixedExtentScrollController(initialItem: yearIdx);
   }
 
   pickNewDate(bool first) async {
@@ -235,69 +247,7 @@ class _ExerciseStatsState extends State<ExerciseStats> {
                   child: Stack(
                     children: [
                       GestureDetector(
-                        onTap: () => showCustomModalBottomSheet(
-                          context,
-                          ModalBottomSheet(
-                            title: '',
-                            height: global.height(context) * .7,
-                            content: Container(
-                              width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height * .2,
-                              decoration: BoxDecoration(
-                                color: Theme.of(context)
-                                    .focusColor
-                                    .withOpacity(.3),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    color: Colors.amber,
-                                    alignment: Alignment.center,
-                                    height: global.height(context) * .03,
-                                    width: global.width(context),
-                                    child: Text(
-                                      "Selected Range",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: global.height(context) * .03,
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    color: Colors.red,
-                                    alignment: Alignment.center,
-                                    height: global.height(context) * .02,
-                                    width: global.width(context),
-                                    child: Text(
-                                      "${dateString(firstDate)} - ${dateString(lastDate)}",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: global.height(context) * .02,
-                                      ),
-                                    ),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      print(calculateMonth(DateTime.now()));
-                                    },
-                                    child: Container(
-                                      color: Colors.green,
-                                      alignment: Alignment.center,
-                                      height: global.height(context) * .15,
-                                      width: global.width(context),
-                                      child: SizedBox(),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            bigTitle: true,
-                            submitButtonText: 'Enter',
-                          ),
-                        ),
+                        onTap: () => datePicker(context, true),
                         child: Container(
                           color: Colors.transparent,
                           alignment: Alignment.center,
@@ -349,7 +299,9 @@ class _ExerciseStatsState extends State<ExerciseStats> {
                       Container(
                         alignment: Alignment.centerRight,
                         child: GestureDetector(
-                          onTap: () => pickNewDate(false),
+                          onTap: () {
+                            datePicker(context, false);
+                          },
                           child: Container(
                             alignment: Alignment.center,
                             width: MediaQuery.of(context).size.width * 0.4,
@@ -452,6 +404,128 @@ class _ExerciseStatsState extends State<ExerciseStats> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  datePicker(BuildContext context, bool start) {
+    showCustomModalBottomSheet(
+      context,
+      ModalBottomSheet(
+        title: start ? 'Starting Date' : 'Ending Date',
+        titleSize: global.width(context) * .1,
+        height: global.height(context) * .5,
+        content: Container(
+          height: MediaQuery.of(context).size.height * .175,
+          padding: EdgeInsets.only(
+            bottom: global.height(context) * .05,
+          ),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Container(
+                width: global.width(context) * .8,
+                height: MediaQuery.of(context).size.height * .06,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.white,
+                    width: 2,
+                  ),
+                  borderRadius: BorderRadius.circular(
+                    MediaQuery.of(context).size.width * 0.2,
+                  ),
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.1,
+                        child: ListWheelScrollView.useDelegate(
+                          controller: _dayController,
+                          onSelectedItemChanged: (index) {
+                            daySelected = true;
+                            setState(() {});
+                          },
+                          itemExtent: 50,
+                          perspective: 0.005,
+                          diameterRatio: 3.5,
+                          physics: const FixedExtentScrollPhysics(),
+                          childDelegate: ListWheelChildBuilderDelegate(
+                            childCount: 31,
+                            //     global.daysInMonth(
+                            //   _monthController
+                            //       .selectedItem,
+                            //   _yearController
+                            //       .selectedItem,
+                            // ),
+                            builder: (context, index) {
+                              return DayTile(day: index);
+                            },
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: global.width(context) * .12,
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.1,
+                        child: ListWheelScrollView.useDelegate(
+                          controller: _monthController,
+                          onSelectedItemChanged: (index) {
+                            monthSelected = true;
+                            setState(() {});
+                          },
+                          itemExtent: 50,
+                          perspective: 0.005,
+                          diameterRatio: 3.5,
+                          physics: const FixedExtentScrollPhysics(),
+                          childDelegate: ListWheelChildBuilderDelegate(
+                            childCount: 12,
+                            builder: (context, index) {
+                              return MonthTile(month: index);
+                            },
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: global.width(context) * .11,
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.15,
+                        child: ListWheelScrollView.useDelegate(
+                          controller: _yearController,
+                          onSelectedItemChanged: (index) {
+                            yearSelected = true;
+                            setState(() {});
+                          },
+                          itemExtent: 50,
+                          perspective: 0.005,
+                          diameterRatio: 3.5,
+                          physics: const FixedExtentScrollPhysics(),
+                          childDelegate: ListWheelChildBuilderDelegate(
+                            childCount: global.yearsSinceRelease,
+                            builder: (context, index) {
+                              return YearTile(year: index);
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        bigTitle: true,
+        submitButtonText: 'Enter',
       ),
     );
   }
@@ -565,11 +639,12 @@ class DayTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Text(
-        day.toString(),
+        (day + 1).toString(),
         style: TextStyle(
-            color: Theme.of(context).focusColor,
-            fontSize: MediaQuery.of(context).size.height * 0.01 +
-                MediaQuery.of(context).size.width * 0.02),
+          color: Colors.white,
+          fontSize: MediaQuery.of(context).size.height * 0.01 +
+              MediaQuery.of(context).size.width * 0.035,
+        ),
       ),
     );
   }
@@ -584,11 +659,12 @@ class MonthTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Text(
-        month.toString(),
+        (month + 1).toString(),
         style: TextStyle(
-            color: Theme.of(context).focusColor,
-            fontSize: MediaQuery.of(context).size.height * 0.01 +
-                MediaQuery.of(context).size.width * 0.02),
+          color: Colors.white,
+          fontSize: MediaQuery.of(context).size.height * 0.01 +
+              MediaQuery.of(context).size.width * 0.035,
+        ),
       ),
     );
   }
@@ -603,11 +679,12 @@ class YearTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Text(
-        year.toString(),
+        (year + 2024).toString(),
         style: TextStyle(
-            color: Theme.of(context).focusColor,
-            fontSize: MediaQuery.of(context).size.height * 0.01 +
-                MediaQuery.of(context).size.width * 0.02),
+          color: Colors.white,
+          fontSize: MediaQuery.of(context).size.height * 0.01 +
+              MediaQuery.of(context).size.width * 0.035,
+        ),
       ),
     );
   }

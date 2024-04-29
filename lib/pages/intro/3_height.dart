@@ -42,13 +42,18 @@ class _ThreeHeightState extends State<ThreeHeight> {
                     IntroNavBarIcon(),
                     widget.isSettings
                         ? Padding(
-                          padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.25, right:  MediaQuery.of(context).size.width * 0.28),
-                          child: Text(
+                            padding: EdgeInsets.only(
+                                left: MediaQuery.of(context).size.width * 0.25,
+                                right:
+                                    MediaQuery.of(context).size.width * 0.28),
+                            child: Text(
                               "Height",
-                              style:
-                                  TextStyle(color: Theme.of(context).focusColor, fontSize: MediaQuery.of(context).size.width * 0.06),
+                              style: TextStyle(
+                                  color: Theme.of(context).focusColor,
+                                  fontSize:
+                                      MediaQuery.of(context).size.width * 0.06),
                             ),
-                        )
+                          )
                         : SizedBox(
                             width: MediaQuery.of(context).size.width * 0.7,
                           ),
@@ -151,145 +156,167 @@ class _ThreeHeightState extends State<ThreeHeight> {
                   ),
                 ),
                 Container(
-                  height: MediaQuery.of(context).size.height * 0.6,
+                  clipBehavior: Clip.none,
+                  alignment: Alignment.center,
+                  height: MediaQuery.of(context).size.height * 0.7,
                   width: MediaQuery.of(context).size.width * 0.8,
                   padding: EdgeInsets.only(
                       top: MediaQuery.of(context).size.height * 0.25,
                       bottom: MediaQuery.of(context).size.height * 0.3),
                   child: Container(
                     height: MediaQuery.of(context).size.height * 0.56,
-                    padding: EdgeInsets.only(
-                        left: MediaQuery.of(context).size.width * 0.05),
                     decoration: BoxDecoration(
-                      border: Border.all(width: 2, color: Theme.of(context).focusColor),
                       borderRadius: BorderRadius.circular(
                           MediaQuery.of(context).size.width * 0.2),
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    child: Stack(
+                      alignment: Alignment.center,
                       children: [
-                        unitview == "cm"
-                            ? SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.2,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    SizedBox(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.1,
-                                      child: ListWheelScrollView.useDelegate(
-                                        controller: _cmController,
-                                        onSelectedItemChanged: (index) {
-                                          selected = 1;
-                                          setState(() {});
-                                        },
-                                        itemExtent: 50,
-                                        perspective: 0.005,
-                                        diameterRatio: 3.5,
-                                        physics:
-                                            const FixedExtentScrollPhysics(),
-                                        childDelegate:
-                                            ListWheelChildBuilderDelegate(
-                                          childCount: 175,
-                                          builder: (context, index) {
-                                            return CmTile(centimeter: index);
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              )
-                            : SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.2,
-                                child: Row(
-                                  children: [
-                                    SizedBox(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.05,
-                                      child: ListWheelScrollView.useDelegate(
-                                        controller: _ftController,
-                                        onSelectedItemChanged: (index) {
-                                          selected = 1;
-                                          setState(() {});
-                                        },
-                                        itemExtent: 50,
-                                        perspective: 0.005,
-                                        diameterRatio: 3.5,
-                                        physics:
-                                            const FixedExtentScrollPhysics(),
-                                        childDelegate:
-                                            ListWheelChildBuilderDelegate(
-                                          childCount: 10,
-                                          builder: (context, index) {
-                                            return FtTile(ft: index);
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                    const Text('\''),
-                                    SizedBox(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.02),
-                                    SizedBox(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.05,
-                                      child: ListWheelScrollView.useDelegate(
-                                        controller: _inController,
-                                        onSelectedItemChanged: (index) {
-                                          selected = 1;
-                                          setState(() {});
-                                        },
-                                        itemExtent: 50,
-                                        perspective: 0.005,
-                                        diameterRatio: 3.5,
-                                        physics:
-                                            const FixedExtentScrollPhysics(),
-                                        childDelegate:
-                                            ListWheelChildBuilderDelegate(
-                                          childCount: 12 * 9 + 1,
-                                          builder: (context, index) {
-                                            return InchTile(inches: index);
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                    const Text('\'\''),
-                                  ],
-                                ),
-                              ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.1,
-                          child: ListWheelScrollView.useDelegate(
-                            onSelectedItemChanged: (value) {
-                              value == 0
-                                  ? setState(
-                                      () {
-                                        unitview = "cm";
-                                      },
-                                    )
-                                  : setState(
-                                      () {
-                                        unitview = "ft";
-                                      },
-                                    );
-                            },
-                            itemExtent: 50,
-                            perspective: 0.005,
-                            diameterRatio: 3.5,
-                            physics: const FixedExtentScrollPhysics(),
-                            childDelegate: ListWheelChildBuilderDelegate(
-                              childCount: 2,
-                              builder: (context, index) {
-                                if (index == 0) {
-                                  return const MetricTile(isCm: true);
-                                } else {
-                                  return const MetricTile(isCm: false);
-                                }
-                              },
+                        Container(
+                          height: MediaQuery.of(context).size.height * .04,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Theme.of(context).focusColor,),
+                            borderRadius: BorderRadius.circular(
+                              MediaQuery.of(context).size.width * 0.2,
                             ),
                           ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            unitview == "cm"
+                                ? SizedBox(
+                                  width: global.width(context) * .2,
+                                  child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        SizedBox(
+                                          width:
+                                              MediaQuery.of(context).size.width *
+                                                  0.1,
+                                          child: ListWheelScrollView.useDelegate(
+                                            controller: _cmController,
+                                            onSelectedItemChanged: (index) {
+                                              selected = 1;
+                                              setState(() {});
+                                            },
+                                            itemExtent: 50,
+                                            perspective: 0.01,
+                                            diameterRatio: 3.5,
+                                            physics:
+                                                const FixedExtentScrollPhysics(),
+                                            childDelegate:
+                                                ListWheelChildBuilderDelegate(
+                                              childCount: 175,
+                                              builder: (context, index) {
+                                                return CmTile(centimeter: index);
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                )
+                                : SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.2,
+                                    child: Row(
+                                      children: [
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.05,
+                                          child:
+                                              ListWheelScrollView.useDelegate(
+                                            controller: _ftController,
+                                            onSelectedItemChanged: (index) {
+                                              selected = 1;
+                                              setState(() {});
+                                            },
+                                            itemExtent: 50,
+                                            perspective: 0.005,
+                                            diameterRatio: 3.5,
+                                            physics:
+                                                const FixedExtentScrollPhysics(),
+                                            childDelegate:
+                                                ListWheelChildBuilderDelegate(
+                                              childCount: 10,
+                                              builder: (context, index) {
+                                                return FtTile(ft: index);
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                        const Text('\''),
+                                        SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.02),
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.05,
+                                          child:
+                                              ListWheelScrollView.useDelegate(
+                                            controller: _inController,
+                                            onSelectedItemChanged: (index) {
+                                              selected = 1;
+                                              setState(() {});
+                                            },
+                                            itemExtent: 50,
+                                            perspective: 0.005,
+                                            diameterRatio: 3.5,
+                                            physics:
+                                                const FixedExtentScrollPhysics(),
+                                            childDelegate:
+                                                ListWheelChildBuilderDelegate(
+                                              childCount: 12 * 9 + 1,
+                                              builder: (context, index) {
+                                                return InchTile(inches: index);
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                        const Text('\'\''),
+                                      ],
+                                    ),
+                                  ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.1,
+                              child: ListWheelScrollView.useDelegate(
+                                onSelectedItemChanged: (value) {
+                                  value == 0
+                                      ? setState(
+                                          () {
+                                            unitview = "cm";
+                                          },
+                                        )
+                                      : setState(
+                                          () {
+                                            unitview = "ft";
+                                          },
+                                        );
+                                },
+                                itemExtent: 50,
+                                perspective: 0.005,
+                                diameterRatio: 3.5,
+                                physics: const FixedExtentScrollPhysics(),
+                                childDelegate: ListWheelChildBuilderDelegate(
+                                  childCount: 2,
+                                  builder: (context, index) {
+                                    if (index == 0) {
+                                      return const MetricTile(isCm: true);
+                                    } else {
+                                      return const MetricTile(isCm: false);
+                                    }
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -301,11 +328,12 @@ class _ThreeHeightState extends State<ThreeHeight> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => FourWeight(isSettings: false,),
+                          builder: (context) => const FourWeight(
+                            isSettings: false,
+                          ),
                         ),
                       );
-                    }
-                    else {
+                    } else {
                       Navigator.pop(context);
                     }
                   },

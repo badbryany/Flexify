@@ -337,13 +337,15 @@ class _ExerciseTimerState extends State<ExerciseTimer> {
                     onPressed: () => showCustomModalBottomSheet(
                       context,
                       ModalBottomSheet(
-                        title: 'Rest-Timer Info',
+                        title: 'The "Rest-Timer"',
+                        titleSize: 28,
                         height: global.height(context) * .425,
                         content: Padding(
                           padding: EdgeInsets.symmetric(
-                              horizontal: global.width(context) * .1),
+                            horizontal: global.width(context) * .1,
+                          ),
                           child: Text(
-                            'The "Rest-Timer" is a feature(also found in the Exercise-Button(expanded state)) is a timer which counts up after you submitted a set, just to give you a feeling of your Rest-Time.\nYou can\'t stop it. It will automaticly stop after 6 minutes.',
+                            'The "Rest-Timer" starts after you enter a set. It will automaticly stop after 6 minutes. Optimal rest depends on muscle size, the bigger the muscle the longer the rest. Studies tend to say 2-4m is optimal!',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: Theme.of(context).colorScheme.onBackground,
@@ -351,7 +353,6 @@ class _ExerciseTimerState extends State<ExerciseTimer> {
                             ),
                           ),
                         ),
-                        bigTitle: true,
                         submitButtonText: 'Got it!',
                       ),
                     ),

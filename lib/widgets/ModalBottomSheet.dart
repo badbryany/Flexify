@@ -16,7 +16,9 @@ class ModalBottomSheet extends StatelessWidget {
   ModalBottomSheet({
     Key? key,
     required this.title,
+    required this.titleSize,
     required this.content,
+    this.topPadding,
     this.extraButton,
     this.submitButtonText,
     this.onPop,
@@ -25,12 +27,14 @@ class ModalBottomSheet extends StatelessWidget {
   }) : super(key: key);
 
   final String title;
+  double titleSize;
   String? submitButtonText;
   final Widget content;
   Map<String, dynamic>? extraButton; // {'onTap': () {}, 'child': Container(),}
   Function? onPop;
   bool? bigTitle;
   double? height;
+  double? topPadding;
 
   @override
   Widget build(BuildContext context) {
@@ -69,12 +73,13 @@ class ModalBottomSheet extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  SizedBox(height: topPadding,),
                   Text(
                     title,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: bigTitle! ? 28 : 23,
+                      fontSize: titleSize,
                       color: Theme.of(context).colorScheme.onBackground,
                     ),
                   ),
