@@ -152,7 +152,7 @@ class _ElevenTargetMusclesState extends State<ElevenTargetMuscles> {
                   ),
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.6,
+                  height: MediaQuery.of(context).size.height * 0.55,
                   child: const Center(
                       child: Text("TODO: Clickable (Hightlights), 3d Model")),
                 ),

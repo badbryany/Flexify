@@ -182,7 +182,7 @@ class _FiveBodyFatState extends State<FiveBodyFat> {
                 ),
                 Container(
                   alignment: Alignment.center,
-                  height: MediaQuery.of(context).size.height * 0.6,
+                  height: MediaQuery.of(context).size.height * 0.55,
                   width: MediaQuery.of(context).size.width *
                       global.containerWidthFactor,
                   child: Container(

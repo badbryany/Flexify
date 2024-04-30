@@ -178,11 +178,12 @@ class _SixBirthdayState extends State<SixBirthday> {
                 Container(
                   clipBehavior: Clip.none,
                   alignment: Alignment.center,
-                  height: MediaQuery.of(context).size.height * 0.6,
+                  height: MediaQuery.of(context).size.height * 0.55,
                   width: MediaQuery.of(context).size.width * 0.8,
                   padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.25,
-                      bottom: MediaQuery.of(context).size.height * 0.3),
+                    top: MediaQuery.of(context).size.height * 0.2,
+                    bottom: MediaQuery.of(context).size.height * 0.2,
+                  ),
                   child: Container(
                     alignment: Alignment.center,
                     height: MediaQuery.of(context).size.height * 0.56,
@@ -210,8 +211,7 @@ class _SixBirthdayState extends State<SixBirthday> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               SizedBox(
-                                width:
-                                    MediaQuery.of(context).size.width * 0.1,
+                                width: MediaQuery.of(context).size.width * 0.1,
                                 child: ListWheelScrollView.useDelegate(
                                   controller: _dayController,
                                   onSelectedItemChanged: (index) {
@@ -222,8 +222,7 @@ class _SixBirthdayState extends State<SixBirthday> {
                                   perspective: 0.005,
                                   diameterRatio: 3.5,
                                   physics: const FixedExtentScrollPhysics(),
-                                  childDelegate:
-                                      ListWheelChildBuilderDelegate(
+                                  childDelegate: ListWheelChildBuilderDelegate(
                                     childCount: 31,
                                     builder: (context, index) {
                                       return DayTile(day: index);
@@ -232,12 +231,10 @@ class _SixBirthdayState extends State<SixBirthday> {
                                 ),
                               ),
                               SizedBox(
-                                width: MediaQuery.of(context).size.width *
-                                    0.05,
+                                width: MediaQuery.of(context).size.width * 0.05,
                               ),
                               SizedBox(
-                                width:
-                                    MediaQuery.of(context).size.width * 0.1,
+                                width: MediaQuery.of(context).size.width * 0.1,
                                 child: ListWheelScrollView.useDelegate(
                                   controller: _monthController,
                                   onSelectedItemChanged: (index) {
@@ -248,8 +245,7 @@ class _SixBirthdayState extends State<SixBirthday> {
                                   perspective: 0.005,
                                   diameterRatio: 3.5,
                                   physics: const FixedExtentScrollPhysics(),
-                                  childDelegate:
-                                      ListWheelChildBuilderDelegate(
+                                  childDelegate: ListWheelChildBuilderDelegate(
                                     childCount: 12,
                                     builder: (context, index) {
                                       return MonthTile(month: index);
@@ -258,12 +254,11 @@ class _SixBirthdayState extends State<SixBirthday> {
                                 ),
                               ),
                               SizedBox(
-                                width: MediaQuery.of(context).size.width *
-                                    0.065,
+                                width:
+                                    MediaQuery.of(context).size.width * 0.065,
                               ),
                               SizedBox(
-                                width: MediaQuery.of(context).size.width *
-                                    0.15,
+                                width: MediaQuery.of(context).size.width * 0.15,
                                 child: ListWheelScrollView.useDelegate(
                                   controller: _yearController,
                                   onSelectedItemChanged: (index) {
@@ -274,8 +269,7 @@ class _SixBirthdayState extends State<SixBirthday> {
                                   perspective: 0.005,
                                   diameterRatio: 3.5,
                                   physics: const FixedExtentScrollPhysics(),
-                                  childDelegate:
-                                      ListWheelChildBuilderDelegate(
+                                  childDelegate: ListWheelChildBuilderDelegate(
                                     childCount: 100,
                                     builder: (context, index) {
                                       return YearTile(year: index);

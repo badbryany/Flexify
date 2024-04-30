@@ -158,11 +158,12 @@ class _ThreeHeightState extends State<ThreeHeight> {
                 Container(
                   clipBehavior: Clip.none,
                   alignment: Alignment.center,
-                  height: MediaQuery.of(context).size.height * 0.6,
+                  height: MediaQuery.of(context).size.height * 0.55,
                   width: MediaQuery.of(context).size.width * 0.8,
                   padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.25,
-                      bottom: MediaQuery.of(context).size.height * 0.3),
+                    top: MediaQuery.of(context).size.height * 0.2,
+                    bottom: MediaQuery.of(context).size.height * 0.2,
+                  ),
                   child: Container(
                     height: MediaQuery.of(context).size.height * 0.56,
                     decoration: BoxDecoration(
@@ -175,7 +176,9 @@ class _ThreeHeightState extends State<ThreeHeight> {
                         Container(
                           height: MediaQuery.of(context).size.height * .04,
                           decoration: BoxDecoration(
-                            border: Border.all(color: Theme.of(context).focusColor,),
+                            border: Border.all(
+                              color: Theme.of(context).focusColor,
+                            ),
                             borderRadius: BorderRadius.circular(
                               MediaQuery.of(context).size.width * 0.2,
                             ),
@@ -186,15 +189,18 @@ class _ThreeHeightState extends State<ThreeHeight> {
                           children: [
                             unitview == "cm"
                                 ? SizedBox(
-                                  width: global.width(context) * .2,
-                                  child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                    width: global.width(context) * .2,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         SizedBox(
-                                          width:
-                                              MediaQuery.of(context).size.width *
-                                                  0.1,
-                                          child: ListWheelScrollView.useDelegate(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.1,
+                                          child:
+                                              ListWheelScrollView.useDelegate(
                                             controller: _cmController,
                                             onSelectedItemChanged: (index) {
                                               selected = 1;
@@ -209,14 +215,15 @@ class _ThreeHeightState extends State<ThreeHeight> {
                                                 ListWheelChildBuilderDelegate(
                                               childCount: 175,
                                               builder: (context, index) {
-                                                return CmTile(centimeter: index);
+                                                return CmTile(
+                                                    centimeter: index);
                                               },
                                             ),
                                           ),
                                         ),
                                       ],
                                     ),
-                                )
+                                  )
                                 : SizedBox(
                                     width:
                                         MediaQuery.of(context).size.width * 0.2,

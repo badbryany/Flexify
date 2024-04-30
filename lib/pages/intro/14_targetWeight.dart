@@ -60,9 +60,6 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.05,
-                ),
                 Row(
                   children: [
                     const IntroNavBarIcon(),

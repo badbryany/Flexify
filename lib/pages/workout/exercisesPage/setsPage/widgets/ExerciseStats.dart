@@ -151,10 +151,10 @@ class _ExerciseStatsState extends State<ExerciseStats> {
   void initState() {
     firstDate = widget.sets.first.date;
     lastDate = widget.sets.last.date;
-    super.initState();
     _dayController = FixedExtentScrollController(initialItem: dayIdx);
     _monthController = FixedExtentScrollController(initialItem: monthIdx);
     _yearController = FixedExtentScrollController(initialItem: yearIdx);
+    super.initState();
   }
 
   pickNewDate(bool first) async {
@@ -458,13 +458,10 @@ class _ExerciseStatsState extends State<ExerciseStats> {
                           diameterRatio: 3.5,
                           physics: const FixedExtentScrollPhysics(),
                           childDelegate: ListWheelChildBuilderDelegate(
-                            childCount: 31,
-                            //     global.daysInMonth(
-                            //   _monthController
-                            //       .selectedItem,
-                            //   _yearController
-                            //       .selectedItem,
-                            // ),
+                            childCount: global.daysInMonth(
+                              _monthController.selectedItem,
+                              _yearController.selectedItem,
+                            ),
                             builder: (context, index) {
                               return DayTile(day: index);
                             },

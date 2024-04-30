@@ -306,6 +306,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
                           child: Text(
                             'Workout',
                             textAlign: TextAlign.center,
+                            maxLines: 1,
                             style: TextStyle(
                               color: Theme.of(context).focusColor,
                               fontWeight: FontWeight.bold,

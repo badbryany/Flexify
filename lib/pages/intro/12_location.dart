@@ -153,7 +153,7 @@ class _TwelveLocationState extends State<TwelveLocation> {
                   ),
                 ),
                 Container(
-                  height: MediaQuery.of(context).size.height * 0.6,
+                  height: MediaQuery.of(context).size.height * 0.55,
                   padding: EdgeInsets.only(
                       top: MediaQuery.of(context).size.height * 0.05),
                   child: Column(

@@ -139,7 +139,7 @@ class _TwoGenderState extends State<TwoGender> {
                   ),
                 ),
                 Container(
-                  height: global.height(context) * 0.6,
+                  height: global.height(context) * 0.55,
                   width: global.width(context) * 0.8,
                   padding: EdgeInsets.only(top: global.width(context) * 0.1),
                   child: Row(

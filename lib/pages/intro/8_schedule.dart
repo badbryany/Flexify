@@ -164,7 +164,7 @@ class _EightScheduleState extends State<EightSchedule> {
                   ),
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.6,
+                  height: MediaQuery.of(context).size.height * 0.55,
                   width: MediaQuery.of(context).size.width * 0.8,
                   child: Column(
                     children: [
