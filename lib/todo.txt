@@ -57,3 +57,11 @@ dashboardNavBar
     -> Terms of Use
     -> Website
     -> Logout
+
+Refactor: -------------------------------------------
+
+. Package Clean
+. Code Refactor
+. Hitbox Clean
+. Algorithm Optimization
+. Text writing
