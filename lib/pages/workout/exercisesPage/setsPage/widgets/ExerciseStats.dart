@@ -458,10 +458,11 @@ class _ExerciseStatsState extends State<ExerciseStats> {
                           diameterRatio: 3.5,
                           physics: const FixedExtentScrollPhysics(),
                           childDelegate: ListWheelChildBuilderDelegate(
-                            childCount: global.daysInMonth(
-                              _monthController.selectedItem,
-                              _yearController.selectedItem,
-                            ),
+                            childCount: 31,
+                            // childCount: global.daysInMonth(
+                            //   _monthController.selectedItem,
+                            //   _yearController.selectedItem,
+                            // ),
                             builder: (context, index) {
                               return DayTile(day: index);
                             },
@@ -656,11 +657,11 @@ class MonthTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Text(
-        (month + 1).toString(),
+        global.months[month],
         style: TextStyle(
           color: Colors.white,
           fontSize: MediaQuery.of(context).size.height * 0.01 +
-              MediaQuery.of(context).size.width * 0.035,
+              MediaQuery.of(context).size.width * 0.032,
         ),
       ),
     );

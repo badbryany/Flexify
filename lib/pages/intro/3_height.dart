@@ -18,9 +18,9 @@ class _ThreeHeightState extends State<ThreeHeight> {
   final FixedExtentScrollController _cmController =
       FixedExtentScrollController(initialItem: 80);
   final FixedExtentScrollController _ftController =
-      FixedExtentScrollController(initialItem: 2);
+      FixedExtentScrollController(initialItem: 1);
   final FixedExtentScrollController _inController =
-      FixedExtentScrollController(initialItem: 10);
+      FixedExtentScrollController(initialItem: 7);
   int selected = 0;
   var unitview = "cm";
 
@@ -126,13 +126,11 @@ class _ThreeHeightState extends State<ThreeHeight> {
                   height: MediaQuery.of(context).size.height * 0.07,
                   width: MediaQuery.of(context).size.width * 0.8,
                   decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.background,
-                      borderRadius: BorderRadius.circular(
-                          MediaQuery.of(context).size.width * 0.0375),
-                      border: Border.all(
-                        color: Theme.of(context).focusColor,
-                        width: 2,
-                      )),
+                    color: Theme.of(context).colorScheme.background,
+                    borderRadius: BorderRadius.circular(
+                        MediaQuery.of(context).size.width * 0.0375),
+                    boxShadow: [global.darkShadow(context)],
+                  ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -188,8 +186,11 @@ class _ThreeHeightState extends State<ThreeHeight> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             unitview == "cm"
-                                ? SizedBox(
-                                    width: global.width(context) * .2,
+                                ? Container(
+                                    padding: EdgeInsets.only(
+                                        right: global.width(context) * .05),
+                                    // color: Colors.amber,
+                                    width: global.width(context) * .4,
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
@@ -198,7 +199,7 @@ class _ThreeHeightState extends State<ThreeHeight> {
                                           width: MediaQuery.of(context)
                                                   .size
                                                   .width *
-                                              0.1,
+                                              0.35,
                                           child:
                                               ListWheelScrollView.useDelegate(
                                             controller: _cmController,
@@ -226,14 +227,14 @@ class _ThreeHeightState extends State<ThreeHeight> {
                                   )
                                 : SizedBox(
                                     width:
-                                        MediaQuery.of(context).size.width * 0.2,
+                                        MediaQuery.of(context).size.width * 0.4,
                                     child: Row(
                                       children: [
                                         SizedBox(
                                           width: MediaQuery.of(context)
                                                   .size
                                                   .width *
-                                              0.05,
+                                              0.2,
                                           child:
                                               ListWheelScrollView.useDelegate(
                                             controller: _ftController,
@@ -255,17 +256,11 @@ class _ThreeHeightState extends State<ThreeHeight> {
                                             ),
                                           ),
                                         ),
-                                        const Text('\''),
-                                        SizedBox(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.02),
                                         SizedBox(
                                           width: MediaQuery.of(context)
                                                   .size
                                                   .width *
-                                              0.05,
+                                              0.2,
                                           child:
                                               ListWheelScrollView.useDelegate(
                                             controller: _inController,
@@ -287,12 +282,11 @@ class _ThreeHeightState extends State<ThreeHeight> {
                                             ),
                                           ),
                                         ),
-                                        const Text('\'\''),
                                       ],
                                     ),
                                   ),
                             SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.1,
+                              width: MediaQuery.of(context).size.width * 0.2,
                               child: ListWheelScrollView.useDelegate(
                                 onSelectedItemChanged: (value) {
                                   value == 0
@@ -385,14 +379,18 @@ class FtTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        ft.toString(),
-        style: TextStyle(
-            color: Theme.of(context).focusColor,
-            fontSize: MediaQuery.of(context).size.height * 0.01 +
-                MediaQuery.of(context).size.width * 0.02),
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          ft.toString(),
+          style: TextStyle(
+              color: Theme.of(context).focusColor,
+              fontSize: MediaQuery.of(context).size.height * 0.01 +
+                  MediaQuery.of(context).size.width * 0.035),
+        ),
+        const Text("''")
+      ],
     );
   }
 }
@@ -410,7 +408,7 @@ class CmTile extends StatelessWidget {
         style: TextStyle(
             color: Theme.of(context).focusColor,
             fontSize: MediaQuery.of(context).size.height * 0.01 +
-                MediaQuery.of(context).size.width * 0.02),
+                MediaQuery.of(context).size.width * 0.035),
       ),
     );
   }
@@ -423,13 +421,20 @@ class InchTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        '${inches % 12}',
-        style: TextStyle(
-            color: Theme.of(context).focusColor,
-            fontSize: MediaQuery.of(context).size.height * 0.01 +
-                MediaQuery.of(context).size.width * 0.02),
+    return SizedBox(
+      width: global.width(context) * .4,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            '${inches % 12}',
+            style: TextStyle(
+                color: Theme.of(context).focusColor,
+                fontSize: MediaQuery.of(context).size.height * 0.01 +
+                    MediaQuery.of(context).size.width * 0.035),
+          ),
+          const Text("'"),
+        ],
       ),
     );
   }
@@ -448,7 +453,7 @@ class MetricTile extends StatelessWidget {
         style: TextStyle(
             color: Theme.of(context).focusColor,
             fontSize: MediaQuery.of(context).size.height * 0.01 +
-                MediaQuery.of(context).size.width * 0.02),
+                MediaQuery.of(context).size.width * 0.04),
       ),
     );
   }

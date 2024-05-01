@@ -89,7 +89,7 @@ class _EightScheduleState extends State<EightSchedule> {
                   ],
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.03,
+                  height: MediaQuery.of(context).size.height * 0.01,
                 ),
                 widget.isSettings
                     ? SizedBox(
@@ -136,10 +136,7 @@ class _EightScheduleState extends State<EightSchedule> {
                     color: Theme.of(context).colorScheme.background,
                     borderRadius: BorderRadius.circular(
                         MediaQuery.of(context).size.width * 0.0375),
-                    border: Border.all(
-                      color: Theme.of(context).focusColor,
-                      width: 2,
-                    ),
+                    boxShadow: [global.darkShadow(context)],
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -197,11 +194,8 @@ class _EightScheduleState extends State<EightSchedule> {
                                     color: Theme.of(context)
                                         .colorScheme
                                         .background,
-                                    border: Border.all(
-                                        color: Theme.of(context).focusColor,
-                                        width: 2,
-                                        style: BorderStyle.solid),
                                     borderRadius: BorderRadius.circular(1000),
+                                    boxShadow: [global.darkShadow(context)],
                                   ),
                                 ),
                                 Padding(
@@ -218,13 +212,6 @@ class _EightScheduleState extends State<EightSchedule> {
                                     decoration: BoxDecoration(
                                       color:
                                           Theme.of(context).colorScheme.primary,
-                                      border: Border.all(
-                                          width: 2,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .primary,
-                                          strokeAlign:
-                                              BorderSide.strokeAlignCenter),
                                       borderRadius: BorderRadius.circular(
                                           MediaQuery.of(context).size.width),
                                     ),
@@ -554,6 +541,9 @@ class _EightScheduleState extends State<EightSchedule> {
                       )
                     ],
                   ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.02,
                 ),
                 GestureDetector(
                   onTap: () {

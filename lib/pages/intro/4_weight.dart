@@ -142,10 +142,7 @@ class _FourWeightState extends State<FourWeight> {
                     color: Theme.of(context).colorScheme.background,
                     borderRadius: BorderRadius.circular(
                         MediaQuery.of(context).size.width * 0.0375),
-                    border: Border.all(
-                      color: Theme.of(context).focusColor,
-                      width: 2,
-                    ),
+                    boxShadow: [global.darkShadow(context)],
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -203,59 +200,46 @@ class _FourWeightState extends State<FourWeight> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             unitview == "kg"
-                                ? SizedBox(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.2,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        SizedBox(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.1,
-                                          child:
-                                              ListWheelScrollView.useDelegate(
-                                            controller: _kgController,
-                                            onSelectedItemChanged: (index) {
-                                              selected = 1;
-                                              setState(() {});
+                                ? Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.2,
+                                        child: ListWheelScrollView.useDelegate(
+                                          controller: _kgController,
+                                          onSelectedItemChanged: (index) {
+                                            selected = 1;
+                                            setState(() {});
+                                          },
+                                          itemExtent: 50,
+                                          perspective: 0.005,
+                                          diameterRatio: 3.5,
+                                          physics:
+                                              const FixedExtentScrollPhysics(),
+                                          childDelegate:
+                                              ListWheelChildBuilderDelegate(
+                                            childCount: 201,
+                                            builder: (context, index) {
+                                              return KgTile(kilogram: index);
                                             },
-                                            itemExtent: 50,
-                                            perspective: 0.005,
-                                            diameterRatio: 3.5,
-                                            physics:
-                                                const FixedExtentScrollPhysics(),
-                                            childDelegate:
-                                                ListWheelChildBuilderDelegate(
-                                              childCount: 201,
-                                              builder: (context, index) {
-                                                return KgTile(kilogram: index);
-                                              },
-                                            ),
                                           ),
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   )
                                 : SizedBox(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.2,
+                                    width: global.width(context) * .2,
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
                                         SizedBox(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.02),
-                                        SizedBox(
                                           width: MediaQuery.of(context)
                                                   .size
                                                   .width *
-                                              0.1,
+                                              0.2,
                                           child:
                                               ListWheelScrollView.useDelegate(
                                             controller: _lbsController,
@@ -282,20 +266,18 @@ class _FourWeightState extends State<FourWeight> {
                                     ),
                                   ),
                             SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.1,
+                              width: MediaQuery.of(context).size.width * 0.2,
                               child: ListWheelScrollView.useDelegate(
                                 onSelectedItemChanged: (value) {
                                   value == 0
                                       ? setState(
                                           () {
                                             unitview = "kg";
-                                            _kgController.jumpToItem(kgIdx);
                                           },
                                         )
                                       : setState(
                                           () {
                                             unitview = "lbs";
-                                            _lbsController.jumpToItem(lbsIdx);
                                           },
                                         );
                                 },
@@ -384,7 +366,7 @@ class KgTile extends StatelessWidget {
         style: TextStyle(
             color: Theme.of(context).focusColor,
             fontSize: MediaQuery.of(context).size.height * 0.01 +
-                MediaQuery.of(context).size.width * 0.02),
+                MediaQuery.of(context).size.width * 0.035),
       ),
     );
   }
@@ -399,11 +381,11 @@ class LbsTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Text(
-        '${pounds}',
+        '$pounds',
         style: TextStyle(
             color: Theme.of(context).focusColor,
             fontSize: MediaQuery.of(context).size.height * 0.01 +
-                MediaQuery.of(context).size.width * 0.02),
+                MediaQuery.of(context).size.width * 0.035),
       ),
     );
   }
@@ -422,7 +404,7 @@ class MetricTile extends StatelessWidget {
         style: TextStyle(
             color: Theme.of(context).focusColor,
             fontSize: MediaQuery.of(context).size.height * 0.01 +
-                MediaQuery.of(context).size.width * 0.02),
+                MediaQuery.of(context).size.width * 0.035),
       ),
     );
   }

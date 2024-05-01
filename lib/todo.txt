@@ -19,13 +19,14 @@ intro:
         -> when in++ -> ft++
     -> 4_weight
         -> If height given in inches initialise metric to lbs
-    -> 8_schedule
-        -> border glitch green lines (darkmode)
 
 statsPage
     -> When do I workout? (x-axis 00:00 - 23:59, y-axis amount of sets at that time)
     -> Which muscles are fatigued (3d Body Diagram)
     -> What muscles do I usually work? (3d Body Diagram)
+
+exercisePage
+    0% -> /8 (Sets per Week)
 
 setsPage
     -> When do I hit PRs? (x-axis Date, y-axis amount of PRs on that day)
@@ -48,6 +49,12 @@ dashboardProfile
     -> "BeReal" Widget
     -> Sets widget to profile
     -> Favourites (Muscle Group, Workout, Equipment)
+    -> Workout Challenge Friends
+    -> QR-Code to add 
+
+addEditSetPage
+    Bodyeight /+ Kg 
+    Time /+ Reps 
 
 dashboardNavBar
     -> Notifications
@@ -59,6 +66,10 @@ dashboardNavBar
     -> Logout
 
 Refactor: -------------------------------------------
+
+Code Refactor:
+    navBar Standard
+    Layout Standard
 
 . Package Clean
 . Code Refactor

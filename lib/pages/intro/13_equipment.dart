@@ -1,5 +1,6 @@
 import 'package:flexify/pages/intro/14_targetWeight.dart';
 import 'package:flexify/pages/intro/widgets/IntroNavbarIcon.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
 
@@ -187,7 +188,7 @@ class _ThirteenEquipmentState extends State<ThirteenEquipment> {
                         ],
                       ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.03,
+                  height: MediaQuery.of(context).size.height * 0.01,
                 ),
                 Container(
                   alignment: Alignment.center,
@@ -197,10 +198,7 @@ class _ThirteenEquipmentState extends State<ThirteenEquipment> {
                     color: Theme.of(context).colorScheme.background,
                     borderRadius: BorderRadius.circular(
                         MediaQuery.of(context).size.width * 0.0375),
-                    border: Border.all(
-                      color: Theme.of(context).focusColor,
-                      width: 2,
-                    ),
+                    boxShadow: [global.darkShadow(context)],
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -234,7 +232,7 @@ class _ThirteenEquipmentState extends State<ThirteenEquipment> {
                         height: MediaQuery.of(context).size.height * 0.03,
                       ),
                       SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.025,
+                        height: MediaQuery.of(context).size.height * 0.05,
                         width: MediaQuery.of(context).size.width * 0.8,
                         child: ListView.builder(
                           physics: const BouncingScrollPhysics(),
@@ -255,7 +253,7 @@ class _ThirteenEquipmentState extends State<ThirteenEquipment> {
                                     duration: global.standardAnimationDuration,
                                     alignment: Alignment.center,
                                     width:
-                                        MediaQuery.of(context).size.width * 0.3,
+                                        MediaQuery.of(context).size.width * 0.4,
                                     decoration: BoxDecoration(
                                       color: selectedType == index
                                           ? Theme.of(context)
@@ -264,10 +262,7 @@ class _ThirteenEquipmentState extends State<ThirteenEquipment> {
                                           : Theme.of(context)
                                               .colorScheme
                                               .surface,
-                                      border: Border.all(
-                                        color: Theme.of(context).focusColor,
-                                        width: 1,
-                                      ),
+                                      boxShadow: [global.darkShadow(context)],
                                       borderRadius: BorderRadius.circular(
                                           MediaQuery.of(context).size.width *
                                               0.1),
@@ -280,7 +275,7 @@ class _ThirteenEquipmentState extends State<ThirteenEquipment> {
                                             fontSize: MediaQuery.of(context)
                                                     .size
                                                     .width *
-                                                0.03,
+                                                0.035,
                                             fontWeight: FontWeight.w100)),
                                   ),
                                   SizedBox(
@@ -330,10 +325,10 @@ class _ThirteenEquipmentState extends State<ThirteenEquipment> {
                                     padding: EdgeInsets.only(
                                         left:
                                             MediaQuery.of(context).size.width *
-                                                0.03,
+                                                0.05,
                                         right:
                                             MediaQuery.of(context).size.width *
-                                                0.03),
+                                                0.05),
                                     height: MediaQuery.of(context).size.height *
                                         0.1,
                                     width:
@@ -352,10 +347,7 @@ class _ThirteenEquipmentState extends State<ThirteenEquipment> {
                                       borderRadius: BorderRadius.circular(
                                           MediaQuery.of(context).size.width *
                                               0.0375),
-                                      border: Border.all(
-                                        color: Theme.of(context).focusColor,
-                                        width: 2,
-                                      ),
+                                      boxShadow: [global.darkShadow(context)],
                                     ),
                                     child: ClipRRect(
                                       clipBehavior: Clip.hardEdge,
@@ -390,21 +382,23 @@ class _ThirteenEquipmentState extends State<ThirteenEquipment> {
                                                     .values
                                                     .toList()[index]
                                                 ? Icon(
-                                                    Icons.check_circle_outlined,
-                                                    color: items[selectedType]
-                                                                  .values
-                                                                  .toList()[
-                                                              index] ==
-                                                          true
-                                                      ? Colors.black
-                                                      : Theme.of(context)
-                                                          .focusColor,
+                                                    CupertinoIcons
+                                                        .checkmark_alt,
+                                                    color: Colors.black,
                                                     size: MediaQuery.of(context)
                                                             .size
                                                             .width *
-                                                        0.17,
+                                                        0.08,
                                                   )
-                                                : Container()
+                                                : Icon(
+                                                    CupertinoIcons.add,
+                                                    color: Theme.of(context)
+                                                        .focusColor,
+                                                    size: MediaQuery.of(context)
+                                                            .size
+                                                            .width *
+                                                        0.07,
+                                                  )
                                           ]),
                                     ),
                                   ),
@@ -419,6 +413,9 @@ class _ThirteenEquipmentState extends State<ThirteenEquipment> {
                       )
                     ],
                   ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.02,
                 ),
                 GestureDetector(
                   onTap: () {
@@ -447,7 +444,7 @@ class _ThirteenEquipmentState extends State<ThirteenEquipment> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Next',
+                          widget.isSettings ? "Enter" : "Next",
                           style: TextStyle(
                               color: Colors.black,
                               fontSize:

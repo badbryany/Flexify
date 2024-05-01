@@ -184,7 +184,7 @@ class _ElevenTargetMusclesState extends State<ElevenTargetMuscles> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Next',
+                          widget.isSettings ? "Enter" : "Next",
                           style: TextStyle(
                               color: Theme.of(context).focusColor,
                               fontSize:

@@ -148,10 +148,7 @@ class _SixBirthdayState extends State<SixBirthday> {
                     color: Theme.of(context).colorScheme.background,
                     borderRadius: BorderRadius.circular(
                         MediaQuery.of(context).size.width * 0.0375),
-                    border: Border.all(
-                      color: Theme.of(context).focusColor,
-                      width: 2,
-                    ),
+                    boxShadow: [global.darkShadow(context)],
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -211,7 +208,7 @@ class _SixBirthdayState extends State<SixBirthday> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.1,
+                                width: MediaQuery.of(context).size.width * 0.15,
                                 child: ListWheelScrollView.useDelegate(
                                   controller: _dayController,
                                   onSelectedItemChanged: (index) {
@@ -231,10 +228,7 @@ class _SixBirthdayState extends State<SixBirthday> {
                                 ),
                               ),
                               SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.05,
-                              ),
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.1,
+                                width: MediaQuery.of(context).size.width * 0.2,
                                 child: ListWheelScrollView.useDelegate(
                                   controller: _monthController,
                                   onSelectedItemChanged: (index) {
@@ -254,11 +248,7 @@ class _SixBirthdayState extends State<SixBirthday> {
                                 ),
                               ),
                               SizedBox(
-                                width:
-                                    MediaQuery.of(context).size.width * 0.065,
-                              ),
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.15,
+                                width: MediaQuery.of(context).size.width * 0.2,
                                 child: ListWheelScrollView.useDelegate(
                                   controller: _yearController,
                                   onSelectedItemChanged: (index) {
@@ -290,7 +280,7 @@ class _SixBirthdayState extends State<SixBirthday> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => SevenExperience(
+                          builder: (context) => const SevenExperience(
                             isSettings: false,
                           ),
                         ),
@@ -346,7 +336,7 @@ class DayTile extends StatelessWidget {
         style: TextStyle(
             color: Theme.of(context).focusColor,
             fontSize: MediaQuery.of(context).size.height * 0.01 +
-                MediaQuery.of(context).size.width * 0.02),
+                MediaQuery.of(context).size.width * 0.03),
       ),
     );
   }
@@ -365,7 +355,7 @@ class MonthTile extends StatelessWidget {
         style: TextStyle(
             color: Theme.of(context).focusColor,
             fontSize: MediaQuery.of(context).size.height * 0.01 +
-                MediaQuery.of(context).size.width * 0.02),
+                MediaQuery.of(context).size.width * 0.025),
       ),
     );
   }
@@ -384,7 +374,7 @@ class YearTile extends StatelessWidget {
         style: TextStyle(
             color: Theme.of(context).focusColor,
             fontSize: MediaQuery.of(context).size.height * 0.01 +
-                MediaQuery.of(context).size.width * 0.02),
+                MediaQuery.of(context).size.width * 0.03),
       ),
     );
   }

@@ -67,41 +67,46 @@ class _FiveBodyFatState extends State<FiveBodyFat> {
                     IntroNavBarIcon(),
                     widget.isSettings
                         ? Padding(
-                          padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.05, right:  MediaQuery.of(context).size.width * 0.075),
-                          child: Text(
+                            padding: EdgeInsets.only(
+                                left: MediaQuery.of(context).size.width * 0.05,
+                                right:
+                                    MediaQuery.of(context).size.width * 0.075),
+                            child: Text(
                               "Body Fat Percentage",
-                              style:
-                                  TextStyle(color: Theme.of(context).focusColor, fontSize: MediaQuery.of(context).size.width * 0.06),
+                              style: TextStyle(
+                                  color: Theme.of(context).focusColor,
+                                  fontSize:
+                                      MediaQuery.of(context).size.width * 0.06),
                             ),
-                        )
+                          )
                         : SizedBox(
                             width: MediaQuery.of(context).size.width * 0.7,
                           ),
                     widget.isSettings
                         ? const SizedBox()
-                        : 
-                    GestureDetector(
-                      onTap: () {
-                        if (widget.isSettings == false) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const SixBirthday(isSettings: false,),
+                        : GestureDetector(
+                            onTap: () {
+                              if (widget.isSettings == false) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const SixBirthday(
+                                      isSettings: false,
+                                    ),
+                                  ),
+                                );
+                              } else {
+                                Navigator.pop(context);
+                              }
+                            },
+                            child: Text(
+                              'Skip',
+                              style: TextStyle(
+                                  color: Theme.of(context).focusColor,
+                                  fontSize: MediaQuery.of(context).size.width *
+                                      0.035),
                             ),
-                          );
-                        }
-                        else {
-                          Navigator.pop(context);
-                        }
-                      },
-                      child: Text(
-                        'Skip',
-                        style: TextStyle(
-                            color: Theme.of(context).focusColor,
-                            fontSize:
-                                MediaQuery.of(context).size.width * 0.035),
-                      ),
-                    ),
+                          ),
                     SizedBox(width: MediaQuery.of(context).size.width * 0.02)
                   ],
                 ),
@@ -153,10 +158,7 @@ class _FiveBodyFatState extends State<FiveBodyFat> {
                     color: Theme.of(context).colorScheme.background,
                     borderRadius: BorderRadius.circular(
                         MediaQuery.of(context).size.width * 0.0525),
-                    border: Border.all(
-                      color: Theme.of(context).focusColor,
-                      width: 2,
-                    ),
+                    boxShadow: [global.darkShadow(context)],
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -186,6 +188,7 @@ class _FiveBodyFatState extends State<FiveBodyFat> {
                   width: MediaQuery.of(context).size.width *
                       global.containerWidthFactor,
                   child: Container(
+                    clipBehavior: Clip.none,
                     height: MediaQuery.of(context).size.width * 0.8,
                     width: MediaQuery.of(context).size.width * 0.8,
                     decoration: BoxDecoration(
@@ -214,6 +217,7 @@ class _FiveBodyFatState extends State<FiveBodyFat> {
                               controller:
                                   FixedExtentScrollController(initialItem: 3),
                               physics: const FixedExtentScrollPhysics(),
+                              perspective: 0.005,
                               childDelegate: ListWheelChildBuilderDelegate(
                                 childCount: 7,
                                 builder: (context, index) {
@@ -281,11 +285,12 @@ class _FiveBodyFatState extends State<FiveBodyFat> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const SixBirthday(isSettings: false,),
+                          builder: (context) => const SixBirthday(
+                            isSettings: false,
+                          ),
                         ),
                       );
-                    }
-                    else {
+                    } else {
                       Navigator.pop(context);
                     }
                   },

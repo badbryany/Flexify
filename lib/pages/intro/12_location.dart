@@ -114,9 +114,6 @@ class _TwelveLocationState extends State<TwelveLocation> {
                           ),
                         ],
                       ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.03,
-                ),
                 Container(
                   alignment: Alignment.center,
                   height: MediaQuery.of(context).size.height * 0.07,
@@ -125,10 +122,7 @@ class _TwelveLocationState extends State<TwelveLocation> {
                     color: Theme.of(context).colorScheme.background,
                     borderRadius: BorderRadius.circular(
                         MediaQuery.of(context).size.width * 0.0375),
-                    border: Border.all(
-                      color: Theme.of(context).focusColor,
-                      width: 2,
-                    ),
+                    boxShadow: [global.darkShadow(context)],
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -155,7 +149,7 @@ class _TwelveLocationState extends State<TwelveLocation> {
                 Container(
                   height: MediaQuery.of(context).size.height * 0.55,
                   padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.05),
+                      top: MediaQuery.of(context).size.height * 0.04),
                   child: Column(
                     children: [
                       GestureDetector(
@@ -177,10 +171,7 @@ class _TwelveLocationState extends State<TwelveLocation> {
                                 : Theme.of(context).colorScheme.surface,
                             borderRadius: BorderRadius.circular(
                                 MediaQuery.of(context).size.width * 0.0375),
-                            border: Border.all(
-                              color: Theme.of(context).focusColor,
-                              width: 2,
-                            ),
+                            boxShadow: [global.darkShadow(context)],
                           ),
                           child: Column(
                             children: [
@@ -272,10 +263,7 @@ class _TwelveLocationState extends State<TwelveLocation> {
                                 : Theme.of(context).colorScheme.surface,
                             borderRadius: BorderRadius.circular(
                                 MediaQuery.of(context).size.width * 0.0375),
-                            border: Border.all(
-                              color: Theme.of(context).focusColor,
-                              width: 2,
-                            ),
+                            boxShadow: [global.darkShadow(context)],
                           ),
                           child: Column(
                             children: [
@@ -367,10 +355,7 @@ class _TwelveLocationState extends State<TwelveLocation> {
                                 : Theme.of(context).colorScheme.surface,
                             borderRadius: BorderRadius.circular(
                                 MediaQuery.of(context).size.width * 0.0375),
-                            border: Border.all(
-                              color: Theme.of(context).focusColor,
-                              width: 2,
-                            ),
+                            boxShadow: [global.darkShadow(context)],
                           ),
                           child: Column(
                             children: [
@@ -444,10 +429,7 @@ class _TwelveLocationState extends State<TwelveLocation> {
                                 : Theme.of(context).colorScheme.surface,
                             borderRadius: BorderRadius.circular(
                                 MediaQuery.of(context).size.width * 0.0375),
-                            border: Border.all(
-                              color: Theme.of(context).focusColor,
-                              width: 2,
-                            ),
+                            boxShadow: [global.darkShadow(context)],
                           ),
                           child: Column(
                             children: [
@@ -519,6 +501,9 @@ class _TwelveLocationState extends State<TwelveLocation> {
                       ),
                     ],
                   ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.03,
                 ),
                 GestureDetector(
                   onTap: () {

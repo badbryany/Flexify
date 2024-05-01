@@ -144,10 +144,7 @@ class _NineDurationState extends State<NineDuration> {
                     color: Theme.of(context).colorScheme.background,
                     borderRadius: BorderRadius.circular(
                         MediaQuery.of(context).size.width * 0.0375),
-                    border: Border.all(
-                      color: Theme.of(context).focusColor,
-                      width: 2,
-                    ),
+                    boxShadow: [global.darkShadow(context)],
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -182,6 +179,7 @@ class _NineDurationState extends State<NineDuration> {
                   ),
                   child: Container(
                     alignment: Alignment.center,
+                    width: global.width(context) * global.containerWidthFactor,
                     height: MediaQuery.of(context).size.height * 0.56,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(
@@ -205,7 +203,7 @@ class _NineDurationState extends State<NineDuration> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.075,
+                              width: MediaQuery.of(context).size.width * 0.2,
                               child: ListWheelScrollView.useDelegate(
                                 controller: _hourController,
                                 onSelectedItemChanged: (index) {
@@ -224,21 +222,12 @@ class _NineDurationState extends State<NineDuration> {
                                 ),
                               ),
                             ),
+                            const Text("h"),
                             SizedBox(
-                              child: Text(
-                                "h",
-                                style: TextStyle(
-                                  fontSize: MediaQuery.of(context).size.height *
-                                          0.01 +
-                                      MediaQuery.of(context).size.width * 0.02,
-                                ),
-                              ),
+                              width: global.width(context) * .05,
                             ),
                             SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.1,
-                            ),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.075,
+                              width: MediaQuery.of(context).size.width * 0.2,
                               child: ListWheelScrollView.useDelegate(
                                 controller: _minuteController,
                                 onSelectedItemChanged: (index) {
@@ -257,16 +246,10 @@ class _NineDurationState extends State<NineDuration> {
                                 ),
                               ),
                             ),
+                            const Text("m"),
                             SizedBox(
-                              child: Text(
-                                "m",
-                                style: TextStyle(
-                                  fontSize: MediaQuery.of(context).size.height *
-                                          0.01 +
-                                      MediaQuery.of(context).size.width * 0.02,
-                                ),
-                              ),
-                            ),
+                              width: global.width(context) * .05,
+                            )
                           ],
                         ),
                       ],
@@ -335,7 +318,7 @@ class MinuteTile extends StatelessWidget {
         style: TextStyle(
             color: Theme.of(context).focusColor,
             fontSize: MediaQuery.of(context).size.height * 0.01 +
-                MediaQuery.of(context).size.width * 0.02),
+                MediaQuery.of(context).size.width * 0.035),
       ),
     );
   }
@@ -354,7 +337,7 @@ class HourTile extends StatelessWidget {
         style: TextStyle(
             color: Theme.of(context).focusColor,
             fontSize: MediaQuery.of(context).size.height * 0.01 +
-                MediaQuery.of(context).size.width * 0.02),
+                MediaQuery.of(context).size.width * 0.035),
       ),
     );
   }

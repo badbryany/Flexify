@@ -1,4 +1,5 @@
 import 'package:flexify/pages/dashboard.dart';
+import 'package:flexify/pages/intro/15_introOutro.dart';
 import 'package:flexify/pages/intro/widgets/IntroNavbarIcon.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
@@ -27,7 +28,8 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
   DateTime estimatedCompletion = DateTime.now();
   bool withinRecommendedRange = true;
 
-  int selected = 0;
+  bool topSelected = false;
+  bool botSelected = false;
 
   @override
   void initState() {
@@ -154,10 +156,7 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                     color: Theme.of(context).colorScheme.background,
                     borderRadius: BorderRadius.circular(
                         MediaQuery.of(context).size.width * 0.0375),
-                    border: Border.all(
-                      color: Theme.of(context).focusColor,
-                      width: 2,
-                    ),
+                    boxShadow: [global.darkShadow(context)],
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -194,12 +193,7 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                         children: [
                           GestureDetector(
                             onTapDown: (details) async {
-                              if (selected == 0) {
-                                selected = 1;
-                              }
-                              if (selected == 2) {
-                                selected = 3;
-                              }
+                              topSelected = true;
                               continueCount = true;
                               while (continueCount) {
                                 targetWeight--;
@@ -215,12 +209,11 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                               width: MediaQuery.of(context).size.width * 0.25,
                               height: MediaQuery.of(context).size.height * 0.1,
                               decoration: BoxDecoration(
-                                  color: Theme.of(context).colorScheme.surface,
-                                  borderRadius: BorderRadius.circular(
-                                      MediaQuery.of(context).size.width * 0.02),
-                                  border: Border.all(
-                                      width: 2,
-                                      color: Theme.of(context).focusColor)),
+                                color: Theme.of(context).colorScheme.surface,
+                                borderRadius: BorderRadius.circular(
+                                    MediaQuery.of(context).size.width * 0.02),
+                                boxShadow: [global.darkShadow(context)],
+                              ),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -230,7 +223,7 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                                         color: Theme.of(context).focusColor,
                                         fontSize:
                                             MediaQuery.of(context).size.width *
-                                                0.07),
+                                                0.1),
                                   ),
                                 ],
                               ),
@@ -243,12 +236,11 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                             width: MediaQuery.of(context).size.width * 0.25,
                             height: MediaQuery.of(context).size.height * 0.1,
                             decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.primary,
-                                borderRadius: BorderRadius.circular(
-                                    MediaQuery.of(context).size.width * 0.02),
-                                border: Border.all(
-                                    width: 2,
-                                    color: Theme.of(context).focusColor)),
+                              color: Theme.of(context).colorScheme.primary,
+                              borderRadius: BorderRadius.circular(
+                                  MediaQuery.of(context).size.width * 0.02),
+                              boxShadow: [global.darkShadow(context)],
+                            ),
                             child: Center(
                               child: Text(
                                 '${(targetWeight).toString()}kg',
@@ -265,12 +257,7 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                           ),
                           GestureDetector(
                             onTapDown: (details) async {
-                              if (selected == 0) {
-                                selected = 1;
-                              }
-                              if (selected == 2) {
-                                selected = 3;
-                              }
+                              topSelected = true;
                               continueCount = true;
                               while (continueCount) {
                                 targetWeight++;
@@ -286,20 +273,18 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                               width: MediaQuery.of(context).size.width * 0.25,
                               height: MediaQuery.of(context).size.height * 0.1,
                               decoration: BoxDecoration(
-                                  color: Theme.of(context).colorScheme.surface,
-                                  borderRadius: BorderRadius.circular(
-                                      MediaQuery.of(context).size.width * 0.02),
-                                  border: Border.all(
-                                      width: 2,
-                                      color: Theme.of(context).focusColor)),
+                                color: Theme.of(context).colorScheme.surface,
+                                borderRadius: BorderRadius.circular(
+                                    MediaQuery.of(context).size.width * 0.02),
+                                boxShadow: [global.darkShadow(context)],
+                              ),
                               child: Center(
                                 child: Text(
                                   '+',
                                   style: TextStyle(
-                                      color: Theme.of(context).focusColor,
                                       fontSize:
                                           MediaQuery.of(context).size.width *
-                                              0.07),
+                                              0.1),
                                 ),
                               ),
                             ),
@@ -317,10 +302,7 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                           color: Theme.of(context).colorScheme.background,
                           borderRadius: BorderRadius.circular(
                               MediaQuery.of(context).size.width * 0.0375),
-                          border: Border.all(
-                            color: Theme.of(context).focusColor,
-                            width: 2,
-                          ),
+                          boxShadow: [global.darkShadow(context)],
                         ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -354,14 +336,7 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                         height: MediaQuery.of(context).size.height * 0.15,
                         width: MediaQuery.of(context).size.width * 0.8,
                         decoration: BoxDecoration(
-                          color: Theme.of(context)
-                              .colorScheme
-                              .onBackground
-                              .withOpacity(0.2),
-                          border: Border.all(
-                            width: 1.2,
-                            color: Theme.of(context).focusColor,
-                          ),
+                          color: Colors.white.withOpacity(0.05),
                           borderRadius: BorderRadius.circular(
                               MediaQuery.of(context).size.width * 0.0375),
                         ),
@@ -401,7 +376,8 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                                             0.0125),
                                 thumbColor: withinRecommendedRange
                                     ? Theme.of(context).colorScheme.primary
-                                    : Colors.black.withOpacity(0.6),
+                                    : const Color.fromARGB(255, 195, 195, 195)
+                                        .withOpacity(0.9),
                                 trackHeight:
                                     MediaQuery.of(context).size.height * 0.01,
                                 activeTrackColor: Colors.transparent,
@@ -422,12 +398,7 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                                   Slider(
                                     value: selectedKgPerWeek,
                                     onChanged: (double value) {
-                                      if (selected == 0) {
-                                        selected = 2;
-                                      }
-                                      if (selected == 1) {
-                                        selected = 3;
-                                      }
+                                      botSelected = true;
                                       setState(
                                         () {
                                           selectedKgPerWeek =
@@ -448,6 +419,7 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                                           withinRecommendedRange =
                                               0.15 < selectedKgPerWeek &&
                                                   selectedKgPerWeek < 0.7;
+                                          refresh();
                                         },
                                       );
                                     },
@@ -466,15 +438,12 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                         width: MediaQuery.of(context).size.width * 0.8,
                         padding: EdgeInsets.only(
                             top: MediaQuery.of(context).size.height * 0.025,
-                            left: MediaQuery.of(context).size.width * 0.036),
+                            left: MediaQuery.of(context).size.width * 0.045),
                         decoration: BoxDecoration(
                           color: Theme.of(context).colorScheme.background,
                           borderRadius: BorderRadius.circular(
                               MediaQuery.of(context).size.width * 0.0375),
-                          border: Border.all(
-                            color: Theme.of(context).focusColor,
-                            width: 2,
-                          ),
+                          boxShadow: [global.darkShadow(context)],
                         ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -517,7 +486,7 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                                         MediaQuery.of(context).size.height *
                                                 0.006 +
                                             MediaQuery.of(context).size.width *
-                                                0.01,
+                                                0.02,
                                   ),
                                 ),
                               ],
@@ -530,11 +499,11 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    if (selected != 0 && widget.isSettings == false) {
+                    if (botSelected && topSelected && widget.isSettings == false) {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Dashboard(),
+                          builder: (context) => const FifteenSummary(),
                         ),
                       );
                     } else {
@@ -546,7 +515,7 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                     width: MediaQuery.of(context).size.width * 0.8,
                     decoration: BoxDecoration(
                       boxShadow: [global.darkShadow(context)],
-                      color: selected == 3
+                      color: botSelected && topSelected
                           ? Theme.of(context).colorScheme.primary
                           : Theme.of(context).colorScheme.surface,
                       borderRadius: BorderRadius.circular(1000),
@@ -555,9 +524,11 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Next',
+                          widget.isSettings ? "Enter" : "Next",
                           style: TextStyle(
-                              color: Colors.black,
+                              color: botSelected && topSelected
+                                  ? Colors.black
+                                  : Theme.of(context).focusColor,
                               fontSize:
                                   MediaQuery.of(context).size.height * 0.025),
                         ),

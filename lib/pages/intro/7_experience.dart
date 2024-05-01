@@ -116,13 +116,14 @@ class _SevenExperienceState extends State<SevenExperience> {
                                 color: Theme.of(context).colorScheme.primary,
                                 borderRadius: BorderRadius.circular(
                                     MediaQuery.of(context).size.width),
+                                boxShadow: [global.darkShadow(context)],
                               ),
                             ),
                           ),
                         ],
                       ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.03,
+                  height: MediaQuery.of(context).size.height * 0.01,
                 ),
                 Container(
                   alignment: Alignment.center,
@@ -132,11 +133,7 @@ class _SevenExperienceState extends State<SevenExperience> {
                       color: Theme.of(context).colorScheme.background,
                       borderRadius: BorderRadius.circular(
                           MediaQuery.of(context).size.width * 0.0375),
-                      border: Border.all(
-                        color: Theme.of(context).focusColor,
-                        width: 2,
-                      ),
-                      boxShadow: [global.lightShadow(context)]),
+                      boxShadow: [global.darkShadow(context)]),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -173,7 +170,7 @@ class _SevenExperienceState extends State<SevenExperience> {
                         child: AnimatedContainer(
                           duration: global.standardAnimationDuration,
                           padding: EdgeInsets.only(
-                              left: MediaQuery.of(context).size.width * 0.03),
+                              left: MediaQuery.of(context).size.width * 0.04),
                           height: MediaQuery.of(context).size.height * 0.11,
                           width: MediaQuery.of(context).size.width * 0.8,
                           decoration: BoxDecoration(
@@ -182,10 +179,7 @@ class _SevenExperienceState extends State<SevenExperience> {
                                 : Theme.of(context).colorScheme.surface,
                             borderRadius: BorderRadius.circular(
                                 MediaQuery.of(context).size.width * 0.0375),
-                            border: Border.all(
-                              color: Theme.of(context).focusColor,
-                              width: 2,
-                            ),
+                            boxShadow: [global.darkShadow(context)],
                           ),
                           child: Column(
                             children: [
@@ -200,8 +194,7 @@ class _SevenExperienceState extends State<SevenExperience> {
                                     style: TextStyle(
                                         color: selected == 1
                                             ? Colors.black
-                                            : Theme.of(context)
-                                                .focusColor,
+                                            : Theme.of(context).focusColor,
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
@@ -222,8 +215,7 @@ class _SevenExperienceState extends State<SevenExperience> {
                                     style: TextStyle(
                                         color: selected == 1
                                             ? Colors.black
-                                            : Theme.of(context)
-                                                .focusColor,
+                                            : Theme.of(context).focusColor,
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
@@ -240,8 +232,7 @@ class _SevenExperienceState extends State<SevenExperience> {
                                     style: TextStyle(
                                         color: selected == 1
                                             ? Colors.black
-                                            : Theme.of(context)
-                                                .focusColor,
+                                            : Theme.of(context).focusColor,
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
@@ -266,7 +257,7 @@ class _SevenExperienceState extends State<SevenExperience> {
                         child: AnimatedContainer(
                           duration: global.standardAnimationDuration,
                           padding: EdgeInsets.only(
-                              left: MediaQuery.of(context).size.width * 0.03),
+                              left: MediaQuery.of(context).size.width * 0.04),
                           height: MediaQuery.of(context).size.height * 0.11,
                           width: MediaQuery.of(context).size.width * 0.8,
                           decoration: BoxDecoration(
@@ -275,10 +266,7 @@ class _SevenExperienceState extends State<SevenExperience> {
                                 : Theme.of(context).colorScheme.surface,
                             borderRadius: BorderRadius.circular(
                                 MediaQuery.of(context).size.width * 0.0375),
-                            border: Border.all(
-                              color: Theme.of(context).focusColor,
-                              width: 2,
-                            ),
+                            boxShadow: [global.darkShadow(context)],
                           ),
                           child: Column(
                             children: [
@@ -293,8 +281,7 @@ class _SevenExperienceState extends State<SevenExperience> {
                                     style: TextStyle(
                                         color: selected == 2
                                             ? Colors.black
-                                            : Theme.of(context)
-                                                .focusColor,
+                                            : Theme.of(context).focusColor,
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
@@ -315,8 +302,7 @@ class _SevenExperienceState extends State<SevenExperience> {
                                     style: TextStyle(
                                         color: selected == 2
                                             ? Colors.black
-                                            : Theme.of(context)
-                                                .focusColor,
+                                            : Theme.of(context).focusColor,
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
@@ -333,8 +319,7 @@ class _SevenExperienceState extends State<SevenExperience> {
                                     style: TextStyle(
                                         color: selected == 2
                                             ? Colors.black
-                                            : Theme.of(context)
-                                                .focusColor,
+                                            : Theme.of(context).focusColor,
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
@@ -359,7 +344,7 @@ class _SevenExperienceState extends State<SevenExperience> {
                         child: AnimatedContainer(
                           duration: global.standardAnimationDuration,
                           padding: EdgeInsets.only(
-                              left: MediaQuery.of(context).size.width * 0.03),
+                              left: MediaQuery.of(context).size.width * 0.04),
                           height: MediaQuery.of(context).size.height * 0.11,
                           width: MediaQuery.of(context).size.width * 0.8,
                           decoration: BoxDecoration(
@@ -367,11 +352,9 @@ class _SevenExperienceState extends State<SevenExperience> {
                                 ? Theme.of(context).colorScheme.primary
                                 : Theme.of(context).colorScheme.surface,
                             borderRadius: BorderRadius.circular(
-                                MediaQuery.of(context).size.width * 0.0375),
-                            border: Border.all(
-                              color: Theme.of(context).focusColor,
-                              width: 2,
+                              MediaQuery.of(context).size.width * 0.0375,
                             ),
+                            boxShadow: [global.darkShadow(context)],
                           ),
                           child: Column(
                             children: [
@@ -386,8 +369,7 @@ class _SevenExperienceState extends State<SevenExperience> {
                                     style: TextStyle(
                                         color: selected == 3
                                             ? Colors.black
-                                            : Theme.of(context)
-                                                .focusColor,
+                                            : Theme.of(context).focusColor,
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
@@ -408,8 +390,7 @@ class _SevenExperienceState extends State<SevenExperience> {
                                     style: TextStyle(
                                         color: selected == 3
                                             ? Colors.black
-                                            : Theme.of(context)
-                                                .focusColor,
+                                            : Theme.of(context).focusColor,
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
@@ -426,8 +407,7 @@ class _SevenExperienceState extends State<SevenExperience> {
                                     style: TextStyle(
                                         color: selected == 3
                                             ? Colors.black
-                                            : Theme.of(context)
-                                                .focusColor,
+                                            : Theme.of(context).focusColor,
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
@@ -452,20 +432,17 @@ class _SevenExperienceState extends State<SevenExperience> {
                         child: AnimatedContainer(
                           duration: global.standardAnimationDuration,
                           padding: EdgeInsets.only(
-                              left: MediaQuery.of(context).size.width * 0.03),
+                              left: MediaQuery.of(context).size.width * 0.04),
                           height: MediaQuery.of(context).size.height * 0.11,
                           width: MediaQuery.of(context).size.width * 0.8,
                           decoration: BoxDecoration(
-                            color: selected == 4
-                                ? Theme.of(context).colorScheme.primary
-                                : Theme.of(context).colorScheme.surface,
-                            borderRadius: BorderRadius.circular(
-                                MediaQuery.of(context).size.width * 0.0375),
-                            border: Border.all(
-                              color: Theme.of(context).focusColor,
-                              width: 2,
-                            ),
-                          ),
+                              color: selected == 4
+                                  ? Theme.of(context).colorScheme.primary
+                                  : Theme.of(context).colorScheme.surface,
+                              borderRadius: BorderRadius.circular(
+                                MediaQuery.of(context).size.width * 0.0375,
+                              ),
+                              boxShadow: [global.darkShadow(context)]),
                           child: Column(
                             children: [
                               SizedBox(
@@ -479,8 +456,7 @@ class _SevenExperienceState extends State<SevenExperience> {
                                     style: TextStyle(
                                       color: selected == 4
                                           ? Colors.black
-                                          : Theme.of(context)
-                                              .focusColor,
+                                          : Theme.of(context).focusColor,
                                       fontSize: MediaQuery.of(context)
                                                   .size
                                                   .height *
@@ -502,8 +478,7 @@ class _SevenExperienceState extends State<SevenExperience> {
                                     style: TextStyle(
                                         color: selected == 4
                                             ? Colors.black
-                                            : Theme.of(context)
-                                                .focusColor,
+                                            : Theme.of(context).focusColor,
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
@@ -520,8 +495,7 @@ class _SevenExperienceState extends State<SevenExperience> {
                                     style: TextStyle(
                                         color: selected == 4
                                             ? Colors.black
-                                            : Theme.of(context)
-                                                .focusColor,
+                                            : Theme.of(context).focusColor,
                                         fontSize: MediaQuery.of(context)
                                                     .size
                                                     .height *
@@ -537,6 +511,9 @@ class _SevenExperienceState extends State<SevenExperience> {
                       ),
                     ],
                   ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.02,
                 ),
                 GestureDetector(
                   onTap: () {

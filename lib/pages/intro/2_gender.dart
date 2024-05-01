@@ -116,7 +116,7 @@ class _TwoGenderState extends State<TwoGender> {
                     borderRadius: BorderRadius.circular(
                       global.width(context) * 0.0375,
                     ),
-                    boxShadow: [global.lightShadow(context)],
+                    boxShadow: [global.darkShadow(context)],
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -169,7 +169,7 @@ class _TwoGenderState extends State<TwoGender> {
                                               .colorScheme
                                               .primary,
                                           blurRadius: 10.0,
-                                          offset: const Offset(0.0, 10.0),
+                                          offset: const Offset(0.0, 0.0),
                                         )
                                       ]
                                     : [
@@ -237,7 +237,7 @@ class _TwoGenderState extends State<TwoGender> {
                                               .colorScheme
                                               .primary,
                                           blurRadius: 10.0,
-                                          offset: const Offset(0.0, 10.0),
+                                          offset: const Offset(0.0, 0.0),
                                         )
                                       ]
                                     : [
