@@ -1,11 +1,5 @@
 Glitches/Bad: ---------------------------------------
 
-dashBoardWorkout:
-    -> See more button bigger / Icon
-
-
-Add: ------------------------------------------------
-
 intro: 
     -> Global
         -> kg/lbs 
@@ -19,6 +13,8 @@ intro:
         -> when in++ -> ft++
     -> 4_weight
         -> If height given in inches initialise metric to lbs
+
+Add: ------------------------------------------------
 
 statsPage
     -> When do I workout? (x-axis 00:00 - 23:59, y-axis amount of sets at that time)

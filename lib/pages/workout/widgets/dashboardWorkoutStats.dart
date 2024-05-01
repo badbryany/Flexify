@@ -181,7 +181,7 @@ class _DashboardWorkoutStatsState extends State<DashboardWorkoutStats> {
     return Container(
       width: MediaQuery.of(context).size.width * global.containerWidthFactor,
       height: global.height(context) * 0.4,
-      padding: EdgeInsets.all(global.containerPadding),
+      padding: EdgeInsets.only(top: global.height(context) * .03, bottom: global.containerPadding, left: global.containerPadding, right: global.containerPadding),
       margin: const EdgeInsets.only(top: 20),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.background,
@@ -229,14 +229,14 @@ class _DashboardWorkoutStatsState extends State<DashboardWorkoutStats> {
                           MediaQuery.of(context).size.width * 0.1)),
                   child: Padding(
                     padding: EdgeInsets.all(
-                        MediaQuery.of(context).size.width * 0.02),
+                        MediaQuery.of(context).size.width * 0.03),
                     child: Row(
                       children: [
                         Text(
                           'See more',
                           style: TextStyle(
                             color: Colors.black,
-                            fontSize: MediaQuery.of(context).size.width * 0.02,
+                            fontSize: MediaQuery.of(context).size.width * 0.03,
                           ),
                         ),
                         SizedBox(
@@ -245,7 +245,7 @@ class _DashboardWorkoutStatsState extends State<DashboardWorkoutStats> {
                         Icon(
                           Icons.arrow_forward_rounded,
                           color: Colors.black,
-                          size: MediaQuery.of(context).size.width * 0.02,
+                          size: MediaQuery.of(context).size.width * 0.03,
                         )
                       ],
                     ),

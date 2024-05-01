@@ -248,161 +248,30 @@ class _EightScheduleState extends State<EightSchedule> {
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.035,
                       ),
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(30),
-                        clipBehavior: Clip.hardEdge,
-                        child: Container(
-                          alignment: Alignment.centerLeft,
-                          height: MediaQuery.of(context).size.height * 0.4,
-                          width: MediaQuery.of(context).size.width * 0.8,
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.background,
-                          ),
-                          child: Stack(
-                            children: [
-                              Column(
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      setState(
-                                        () {
-                                          selected = 1;
-                                          daysPerWeek
-                                              ? daysPerWeekIdx = 1
-                                              : whichDays[0] = !whichDays[0];
-                                        },
-                                      );
-                                    },
-                                    child: RightButton(
-                                      daysPerWeekText: "Once per Week",
-                                      whichDaysText: "Monday",
-                                      index: 1,
-                                      daysPerWeek: daysPerWeek,
-                                      daysPerWeekIdx: daysPerWeekIdx,
-                                      whichDays: whichDays,
-                                    ),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        selected = 1;
-                                        daysPerWeek
-                                            ? daysPerWeekIdx = 2
-                                            : whichDays[1] = !whichDays[1];
-                                      });
-                                    },
-                                    child: RightButton(
-                                      daysPerWeekText: "Twice per Week",
-                                      whichDaysText: "Tuesday",
-                                      index: 2,
-                                      daysPerWeek: daysPerWeek,
-                                      daysPerWeekIdx: daysPerWeekIdx,
-                                      whichDays: whichDays,
-                                    ),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        selected = 1;
-                                        daysPerWeek
-                                            ? daysPerWeekIdx = 3
-                                            : whichDays[2] = !whichDays[2];
-                                      });
-                                    },
-                                    child: RightButton(
-                                      daysPerWeekText: "Three times per Week",
-                                      whichDaysText: "Wednesday",
-                                      index: 3,
-                                      daysPerWeek: daysPerWeek,
-                                      daysPerWeekIdx: daysPerWeekIdx,
-                                      whichDays: whichDays,
-                                    ),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        selected = 1;
-                                        daysPerWeek
-                                            ? daysPerWeekIdx = 4
-                                            : whichDays[3] = !whichDays[3];
-                                      });
-                                    },
-                                    child: RightButton(
-                                      daysPerWeekText: "Four times per Week",
-                                      whichDaysText: "Thursday",
-                                      index: 4,
-                                      daysPerWeek: daysPerWeek,
-                                      daysPerWeekIdx: daysPerWeekIdx,
-                                      whichDays: whichDays,
-                                    ),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        selected = 1;
-                                        daysPerWeek
-                                            ? daysPerWeekIdx = 5
-                                            : whichDays[4] = !whichDays[4];
-                                      });
-                                    },
-                                    child: RightButton(
-                                      daysPerWeekText: "Five times per Week",
-                                      whichDaysText: "Friday",
-                                      index: 5,
-                                      daysPerWeek: daysPerWeek,
-                                      daysPerWeekIdx: daysPerWeekIdx,
-                                      whichDays: whichDays,
-                                    ),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        selected = 1;
-                                        daysPerWeek
-                                            ? daysPerWeekIdx = 6
-                                            : whichDays[5] = !whichDays[5];
-                                      });
-                                    },
-                                    child: RightButton(
-                                      daysPerWeekText: "Six times per Week",
-                                      whichDaysText: "Saturday",
-                                      index: 6,
-                                      daysPerWeek: daysPerWeek,
-                                      daysPerWeekIdx: daysPerWeekIdx,
-                                      whichDays: whichDays,
-                                    ),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        selected = 1;
-                                        daysPerWeek
-                                            ? daysPerWeekIdx = 7
-                                            : whichDays[6] = !whichDays[6];
-                                      });
-                                    },
-                                    child: RightButton(
-                                      daysPerWeekText: "Seven times per Week",
-                                      whichDaysText: "Sunday",
-                                      index: 7,
-                                      daysPerWeek: daysPerWeek,
-                                      daysPerWeekIdx: daysPerWeekIdx,
-                                      whichDays: whichDays,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Container(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.4,
-                                width: MediaQuery.of(context).size.width * 0.15,
-                                decoration: BoxDecoration(
-                                  color:
-                                      Theme.of(context).colorScheme.background,
-                                ),
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                      Container(
+                        decoration: const BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color.fromARGB(255, 27, 27, 31),
+                              spreadRadius: -10.0,
+                              blurRadius: 20.0,
+                              offset: Offset(0.0, 15.0),
+                            ),
+                          ],
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(30),
+                          clipBehavior: Clip.hardEdge,
+                          child: Container(
+                            alignment: Alignment.centerLeft,
+                            height: MediaQuery.of(context).size.height * 0.4,
+                            width: MediaQuery.of(context).size.width * 0.8,
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.background,
+                            ),
+                            child: Stack(
+                              children: [
+                                Column(
                                   children: [
                                     GestureDetector(
                                       onTap: () {
@@ -415,9 +284,9 @@ class _EightScheduleState extends State<EightSchedule> {
                                           },
                                         );
                                       },
-                                      child: LeftButton(
-                                        daysPerWeekText: "1",
-                                        whichDaysText: "Mon",
+                                      child: RightButton(
+                                        daysPerWeekText: "Once per Week",
+                                        whichDaysText: "Monday",
                                         index: 1,
                                         daysPerWeek: daysPerWeek,
                                         daysPerWeekIdx: daysPerWeekIdx,
@@ -433,9 +302,9 @@ class _EightScheduleState extends State<EightSchedule> {
                                               : whichDays[1] = !whichDays[1];
                                         });
                                       },
-                                      child: LeftButton(
-                                        daysPerWeekText: "2",
-                                        whichDaysText: "Tue",
+                                      child: RightButton(
+                                        daysPerWeekText: "Twice per Week",
+                                        whichDaysText: "Tuesday",
                                         index: 2,
                                         daysPerWeek: daysPerWeek,
                                         daysPerWeekIdx: daysPerWeekIdx,
@@ -451,9 +320,9 @@ class _EightScheduleState extends State<EightSchedule> {
                                               : whichDays[2] = !whichDays[2];
                                         });
                                       },
-                                      child: LeftButton(
-                                        daysPerWeekText: "3",
-                                        whichDaysText: "Wed",
+                                      child: RightButton(
+                                        daysPerWeekText: "Three times per Week",
+                                        whichDaysText: "Wednesday",
                                         index: 3,
                                         daysPerWeek: daysPerWeek,
                                         daysPerWeekIdx: daysPerWeekIdx,
@@ -469,9 +338,9 @@ class _EightScheduleState extends State<EightSchedule> {
                                               : whichDays[3] = !whichDays[3];
                                         });
                                       },
-                                      child: LeftButton(
-                                        daysPerWeekText: "4",
-                                        whichDaysText: "Thu",
+                                      child: RightButton(
+                                        daysPerWeekText: "Four times per Week",
+                                        whichDaysText: "Thursday",
                                         index: 4,
                                         daysPerWeek: daysPerWeek,
                                         daysPerWeekIdx: daysPerWeekIdx,
@@ -487,9 +356,9 @@ class _EightScheduleState extends State<EightSchedule> {
                                               : whichDays[4] = !whichDays[4];
                                         });
                                       },
-                                      child: LeftButton(
-                                        daysPerWeekText: "5",
-                                        whichDaysText: "Fri",
+                                      child: RightButton(
+                                        daysPerWeekText: "Five times per Week",
+                                        whichDaysText: "Friday",
                                         index: 5,
                                         daysPerWeek: daysPerWeek,
                                         daysPerWeekIdx: daysPerWeekIdx,
@@ -505,9 +374,9 @@ class _EightScheduleState extends State<EightSchedule> {
                                               : whichDays[5] = !whichDays[5];
                                         });
                                       },
-                                      child: LeftButton(
-                                        daysPerWeekText: "6",
-                                        whichDaysText: "Sat",
+                                      child: RightButton(
+                                        daysPerWeekText: "Six times per Week",
+                                        whichDaysText: "Saturday",
                                         index: 6,
                                         daysPerWeek: daysPerWeek,
                                         daysPerWeekIdx: daysPerWeekIdx,
@@ -523,9 +392,9 @@ class _EightScheduleState extends State<EightSchedule> {
                                               : whichDays[6] = !whichDays[6];
                                         });
                                       },
-                                      child: LeftButton(
-                                        daysPerWeekText: "7",
-                                        whichDaysText: "Sun",
+                                      child: RightButton(
+                                        daysPerWeekText: "Seven times per Week",
+                                        whichDaysText: "Sunday",
                                         index: 7,
                                         daysPerWeek: daysPerWeek,
                                         daysPerWeekIdx: daysPerWeekIdx,
@@ -534,8 +403,154 @@ class _EightScheduleState extends State<EightSchedule> {
                                     ),
                                   ],
                                 ),
-                              ),
-                            ],
+                                Container(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.4,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.15,
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .background,
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {
+                                          setState(
+                                            () {
+                                              selected = 1;
+                                              daysPerWeek
+                                                  ? daysPerWeekIdx = 1
+                                                  : whichDays[0] =
+                                                      !whichDays[0];
+                                            },
+                                          );
+                                        },
+                                        child: LeftButton(
+                                          daysPerWeekText: "1",
+                                          whichDaysText: "Mon",
+                                          index: 1,
+                                          daysPerWeek: daysPerWeek,
+                                          daysPerWeekIdx: daysPerWeekIdx,
+                                          whichDays: whichDays,
+                                        ),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            selected = 1;
+                                            daysPerWeek
+                                                ? daysPerWeekIdx = 2
+                                                : whichDays[1] = !whichDays[1];
+                                          });
+                                        },
+                                        child: LeftButton(
+                                          daysPerWeekText: "2",
+                                          whichDaysText: "Tue",
+                                          index: 2,
+                                          daysPerWeek: daysPerWeek,
+                                          daysPerWeekIdx: daysPerWeekIdx,
+                                          whichDays: whichDays,
+                                        ),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            selected = 1;
+                                            daysPerWeek
+                                                ? daysPerWeekIdx = 3
+                                                : whichDays[2] = !whichDays[2];
+                                          });
+                                        },
+                                        child: LeftButton(
+                                          daysPerWeekText: "3",
+                                          whichDaysText: "Wed",
+                                          index: 3,
+                                          daysPerWeek: daysPerWeek,
+                                          daysPerWeekIdx: daysPerWeekIdx,
+                                          whichDays: whichDays,
+                                        ),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            selected = 1;
+                                            daysPerWeek
+                                                ? daysPerWeekIdx = 4
+                                                : whichDays[3] = !whichDays[3];
+                                          });
+                                        },
+                                        child: LeftButton(
+                                          daysPerWeekText: "4",
+                                          whichDaysText: "Thu",
+                                          index: 4,
+                                          daysPerWeek: daysPerWeek,
+                                          daysPerWeekIdx: daysPerWeekIdx,
+                                          whichDays: whichDays,
+                                        ),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            selected = 1;
+                                            daysPerWeek
+                                                ? daysPerWeekIdx = 5
+                                                : whichDays[4] = !whichDays[4];
+                                          });
+                                        },
+                                        child: LeftButton(
+                                          daysPerWeekText: "5",
+                                          whichDaysText: "Fri",
+                                          index: 5,
+                                          daysPerWeek: daysPerWeek,
+                                          daysPerWeekIdx: daysPerWeekIdx,
+                                          whichDays: whichDays,
+                                        ),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            selected = 1;
+                                            daysPerWeek
+                                                ? daysPerWeekIdx = 6
+                                                : whichDays[5] = !whichDays[5];
+                                          });
+                                        },
+                                        child: LeftButton(
+                                          daysPerWeekText: "6",
+                                          whichDaysText: "Sat",
+                                          index: 6,
+                                          daysPerWeek: daysPerWeek,
+                                          daysPerWeekIdx: daysPerWeekIdx,
+                                          whichDays: whichDays,
+                                        ),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            selected = 1;
+                                            daysPerWeek
+                                                ? daysPerWeekIdx = 7
+                                                : whichDays[6] = !whichDays[6];
+                                          });
+                                        },
+                                        child: LeftButton(
+                                          daysPerWeekText: "7",
+                                          whichDaysText: "Sun",
+                                          index: 7,
+                                          daysPerWeek: daysPerWeek,
+                                          daysPerWeekIdx: daysPerWeekIdx,
+                                          whichDays: whichDays,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       )

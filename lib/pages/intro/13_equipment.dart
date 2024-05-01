@@ -262,7 +262,7 @@ class _ThirteenEquipmentState extends State<ThirteenEquipment> {
                                           : Theme.of(context)
                                               .colorScheme
                                               .surface,
-                                      boxShadow: [global.darkShadow(context)],
+                                      boxShadow: global.isDarkMode(context) ? [global.darkShadow(context)] : [],
                                       borderRadius: BorderRadius.circular(
                                           MediaQuery.of(context).size.width *
                                               0.1),
@@ -347,7 +347,7 @@ class _ThirteenEquipmentState extends State<ThirteenEquipment> {
                                       borderRadius: BorderRadius.circular(
                                           MediaQuery.of(context).size.width *
                                               0.0375),
-                                      boxShadow: [global.darkShadow(context)],
+                                      boxShadow: global.isDarkMode(context) ? [global.darkShadow(context)] : [global.lightShadow(context)],
                                     ),
                                     child: ClipRRect(
                                       clipBehavior: Clip.hardEdge,
