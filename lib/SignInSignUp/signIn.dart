@@ -47,13 +47,13 @@ class _SignInState extends State<SignIn> {
             Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  begin: Alignment.bottomLeft,
-                  end: Alignment.centerRight,
-                  colors: [
-                    Theme.of(context).colorScheme.primary,
-                    Theme.of(context).colorScheme.onPrimary,
-                  ],
-                ),
+                        begin: Alignment.bottomLeft,
+                        end: Alignment.centerRight,
+                        colors: [
+                          Theme.of(context).colorScheme.primary,
+                          Theme.of(context).colorScheme.onPrimary,
+                        ],
+                      )
               ),
             ),
             Stack(
@@ -61,12 +61,14 @@ class _SignInState extends State<SignIn> {
                 ClipPath(
                   clipper: BezierClipper(),
                   child: Container(
-                    color: Theme.of(context).scaffoldBackgroundColor,
+                    color: global.isDarkMode(context)
+                        ? Theme.of(context).scaffoldBackgroundColor
+                        : Colors.black,
                     height: global.height(context) * .8,
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: global.height(context) * 0.088),
+                  padding: EdgeInsets.only(top: global.height(context) * 0.05),
                   width: global.width(context),
                   child: Text(
                     'SIGN IN',
@@ -85,10 +87,15 @@ class _SignInState extends State<SignIn> {
                 width: global.width(context) * global.containerWidthFactor,
                 height: MediaQuery.of(context).size.height * 0.65,
                 decoration: BoxDecoration(
-                  color:
-                      Theme.of(context).scaffoldBackgroundColor.withOpacity(.8),
-                  borderRadius: BorderRadius.circular(global.borderRadius),
-                ),
+                    color: global.isDarkMode(context)
+                        ? Theme.of(context)
+                            .scaffoldBackgroundColor
+                            .withOpacity(.8)
+                        : Colors.white,
+                    borderRadius: BorderRadius.circular(global.borderRadius),
+                    boxShadow: global.isDarkMode(context)
+                        ? []
+                        : [global.darkShadow(context)]),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -172,7 +179,7 @@ class _SignInState extends State<SignIn> {
 
                           print(res.body);
 
-                          if (res.body == 'username or password is wrong') {
+                          if (res.body == 'Username or password is incorrect') {
                             errorText = res.body;
                             loading = false;
                             loading = false;
@@ -235,7 +242,7 @@ class _SignInState extends State<SignIn> {
                     ),
                     ...[
                       {
-                        'title': 'continue with Apple',
+                        'title': 'Continue with Apple',
                         'icon': Transform.scale(
                           scale: 1.1,
                           child: Image.asset(
@@ -245,7 +252,7 @@ class _SignInState extends State<SignIn> {
                         ),
                       },
                       {
-                        'title': 'continue with Google',
+                        'title': 'Continue with Google',
                         'icon': Image.asset(
                           'assets/icon/google.png',
                           // scale: 27,
@@ -265,7 +272,7 @@ class _SignInState extends State<SignIn> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            e['title'] == 'continue with Google'
+                            e['title'] == 'Continue with Google'
                                 ? SizedBox(
                                     width: MediaQuery.of(context).size.width *
                                         0.012,

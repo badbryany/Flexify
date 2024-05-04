@@ -67,28 +67,20 @@ class _SignUpState extends State<SignUp> {
                 ),
               ),
             ),
-            ClipPath(
-              clipper: BezierClipper(),
-              child: Container(
-                color: Theme.of(context).scaffoldBackgroundColor,
-                height: global.height(context) * .8,
-              ),
-            ),
-            Center(
-              child: Container(
-                width: global.width(context) * global.containerWidthFactor,
-                height: MediaQuery.of(context).size.height * 0.85,
-                decoration: BoxDecoration(
-                  color:
-                      Theme.of(context).scaffoldBackgroundColor.withOpacity(.8),
-                  borderRadius: BorderRadius.circular(global.borderRadius),
+            Stack(
+              children: [
+                
+                ClipPath(
+                  clipper: BezierClipper(),
+                  child: Container(
+                    color: global.isDarkMode(context)
+                            ? Theme.of(context).scaffoldBackgroundColor
+                            : Colors.black,
+                    height: global.height(context) * .8,
+                  ),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 20),
+                Container(
+                      padding: EdgeInsets.only(top: global.height(context) * .05),
                       width: global.width(context),
                       child: Text(
                         'SIGN UP',
@@ -96,10 +88,26 @@ class _SignUpState extends State<SignUp> {
                         style: TextStyle(
                           fontSize: MediaQuery.of(context).size.width * 0.1,
                           fontWeight: FontWeight.bold,
-                          color: Theme.of(context).colorScheme.onBackground,
+                          color: Colors.white
                         ),
                       ),
                     ),
+              ],
+            ),
+            Center(
+              child: Container(
+                width: global.width(context) * global.containerWidthFactor,
+                height: MediaQuery.of(context).size.height * 0.7,
+                decoration: BoxDecoration(
+                  color: global.isDarkMode(context) ?
+                      Theme.of(context).scaffoldBackgroundColor.withOpacity(.8) : Colors.white,
+                  borderRadius: BorderRadius.circular(global.borderRadius),
+                  boxShadow: global.isDarkMode(context) ? [] : [global.darkShadow(context)]
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
                     ...inputs.map(
                       (e) => Container(
                         width: global.width(context) * .8,
