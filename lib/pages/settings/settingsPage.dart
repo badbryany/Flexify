@@ -129,7 +129,7 @@ class SettingsPage extends StatelessWidget {
                             actions: [
                               TextButton(
                                 onPressed: () => Navigator.pop(context),
-                                child: const Text('cancle'),
+                                child: const Text('Cancel'),
                               ),
                               TextButton(
                                 onPressed: () async {
@@ -149,7 +149,7 @@ class SettingsPage extends StatelessWidget {
                                     ),
                                   );
                                 },
-                                child: const Text('log off'),
+                                child: const Text('Logout'),
                               ),
                             ],
                           ),

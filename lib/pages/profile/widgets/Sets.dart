@@ -71,7 +71,7 @@ class _SetsWidgetState extends State<SetsWidget> {
                 padding:
                     EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.surface.withOpacity(0.1),
+                  color: const Color(0xfff5f5fb).withOpacity(.1),
                   borderRadius: BorderRadius.circular(
                       MediaQuery.of(context).size.height * 0.01),
                 ),

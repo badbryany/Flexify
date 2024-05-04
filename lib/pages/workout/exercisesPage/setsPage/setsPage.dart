@@ -92,7 +92,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                   autofocus: true,
                   controller: editNameController,
                   decoration: const InputDecoration(
-                    hintText: 'Name of Exercise',
+                    hintText: 'Name of exercise',
                   ),
                 ),
                 actions: [
@@ -101,7 +101,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                       editNameController.text = oldName;
                       Navigator.pop(context);
                     },
-                    child: const Text('cancle'),
+                    child: const Text('Cancel'),
                   ),
                   TextButton(
                     onPressed: () async {
@@ -112,7 +112,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                       await getData();
                       Navigator.pop(context);
                     },
-                    child: const Text('save'),
+                    child: const Text('Save'),
                   ),
                 ],
               ),

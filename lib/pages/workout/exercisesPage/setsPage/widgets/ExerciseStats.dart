@@ -641,7 +641,7 @@ class DayTile extends StatelessWidget {
         style: TextStyle(
           color: Colors.white,
           fontSize: MediaQuery.of(context).size.height * 0.01 +
-              MediaQuery.of(context).size.width * 0.035,
+              MediaQuery.of(context).size.width * 0.033,
         ),
       ),
     );
@@ -661,7 +661,7 @@ class MonthTile extends StatelessWidget {
         style: TextStyle(
           color: Colors.white,
           fontSize: MediaQuery.of(context).size.height * 0.01 +
-              MediaQuery.of(context).size.width * 0.032,
+              MediaQuery.of(context).size.width * 0.03,
         ),
       ),
     );
@@ -681,7 +681,7 @@ class YearTile extends StatelessWidget {
         style: TextStyle(
           color: Colors.white,
           fontSize: MediaQuery.of(context).size.height * 0.01 +
-              MediaQuery.of(context).size.width * 0.035,
+              MediaQuery.of(context).size.width * 0.033,
         ),
       ),
     );

@@ -213,7 +213,7 @@ class _DashboardWorkoutStatsState extends State<DashboardWorkoutStats> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const workoutStatsPage(),
+                      builder: (context) => const WorkoutStatsPage(),
                     ),
                   );
                 },

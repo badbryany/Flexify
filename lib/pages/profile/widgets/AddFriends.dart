@@ -49,10 +49,10 @@ class _AddFriendsState extends State<AddFriends> {
       return [
         Center(
           child: Text(
-            'no friends',
+            'No friends',
             style: TextStyle(
               color:
-                  Theme.of(context).colorScheme.onBackground.withOpacity(.75),
+                  Theme.of(context).focusColor.withOpacity(.75),
               fontSize: global.width(context) * .04,
             ),
           ),
@@ -177,10 +177,10 @@ class _AddFriendsState extends State<AddFriends> {
       return [
         Center(
           child: Text(
-            'no open requests',
+            'No Requests',
             style: TextStyle(
               color:
-                  Theme.of(context).colorScheme.onBackground.withOpacity(.75),
+                  Theme.of(context).focusColor.withOpacity(.75),
               fontSize: global.width(context) * .04,
             ),
           ),
@@ -581,7 +581,7 @@ class _AddFriendsState extends State<AddFriends> {
                                             top: global.height(context) * .05,
                                           ),
                                           child: Text(
-                                            'no users with the name "${_controller.text}"',
+                                            'No users with the name "${_controller.text}"',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               color: Theme.of(context)
@@ -596,7 +596,7 @@ class _AddFriendsState extends State<AddFriends> {
                             : [
                                 Center(
                                   child: Text(
-                                    'no connection',
+                                    'No connection',
                                     style: TextStyle(
                                       color: Theme.of(context)
                                           .colorScheme
@@ -616,7 +616,7 @@ class _AddFriendsState extends State<AddFriends> {
                               'Your Friends',
                               style: TextStyle(
                                 color:
-                                    Theme.of(context).colorScheme.onBackground,
+                                    Theme.of(context).focusColor,
                                 fontSize: global.width(context) * .075,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -633,7 +633,7 @@ class _AddFriendsState extends State<AddFriends> {
                               'Friendship Requests',
                               style: TextStyle(
                                 color:
-                                    Theme.of(context).colorScheme.onBackground,
+                                    Theme.of(context).focusColor,
                                 fontSize: global.width(context) * .075,
                                 fontWeight: FontWeight.bold,
                               ),

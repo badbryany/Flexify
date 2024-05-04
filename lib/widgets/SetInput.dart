@@ -93,7 +93,7 @@ class SetInput extends StatelessWidget {
               top: MediaQuery.of(context).size.width * 0.025,
             ),
             child: Text(
-              '$title:',
+              title,
               style: TextStyle(
                 color: Theme.of(context).colorScheme.onBackground,
               ),

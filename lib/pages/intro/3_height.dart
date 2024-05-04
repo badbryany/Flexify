@@ -18,9 +18,9 @@ class _ThreeHeightState extends State<ThreeHeight> {
   final FixedExtentScrollController _cmController =
       FixedExtentScrollController(initialItem: 80);
   final FixedExtentScrollController _ftController =
-      FixedExtentScrollController(initialItem: 1);
+      FixedExtentScrollController(initialItem: 5);
   final FixedExtentScrollController _inController =
-      FixedExtentScrollController(initialItem: 7);
+      FixedExtentScrollController(initialItem: 8);
   int selected = 0;
   var unitview = "cm";
 

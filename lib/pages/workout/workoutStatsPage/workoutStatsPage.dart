@@ -1,16 +1,14 @@
-// ignore_for_file: camel_case_types
-import 'package:flexify/pages/workout/workoutStatsPage/widgets/Sets.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
 
-class workoutStatsPage extends StatefulWidget {
-  const workoutStatsPage({super.key});
+class WorkoutStatsPage extends StatefulWidget {
+  const WorkoutStatsPage({super.key});
 
   @override
-  State<workoutStatsPage> createState() => _workoutStatsPageState();
+  State<WorkoutStatsPage> createState() => _WorkoutStatsPageState();
 }
 
-class _workoutStatsPageState extends State<workoutStatsPage> {
+class _WorkoutStatsPageState extends State<WorkoutStatsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,12 +64,6 @@ class _workoutStatsPageState extends State<workoutStatsPage> {
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.04,
-            ),
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SetsWidget(),
-              ],
             ),
           ],
         ),

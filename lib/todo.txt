@@ -5,9 +5,7 @@ intro:
         -> kg/lbs 
         -> cm/in 
     -> 3_height 
-        -> Initialise values 
         -> Values stay consistent between metric switch 
-        -> Solution: Fix ListWheelScrollView glitch
         -------------------------
         -> when in++ -> ft++
         -> when in++ -> ft++
@@ -42,15 +40,11 @@ dashboardProfile
     -> Calendar Widget
         -> "Workout" Calendar Widget
         -> "BeReal" Calendar
-    -> "BeReal" Widget
-    -> Sets widget to profile
-    -> Favourites (Muscle Group, Workout, Equipment)
     -> Workout Challenge Friends
-    -> QR-Code to add 
-
-addEditSetPage
-    Bodyeight /+ Kg 
-    Time /+ Reps 
+    -> Favourites (Muscle Group, Workout, Equipment)
+    
+    -> "BeReal" Widget
+    -> QR-Code to add
 
 dashboardNavBar
     -> Notifications

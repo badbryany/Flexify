@@ -13,11 +13,9 @@ class FourWeight extends StatefulWidget {
 
 class _FourWeightState extends State<FourWeight> {
   late FixedExtentScrollController _kgController;
-  // 86kg
-  int kgIdx = 86;
+  int kgIdx = 71;
   late FixedExtentScrollController _lbsController;
-  // 195lbs
-  int lbsIdx = 190;
+  int lbsIdx = 157;
 
   int selected = 0;
 

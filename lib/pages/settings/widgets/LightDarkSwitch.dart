@@ -76,7 +76,7 @@ class _LightDarkSwitchState extends State<LightDarkSwitch> {
             width: totalWidth,
             height: global.height(context) * .05,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(global.borderRadius - 15),
+              borderRadius: BorderRadius.circular(30),
               color: Theme.of(context).colorScheme.background,
               boxShadow: [global.darkShadow(context)],
             ),
@@ -102,7 +102,7 @@ class _LightDarkSwitchState extends State<LightDarkSwitch> {
                       width: totalWidth * .6,
                       decoration: BoxDecoration(
                         borderRadius:
-                            BorderRadius.circular(global.borderRadius - 15),
+                            BorderRadius.circular(30),
                         border: Border.all(
                           width: 2,
                           color: Theme.of(context).colorScheme.background,
