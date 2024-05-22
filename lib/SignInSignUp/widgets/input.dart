@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart';
+import 'package:flexify/data/globalVariables.dart' as global;
 
 class Input extends StatelessWidget {
   const Input({
@@ -20,8 +21,8 @@ class Input extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(7.5),
-      height: MediaQuery.of(context).size.height * 0.1,
-      width: MediaQuery.of(context).size.width * 0.9,
+      height: global.height(context) * 0.1,
+      width: global.width(context) * 0.9,
       child: Stack(
         children: [
           TextField(
@@ -58,7 +59,7 @@ class Input extends StatelessWidget {
             child: Container(
               alignment: Alignment.centerRight,
               margin: const EdgeInsets.only(right: 20, bottom: 18),
-              child: icon == null ? const SizedBox() : icon,
+              child: icon ?? const SizedBox(),
             ),
           ),
         ],

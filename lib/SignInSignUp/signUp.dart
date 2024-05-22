@@ -69,41 +69,43 @@ class _SignUpState extends State<SignUp> {
             ),
             Stack(
               children: [
-                
                 ClipPath(
                   clipper: BezierClipper(),
                   child: Container(
                     color: global.isDarkMode(context)
-                            ? Theme.of(context).scaffoldBackgroundColor
-                            : Colors.black,
+                        ? Theme.of(context).scaffoldBackgroundColor
+                        : Colors.black,
                     height: global.height(context) * .8,
                   ),
                 ),
                 Container(
-                      padding: EdgeInsets.only(top: global.height(context) * .05),
-                      width: global.width(context),
-                      child: Text(
-                        'SIGN UP',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: MediaQuery.of(context).size.width * 0.1,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white
-                        ),
-                      ),
-                    ),
+                  padding: EdgeInsets.only(top: global.height(context) * .05),
+                  width: global.width(context),
+                  child: Text(
+                    'SIGN UP',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: global.width(context) * 0.1,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+                ),
               ],
             ),
             Center(
               child: Container(
                 width: global.width(context) * global.containerWidthFactor,
-                height: MediaQuery.of(context).size.height * 0.7,
+                height: global.height(context) * 0.7,
                 decoration: BoxDecoration(
-                  color: global.isDarkMode(context) ?
-                      Theme.of(context).scaffoldBackgroundColor.withOpacity(.8) : Colors.white,
-                  borderRadius: BorderRadius.circular(global.borderRadius),
-                  boxShadow: global.isDarkMode(context) ? [] : [global.darkShadow(context)]
-                ),
+                    color: global.isDarkMode(context)
+                        ? Theme.of(context)
+                            .scaffoldBackgroundColor
+                            .withOpacity(.8)
+                        : Colors.white,
+                    borderRadius: BorderRadius.circular(global.borderRadius),
+                    boxShadow: global.isDarkMode(context)
+                        ? []
+                        : [global.darkShadow(context)]),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -160,7 +162,7 @@ class _SignUpState extends State<SignUp> {
                           errorText,
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.error,
-                            fontSize: MediaQuery.of(context).size.width * 0.04,
+                            fontSize: global.width(context) * 0.04,
                           ),
                         ),
                       ),
@@ -234,12 +236,12 @@ class _SignUpState extends State<SignUp> {
                         setState(() {});
                       },
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.04),
+                    SizedBox(height: global.height(context) * 0.04),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
-                          width: MediaQuery.of(context).size.width * 0.1,
+                          width: global.width(context) * 0.1,
                           height: 1,
                           color: Theme.of(context).focusColor,
                         ),
@@ -256,14 +258,14 @@ class _SignUpState extends State<SignUp> {
                           ),
                         ),
                         Container(
-                          width: MediaQuery.of(context).size.width * 0.1,
+                          width: global.width(context) * 0.1,
                           height: 1,
                           color: Theme.of(context).focusColor,
                         ),
                       ],
                     ),
                     SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.0425,
+                      height: global.height(context) * 0.0425,
                     ),
                     ...[
                       {
@@ -287,8 +289,8 @@ class _SignUpState extends State<SignUp> {
                       (e) => Container(
                         margin: const EdgeInsets.only(top: 5, bottom: 5),
                         alignment: Alignment.center,
-                        width: MediaQuery.of(context).size.width * .8,
-                        height: MediaQuery.of(context).size.height * 0.05,
+                        width: global.width(context) * .8,
+                        height: global.height(context) * 0.05,
                         decoration: BoxDecoration(
                             color:
                                 Theme.of(context).focusColor.withOpacity(0.8),
@@ -299,8 +301,7 @@ class _SignUpState extends State<SignUp> {
                           children: [
                             e['title'] == 'continue with Google'
                                 ? SizedBox(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.012,
+                                    width: global.width(context) * 0.012,
                                   )
                                 : const SizedBox(),
                             SizedBox(
@@ -313,8 +314,7 @@ class _SignUpState extends State<SignUp> {
                                 letterSpacing: -0.5,
                                 color:
                                     Theme.of(context).scaffoldBackgroundColor,
-                                fontSize:
-                                    MediaQuery.of(context).size.width * 0.03,
+                                fontSize: global.width(context) * 0.03,
                               ),
                             ),
                             const SizedBox(),

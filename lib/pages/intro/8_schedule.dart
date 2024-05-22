@@ -38,7 +38,7 @@ class _EightScheduleState extends State<EightSchedule> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.05,
+                  height: global.height(context) * 0.05,
                 ),
                 Row(
                   children: [
@@ -46,19 +46,17 @@ class _EightScheduleState extends State<EightSchedule> {
                     widget.isSettings
                         ? Padding(
                             padding: EdgeInsets.only(
-                                left: MediaQuery.of(context).size.width * 0.07,
-                                right:
-                                    MediaQuery.of(context).size.width * 0.12),
+                                left: global.width(context) * 0.07,
+                                right: global.width(context) * 0.12),
                             child: Text(
                               "Training Schedule",
                               style: TextStyle(
                                   color: Theme.of(context).focusColor,
-                                  fontSize:
-                                      MediaQuery.of(context).size.width * 0.06),
+                                  fontSize: global.width(context) * 0.06),
                             ),
                           )
                         : SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.7,
+                            width: global.width(context) * 0.7,
                           ),
                     widget.isSettings
                         ? const SizedBox()
@@ -81,26 +79,25 @@ class _EightScheduleState extends State<EightSchedule> {
                               'Skip',
                               style: TextStyle(
                                   color: Theme.of(context).focusColor,
-                                  fontSize: MediaQuery.of(context).size.width *
-                                      0.035),
+                                  fontSize: global.width(context) * 0.035),
                             ),
                           ),
-                    SizedBox(width: MediaQuery.of(context).size.width * 0.02)
+                    SizedBox(width: global.width(context) * 0.02)
                   ],
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.01,
+                  height: global.height(context) * 0.01,
                 ),
                 widget.isSettings
                     ? SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.01,
+                        height: global.height(context) * 0.01,
                       )
                     : Stack(
                         alignment: Alignment.centerLeft,
                         children: [
                           Container(
-                            height: MediaQuery.of(context).size.width * 0.045,
-                            width: MediaQuery.of(context).size.width * 0.8,
+                            height: global.width(context) * 0.045,
+                            width: global.width(context) * 0.8,
                             decoration: BoxDecoration(
                               color: Theme.of(context).colorScheme.background,
                               border: Border.all(
@@ -111,31 +108,31 @@ class _EightScheduleState extends State<EightSchedule> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.all(
-                                MediaQuery.of(context).size.width * 0.005),
+                            padding:
+                                EdgeInsets.all(global.width(context) * 0.005),
                             child: Container(
-                              height: MediaQuery.of(context).size.width * 0.035,
-                              width: MediaQuery.of(context).size.width * 0.035,
+                              height: global.width(context) * 0.035,
+                              width: global.width(context) * 0.035,
                               decoration: BoxDecoration(
                                 color: Theme.of(context).colorScheme.primary,
                                 borderRadius: BorderRadius.circular(
-                                    MediaQuery.of(context).size.width),
+                                    global.width(context)),
                               ),
                             ),
                           ),
                         ],
                       ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.03,
+                  height: global.height(context) * 0.03,
                 ),
                 Container(
                   alignment: Alignment.center,
-                  height: MediaQuery.of(context).size.height * 0.07,
-                  width: MediaQuery.of(context).size.width * 0.8,
+                  height: global.height(context) * 0.07,
+                  width: global.width(context) * 0.8,
                   decoration: BoxDecoration(
                     color: Theme.of(context).colorScheme.background,
-                    borderRadius: BorderRadius.circular(
-                        MediaQuery.of(context).size.width * 0.0375),
+                    borderRadius:
+                        BorderRadius.circular(global.width(context) * 0.0375),
                     boxShadow: [global.darkShadow(context)],
                   ),
                   child: Column(
@@ -145,28 +142,28 @@ class _EightScheduleState extends State<EightSchedule> {
                         'When do you want',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: MediaQuery.of(context).size.height * 0.007 +
-                              MediaQuery.of(context).size.width * 0.02,
+                          fontSize: global.height(context) * 0.007 +
+                              global.width(context) * 0.02,
                         ),
                       ),
                       Text(
                         'to workout?',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: MediaQuery.of(context).size.height * 0.007 +
-                              MediaQuery.of(context).size.width * 0.02,
+                          fontSize: global.height(context) * 0.007 +
+                              global.width(context) * 0.02,
                         ),
                       ),
                     ],
                   ),
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.55,
-                  width: MediaQuery.of(context).size.width * 0.8,
+                  height: global.height(context) * 0.55,
+                  width: global.width(context) * 0.8,
                   child: Column(
                     children: [
                       SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.045,
+                        height: global.height(context) * 0.045,
                       ),
                       GestureDetector(
                         onTap: () {
@@ -186,10 +183,8 @@ class _EightScheduleState extends State<EightSchedule> {
                                   : Alignment.centerRight,
                               children: [
                                 Container(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.05,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.8,
+                                  height: global.height(context) * 0.05,
+                                  width: global.width(context) * 0.8,
                                   decoration: BoxDecoration(
                                     color: Theme.of(context)
                                         .colorScheme
@@ -202,18 +197,14 @@ class _EightScheduleState extends State<EightSchedule> {
                                   padding: const EdgeInsets.all(5),
                                   child: Container(
                                     padding: EdgeInsets.only(
-                                        right:
-                                            MediaQuery.of(context).size.width *
-                                                0.02),
-                                    height: MediaQuery.of(context).size.height *
-                                        0.04,
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.4,
+                                        right: global.width(context) * 0.02),
+                                    height: global.height(context) * 0.04,
+                                    width: global.width(context) * 0.4,
                                     decoration: BoxDecoration(
                                       color:
                                           Theme.of(context).colorScheme.primary,
                                       borderRadius: BorderRadius.circular(
-                                          MediaQuery.of(context).size.width),
+                                          global.width(context)),
                                     ),
                                     child: Center(
                                       child: daysPerWeek
@@ -246,7 +237,7 @@ class _EightScheduleState extends State<EightSchedule> {
                         ),
                       ),
                       SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.035,
+                        height: global.height(context) * 0.035,
                       ),
                       Container(
                         decoration: const BoxDecoration(
@@ -264,8 +255,8 @@ class _EightScheduleState extends State<EightSchedule> {
                           clipBehavior: Clip.hardEdge,
                           child: Container(
                             alignment: Alignment.centerLeft,
-                            height: MediaQuery.of(context).size.height * 0.4,
-                            width: MediaQuery.of(context).size.width * 0.8,
+                            height: global.height(context) * 0.4,
+                            width: global.width(context) * 0.8,
                             decoration: BoxDecoration(
                               color: Theme.of(context).colorScheme.background,
                             ),
@@ -404,10 +395,8 @@ class _EightScheduleState extends State<EightSchedule> {
                                   ],
                                 ),
                                 Container(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.4,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.15,
+                                  height: global.height(context) * 0.4,
+                                  width: global.width(context) * 0.15,
                                   decoration: BoxDecoration(
                                     color: Theme.of(context)
                                         .colorScheme
@@ -558,7 +547,7 @@ class _EightScheduleState extends State<EightSchedule> {
                   ),
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.02,
+                  height: global.height(context) * 0.02,
                 ),
                 GestureDetector(
                   onTap: () {
@@ -576,8 +565,8 @@ class _EightScheduleState extends State<EightSchedule> {
                     }
                   },
                   child: Container(
-                    height: MediaQuery.of(context).size.height * 0.05,
-                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: global.height(context) * 0.05,
+                    width: global.width(context) * 0.8,
                     decoration: BoxDecoration(
                       boxShadow: [global.darkShadow(context)],
                       color: selected != 0
@@ -639,12 +628,12 @@ class _LeftButtonState extends State<LeftButton> {
       alignment: Alignment.center,
       children: [
         Container(
-          height: MediaQuery.of(context).size.height * (0.4 / 8),
+          height: global.height(context) * (0.4 / 8),
         ),
         AnimatedContainer(
           duration: global.standardAnimationDuration * .5,
-          height: MediaQuery.of(context).size.height * ((0.4 / 8) * 3 / 4),
-          width: MediaQuery.of(context).size.height * ((0.4 / 8) * 3 / 4),
+          height: global.height(context) * ((0.4 / 8) * 3 / 4),
+          width: global.height(context) * ((0.4 / 8) * 3 / 4),
           alignment: Alignment.center,
           decoration: BoxDecoration(
             border: Border(
@@ -671,8 +660,8 @@ class _LeftButtonState extends State<LeftButton> {
                         ? Colors.black
                         : Theme.of(context).focusColor),
                 fontSize: widget.daysPerWeek
-                    ? MediaQuery.of(context).size.height * 0.02
-                    : MediaQuery.of(context).size.height * 0.013),
+                    ? global.height(context) * 0.02
+                    : global.height(context) * 0.013),
           ),
         ),
       ],
@@ -710,11 +699,10 @@ class _RightButtonState extends State<RightButton> {
       children: [
         AnimatedContainer(
           duration: global.standardAnimationDuration * .5,
-          height: MediaQuery.of(context).size.height * 0.4 / 7,
-          width: MediaQuery.of(context).size.width * 0.8,
+          height: global.height(context) * 0.4 / 7,
+          width: global.width(context) * 0.8,
           alignment: Alignment.center,
-          padding:
-              EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.05),
+          padding: EdgeInsets.only(left: global.width(context) * 0.05),
           decoration: BoxDecoration(
             border: widget.index != 7
                 ? Border(
@@ -741,7 +729,7 @@ class _RightButtonState extends State<RightButton> {
                     : (widget.whichDays[widget.index - 1]
                         ? Colors.black
                         : Theme.of(context).colorScheme.background),
-                fontSize: MediaQuery.of(context).size.height * 0.015),
+                fontSize: global.height(context) * 0.015),
           ),
         ),
       ],

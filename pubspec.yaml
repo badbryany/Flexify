@@ -69,7 +69,9 @@ flutter:
     - assets/logo/Light Logo.svg
     - assets/logo/darklogo.png
     - assets/logo/lightlogo.png
+
     - assets/icon/google.png
+    - assets/icon/visa.svg
 
     - assets/bodyFatPercentage/male/4-6%.svg
     - assets/bodyFatPercentage/male/7-10%.svg

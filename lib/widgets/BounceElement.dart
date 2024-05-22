@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class BounceElement extends StatefulWidget {
-  BounceElement({
+  const BounceElement({
     super.key,
     required this.child,
   });

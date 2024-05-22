@@ -101,7 +101,7 @@ class UploadStateProfilePicture extends State<UploadProfilePicture> {
           Center(
             child: Container(
               width: global.width(context) * global.containerWidthFactor,
-              height: MediaQuery.of(context).size.height * 0.85,
+              height: global.height(context) * 0.85,
               decoration: BoxDecoration(
                 color:
                     Theme.of(context).scaffoldBackgroundColor.withOpacity(.8),
@@ -118,7 +118,7 @@ class UploadStateProfilePicture extends State<UploadProfilePicture> {
                       'Add a picture',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.width * 0.1,
+                        fontSize: global.width(context) * 0.1,
                         fontWeight: FontWeight.bold,
                         color: Theme.of(context).colorScheme.onBackground,
                       ),

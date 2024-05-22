@@ -39,23 +39,22 @@ class Button extends StatelessWidget {
               key: ValueKey(loading),
               child: loading
                   ? SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.05,
-                      height: MediaQuery.of(context).size.width * 0.05,
+                      width: global.width(context) * 0.05,
+                      height: global.width(context) * 0.05,
                       child: CircularProgressIndicator(
                         color: Theme.of(context).colorScheme.onBackground,
                         strokeWidth: 2,
                       ),
                     )
-                  : icon == null
-                      ? Text(
-                          title,
-                          style: TextStyle(
-                            fontSize: global.width(context) * .05,
-                            fontWeight: FontWeight.bold,
-                            color: Theme.of(context).colorScheme.onBackground,
-                          ),
-                        )
-                      : icon,
+                  : icon ??
+                      Text(
+                        title,
+                        style: TextStyle(
+                          fontSize: global.width(context) * .05,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.onBackground,
+                        ),
+                      ),
             ),
           ),
         ),

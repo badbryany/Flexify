@@ -1,8 +1,9 @@
-import 'package:flexify/SignInSignUp/choose.dart';
+import 'package:flexify/SignInSignUp/signIn.dart';
 import 'package:flexify/data/exerciseModels.dart';
 import 'package:flexify/themeProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/pages/dashboard.dart';
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:flexify/data/globalVariables.dart' as global;
@@ -65,7 +66,7 @@ void main() async {
     ));
   } else {
     runApp(MyApp(
-      startWidget: const Choose(),
+      startWidget: const SignIn(),
       themeMode: await getThemeMode(),
     ));
   }
@@ -101,6 +102,12 @@ class MyApp extends StatelessWidget {
             fontFamily: 'KronaOne',
             focusColor: Colors.black,
             scaffoldBackgroundColor: Colors.white,
+            appBarTheme: const AppBarTheme(
+              systemOverlayStyle: SystemUiOverlayStyle.dark,
+              backgroundColor: Colors.white,
+              elevation: 0,
+              toolbarHeight: 0,
+            ),
             canvasColor: const Color.fromARGB(255, 23, 23, 23),
             brightness: Brightness.light,
             colorScheme: const ColorScheme(
@@ -124,6 +131,12 @@ class MyApp extends StatelessWidget {
             fontFamily: 'KronaOne',
             focusColor: Colors.white,
             scaffoldBackgroundColor: Colors.black,
+            appBarTheme: const AppBarTheme(
+              systemOverlayStyle: SystemUiOverlayStyle.light,
+              backgroundColor: Colors.black,
+              elevation: 0,
+              toolbarHeight: 0,
+            ),
             canvasColor: const Color.fromARGB(255, 23, 23, 23),
             brightness: Brightness.dark,
             colorScheme: const ColorScheme(
@@ -136,14 +149,14 @@ class MyApp extends StatelessWidget {
               onError: Colors.red,
               background: Color.fromARGB(255, 38, 38, 43),
               onBackground: Colors.white,
-              surface: Color.fromARGB(255, 27, 27, 31),
+              surface: Color.fromARGB(255, 26, 26, 29),
               onSurface: Colors.white,
               outline: Color.fromARGB(255, 125, 185, 125),
               outlineVariant: Color.fromARGB(127, 125, 185, 125),
               shadow: Color.fromARGB(255, 170, 170, 170),
             ),
           ),
-          home: Dashboard(),
+          home: const Dashboard(),
         );
       },
     );

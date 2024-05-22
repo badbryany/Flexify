@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flexify/data/globalVariables.dart' as global;
 
 // ignore: must_be_immutable
 class DeleteAlertDialog extends StatelessWidget {
@@ -43,7 +44,7 @@ class DeleteAlertDialog extends StatelessWidget {
           child: Text(
             title,
             style: TextStyle(
-              fontSize: MediaQuery.of(context).size.width * 0.04,
+              fontSize: global.width(context) * 0.04,
               color: Theme.of(context).colorScheme.onBackground,
             ),
           ),

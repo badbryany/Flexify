@@ -19,6 +19,10 @@ final List<String> cardinals = [
   "th",
 ];
 
+String getCardinal(int n) {
+  return (n > 3 || n < 1) ? "th" : cardinals[n - 1].toString();
+}
+
 final List<String> months = [
   "Jan",
   "Feb",
@@ -91,10 +95,7 @@ daysInMonth(int m, int y) {
   return monthLength[m - 1];
 }
 
-// Bruder.
-final List<int> monthsDays = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-
-lightShadow(BuildContext context) => BoxShadow(
+BoxShadow lightShadow(BuildContext context) => BoxShadow(
       color: const Color.fromARGB(255, 27, 27, 31).withOpacity(0.3),
       spreadRadius: -7.0,
       blurRadius: 10.0,
@@ -111,8 +112,15 @@ BoxShadow darkShadow(BuildContext context) => const BoxShadow(
 bool isDarkMode(BuildContext context) =>
     Theme.of(context).scaffoldBackgroundColor != Colors.white;
 
+List<BoxShadow> shadow(BuildContext context) =>
+    isDarkMode(context) ? [darkShadow(context)] : [lightShadow(context)];
+
 double width(BuildContext context) => MediaQuery.of(context).size.width;
 double height(BuildContext context) => MediaQuery.of(context).size.height;
+
+double containerWidth(context) {
+  return width(context) * containerWidthFactor;
+}
 
 String zeroBefore(int num) {
   if (num <= 9) {
@@ -141,3 +149,37 @@ Widget loadingWidget(BuildContext context, double size) => Center(
         child: CircularProgressIndicator(strokeWidth: 4 * size),
       ),
     );
+
+ShaderMask gradient(child) => ShaderMask(
+      blendMode: BlendMode.srcIn,
+      shaderCallback: (Rect bounds) => const LinearGradient(
+        begin: Alignment.bottomLeft,
+        end: Alignment.centerRight,
+        colors: [
+          Color(0xffa4fba4),
+          Color(0xfff2f58d),
+        ],
+      ).createShader(bounds),
+      child: child,
+    );
+
+LinearGradient linearGradient = const LinearGradient(
+  begin: Alignment.bottomLeft,
+  end: Alignment.centerRight,
+  colors: [
+    Color(0xffa4fba4),
+    Color(0xfff2f58d),
+  ],
+);
+
+Color darkGrey = const Color.fromARGB(255, 26, 26, 29);
+
+BoxDecoration boxDecoration(context) => BoxDecoration(
+      color: darkGrey,
+      borderRadius: BorderRadius.circular(30),
+      boxShadow: shadow(context),
+    );
+
+SizedBox smallHeight(context) => SizedBox(height: height(context) * .01);
+SizedBox mediumHeight(context) => SizedBox(height: height(context) * .02);
+SizedBox largeHeight(context) => SizedBox(height: height(context) * .03);

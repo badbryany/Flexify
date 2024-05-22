@@ -28,6 +28,7 @@ class _FourWeightState extends State<FourWeight> {
     _lbsController = FixedExtentScrollController(initialItem: lbsIdx);
   }
 
+  @override
   void dispose() {
     _kgController.dispose();
     _lbsController.dispose();
@@ -45,27 +46,25 @@ class _FourWeightState extends State<FourWeight> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.05,
+                  height: global.height(context) * 0.05,
                 ),
                 Row(
                   children: [
-                    IntroNavBarIcon(),
+                    const IntroNavBarIcon(),
                     widget.isSettings
                         ? Padding(
                             padding: EdgeInsets.only(
-                                left: MediaQuery.of(context).size.width * 0.25,
-                                right:
-                                    MediaQuery.of(context).size.width * 0.275),
+                                left: global.width(context) * 0.25,
+                                right: global.width(context) * 0.275),
                             child: Text(
                               "Weight",
                               style: TextStyle(
                                   color: Theme.of(context).focusColor,
-                                  fontSize:
-                                      MediaQuery.of(context).size.width * 0.06),
+                                  fontSize: global.width(context) * 0.06),
                             ),
                           )
                         : SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.7,
+                            width: global.width(context) * 0.7,
                           ),
                     widget.isSettings
                         ? const SizedBox()
@@ -85,26 +84,25 @@ class _FourWeightState extends State<FourWeight> {
                               'Skip',
                               style: TextStyle(
                                   color: Theme.of(context).focusColor,
-                                  fontSize: MediaQuery.of(context).size.width *
-                                      0.035),
+                                  fontSize: global.width(context) * 0.035),
                             ),
                           ),
-                    SizedBox(width: MediaQuery.of(context).size.width * 0.02)
+                    SizedBox(width: global.width(context) * 0.02)
                   ],
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.03,
+                  height: global.height(context) * 0.03,
                 ),
                 widget.isSettings
                     ? SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.01,
+                        height: global.height(context) * 0.01,
                       )
                     : Stack(
                         alignment: Alignment.centerLeft,
                         children: [
                           Container(
-                            height: MediaQuery.of(context).size.width * 0.045,
-                            width: MediaQuery.of(context).size.width * 0.8,
+                            height: global.width(context) * 0.045,
+                            width: global.width(context) * 0.8,
                             decoration: BoxDecoration(
                               color: Theme.of(context).colorScheme.background,
                               border: Border.all(
@@ -115,31 +113,31 @@ class _FourWeightState extends State<FourWeight> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.all(
-                                MediaQuery.of(context).size.width * 0.005),
+                            padding:
+                                EdgeInsets.all(global.width(context) * 0.005),
                             child: Container(
-                              height: MediaQuery.of(context).size.width * 0.035,
-                              width: MediaQuery.of(context).size.width * 0.035,
+                              height: global.width(context) * 0.035,
+                              width: global.width(context) * 0.035,
                               decoration: BoxDecoration(
                                 color: Theme.of(context).colorScheme.primary,
                                 borderRadius: BorderRadius.circular(
-                                    MediaQuery.of(context).size.width),
+                                    global.width(context)),
                               ),
                             ),
                           ),
                         ],
                       ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.03,
+                  height: global.height(context) * 0.03,
                 ),
                 Container(
                   alignment: Alignment.center,
-                  height: MediaQuery.of(context).size.height * 0.07,
-                  width: MediaQuery.of(context).size.width * 0.8,
+                  height: global.height(context) * 0.07,
+                  width: global.width(context) * 0.8,
                   decoration: BoxDecoration(
                     color: Theme.of(context).colorScheme.background,
-                    borderRadius: BorderRadius.circular(
-                        MediaQuery.of(context).size.width * 0.0375),
+                    borderRadius:
+                        BorderRadius.circular(global.width(context) * 0.0375),
                     boxShadow: [global.darkShadow(context)],
                   ),
                   child: Column(
@@ -149,17 +147,15 @@ class _FourWeightState extends State<FourWeight> {
                         'How much do',
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize:
-                                MediaQuery.of(context).size.height * 0.01 +
-                                    MediaQuery.of(context).size.width * 0.02),
+                            fontSize: global.height(context) * 0.01 +
+                                global.width(context) * 0.02),
                       ),
                       Text(
                         'you weight?',
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize:
-                                MediaQuery.of(context).size.height * 0.01 +
-                                    MediaQuery.of(context).size.width * 0.02),
+                            fontSize: global.height(context) * 0.01 +
+                                global.width(context) * 0.02),
                       ),
                     ],
                   ),
@@ -167,30 +163,30 @@ class _FourWeightState extends State<FourWeight> {
                 Container(
                   clipBehavior: Clip.none,
                   alignment: Alignment.center,
-                  height: MediaQuery.of(context).size.height * 0.55,
-                  width: MediaQuery.of(context).size.width * 0.8,
+                  height: global.height(context) * 0.55,
+                  width: global.width(context) * 0.8,
                   padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.2,
-                    bottom: MediaQuery.of(context).size.height * 0.2,
+                    top: global.height(context) * 0.2,
+                    bottom: global.height(context) * 0.2,
                   ),
                   child: Container(
                     alignment: Alignment.center,
-                    height: MediaQuery.of(context).size.height * 0.56,
+                    height: global.height(context) * 0.56,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(
-                          MediaQuery.of(context).size.width * 0.2),
+                      borderRadius:
+                          BorderRadius.circular(global.width(context) * 0.2),
                     ),
                     child: Stack(
                       alignment: Alignment.center,
                       children: [
                         Container(
-                          height: MediaQuery.of(context).size.height * .04,
+                          height: global.height(context) * .04,
                           decoration: BoxDecoration(
                             border: Border.all(
                               color: Theme.of(context).focusColor,
                             ),
                             borderRadius: BorderRadius.circular(
-                              MediaQuery.of(context).size.width * 0.2,
+                              global.width(context) * 0.2,
                             ),
                           ),
                         ),
@@ -202,9 +198,7 @@ class _FourWeightState extends State<FourWeight> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       SizedBox(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.2,
+                                        width: global.width(context) * 0.2,
                                         child: ListWheelScrollView.useDelegate(
                                           controller: _kgController,
                                           onSelectedItemChanged: (index) {
@@ -264,7 +258,7 @@ class _FourWeightState extends State<FourWeight> {
                                     ),
                                   ),
                             SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.2,
+                              width: global.width(context) * 0.2,
                               child: ListWheelScrollView.useDelegate(
                                 onSelectedItemChanged: (value) {
                                   value == 0
@@ -318,8 +312,8 @@ class _FourWeightState extends State<FourWeight> {
                     }
                   },
                   child: Container(
-                    height: MediaQuery.of(context).size.height * 0.05,
-                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: global.height(context) * 0.05,
+                    width: global.width(context) * 0.8,
                     decoration: BoxDecoration(
                       boxShadow: [global.darkShadow(context)],
                       color: selected != 0
@@ -363,8 +357,8 @@ class KgTile extends StatelessWidget {
         kilogram.toString(),
         style: TextStyle(
             color: Theme.of(context).focusColor,
-            fontSize: MediaQuery.of(context).size.height * 0.01 +
-                MediaQuery.of(context).size.width * 0.035),
+            fontSize:
+                global.height(context) * 0.01 + global.width(context) * 0.035),
       ),
     );
   }
@@ -382,8 +376,8 @@ class LbsTile extends StatelessWidget {
         '$pounds',
         style: TextStyle(
             color: Theme.of(context).focusColor,
-            fontSize: MediaQuery.of(context).size.height * 0.01 +
-                MediaQuery.of(context).size.width * 0.035),
+            fontSize:
+                global.height(context) * 0.01 + global.width(context) * 0.035),
       ),
     );
   }
@@ -401,8 +395,8 @@ class MetricTile extends StatelessWidget {
         isKg ? 'kg' : 'lbs',
         style: TextStyle(
             color: Theme.of(context).focusColor,
-            fontSize: MediaQuery.of(context).size.height * 0.01 +
-                MediaQuery.of(context).size.width * 0.035),
+            fontSize:
+                global.height(context) * 0.01 + global.width(context) * 0.035),
       ),
     );
   }

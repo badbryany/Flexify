@@ -20,6 +20,7 @@ class _TenSplitState extends State<TenSplit> {
     super.initState();
   }
 
+  @override
   void dispose() {
     super.dispose();
   }
@@ -35,7 +36,7 @@ class _TenSplitState extends State<TenSplit> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.05,
+                  height: global.height(context) * 0.05,
                 ),
                 Row(
                   children: [
@@ -43,19 +44,17 @@ class _TenSplitState extends State<TenSplit> {
                     widget.isSettings
                         ? Padding(
                             padding: EdgeInsets.only(
-                                left: MediaQuery.of(context).size.width * 0.13,
-                                right:
-                                    MediaQuery.of(context).size.width * 0.19),
+                                left: global.width(context) * 0.13,
+                                right: global.width(context) * 0.19),
                             child: Text(
                               "Training Split",
                               style: TextStyle(
                                   color: Theme.of(context).focusColor,
-                                  fontSize:
-                                      MediaQuery.of(context).size.width * 0.06),
+                                  fontSize: global.width(context) * 0.06),
                             ),
                           )
                         : SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.7,
+                            width: global.width(context) * 0.7,
                           ),
                     widget.isSettings
                         ? const SizedBox()
@@ -79,26 +78,25 @@ class _TenSplitState extends State<TenSplit> {
                               'Skip',
                               style: TextStyle(
                                   color: Theme.of(context).focusColor,
-                                  fontSize: MediaQuery.of(context).size.width *
-                                      0.035),
+                                  fontSize: global.width(context) * 0.035),
                             ),
                           ),
-                    SizedBox(width: MediaQuery.of(context).size.width * 0.02)
+                    SizedBox(width: global.width(context) * 0.02)
                   ],
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.01,
+                  height: global.height(context) * 0.01,
                 ),
                 widget.isSettings
                     ? SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.01,
+                        height: global.height(context) * 0.01,
                       )
                     : Stack(
                         alignment: Alignment.centerLeft,
                         children: [
                           Container(
-                            height: MediaQuery.of(context).size.width * 0.045,
-                            width: MediaQuery.of(context).size.width * 0.8,
+                            height: global.width(context) * 0.045,
+                            width: global.width(context) * 0.8,
                             decoration: BoxDecoration(
                               color: Theme.of(context).colorScheme.background,
                               border: Border.all(
@@ -109,31 +107,31 @@ class _TenSplitState extends State<TenSplit> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.all(
-                                MediaQuery.of(context).size.width * 0.005),
+                            padding:
+                                EdgeInsets.all(global.width(context) * 0.005),
                             child: Container(
-                              height: MediaQuery.of(context).size.width * 0.035,
-                              width: MediaQuery.of(context).size.width * 0.035,
+                              height: global.width(context) * 0.035,
+                              width: global.width(context) * 0.035,
                               decoration: BoxDecoration(
                                 color: Theme.of(context).colorScheme.primary,
                                 borderRadius: BorderRadius.circular(
-                                    MediaQuery.of(context).size.width),
+                                    global.width(context)),
                               ),
                             ),
                           ),
                         ],
                       ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.03,
+                  height: global.height(context) * 0.03,
                 ),
                 Container(
                   alignment: Alignment.center,
-                  height: MediaQuery.of(context).size.height * 0.07,
-                  width: MediaQuery.of(context).size.width * 0.8,
+                  height: global.height(context) * 0.07,
+                  width: global.width(context) * 0.8,
                   decoration: BoxDecoration(
                     color: Theme.of(context).colorScheme.background,
-                    borderRadius: BorderRadius.circular(
-                        MediaQuery.of(context).size.width * 0.0375),
+                    borderRadius:
+                        BorderRadius.circular(global.width(context) * 0.0375),
                     boxShadow: [global.darkShadow(context)],
                   ),
                   child: Column(
@@ -143,25 +141,22 @@ class _TenSplitState extends State<TenSplit> {
                         'Choose your',
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize:
-                                MediaQuery.of(context).size.height * 0.01 +
-                                    MediaQuery.of(context).size.width * 0.02),
+                            fontSize: global.height(context) * 0.01 +
+                                global.width(context) * 0.02),
                       ),
                       Text(
                         'training split',
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize:
-                                MediaQuery.of(context).size.height * 0.01 +
-                                    MediaQuery.of(context).size.width * 0.02),
+                            fontSize: global.height(context) * 0.01 +
+                                global.width(context) * 0.02),
                       ),
                     ],
                   ),
                 ),
                 Container(
-                  height: MediaQuery.of(context).size.height * 0.55,
-                  padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.05),
+                  height: global.height(context) * 0.55,
+                  padding: EdgeInsets.only(top: global.height(context) * 0.05),
                   child: Column(
                     children: [
                       GestureDetector(
@@ -173,27 +168,25 @@ class _TenSplitState extends State<TenSplit> {
                         child: AnimatedContainer(
                           duration: global.standardAnimationDuration,
                           padding: EdgeInsets.only(
-                              left: MediaQuery.of(context).size.width * 0.03),
-                          height: MediaQuery.of(context).size.height * 0.105,
-                          width: MediaQuery.of(context).size.width * 0.8,
+                              left: global.width(context) * 0.03),
+                          height: global.height(context) * 0.105,
+                          width: global.width(context) * 0.8,
                           decoration: BoxDecoration(
                             color: selectedSplit == 1
                                 ? Theme.of(context).colorScheme.primary
                                 : Theme.of(context).colorScheme.background,
                             borderRadius: BorderRadius.circular(
-                                MediaQuery.of(context).size.width * 0.0375),
+                                global.width(context) * 0.0375),
                             boxShadow: [global.darkShadow(context)],
                           ),
                           child: Column(
                             children: [
                               SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.015,
+                                height: global.height(context) * 0.015,
                               ),
                               Padding(
                                 padding: EdgeInsets.only(
-                                    right: MediaQuery.of(context).size.width *
-                                        0.025),
+                                    right: global.width(context) * 0.025),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -217,8 +210,7 @@ class _TenSplitState extends State<TenSplit> {
                                     ),
                                     Container(
                                       padding: EdgeInsets.all(
-                                          MediaQuery.of(context).size.width *
-                                              0.02),
+                                          global.width(context) * 0.02),
                                       decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(10),
@@ -266,12 +258,9 @@ class _TenSplitState extends State<TenSplit> {
                                             : Theme.of(context)
                                                 .colorScheme
                                                 .shadow,
-                                        fontSize: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.0125 +
-                                            MediaQuery.of(context).size.width *
-                                                0.001),
+                                        fontSize:
+                                            global.height(context) * 0.0125 +
+                                                global.width(context) * 0.001),
                                   ),
                                 ],
                               ),
@@ -285,12 +274,9 @@ class _TenSplitState extends State<TenSplit> {
                                             : Theme.of(context)
                                                 .colorScheme
                                                 .shadow,
-                                        fontSize: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.0125 +
-                                            MediaQuery.of(context).size.width *
-                                                0.001),
+                                        fontSize:
+                                            global.height(context) * 0.0125 +
+                                                global.width(context) * 0.001),
                                   ),
                                 ],
                               ),
@@ -299,7 +285,7 @@ class _TenSplitState extends State<TenSplit> {
                         ),
                       ),
                       SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.01,
+                        height: global.height(context) * 0.01,
                       ),
                       GestureDetector(
                         onTap: () {
@@ -310,22 +296,21 @@ class _TenSplitState extends State<TenSplit> {
                         child: AnimatedContainer(
                           duration: global.standardAnimationDuration,
                           padding: EdgeInsets.only(
-                              left: MediaQuery.of(context).size.width * 0.03),
-                          height: MediaQuery.of(context).size.height * 0.105,
-                          width: MediaQuery.of(context).size.width * 0.8,
+                              left: global.width(context) * 0.03),
+                          height: global.height(context) * 0.105,
+                          width: global.width(context) * 0.8,
                           decoration: BoxDecoration(
                             color: selectedSplit == 2
                                 ? Theme.of(context).colorScheme.primary
                                 : Theme.of(context).colorScheme.background,
                             borderRadius: BorderRadius.circular(
-                                MediaQuery.of(context).size.width * 0.0375),
+                                global.width(context) * 0.0375),
                             boxShadow: [global.darkShadow(context)],
                           ),
                           child: Column(
                             children: [
                               SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.02,
+                                height: global.height(context) * 0.02,
                               ),
                               Row(
                                 children: [
@@ -337,18 +322,14 @@ class _TenSplitState extends State<TenSplit> {
                                             : Theme.of(context)
                                                 .colorScheme
                                                 .primary,
-                                        fontSize: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.015 +
-                                            MediaQuery.of(context).size.width *
-                                                0.02),
+                                        fontSize:
+                                            global.height(context) * 0.015 +
+                                                global.width(context) * 0.02),
                                   ),
                                 ],
                               ),
                               SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.005,
+                                height: global.height(context) * 0.005,
                               ),
                               Row(
                                 children: [
@@ -360,12 +341,9 @@ class _TenSplitState extends State<TenSplit> {
                                             : Theme.of(context)
                                                 .colorScheme
                                                 .shadow,
-                                        fontSize: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.0125 +
-                                            MediaQuery.of(context).size.width *
-                                                0.001),
+                                        fontSize:
+                                            global.height(context) * 0.0125 +
+                                                global.width(context) * 0.001),
                                   ),
                                 ],
                               ),
@@ -379,12 +357,9 @@ class _TenSplitState extends State<TenSplit> {
                                             : Theme.of(context)
                                                 .colorScheme
                                                 .shadow,
-                                        fontSize: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.0125 +
-                                            MediaQuery.of(context).size.width *
-                                                0.001),
+                                        fontSize:
+                                            global.height(context) * 0.0125 +
+                                                global.width(context) * 0.001),
                                   ),
                                 ],
                               ),
@@ -393,7 +368,7 @@ class _TenSplitState extends State<TenSplit> {
                         ),
                       ),
                       SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.01,
+                        height: global.height(context) * 0.01,
                       ),
                       GestureDetector(
                         onTap: () {
@@ -404,22 +379,21 @@ class _TenSplitState extends State<TenSplit> {
                         child: AnimatedContainer(
                           duration: global.standardAnimationDuration,
                           padding: EdgeInsets.only(
-                              left: MediaQuery.of(context).size.width * 0.03),
-                          height: MediaQuery.of(context).size.height * 0.105,
-                          width: MediaQuery.of(context).size.width * 0.8,
+                              left: global.width(context) * 0.03),
+                          height: global.height(context) * 0.105,
+                          width: global.width(context) * 0.8,
                           decoration: BoxDecoration(
                             color: selectedSplit == 3
                                 ? Theme.of(context).colorScheme.primary
                                 : Theme.of(context).colorScheme.background,
                             borderRadius: BorderRadius.circular(
-                                MediaQuery.of(context).size.width * 0.0375),
+                                global.width(context) * 0.0375),
                             boxShadow: [global.darkShadow(context)],
                           ),
                           child: Column(
                             children: [
                               SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.02,
+                                height: global.height(context) * 0.02,
                               ),
                               Row(
                                 children: [
@@ -431,18 +405,14 @@ class _TenSplitState extends State<TenSplit> {
                                             : Theme.of(context)
                                                 .colorScheme
                                                 .primary,
-                                        fontSize: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.015 +
-                                            MediaQuery.of(context).size.width *
-                                                0.02),
+                                        fontSize:
+                                            global.height(context) * 0.015 +
+                                                global.width(context) * 0.02),
                                   ),
                                 ],
                               ),
                               SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.01,
+                                height: global.height(context) * 0.01,
                               ),
                               Row(
                                 children: [
@@ -454,12 +424,9 @@ class _TenSplitState extends State<TenSplit> {
                                             : Theme.of(context)
                                                 .colorScheme
                                                 .shadow,
-                                        fontSize: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.0125 +
-                                            MediaQuery.of(context).size.width *
-                                                0.001),
+                                        fontSize:
+                                            global.height(context) * 0.0125 +
+                                                global.width(context) * 0.001),
                                   ),
                                 ],
                               ),
@@ -473,12 +440,9 @@ class _TenSplitState extends State<TenSplit> {
                                             : Theme.of(context)
                                                 .colorScheme
                                                 .shadow,
-                                        fontSize: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.0125 +
-                                            MediaQuery.of(context).size.width *
-                                                0.001),
+                                        fontSize:
+                                            global.height(context) * 0.0125 +
+                                                global.width(context) * 0.001),
                                   ),
                                 ],
                               ),
@@ -487,7 +451,7 @@ class _TenSplitState extends State<TenSplit> {
                         ),
                       ),
                       SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.01,
+                        height: global.height(context) * 0.01,
                       ),
                       GestureDetector(
                         onTap: () {
@@ -498,22 +462,21 @@ class _TenSplitState extends State<TenSplit> {
                         child: AnimatedContainer(
                           duration: global.standardAnimationDuration,
                           padding: EdgeInsets.only(
-                              left: MediaQuery.of(context).size.width * 0.03),
-                          height: MediaQuery.of(context).size.height * 0.105,
-                          width: MediaQuery.of(context).size.width * 0.8,
+                              left: global.width(context) * 0.03),
+                          height: global.height(context) * 0.105,
+                          width: global.width(context) * 0.8,
                           decoration: BoxDecoration(
                             color: selectedSplit == 4
                                 ? Theme.of(context).colorScheme.primary
                                 : Theme.of(context).colorScheme.background,
                             borderRadius: BorderRadius.circular(
-                                MediaQuery.of(context).size.width * 0.0375),
+                                global.width(context) * 0.0375),
                             boxShadow: [global.darkShadow(context)],
                           ),
                           child: Column(
                             children: [
                               SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.02,
+                                height: global.height(context) * 0.02,
                               ),
                               Row(
                                 children: [
@@ -525,18 +488,14 @@ class _TenSplitState extends State<TenSplit> {
                                             : Theme.of(context)
                                                 .colorScheme
                                                 .primary,
-                                        fontSize: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.015 +
-                                            MediaQuery.of(context).size.width *
-                                                0.02),
+                                        fontSize:
+                                            global.height(context) * 0.015 +
+                                                global.width(context) * 0.02),
                                   ),
                                 ],
                               ),
                               SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.01,
+                                height: global.height(context) * 0.01,
                               ),
                               Row(
                                 children: [
@@ -548,12 +507,9 @@ class _TenSplitState extends State<TenSplit> {
                                             : Theme.of(context)
                                                 .colorScheme
                                                 .shadow,
-                                        fontSize: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.0125 +
-                                            MediaQuery.of(context).size.width *
-                                                0.001),
+                                        fontSize:
+                                            global.height(context) * 0.0125 +
+                                                global.width(context) * 0.001),
                                   ),
                                 ],
                               ),
@@ -567,12 +523,9 @@ class _TenSplitState extends State<TenSplit> {
                                             : Theme.of(context)
                                                 .colorScheme
                                                 .shadow,
-                                        fontSize: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.0125 +
-                                            MediaQuery.of(context).size.width *
-                                                0.001),
+                                        fontSize:
+                                            global.height(context) * 0.0125 +
+                                                global.width(context) * 0.001),
                                   ),
                                 ],
                               ),
@@ -602,8 +555,8 @@ class _TenSplitState extends State<TenSplit> {
                     }
                   },
                   child: Container(
-                    height: MediaQuery.of(context).size.height * 0.05,
-                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: global.height(context) * 0.05,
+                    width: global.width(context) * 0.8,
                     decoration: BoxDecoration(
                       boxShadow: [global.darkShadow(context)],
                       color: selected != 0

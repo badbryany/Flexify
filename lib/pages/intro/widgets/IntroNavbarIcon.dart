@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flexify/data/globalVariables.dart' as global;
 
 class IntroNavBarIcon extends StatefulWidget {
   const IntroNavBarIcon({super.key});
@@ -19,7 +20,7 @@ class _IntroNavBarIconState extends State<IntroNavBarIcon> {
       },
       color: Theme.of(context).focusColor,
       icon: const Icon(Icons.arrow_back_rounded),
-      iconSize: MediaQuery.of(context).size.width * 0.06,
+      iconSize: global.width(context) * 0.06,
     );
   }
 }

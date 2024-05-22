@@ -23,12 +23,12 @@ class _OneWelcomeState extends State<OneWelcome> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  height: MediaQuery.of(context).size.width * 0.43,
-                  width: MediaQuery.of(context).size.width * 0.8,
+                  height: global.width(context) * 0.43,
+                  width: global.width(context) * 0.8,
                   decoration: BoxDecoration(
                     color: Theme.of(context).colorScheme.background,
                     borderRadius: BorderRadius.circular(
-                      MediaQuery.of(context).size.width * 0.0375,
+                      global.width(context) * 0.0375,
                     ),
                     boxShadow: [
                       global.darkShadow(context),
@@ -41,7 +41,7 @@ class _OneWelcomeState extends State<OneWelcome> {
                         'Welcome to Flexify!',
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize: MediaQuery.of(context).size.width * 0.07),
+                            fontSize: global.width(context) * 0.07),
                       )
                           .animate()
                           .fadeIn(
@@ -52,7 +52,7 @@ class _OneWelcomeState extends State<OneWelcome> {
                         'Press Start to begin',
                         style: TextStyle(
                             color: Theme.of(context).colorScheme.shadow,
-                            fontSize: MediaQuery.of(context).size.width * 0.05),
+                            fontSize: global.width(context) * 0.05),
                       ).animate().fadeIn(
                             delay: const Duration(milliseconds: 1500),
                             curve: Curves.decelerate,
@@ -61,7 +61,7 @@ class _OneWelcomeState extends State<OneWelcome> {
                     ],
                   ),
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                SizedBox(height: global.height(context) * 0.02),
                 GestureDetector(
                   onTap: () {
                     Navigator.push(
@@ -74,8 +74,8 @@ class _OneWelcomeState extends State<OneWelcome> {
                     );
                   },
                   child: Container(
-                    height: MediaQuery.of(context).size.height * 0.05,
-                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: global.height(context) * 0.05,
+                    width: global.width(context) * 0.8,
                     decoration: BoxDecoration(
                       boxShadow: [global.darkShadow(context)],
                       color: Theme.of(context).primaryColor,
@@ -88,8 +88,7 @@ class _OneWelcomeState extends State<OneWelcome> {
                           'Start',
                           style: TextStyle(
                               color: Theme.of(context).focusColor,
-                              fontSize:
-                                  MediaQuery.of(context).size.height * 0.025),
+                              fontSize: global.height(context) * 0.025),
                         ),
                       ],
                     ),

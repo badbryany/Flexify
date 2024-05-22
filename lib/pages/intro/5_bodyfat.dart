@@ -45,6 +45,7 @@ class _FiveBodyFatState extends State<FiveBodyFat> {
     super.initState();
   }
 
+  @override
   void dispose() {
     super.dispose();
   }
@@ -60,27 +61,25 @@ class _FiveBodyFatState extends State<FiveBodyFat> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.05,
+                  height: global.height(context) * 0.05,
                 ),
                 Row(
                   children: [
-                    IntroNavBarIcon(),
+                    const IntroNavBarIcon(),
                     widget.isSettings
                         ? Padding(
                             padding: EdgeInsets.only(
-                                left: MediaQuery.of(context).size.width * 0.05,
-                                right:
-                                    MediaQuery.of(context).size.width * 0.075),
+                                left: global.width(context) * 0.05,
+                                right: global.width(context) * 0.075),
                             child: Text(
                               "Body Fat Percentage",
                               style: TextStyle(
                                   color: Theme.of(context).focusColor,
-                                  fontSize:
-                                      MediaQuery.of(context).size.width * 0.06),
+                                  fontSize: global.width(context) * 0.06),
                             ),
                           )
                         : SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.7,
+                            width: global.width(context) * 0.7,
                           ),
                     widget.isSettings
                         ? const SizedBox()
@@ -103,26 +102,25 @@ class _FiveBodyFatState extends State<FiveBodyFat> {
                               'Skip',
                               style: TextStyle(
                                   color: Theme.of(context).focusColor,
-                                  fontSize: MediaQuery.of(context).size.width *
-                                      0.035),
+                                  fontSize: global.width(context) * 0.035),
                             ),
                           ),
-                    SizedBox(width: MediaQuery.of(context).size.width * 0.02)
+                    SizedBox(width: global.width(context) * 0.02)
                   ],
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.03,
+                  height: global.height(context) * 0.03,
                 ),
                 widget.isSettings
                     ? SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.01,
+                        height: global.height(context) * 0.01,
                       )
                     : Stack(
                         alignment: Alignment.centerLeft,
                         children: [
                           Container(
-                            height: MediaQuery.of(context).size.width * 0.045,
-                            width: MediaQuery.of(context).size.width * 0.8,
+                            height: global.width(context) * 0.045,
+                            width: global.width(context) * 0.8,
                             decoration: BoxDecoration(
                               color: Theme.of(context).colorScheme.background,
                               border: Border.all(
@@ -133,31 +131,31 @@ class _FiveBodyFatState extends State<FiveBodyFat> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.all(
-                                MediaQuery.of(context).size.width * 0.005),
+                            padding:
+                                EdgeInsets.all(global.width(context) * 0.005),
                             child: Container(
-                              height: MediaQuery.of(context).size.width * 0.035,
-                              width: MediaQuery.of(context).size.width * 0.035,
+                              height: global.width(context) * 0.035,
+                              width: global.width(context) * 0.035,
                               decoration: BoxDecoration(
                                 color: Theme.of(context).colorScheme.primary,
                                 borderRadius: BorderRadius.circular(
-                                    MediaQuery.of(context).size.width),
+                                    global.width(context)),
                               ),
                             ),
                           ),
                         ],
                       ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.03,
+                  height: global.height(context) * 0.03,
                 ),
                 Container(
                   alignment: Alignment.center,
-                  height: MediaQuery.of(context).size.height * 0.07,
-                  width: MediaQuery.of(context).size.width * 0.8,
+                  height: global.height(context) * 0.07,
+                  width: global.width(context) * 0.8,
                   decoration: BoxDecoration(
                     color: Theme.of(context).colorScheme.background,
-                    borderRadius: BorderRadius.circular(
-                        MediaQuery.of(context).size.width * 0.0525),
+                    borderRadius:
+                        BorderRadius.circular(global.width(context) * 0.0525),
                     boxShadow: [global.darkShadow(context)],
                   ),
                   child: Column(
@@ -167,16 +165,16 @@ class _FiveBodyFatState extends State<FiveBodyFat> {
                         'Estimate your current',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: MediaQuery.of(context).size.height * 0.01 +
-                              MediaQuery.of(context).size.width * 0.02,
+                          fontSize: global.height(context) * 0.01 +
+                              global.width(context) * 0.02,
                         ),
                       ),
                       Text(
                         'body fat percentage',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: MediaQuery.of(context).size.height * 0.01 +
-                              MediaQuery.of(context).size.width * 0.02,
+                          fontSize: global.height(context) * 0.01 +
+                              global.width(context) * 0.02,
                         ),
                       ),
                     ],
@@ -184,13 +182,12 @@ class _FiveBodyFatState extends State<FiveBodyFat> {
                 ),
                 Container(
                   alignment: Alignment.center,
-                  height: MediaQuery.of(context).size.height * 0.55,
-                  width: MediaQuery.of(context).size.width *
-                      global.containerWidthFactor,
+                  height: global.height(context) * 0.55,
+                  width: global.width(context) * global.containerWidthFactor,
                   child: Container(
                     clipBehavior: Clip.none,
-                    height: MediaQuery.of(context).size.width * 0.8,
-                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: global.width(context) * 0.8,
+                    width: global.width(context) * 0.8,
                     decoration: BoxDecoration(
                         color: Theme.of(context).colorScheme.background,
                         borderRadius: BorderRadius.circular(30),
@@ -198,10 +195,10 @@ class _FiveBodyFatState extends State<FiveBodyFat> {
                     child: Column(
                       children: [
                         SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.08,
+                          height: global.height(context) * 0.08,
                         ),
                         SizedBox(
-                          height: MediaQuery.of(context).size.width * 0.3,
+                          height: global.width(context) * 0.3,
                           child: RotatedBox(
                             quarterTurns: -1,
                             child: ListWheelScrollView.useDelegate(
@@ -212,8 +209,7 @@ class _FiveBodyFatState extends State<FiveBodyFat> {
                                 selected = 1;
                                 setState(() {});
                               },
-                              itemExtent:
-                                  MediaQuery.of(context).size.width * 0.3,
+                              itemExtent: global.width(context) * 0.3,
                               controller:
                                   FixedExtentScrollController(initialItem: 3),
                               physics: const FixedExtentScrollPhysics(),
@@ -266,14 +262,13 @@ class _FiveBodyFatState extends State<FiveBodyFat> {
                           ),
                         ),
                         SizedBox(
-                          height: MediaQuery.of(context).size.width * 0.125,
+                          height: global.width(context) * 0.125,
                         ),
                         Text(
                           selectedBodyFatPercentageRange,
                           style: TextStyle(
                               color: Colors.white,
-                              fontSize:
-                                  MediaQuery.of(context).size.width * 0.08),
+                              fontSize: global.width(context) * 0.08),
                         ),
                       ],
                     ),
@@ -295,8 +290,8 @@ class _FiveBodyFatState extends State<FiveBodyFat> {
                     }
                   },
                   child: Container(
-                    height: MediaQuery.of(context).size.height * 0.05,
-                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: global.height(context) * 0.05,
+                    width: global.width(context) * 0.8,
                     decoration: BoxDecoration(
                       boxShadow: [global.darkShadow(context)],
                       color: selected != 0
@@ -334,12 +329,12 @@ class _FiveBodyFatState extends State<FiveBodyFat> {
 //                     mainAxisAlignment: MainAxisAlignment.start,
 //                     children: [
 //                       SizedBox(
-//                         height: MediaQuery.of(context).size.height * 0.4,
+//                         height: global.height(context) * 0.4,
 //                       ),
 //                       Container(
 //                         clipBehavior: Clip.hardEdge,
-//                         height: MediaQuery.of(context).size.height * 0.15,
-//                         width: MediaQuery.of(context).size.width * 0.8,
+//                         height: global.height(context) * 0.15,
+//                         width: global.width(context) * 0.8,
 //                         decoration: BoxDecoration(
 //                           color: Theme.of(context)
 //                               .colorScheme
@@ -350,18 +345,18 @@ class _FiveBodyFatState extends State<FiveBodyFat> {
 //                             color: Theme.of(context).focusColor,
 //                           ),
 //                           borderRadius: BorderRadius.circular(
-//                               MediaQuery.of(context).size.width * 0.0375),
+//                               global.width(context) * 0.0375),
 //                         ),
 //                         child: Column(
 //                           mainAxisAlignment: MainAxisAlignment.center,
 //                           children: [
 //                             Container(
 //                               padding: EdgeInsets.all(
-//                                   MediaQuery.of(context).size.height * 0.01),
+//                                   global.height(context) * 0.01),
 //                               decoration: BoxDecoration(
 //                                 borderRadius: BorderRadius.all(
 //                                   Radius.circular(
-//                                       MediaQuery.of(context).size.width *
+//                                       global.width(context) *
 //                                           0.0375),
 //                                 ),
 //                                 color: Theme.of(context).colorScheme.background,
@@ -372,23 +367,23 @@ class _FiveBodyFatState extends State<FiveBodyFat> {
 //                                     color:
 //                                         Theme.of(context).colorScheme.primary,
 //                                     fontSize:
-//                                         MediaQuery.of(context).size.height *
+//                                         global.height(context) *
 //                                             0.01),
 //                               ),
 //                             ),
 //                             SizedBox(
-//                                 height: MediaQuery.of(context).size.height *
+//                                 height: global.height(context) *
 //                                     0.0125),
 //                             SliderTheme(
 //                               data: SliderThemeData(
 //                                 thumbShape: RoundSliderThumbShape(
 //                                     enabledThumbRadius:
-//                                         MediaQuery.of(context).size.height *
+//                                         global.height(context) *
 //                                             0.0125),
 //                                 thumbColor:
 //                                     Theme.of(context).colorScheme.primary,
 //                                 trackHeight:
-//                                     MediaQuery.of(context).size.height * 0.01,
+//                                     global.height(context) * 0.01,
 //                                 activeTrackColor: Colors.transparent,
 //                                 inactiveTrackColor: Colors.transparent,
 //                               ),
@@ -396,10 +391,10 @@ class _FiveBodyFatState extends State<FiveBodyFat> {
 //                                 alignment: Alignment.center,
 //                                 children: [
 //                                   Container(
-//                                     height: MediaQuery.of(context).size.height *
+//                                     height: global.height(context) *
 //                                         0.0075,
 //                                     width:
-//                                         MediaQuery.of(context).size.width * 0.8,
+//                                         global.width(context) * 0.8,
 //                                     color: Theme.of(context)
 //                                         .colorScheme
 //                                         .background,

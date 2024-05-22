@@ -38,14 +38,14 @@ class LoadingButton extends StatelessWidget {
             ),
             child: loading
                 ? SizedBox(
-                    height: MediaQuery.of(context).size.width * 0.05,
-                    width: MediaQuery.of(context).size.width * 0.05,
+                    height: global.width(context) * 0.05,
+                    width: global.width(context) * 0.05,
                     child: const CircularProgressIndicator(strokeWidth: 2.5),
                   )
                 : Text(
                     title,
                     style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.width * 0.045,
+                      fontSize: global.width(context) * 0.045,
                       color: Theme.of(context).colorScheme.onBackground,
                     ),
                   ),

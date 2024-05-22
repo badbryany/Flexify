@@ -29,7 +29,7 @@ class _TwoGenderState extends State<TwoGender> {
                 ),
                 Row(
                   children: [
-                    IntroNavBarIcon(),
+                    const IntroNavBarIcon(),
                     widget.isSettings
                         ? Padding(
                             padding: EdgeInsets.only(

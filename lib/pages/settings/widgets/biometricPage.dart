@@ -69,19 +69,46 @@ class _BiometricPageState extends State<BiometricPage> {
   ];
 
   List<Widget> sectionPages = [
-    const TwoGender(isSettings: true,),
-    const ThreeHeight(isSettings: true,),
-    const FourWeight(isSettings: true,),
-    const FiveBodyFat(isFemale: true, isSettings: true,),
-    const SixBirthday(isSettings: true,),
-    const SevenExperience(isSettings: true,),
-    const EightSchedule(isSettings: true,),
-    const NineDuration(isSettings: true,),
-    const TenSplit(isSettings: true,),
-    const ElevenTargetMuscles(isSettings: true,),
-    const TwelveLocation(isSettings: true,),
-    const ThirteenEquipment(isSettings: true,),
-    const FourteenTargetWeight(isSettings: true,)
+    const TwoGender(
+      isSettings: true,
+    ),
+    const ThreeHeight(
+      isSettings: true,
+    ),
+    const FourWeight(
+      isSettings: true,
+    ),
+    const FiveBodyFat(
+      isFemale: true,
+      isSettings: true,
+    ),
+    const SixBirthday(
+      isSettings: true,
+    ),
+    const SevenExperience(
+      isSettings: true,
+    ),
+    const EightSchedule(
+      isSettings: true,
+    ),
+    const NineDuration(
+      isSettings: true,
+    ),
+    const TenSplit(
+      isSettings: true,
+    ),
+    const ElevenTargetMuscles(
+      isSettings: true,
+    ),
+    const TwelveLocation(
+      isSettings: true,
+    ),
+    const ThirteenEquipment(
+      isSettings: true,
+    ),
+    const FourteenTargetWeight(
+      isSettings: true,
+    )
   ];
 
   @override
@@ -92,13 +119,13 @@ class _BiometricPageState extends State<BiometricPage> {
         child: Column(
           children: [
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.03,
+              height: global.height(context) * 0.03,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.11,
+                  width: global.width(context) * 0.11,
                 ),
                 IconButton(
                   highlightColor: Colors.transparent,
@@ -109,11 +136,11 @@ class _BiometricPageState extends State<BiometricPage> {
                   },
                   icon: Icon(
                     Icons.arrow_back_rounded,
-                    size: MediaQuery.of(context).size.width * 0.06,
+                    size: global.width(context) * 0.06,
                   ),
                 ),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.13,
+                  width: global.width(context) * 0.13,
                 ),
                 Text(
                   "Biometrics",
@@ -127,12 +154,11 @@ class _BiometricPageState extends State<BiometricPage> {
               ],
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.04,
+              height: global.height(context) * 0.04,
             ),
-            Container(
-              height: MediaQuery.of(context).size.height * 0.8,
-              width: MediaQuery.of(context).size.width *
-                  global.containerWidthFactor,
+            SizedBox(
+              height: global.height(context) * 0.8,
+              width: global.width(context) * global.containerWidthFactor,
               child: ListView.builder(
                 physics: const BouncingScrollPhysics(),
                 itemCount: 13,
@@ -150,12 +176,12 @@ class _BiometricPageState extends State<BiometricPage> {
                     },
                     child: Container(
                       padding: EdgeInsets.only(
-                        left: MediaQuery.of(context).size.width * 0.1,
-                        right: MediaQuery.of(context).size.width * 0.1,
+                        left: global.width(context) * 0.1,
+                        right: global.width(context) * 0.1,
                       ),
-                      height: MediaQuery.of(context).size.height * 0.1,
-                      width: MediaQuery.of(context).size.width *
-                          global.containerWidthFactor,
+                      height: global.height(context) * 0.1,
+                      width:
+                          global.width(context) * global.containerWidthFactor,
                       decoration: BoxDecoration(
                         borderRadius: index == 0
                             ? const BorderRadius.only(
@@ -188,9 +214,9 @@ class _BiometricPageState extends State<BiometricPage> {
                           Text(
                             sections[index],
                             style: TextStyle(
-                                color: Theme.of(context).colorScheme.onBackground,
-                                fontSize:
-                                    MediaQuery.of(context).size.width * 0.05),
+                                color:
+                                    Theme.of(context).colorScheme.onBackground,
+                                fontSize: global.width(context) * 0.05),
                           ),
                           Icon(
                             Icons.arrow_forward_rounded,

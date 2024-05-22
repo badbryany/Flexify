@@ -25,8 +25,8 @@ class _ButtonWithTextState extends State<ButtonWithText> {
       child: GestureDetector(
         onTap: widget.onTap,
         child: Container(
-          height: MediaQuery.of(context).size.height * 0.08,
-          width: MediaQuery.of(context).size.width * 0.9,
+          height: global.height(context) * 0.08,
+          width: global.width(context) * 0.9,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(global.borderRadius * 0.4),
             color: Theme.of(context).colorScheme.background,
@@ -41,14 +41,14 @@ class _ButtonWithTextState extends State<ButtonWithText> {
               ),
               child: widget.loading
                   ? SizedBox(
-                      height: MediaQuery.of(context).size.width * 0.05,
-                      width: MediaQuery.of(context).size.width * 0.05,
+                      height: global.width(context) * 0.05,
+                      width: global.width(context) * 0.05,
                       child: const CircularProgressIndicator(strokeWidth: 2.5),
                     )
                   : Text(
                       widget.text,
                       style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.width * 0.05,
+                        fontSize: global.width(context) * 0.05,
                         fontWeight: FontWeight.bold,
                         color: Theme.of(context).colorScheme.surface,
                       ),
@@ -76,8 +76,8 @@ class ImageButton extends StatelessWidget {
       borderRadius: global.borderRadius * 0.2,
       child: BounceElement(
         child: SizedBox(
-          width: MediaQuery.of(context).size.width * 0.1,
-          height: MediaQuery.of(context).size.width * 0.1,
+          width: global.width(context) * 0.1,
+          height: global.width(context) * 0.1,
           child: Container(
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.background,

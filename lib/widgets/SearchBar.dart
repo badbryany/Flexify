@@ -165,11 +165,9 @@ class _AnimSearchBarState extends State<AnimSearchBar>
       child: AnimatedContainer(
         duration: Duration(milliseconds: widget.animationDurationInMilli),
         height: (toggle == 0)
-            ? MediaQuery.of(context).size.width * 0.15
-            : MediaQuery.of(context).size.height * 0.07,
-        width: (toggle == 0)
-            ? MediaQuery.of(context).size.width * 0.15
-            : widget.width,
+            ? global.width(context) * 0.15
+            : global.height(context) * 0.07,
+        width: (toggle == 0) ? global.width(context) * 0.15 : widget.width,
         curve: Curves.easeOut,
         decoration: BoxDecoration(
           /// can add custom  color or the color will be white
@@ -183,8 +181,8 @@ class _AnimSearchBarState extends State<AnimSearchBar>
             ///Using Animated Positioned widget to expand and shrink the widget
             AnimatedPositioned(
               duration: Duration(milliseconds: widget.animationDurationInMilli),
-              top: MediaQuery.of(context).size.height * 0.02,
-              right: MediaQuery.of(context).size.width * 0.05,
+              top: global.height(context) * 0.02,
+              right: global.width(context) * 0.05,
               curve: Curves.easeOut,
               child: AnimatedOpacity(
                 opacity: (toggle == 0) ? 0.0 : 1.0,
@@ -253,7 +251,7 @@ class _AnimSearchBarState extends State<AnimSearchBar>
               duration: Duration(milliseconds: widget.animationDurationInMilli),
               left: (toggle == 0) ? 20.0 : 40.0,
               curve: Curves.easeOut,
-              top: MediaQuery.of(context).size.height * 0.0185,
+              top: global.height(context) * 0.0185,
 
               ///Using Animated opacity to change the opacity of th textField while expanding
               child: AnimatedOpacity(
@@ -330,7 +328,7 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                             child: Icon(
                               Icons.add,
                               color: Theme.of(context).colorScheme.onBackground,
-                              size: MediaQuery.of(context).size.width * 0.05,
+                              size: global.width(context) * 0.05,
                             ),
                           ),
                           onPressed: () {

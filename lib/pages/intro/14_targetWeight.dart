@@ -68,19 +68,17 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                     widget.isSettings
                         ? Padding(
                             padding: EdgeInsets.only(
-                                left: MediaQuery.of(context).size.width * 0.12,
-                                right:
-                                    MediaQuery.of(context).size.width * 0.17),
+                                left: global.width(context) * 0.12,
+                                right: global.width(context) * 0.17),
                             child: Text(
                               "Target Weight",
                               style: TextStyle(
                                   color: Theme.of(context).focusColor,
-                                  fontSize:
-                                      MediaQuery.of(context).size.width * 0.06),
+                                  fontSize: global.width(context) * 0.06),
                             ),
                           )
                         : SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.7,
+                            width: global.width(context) * 0.7,
                           ),
                     widget.isSettings
                         ? const SizedBox()
@@ -101,26 +99,25 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                               'Skip',
                               style: TextStyle(
                                   color: Theme.of(context).focusColor,
-                                  fontSize: MediaQuery.of(context).size.width *
-                                      0.035),
+                                  fontSize: global.width(context) * 0.035),
                             ),
                           ),
-                    SizedBox(width: MediaQuery.of(context).size.width * 0.02)
+                    SizedBox(width: global.width(context) * 0.02)
                   ],
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.03,
+                  height: global.height(context) * 0.03,
                 ),
                 widget.isSettings
                     ? SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.01,
+                        height: global.height(context) * 0.01,
                       )
                     : Stack(
                         alignment: Alignment.centerLeft,
                         children: [
                           Container(
-                            height: MediaQuery.of(context).size.width * 0.045,
-                            width: MediaQuery.of(context).size.width * 0.8,
+                            height: global.width(context) * 0.045,
+                            width: global.width(context) * 0.8,
                             decoration: BoxDecoration(
                               color: Theme.of(context).colorScheme.background,
                               border: Border.all(
@@ -131,31 +128,31 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.all(
-                                MediaQuery.of(context).size.width * 0.005),
+                            padding:
+                                EdgeInsets.all(global.width(context) * 0.005),
                             child: Container(
-                              height: MediaQuery.of(context).size.width * 0.035,
-                              width: MediaQuery.of(context).size.width * 0.035,
+                              height: global.width(context) * 0.035,
+                              width: global.width(context) * 0.035,
                               decoration: BoxDecoration(
                                 color: Theme.of(context).colorScheme.primary,
                                 borderRadius: BorderRadius.circular(
-                                    MediaQuery.of(context).size.width),
+                                    global.width(context)),
                               ),
                             ),
                           ),
                         ],
                       ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.03,
+                  height: global.height(context) * 0.03,
                 ),
                 Container(
                   alignment: Alignment.center,
-                  height: MediaQuery.of(context).size.height * 0.07,
-                  width: MediaQuery.of(context).size.width * 0.8,
+                  height: global.height(context) * 0.07,
+                  width: global.width(context) * 0.8,
                   decoration: BoxDecoration(
                     color: Theme.of(context).colorScheme.background,
-                    borderRadius: BorderRadius.circular(
-                        MediaQuery.of(context).size.width * 0.0375),
+                    borderRadius:
+                        BorderRadius.circular(global.width(context) * 0.0375),
                     boxShadow: [global.darkShadow(context)],
                   ),
                   child: Column(
@@ -165,16 +162,16 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                         'Select your',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: MediaQuery.of(context).size.height * 0.01 +
-                              MediaQuery.of(context).size.width * 0.02,
+                          fontSize: global.height(context) * 0.01 +
+                              global.width(context) * 0.02,
                         ),
                       ),
                       Text(
                         'target weight',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: MediaQuery.of(context).size.height * 0.01 +
-                              MediaQuery.of(context).size.width * 0.02,
+                          fontSize: global.height(context) * 0.01 +
+                              global.width(context) * 0.02,
                         ),
                       ),
                     ],
@@ -182,12 +179,12 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                 ),
                 Container(
                   alignment: Alignment.topCenter,
-                  height: MediaQuery.of(context).size.height * 0.6,
+                  height: global.height(context) * 0.6,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.015,
+                        height: global.height(context) * 0.015,
                       ),
                       Row(
                         children: [
@@ -206,12 +203,12 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                             },
                             onTapUp: (details) => continueCount = false,
                             child: Container(
-                              width: MediaQuery.of(context).size.width * 0.25,
-                              height: MediaQuery.of(context).size.height * 0.1,
+                              width: global.width(context) * 0.25,
+                              height: global.height(context) * 0.1,
                               decoration: BoxDecoration(
                                 color: Theme.of(context).colorScheme.surface,
                                 borderRadius: BorderRadius.circular(
-                                    MediaQuery.of(context).size.width * 0.02),
+                                    global.width(context) * 0.02),
                                 boxShadow: [global.darkShadow(context)],
                               ),
                               child: Column(
@@ -221,24 +218,22 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                                     '-',
                                     style: TextStyle(
                                         color: Theme.of(context).focusColor,
-                                        fontSize:
-                                            MediaQuery.of(context).size.width *
-                                                0.1),
+                                        fontSize: global.width(context) * 0.1),
                                   ),
                                 ],
                               ),
                             ),
                           ),
                           SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.025,
+                            width: global.width(context) * 0.025,
                           ),
                           Container(
-                            width: MediaQuery.of(context).size.width * 0.25,
-                            height: MediaQuery.of(context).size.height * 0.1,
+                            width: global.width(context) * 0.25,
+                            height: global.height(context) * 0.1,
                             decoration: BoxDecoration(
                               color: Theme.of(context).colorScheme.primary,
                               borderRadius: BorderRadius.circular(
-                                  MediaQuery.of(context).size.width * 0.02),
+                                  global.width(context) * 0.02),
                               boxShadow: [global.darkShadow(context)],
                             ),
                             child: Center(
@@ -246,14 +241,12 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                                 '${(targetWeight).toString()}kg',
                                 style: TextStyle(
                                     color: Colors.black,
-                                    fontSize:
-                                        MediaQuery.of(context).size.width *
-                                            0.05),
+                                    fontSize: global.width(context) * 0.05),
                               ),
                             ),
                           ),
                           SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.025,
+                            width: global.width(context) * 0.025,
                           ),
                           GestureDetector(
                             onTapDown: (details) async {
@@ -270,21 +263,19 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                             },
                             onTapUp: (details) => continueCount = false,
                             child: Container(
-                              width: MediaQuery.of(context).size.width * 0.25,
-                              height: MediaQuery.of(context).size.height * 0.1,
+                              width: global.width(context) * 0.25,
+                              height: global.height(context) * 0.1,
                               decoration: BoxDecoration(
                                 color: Theme.of(context).colorScheme.surface,
                                 borderRadius: BorderRadius.circular(
-                                    MediaQuery.of(context).size.width * 0.02),
+                                    global.width(context) * 0.02),
                                 boxShadow: [global.darkShadow(context)],
                               ),
                               child: Center(
                                 child: Text(
                                   '+',
                                   style: TextStyle(
-                                      fontSize:
-                                          MediaQuery.of(context).size.width *
-                                              0.1),
+                                      fontSize: global.width(context) * 0.1),
                                 ),
                               ),
                             ),
@@ -292,16 +283,16 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                         ],
                       ),
                       SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.05,
+                        height: global.height(context) * 0.05,
                       ),
                       Container(
                         alignment: Alignment.center,
-                        height: MediaQuery.of(context).size.height * 0.07,
-                        width: MediaQuery.of(context).size.width * 0.8,
+                        height: global.height(context) * 0.07,
+                        width: global.width(context) * 0.8,
                         decoration: BoxDecoration(
                           color: Theme.of(context).colorScheme.background,
                           borderRadius: BorderRadius.circular(
-                              MediaQuery.of(context).size.width * 0.0375),
+                              global.width(context) * 0.0375),
                           boxShadow: [global.darkShadow(context)],
                         ),
                         child: Column(
@@ -311,46 +302,43 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                               'Choose a',
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: MediaQuery.of(context).size.height *
-                                        0.01 +
-                                    MediaQuery.of(context).size.width * 0.02,
+                                fontSize: global.height(context) * 0.01 +
+                                    global.width(context) * 0.02,
                               ),
                             ),
                             Text(
                               'timeframe',
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: MediaQuery.of(context).size.height *
-                                        0.01 +
-                                    MediaQuery.of(context).size.width * 0.02,
+                                fontSize: global.height(context) * 0.01 +
+                                    global.width(context) * 0.02,
                               ),
                             ),
                           ],
                         ),
                       ),
                       SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.02,
+                        height: global.height(context) * 0.02,
                       ),
                       Container(
                         clipBehavior: Clip.hardEdge,
-                        height: MediaQuery.of(context).size.height * 0.15,
-                        width: MediaQuery.of(context).size.width * 0.8,
+                        height: global.height(context) * 0.15,
+                        width: global.width(context) * 0.8,
                         decoration: BoxDecoration(
                           color: Colors.white.withOpacity(0.05),
                           borderRadius: BorderRadius.circular(
-                              MediaQuery.of(context).size.width * 0.0375),
+                              global.width(context) * 0.0375),
                         ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Container(
-                              padding: EdgeInsets.all(
-                                  MediaQuery.of(context).size.height * 0.01),
+                              padding:
+                                  EdgeInsets.all(global.height(context) * 0.01),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(
-                                      MediaQuery.of(context).size.width *
-                                          0.0375),
+                                      global.width(context) * 0.0375),
                                 ),
                                 color: Theme.of(context).colorScheme.background,
                               ),
@@ -360,26 +348,20 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                                     color: withinRecommendedRange
                                         ? Theme.of(context).colorScheme.primary
                                         : Colors.white,
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.015),
+                                    fontSize: global.height(context) * 0.015),
                               ),
                             ),
-                            SizedBox(
-                                height: MediaQuery.of(context).size.height *
-                                    0.0125),
+                            SizedBox(height: global.height(context) * 0.0125),
                             SliderTheme(
                               data: SliderThemeData(
                                 thumbShape: RoundSliderThumbShape(
                                     enabledThumbRadius:
-                                        MediaQuery.of(context).size.height *
-                                            0.0125),
+                                        global.height(context) * 0.0125),
                                 thumbColor: withinRecommendedRange
                                     ? Theme.of(context).colorScheme.primary
                                     : const Color.fromARGB(255, 195, 195, 195)
                                         .withOpacity(0.9),
-                                trackHeight:
-                                    MediaQuery.of(context).size.height * 0.01,
+                                trackHeight: global.height(context) * 0.01,
                                 activeTrackColor: Colors.transparent,
                                 inactiveTrackColor: Colors.transparent,
                               ),
@@ -387,10 +369,8 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                                 alignment: Alignment.center,
                                 children: [
                                   Container(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.0075,
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.8,
+                                    height: global.height(context) * 0.0075,
+                                    width: global.width(context) * 0.8,
                                     color: Theme.of(context)
                                         .colorScheme
                                         .background,
@@ -431,18 +411,18 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                         ),
                       ),
                       SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.02,
+                        height: global.height(context) * 0.02,
                       ),
                       Container(
-                        height: MediaQuery.of(context).size.height * 0.1,
-                        width: MediaQuery.of(context).size.width * 0.8,
+                        height: global.height(context) * 0.1,
+                        width: global.width(context) * 0.8,
                         padding: EdgeInsets.only(
-                            top: MediaQuery.of(context).size.height * 0.025,
-                            left: MediaQuery.of(context).size.width * 0.045),
+                            top: global.height(context) * 0.025,
+                            left: global.width(context) * 0.045),
                         decoration: BoxDecoration(
                           color: Theme.of(context).colorScheme.background,
                           borderRadius: BorderRadius.circular(
-                              MediaQuery.of(context).size.width * 0.0375),
+                              global.width(context) * 0.0375),
                           boxShadow: [global.darkShadow(context)],
                         ),
                         child: Column(
@@ -454,11 +434,8 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                                   'Duration:  ',
                                   style: TextStyle(
                                     color: Colors.white,
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                                0.015 +
-                                            MediaQuery.of(context).size.width *
-                                                0.02,
+                                    fontSize: global.height(context) * 0.015 +
+                                        global.width(context) * 0.02,
                                   ),
                                 ),
                                 Text(
@@ -467,11 +444,8 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                                     color: withinRecommendedRange
                                         ? Theme.of(context).colorScheme.primary
                                         : Colors.white,
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                                0.015 +
-                                            MediaQuery.of(context).size.width *
-                                                0.02,
+                                    fontSize: global.height(context) * 0.015 +
+                                        global.width(context) * 0.02,
                                   ),
                                 ),
                               ],
@@ -482,11 +456,8 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                                   'Estimated completion:  ${estimatedCompletion.day}${estimatedCompletion.day > 3 ? 'th' : global.cardinals[estimatedCompletion.day]} ${global.months[estimatedCompletion.month - 1]} ${estimatedCompletion.year}',
                                   style: TextStyle(
                                     color: Theme.of(context).colorScheme.shadow,
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                                0.006 +
-                                            MediaQuery.of(context).size.width *
-                                                0.02,
+                                    fontSize: global.height(context) * 0.006 +
+                                        global.width(context) * 0.02,
                                   ),
                                 ),
                               ],
@@ -499,7 +470,9 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    if (botSelected && topSelected && widget.isSettings == false) {
+                    if (botSelected &&
+                        topSelected &&
+                        widget.isSettings == false) {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -511,8 +484,8 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                     }
                   },
                   child: Container(
-                    height: MediaQuery.of(context).size.height * 0.05,
-                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: global.height(context) * 0.05,
+                    width: global.width(context) * 0.8,
                     decoration: BoxDecoration(
                       boxShadow: [global.darkShadow(context)],
                       color: botSelected && topSelected
@@ -529,8 +502,7 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                               color: botSelected && topSelected
                                   ? Colors.black
                                   : Theme.of(context).focusColor,
-                              fontSize:
-                                  MediaQuery.of(context).size.height * 0.025),
+                              fontSize: global.height(context) * 0.025),
                         ),
                       ],
                     ),
@@ -557,8 +529,8 @@ class MetricTile extends StatelessWidget {
         isKg ? 'kg' : 'lbs',
         style: TextStyle(
             color: Theme.of(context).focusColor,
-            fontSize: MediaQuery.of(context).size.height * 0.005 +
-                MediaQuery.of(context).size.width * 0.02),
+            fontSize:
+                global.height(context) * 0.005 + global.width(context) * 0.02),
       ),
     );
   }

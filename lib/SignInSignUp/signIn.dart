@@ -46,15 +46,14 @@ class _SignInState extends State<SignIn> {
           children: [
             Container(
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                        begin: Alignment.bottomLeft,
-                        end: Alignment.centerRight,
-                        colors: [
-                          Theme.of(context).colorScheme.primary,
-                          Theme.of(context).colorScheme.onPrimary,
-                        ],
-                      )
-              ),
+                  gradient: LinearGradient(
+                begin: Alignment.bottomLeft,
+                end: Alignment.centerRight,
+                colors: [
+                  Theme.of(context).colorScheme.primary,
+                  Theme.of(context).colorScheme.onPrimary,
+                ],
+              )),
             ),
             Stack(
               children: [
@@ -74,7 +73,7 @@ class _SignInState extends State<SignIn> {
                     'SIGN IN',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.width * 0.1,
+                      fontSize: global.width(context) * 0.1,
                       fontWeight: FontWeight.bold,
                       color: Theme.of(context).colorScheme.onBackground,
                     ),
@@ -85,7 +84,7 @@ class _SignInState extends State<SignIn> {
             Center(
               child: Container(
                 width: global.width(context) * global.containerWidthFactor,
-                height: MediaQuery.of(context).size.height * 0.65,
+                height: global.height(context) * 0.65,
                 decoration: BoxDecoration(
                     color: global.isDarkMode(context)
                         ? Theme.of(context)
@@ -149,7 +148,7 @@ class _SignInState extends State<SignIn> {
                           errorText,
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.error,
-                            fontSize: MediaQuery.of(context).size.width * 0.04,
+                            fontSize: global.width(context) * 0.04,
                           ),
                         ),
                       ),
@@ -209,12 +208,12 @@ class _SignInState extends State<SignIn> {
                         setState(() {});
                       },
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.04),
+                    SizedBox(height: global.height(context) * 0.04),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
-                          width: MediaQuery.of(context).size.width * 0.1,
+                          width: global.width(context) * 0.1,
                           height: 1,
                           color: Theme.of(context).focusColor,
                         ),
@@ -231,14 +230,14 @@ class _SignInState extends State<SignIn> {
                           ),
                         ),
                         Container(
-                          width: MediaQuery.of(context).size.width * 0.1,
+                          width: global.width(context) * 0.1,
                           height: 1,
                           color: Theme.of(context).focusColor,
                         ),
                       ],
                     ),
                     SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.0425,
+                      height: global.height(context) * 0.0425,
                     ),
                     ...[
                       {
@@ -262,8 +261,8 @@ class _SignInState extends State<SignIn> {
                       (e) => Container(
                         margin: const EdgeInsets.only(top: 5, bottom: 5),
                         alignment: Alignment.center,
-                        width: MediaQuery.of(context).size.width * .8,
-                        height: MediaQuery.of(context).size.height * 0.05,
+                        width: global.width(context) * .8,
+                        height: global.height(context) * 0.05,
                         decoration: BoxDecoration(
                             color:
                                 Theme.of(context).focusColor.withOpacity(0.8),
@@ -274,8 +273,7 @@ class _SignInState extends State<SignIn> {
                           children: [
                             e['title'] == 'Continue with Google'
                                 ? SizedBox(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.012,
+                                    width: global.width(context) * 0.012,
                                   )
                                 : const SizedBox(),
                             SizedBox(
@@ -288,8 +286,7 @@ class _SignInState extends State<SignIn> {
                                 letterSpacing: -0.5,
                                 color:
                                     Theme.of(context).scaffoldBackgroundColor,
-                                fontSize:
-                                    MediaQuery.of(context).size.width * 0.03,
+                                fontSize: global.width(context) * 0.03,
                               ),
                             ),
                             const SizedBox(),

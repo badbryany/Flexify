@@ -1,4 +1,4 @@
-import 'package:flexify/SignInSignUp/choose.dart';
+import 'package:flexify/SignInSignUp/signIn.dart';
 import 'package:flexify/pages/settings/widgets/biometricPage.dart';
 import 'package:flexify/pages/settings/widgets/feedbackPage.dart';
 import 'package:flexify/pages/settings/widgets/notificationsPage.dart';
@@ -60,21 +60,21 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: SafeArea(
         child: Column(
           children: [
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.03,
+              height: global.height(context) * 0.03,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Container(
                   alignment: Alignment.center,
-                  padding:
-                      EdgeInsets.all(MediaQuery.of(context).size.width * 0.005),
-                  width: MediaQuery.of(context).size.width * 0.14,
-                  height: MediaQuery.of(context).size.width * 0.14,
+                  padding: EdgeInsets.all(global.width(context) * 0.005),
+                  width: global.width(context) * 0.14,
+                  height: global.width(context) * 0.14,
                   decoration: BoxDecoration(
                     boxShadow: ([global.darkShadow(context)]),
                     color: Theme.of(context).colorScheme.background,
@@ -89,7 +89,7 @@ class SettingsPage extends StatelessWidget {
                     },
                     color: Theme.of(context).colorScheme.onBackground,
                     icon: const Icon(Icons.close_rounded),
-                    iconSize: MediaQuery.of(context).size.width * 0.05,
+                    iconSize: global.width(context) * 0.05,
                   ),
                 ),
                 Text(
@@ -105,12 +105,11 @@ class SettingsPage extends StatelessWidget {
               ],
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.03,
+              height: global.height(context) * 0.03,
             ),
             Container(
-              width: MediaQuery.of(context).size.width *
-                  global.containerWidthFactor,
-              height: MediaQuery.of(context).size.height * 0.8,
+              width: global.width(context) * global.containerWidthFactor,
+              height: global.height(context) * 0.8,
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.background,
                 borderRadius: BorderRadius.circular(global.borderRadius),
@@ -144,7 +143,7 @@ class SettingsPage extends StatelessWidget {
                                     MaterialPageRoute(
                                       builder: (context) => const PopScope(
                                         canPop: false,
-                                        child: Choose(),
+                                        child: SignIn(),
                                       ),
                                     ),
                                   );
@@ -166,13 +165,12 @@ class SettingsPage extends StatelessWidget {
                       );
                     },
                     child: Container(
-                      padding: EdgeInsets.only(
-                        left: MediaQuery.of(context).size.width * 0.1,
-                        right: MediaQuery.of(context).size.width * 0.1,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: global.width(context) * 0.1,
                       ),
-                      height: MediaQuery.of(context).size.height * 0.1,
-                      width: MediaQuery.of(context).size.width *
-                          global.containerWidthFactor,
+                      height: global.height(context) * 0.1,
+                      width:
+                          global.width(context) * global.containerWidthFactor,
                       decoration: BoxDecoration(
                           border: index != 7
                               ? Border(

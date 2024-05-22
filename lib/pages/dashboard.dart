@@ -1,14 +1,16 @@
 import 'dart:convert';
 
-import 'package:flexify/pages/food/dashboardFood.dart';
-import 'package:flexify/pages/leaderboards/dashboardLeaderboards.dart';
-import 'package:flexify/pages/profile/dashboardProfile.dart';
+import 'package:flexify/pages/dPlan/dashboardPlan.dart';
+import 'package:flexify/pages/dShop/dashboardShop.dart';
+import 'package:flexify/pages/dLeaderboards/dashboardLeaderboards.dart';
+import 'package:flexify/pages/dProfile/dashboardProfile.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
 import 'package:http/http.dart' as http;
 
-import 'package:flexify/pages/workout/dashboardWorkout.dart';
+import 'package:flexify/pages/dWorkout/dashboardWorkout.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -27,19 +29,24 @@ class _DashboardState extends State<Dashboard> {
 
   final List<dynamic> dashboardOptions = [
     {
+      'title': 'Shop',
+      'widget': const DashboardShop(),
+      'icon': Icons.shopify_sharp,
+    },
+    {
+      'title': 'Plan',
+      'widget': const DashboardPlan(),
+      'icon': Icons.event_note_rounded
+    },
+    {
       'title': 'Workout',
       'widget': const DashboardWorkout(),
       'icon': Icons.fitness_center_rounded,
     },
     {
-      'title': 'Leaderboards',
+      'title': 'Stats',
       'widget': const DashboardLeaderboards(),
       'icon': Icons.bar_chart_rounded,
-    },
-    {
-      'title': 'Food',
-      'widget': const DashboardFood(),
-      'icon': Icons.restaurant_rounded,
     },
     {
       'title': 'Profile',
@@ -69,51 +76,48 @@ class _DashboardState extends State<Dashboard> {
         systemNavigationBarIconBrightness: Theme.of(context).brightness,
       ),
     );
+
     return PopScope(
       canPop: false,
       child: Scaffold(
+        appBar: AppBar(),
         body: SafeArea(
           child: SizedBox(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
+            width: global.width(context),
+            height: global.height(context),
             child: ListView(
               physics: const BouncingScrollPhysics(),
               children: [
                 // HEADER
                 Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.1,
+                  width: global.width(context),
+                  height: global.height(context) * 0.1,
                   padding: EdgeInsets.only(
-                    left: MediaQuery.of(context).size.width * 0.1,
-                    right: MediaQuery.of(context).size.width * 0.1,
+                    left: global.width(context) * 0.1,
+                    right: global.width(context) * 0.1,
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.05,
-                      ),
                       Image.asset(
                         global.isDarkMode(context)
                             ? 'assets/logo/darklogo.png'
                             : 'assets/logo/lightlogo.png',
-                        width: MediaQuery.of(context).size.width * 0.11,
-                        height: MediaQuery.of(context).size.width * 0.11,
+                        width: global.width(context) * 0.11,
+                        height: global.width(context) * 0.11,
                       ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.1,
-                      ),
-                      Text(
-                        'Flexify',
-                        style: TextStyle(
-                          color: Theme.of(context).focusColor,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: -1,
-                          fontSize: global.width(context) * 0.07,
+                      Container(
+                        width: global.width(context) * .5,
+                        alignment: Alignment.center,
+                        child: Text(
+                          dashboardOptions[_selectedIndex]['title'],
+                          style: TextStyle(
+                            color: Theme.of(context).focusColor,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: -1,
+                            fontSize: global.width(context) * 0.08,
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.12,
                       ),
                       IconButton(
                         onPressed: () {
@@ -126,13 +130,10 @@ class _DashboardState extends State<Dashboard> {
                         },
                         iconSize: 30,
                         icon: Icon(
-                          Icons.more_horiz_rounded,
+                          CupertinoIcons.settings,
                           color: Theme.of(context).focusColor,
                         ),
                       ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.05,
-                      )
                     ],
                   ),
                 ),
@@ -154,10 +155,11 @@ class _DashboardState extends State<Dashboard> {
             ),
           ),
         ),
+
         // SPACING
         bottomNavigationBar: Container(
-          padding: EdgeInsets.symmetric(
-              vertical: MediaQuery.of(context).size.height * 0.025),
+          padding:
+              EdgeInsets.symmetric(vertical: global.height(context) * 0.025),
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.background,
             borderRadius: const BorderRadius.only(

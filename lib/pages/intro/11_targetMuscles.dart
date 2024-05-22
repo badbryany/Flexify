@@ -17,6 +17,7 @@ class _ElevenTargetMusclesState extends State<ElevenTargetMuscles> {
     super.initState();
   }
 
+  @override
   void dispose() {
     super.dispose();
   }
@@ -34,61 +35,66 @@ class _ElevenTargetMusclesState extends State<ElevenTargetMuscles> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.05,
+                  height: global.height(context) * 0.05,
                 ),
                 Row(
                   children: [
                     const IntroNavBarIcon(),
                     widget.isSettings
                         ? Padding(
-                          padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.11, right:  MediaQuery.of(context).size.width * 0.13),
-                          child: Text(
+                            padding: EdgeInsets.only(
+                                left: global.width(context) * 0.11,
+                                right: global.width(context) * 0.13),
+                            child: Text(
                               "Target Muscles",
-                              style:
-                                  TextStyle(color: Theme.of(context).focusColor, fontSize: MediaQuery.of(context).size.width * 0.06),
+                              style: TextStyle(
+                                  color: Theme.of(context).focusColor,
+                                  fontSize: global.width(context) * 0.06),
                             ),
-                        )
+                          )
                         : SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.7,
+                            width: global.width(context) * 0.7,
                           ),
                     widget.isSettings
                         ? const SizedBox()
-                        : 
-                    GestureDetector(
-                      onTap: () {
-                        if (widget.isSettings == false) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const TwelveLocation(isSettings: false,),
+                        : GestureDetector(
+                            onTap: () {
+                              if (widget.isSettings == false) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const TwelveLocation(
+                                      isSettings: false,
+                                    ),
+                                  ),
+                                );
+                              } else {
+                                Navigator.pop(context);
+                              }
+                            },
+                            child: Text(
+                              'Skip',
+                              style: TextStyle(
+                                  color: Theme.of(context).focusColor,
+                                  fontSize: global.width(context) * 0.035),
                             ),
-                          );
-                        }
-                        else {
-                          Navigator.pop(context);
-                        }
-                      },
-                      child: Text(
-                        'Skip',
-                        style: TextStyle(color: Theme.of(context).focusColor, fontSize: MediaQuery.of(context).size.width * 0.035),
-                      ),
-                    ),
-                    SizedBox(width: MediaQuery.of(context).size.width * 0.02)
+                          ),
+                    SizedBox(width: global.width(context) * 0.02)
                   ],
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.03,
+                  height: global.height(context) * 0.03,
                 ),
                 widget.isSettings
                     ? SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.01,
+                        height: global.height(context) * 0.01,
                       )
                     : Stack(
                         alignment: Alignment.centerLeft,
                         children: [
                           Container(
-                            height: MediaQuery.of(context).size.width * 0.045,
-                            width: MediaQuery.of(context).size.width * 0.8,
+                            height: global.width(context) * 0.045,
+                            width: global.width(context) * 0.8,
                             decoration: BoxDecoration(
                               color: Theme.of(context).colorScheme.background,
                               border: Border.all(
@@ -99,31 +105,31 @@ class _ElevenTargetMusclesState extends State<ElevenTargetMuscles> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.all(
-                                MediaQuery.of(context).size.width * 0.005),
+                            padding:
+                                EdgeInsets.all(global.width(context) * 0.005),
                             child: Container(
-                              height: MediaQuery.of(context).size.width * 0.035,
-                              width: MediaQuery.of(context).size.width * 0.035,
+                              height: global.width(context) * 0.035,
+                              width: global.width(context) * 0.035,
                               decoration: BoxDecoration(
                                 color: Theme.of(context).colorScheme.primary,
                                 borderRadius: BorderRadius.circular(
-                                    MediaQuery.of(context).size.width),
+                                    global.width(context)),
                               ),
                             ),
                           ),
                         ],
                       ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.03,
+                  height: global.height(context) * 0.03,
                 ),
                 Container(
                   alignment: Alignment.center,
-                  height: MediaQuery.of(context).size.height * 0.07,
-                  width: MediaQuery.of(context).size.width * 0.8,
+                  height: global.height(context) * 0.07,
+                  width: global.width(context) * 0.8,
                   decoration: BoxDecoration(
                     color: Theme.of(context).colorScheme.background,
-                    borderRadius: BorderRadius.circular(
-                        MediaQuery.of(context).size.width * 0.0375),
+                    borderRadius:
+                        BorderRadius.circular(global.width(context) * 0.0375),
                     border: Border.all(
                       color: Theme.of(context).focusColor,
                       width: 2,
@@ -136,23 +142,23 @@ class _ElevenTargetMusclesState extends State<ElevenTargetMuscles> {
                         'Which muscles do you',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: MediaQuery.of(context).size.height * 0.01 +
-                              MediaQuery.of(context).size.width * 0.02,
+                          fontSize: global.height(context) * 0.01 +
+                              global.width(context) * 0.02,
                         ),
                       ),
                       Text(
                         'want to grow?',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: MediaQuery.of(context).size.height * 0.01 +
-                              MediaQuery.of(context).size.width * 0.02,
+                          fontSize: global.height(context) * 0.01 +
+                              global.width(context) * 0.02,
                         ),
                       ),
                     ],
                   ),
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.55,
+                  height: global.height(context) * 0.55,
                   child: const Center(
                       child: Text("TODO: Clickable (Hightlights), 3d Model")),
                 ),
@@ -162,17 +168,18 @@ class _ElevenTargetMusclesState extends State<ElevenTargetMuscles> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => TwelveLocation(isSettings: false,),
+                          builder: (context) => const TwelveLocation(
+                            isSettings: false,
+                          ),
                         ),
                       );
-                    }
-                    else {
+                    } else {
                       Navigator.pop(context);
                     }
                   },
                   child: Container(
-                    height: MediaQuery.of(context).size.height * 0.05,
-                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: global.height(context) * 0.05,
+                    width: global.width(context) * 0.8,
                     decoration: BoxDecoration(
                       boxShadow: [global.darkShadow(context)],
                       color: selected != 0
@@ -187,8 +194,7 @@ class _ElevenTargetMusclesState extends State<ElevenTargetMuscles> {
                           widget.isSettings ? "Enter" : "Next",
                           style: TextStyle(
                               color: Theme.of(context).focusColor,
-                              fontSize:
-                                  MediaQuery.of(context).size.height * 0.025),
+                              fontSize: global.height(context) * 0.025),
                         ),
                       ],
                     ),
