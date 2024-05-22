@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flexify/pages/dShop/pages/widgets/ShopNavbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -32,15 +33,20 @@ class _QRScannerState extends State<QRScanner> {
   }
 
   Widget buildQrView(BuildContext context) {
-    return QRView(
-      key: qrKey,
-      onQRViewCreated: onQRViewCreated,
-      // overlay: QrScannerOverlayShape(
-      //     cutOutSize: global.width(context) * .8,
-      //     borderWidth: 10,
-      //     borderLength: 20,
-      //     borderRadius: 30,
-      //     borderColor: Theme.of(context).colorScheme.primary),
+    return SizedBox(
+      height: global.height(context),
+      width: global.width(context),
+      child: QRView(
+        key: qrKey,
+        onQRViewCreated: onQRViewCreated,
+        overlay: QrScannerOverlayShape(
+          cutOutSize: global.width(context) * .8,
+          borderWidth: 10,
+          borderLength: 20,
+          borderRadius: 30,
+          borderColor: Theme.of(context).colorScheme.primary,
+        ),
+      ),
     );
   }
 
@@ -51,11 +57,8 @@ class _QRScannerState extends State<QRScanner> {
 
     controller.scannedDataStream.listen(
       (barcode) {
-        setState(
-          () {
-            this.barcode = barcode;
-          },
-        );
+        print(barcode);
+        controller.pauseCamera();
       },
     );
   }
@@ -65,47 +68,13 @@ class _QRScannerState extends State<QRScanner> {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
-        child: Column(
+        child: Stack(
           children: [
-            SizedBox(
-              height: global.height(context) * .03,
+            buildQrView(context),
+            ShopNavbar(
+              title: 'Scan a QR-Code',
+              onTap: () => Navigator.pop(context),
             ),
-            Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: global.width(context) * 0.05,
-              ),
-              child: Row(
-                children: [
-                  AnimatedContainer(
-                    duration: global.standardAnimationDuration,
-                    alignment: Alignment.center,
-                    padding: EdgeInsets.all(global.width(context) * 0.005),
-                    width: global.width(context) * 0.15,
-                    height: global.width(context) * 0.15,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.background,
-                      borderRadius: BorderRadius.circular(100),
-                      boxShadow: [global.darkShadow(context)],
-                    ),
-                    child: IconButton(
-                      splashColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      color: Theme.of(context).colorScheme.onBackground,
-                      icon: const Icon(Icons.arrow_back_rounded),
-                      iconSize: global.width(context) * 0.05,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: global.height(context) * .02,
-            ),
-            buildQrView(context)
           ],
         ),
       ),
