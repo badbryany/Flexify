@@ -126,7 +126,7 @@ class _UserInfoState extends State<UserInfo> {
                             alignment: Alignment.center,
                             margin: EdgeInsets.only(
                               top: containerHeight * .3,
-                              left: global.width(context) * .1,
+                              left: global.width(context) * .15,
                             ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -270,7 +270,8 @@ class _UserInfoState extends State<UserInfo> {
                 scale: animation,
                 child: child,
               ),
-              child: SizedBox(
+              child: Container(
+                  padding: EdgeInsets.all(global.width(context) * .025),
                   key: ValueKey(editing),
                   child: Icon(
                     editing ? Icons.close : Icons.edit,
