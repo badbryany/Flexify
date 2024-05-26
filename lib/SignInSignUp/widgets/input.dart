@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flexify/data/globalVariables.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
 
 class Input extends StatelessWidget {
@@ -14,55 +13,38 @@ class Input extends StatelessWidget {
   final String hintText;
   final TextInputType textInputType;
   final TextEditingController controller;
-  final IconButton? icon;
+  final Icon? icon;
   final bool password;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(7.5),
-      height: global.height(context) * 0.1,
-      width: global.width(context) * 0.9,
-      child: Stack(
-        children: [
-          TextField(
-            keyboardType: textInputType,
-            textAlign: TextAlign.center,
-            decoration: InputDecoration(
-              labelStyle: TextStyle(
-                color: Theme.of(context).colorScheme.surface,
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(borderRadius * 0.4),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(borderRadius * 0.4),
-              ),
-              hintStyle: TextStyle(
-                color: Theme.of(context).colorScheme.onBackground,
-              ),
-              filled: true,
-              fillColor: Theme.of(context).colorScheme.onSurface,
-              hintText: hintText,
-              border: InputBorder.none,
-            ),
-            textInputAction: TextInputAction.next,
-            obscureText: password,
-            cursorColor: Theme.of(context).colorScheme.surface,
-            controller: controller,
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.surface,
-            ),
+      width: global.width(context) * .8,
+      margin: const EdgeInsets.only(top: 5, bottom: 5),
+      padding: const EdgeInsets.symmetric(
+        vertical: 5,
+        horizontal: 10,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.black.withOpacity(.25),
+        borderRadius: BorderRadius.circular(global.borderRadius - 15),
+      ),
+      child: TextField(
+        obscureText: password,
+        controller: controller,
+        style: TextStyle(
+          color: Theme.of(context).colorScheme.onBackground,
+        ),
+        decoration: InputDecoration(
+          prefixIcon: icon,
+          prefixIconColor: Theme.of(context).colorScheme.onBackground,
+          labelText: hintText,
+          labelStyle: TextStyle(
+            color: Theme.of(context).colorScheme.onBackground.withOpacity(.3),
           ),
-          Visibility(
-            visible: icon != null,
-            child: Container(
-              alignment: Alignment.centerRight,
-              margin: const EdgeInsets.only(right: 20, bottom: 18),
-              child: icon ?? const SizedBox(),
-            ),
-          ),
-        ],
+          border: InputBorder.none,
+        ),
+        cursorColor: Theme.of(context).colorScheme.onBackground,
       ),
     );
   }
