@@ -186,9 +186,14 @@ class _SignInState extends State<SignIn> {
                             setState(() {});
                             return;
                           }
+
+                          dynamic body = jsonDecode(res.body);
+
                           prefs.setString('username', username);
                           prefs.setString('password', password);
-                          prefs.setString('jwt', res.body);
+                          prefs.setString('jwt', body['jwt']);
+                          prefs.setString('email', body['email']);
+                          prefs.setString('firstname', body['firstname']);
 
                           await syncData();
 
