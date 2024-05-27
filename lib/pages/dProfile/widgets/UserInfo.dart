@@ -7,6 +7,10 @@ import 'package:page_transition/page_transition.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+
+import 'package:image_picker/image_picker.dart';
+import 'package:image/image.dart' as img;
 
 class UserInfo extends StatefulWidget {
   const UserInfo({super.key});
@@ -20,6 +24,9 @@ class _UserInfoState extends State<UserInfo> {
   String email = '';
 
   bool editing = false;
+  bool loading = false;
+
+  XFile? image;
 
   List<Map<String, dynamic>> controllers = [
     {
@@ -69,6 +76,73 @@ class _UserInfoState extends State<UserInfo> {
 
     username = prefs.getString('username')!;
     email = prefs.getString('email')!;
+    setState(() {});
+  }
+
+  Future<List<int>> compressImage(XFile image) async {
+    final decodedImage = img.decodeImage(await image.readAsBytes());
+    final compressedImage = img.encodeJpg(
+      decodedImage!,
+      quality: 10,
+    );
+    return compressedImage;
+  }
+
+  Future<http.Response> uploadImage(XFile image) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var multipartRequest = http.MultipartRequest(
+      'POST',
+      Uri.parse('${global.host}/uploadProfilePicture'),
+    );
+
+    multipartRequest.fields['jwt'] = prefs.getString('jwt')!;
+    var multipartFile = http.MultipartFile.fromBytes(
+      'image',
+      await compressImage(image),
+      filename: image.path.split('/').last,
+    );
+    multipartRequest.files.add(multipartFile);
+
+    var response = await multipartRequest.send();
+    return http.Response.fromStream(response);
+  }
+
+  pickImage() async {
+    if (loading) return;
+
+    loading = true;
+    setState(() {});
+
+    XFile? tmpImage = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+    );
+
+    if (tmpImage == null) {
+      loading = false;
+      setState(() {});
+      return;
+    }
+
+    image = tmpImage;
+
+    loading = false;
+    setState(() {});
+  }
+
+  saveData() async {
+    loading = true;
+    setState(() {});
+
+    if (image != null) {
+      await uploadImage(image!);
+    }
+
+    // !TODO implement me
+
+    print('update Data');
+
+    editing = false;
+    loading = false;
     setState(() {});
   }
 
@@ -145,7 +219,9 @@ class _UserInfoState extends State<UserInfo> {
                                   height: global.height(context) * .005,
                                 ),
                                 Text(
-                                  email.isNotEmpty ? email : '---',
+                                  email.isNotEmpty
+                                      ? '${email.length >= 20 ? email.substring(0, 20).trim() : email}...'
+                                      : '---',
                                   style: TextStyle(
                                     color: Colors.white.withOpacity(.75),
                                     fontSize: global.height(context) * .02,
@@ -158,33 +234,69 @@ class _UserInfoState extends State<UserInfo> {
                   ),
                 ),
                 // Profilepicture
-                AnimatedScale(
-                  duration: global.standardAnimationDuration,
-                  scale: editing ? 1.125 : 1,
-                  child: AnimatedContainer(
+                GestureDetector(
+                  onTap: editing ? pickImage : null,
+                  child: AnimatedScale(
                     duration: global.standardAnimationDuration,
-                    height: global.height(context) * .1,
-                    width: global.height(context) * .1,
-                    alignment:
-                        editing ? Alignment.topCenter : Alignment.centerLeft,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(1000),
-                      boxShadow: [global.darkShadow(context)],
-                    ),
-                    margin: EdgeInsets.only(
-                      top:
-                          (containerHeight / 2) - global.height(context) * .075,
-                      left: editing
-                          ? (global.width(context) *
-                                  global.containerWidthFactor /
-                                  2) -
-                              global.height(context) * .055
-                          : global.width(context) * .075,
-                    ),
-                    child: LoadingImage(
-                      url:
-                          'https://flexify.kellermann.team/api/getProfilePicture?username=${username.isNotEmpty ? username : '---'}',
+                    scale: editing ? 1.125 : 1,
+                    child: AnimatedContainer(
+                      duration: global.standardAnimationDuration,
+                      height: global.height(context) * .1,
                       width: global.height(context) * .1,
+                      alignment:
+                          editing ? Alignment.topCenter : Alignment.centerLeft,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(1000),
+                        boxShadow: [global.darkShadow(context)],
+                      ),
+                      margin: EdgeInsets.only(
+                        top: (containerHeight / 2) -
+                            global.height(context) * .075,
+                        left: editing
+                            ? (global.width(context) *
+                                    global.containerWidthFactor /
+                                    2) -
+                                global.height(context) * .055
+                            : global.width(context) * .075,
+                      ),
+                      child: Stack(
+                        children: [
+                          LoadingImage(
+                            url:
+                                'https://flexify.kellermann.team/api/getProfilePicture?username=$username',
+                            path: image?.path,
+                            width: global.width(context) * .25,
+                          ),
+                          AnimatedOpacity(
+                            duration: global.standardAnimationDuration,
+                            opacity: editing ? 1 : 0,
+                            child: Container(
+                              alignment: Alignment.bottomRight,
+                              child: Container(
+                                margin: EdgeInsets.only(
+                                  bottom: global.width(context) * .035,
+                                  right: global.width(context) * .035,
+                                ),
+                                padding: const EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .background
+                                      .withOpacity(.9),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Icon(
+                                  Icons.edit,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onBackground,
+                                  size: global.width(context) * .04,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -226,60 +338,78 @@ class _UserInfoState extends State<UserInfo> {
                     ),
                   ),
                 ),
-                // save / delete edited data
-                AnimatedOpacity(
-                  duration: global.standardAnimationDuration,
-                  opacity: editing ? 1 : 0,
-                  child: Container(
-                    alignment: Alignment.bottomCenter,
-                    margin: EdgeInsets.only(
-                      bottom: global.height(context) * .0125,
-                      left: global.width(context) * .05,
-                      right: global.width(context) * .05,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        UserInfoButton(
-                            icon: Icons.close,
-                            onTap: () => setState(() => editing = false)),
-                        UserInfoButton(
-                          icon: Icons.save,
-                          highlight: true,
-                          onTap: () => print('saveData'),
-                        ),
-                      ],
+
+                // edit / cancel icon-utton
+                Container(
+                  alignment: Alignment.topRight,
+                  margin: EdgeInsets.all(global.width(context) * .05),
+                  padding: EdgeInsets.all(global.width(context) * .025),
+                  child: GestureDetector(
+                    onTap: () => setState(() => editing = !editing),
+                    child: AnimatedSwitcher(
+                      duration: global.standardAnimationDuration,
+                      transitionBuilder: (child, animation) => ScaleTransition(
+                        scale: animation,
+                        child: child,
+                      ),
+                      child: Container(
+                          padding: EdgeInsets.all(global.width(context) * .025),
+                          key: ValueKey(editing),
+                          child: Icon(
+                            editing ? Icons.close : Icons.edit,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onBackground
+                                .withOpacity(.75),
+                          )),
                     ),
                   ),
                 ),
-              ],
-            ),
-          ),
-        ),
 
-        // edit / cancel icon-utton
-        Container(
-          alignment: Alignment.topRight,
-          margin: EdgeInsets.all(global.width(context) * .05),
-          padding: EdgeInsets.all(global.width(context) * .025),
-          child: GestureDetector(
-            onTap: () => setState(() => editing = !editing),
-            child: AnimatedSwitcher(
-              duration: global.standardAnimationDuration,
-              transitionBuilder: (child, animation) => ScaleTransition(
-                scale: animation,
-                child: child,
-              ),
-              child: Container(
-                  padding: EdgeInsets.all(global.width(context) * .025),
-                  key: ValueKey(editing),
-                  child: Icon(
-                    editing ? Icons.close : Icons.edit,
-                    color: Theme.of(context)
-                        .colorScheme
-                        .onBackground
-                        .withOpacity(.75),
-                  )),
+                // save / delete edited data
+                Visibility(
+                  visible: editing,
+                  child: AnimatedOpacity(
+                    duration: global.standardAnimationDuration,
+                    opacity: editing ? 1 : 0,
+                    child: loading
+                        ? Container(
+                            height: containerHeight * 2.5,
+                            width: global.width(context) *
+                                global.containerWidthFactor,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: Colors.black.withOpacity(.5),
+                              borderRadius:
+                                  BorderRadius.circular(global.borderRadius),
+                            ),
+                            child: global.loadingWidget(context, .75),
+                          )
+                        : Container(
+                            alignment: Alignment.bottomCenter,
+                            margin: EdgeInsets.only(
+                              bottom: global.height(context) * .0125,
+                              left: global.width(context) * .05,
+                              right: global.width(context) * .05,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                UserInfoButton(
+                                    icon: Icons.close,
+                                    onTap: () =>
+                                        setState(() => editing = false)),
+                                UserInfoButton(
+                                  icon: Icons.save,
+                                  highlight: true,
+                                  onTap: saveData,
+                                ),
+                              ],
+                            ),
+                          ),
+                  ),
+                ),
+              ],
             ),
           ),
         ),
