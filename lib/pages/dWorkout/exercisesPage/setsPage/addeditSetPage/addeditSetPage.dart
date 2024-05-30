@@ -1,7 +1,10 @@
-import 'package:flexify/pages/dWorkout/exercisesPage/setsPage/addeditSetPage/SetInput.dart';
+import 'package:flexify/pages/dShop/pages/widgets/ShopNavbar.dart';
+import 'package:flexify/pages/dWorkout/exercisesPage/setsPage/addeditSetPage/widgets/SetInput.dart';
+import 'package:flexify/pages/dWorkout/exercisesPage/setsPage/addeditSetPage/widgets/TimeInput.dart';
+import 'package:flexify/pages/dWorkout/exercisesPage/setsPage/addeditSetPage/widgets/ToggleSetType.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../../../../data/exerciseModels.dart';
+import 'package:flexify/data/exerciseModels.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
 
 class AddEditSet extends StatefulWidget {
@@ -32,11 +35,18 @@ class _AddEditSetState extends State<AddEditSet> {
   final FixedExtentScrollController _secondController =
       FixedExtentScrollController(initialItem: 0);
 
-  bool amountMetric = false;
+  List<Map<String, dynamic>> setTypes = [
+    {'title': 'Repetitions', 'icon': Icons.timer},
+    {'title': 'Time', 'icon': Icons.autorenew},
+  ];
+  int activeTypeIndex = 0;
+  ScrollController typeInputController = ScrollController();
+
   bool bodyweight = false;
 
   int newReps = 0;
   double newWeight = 0;
+
   getData() async {
     List<Set> sets = await Save.getSetList();
 
@@ -69,6 +79,80 @@ class _AddEditSetState extends State<AddEditSet> {
     super.initState();
   }
 
+  List<Widget> bodyWeightAndWeigh() => [
+        global.smallHeight(context),
+        GestureDetector(
+          onTap: () {
+            bodyweight = !bodyweight;
+            setState(
+              () {},
+            );
+          },
+          child: AnimatedContainer(
+            duration: global.standardAnimationDuration,
+            padding: EdgeInsets.symmetric(
+              horizontal: global.width(context) * 0.075,
+            ),
+            height: global.height(context) * 0.1,
+            width: global.width(context) * global.containerWidthFactor,
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.background,
+              borderRadius: BorderRadius.circular(global.borderRadius - 5),
+              boxShadow: global.isDarkMode(context)
+                  ? [global.darkShadow(context)]
+                  : [global.lightShadow(context)],
+              border: bodyweight
+                  ? Border.all(
+                      color: Theme.of(context).colorScheme.primary,
+                      width: 1.25,
+                    )
+                  : null,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                AnimatedSwitcher(
+                  duration: global.standardAnimationDuration,
+                  child: SizedBox(
+                    width: global.width(context) * .7,
+                    key: ValueKey(bodyweight),
+                    child: Text(
+                      bodyweight
+                          ? "Bodyweight added"
+                          : "Tap to add bodyweight to the set",
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.onBackground,
+                          fontSize: global.height(context) * 0.01 +
+                              global.width(context) * 0.02),
+                    ),
+                  ),
+                ),
+                AnimatedSwitcher(
+                  duration: global.standardAnimationDuration,
+                  transitionBuilder: (child, animation) => ScaleTransition(
+                    scale: animation,
+                    child: child,
+                  ),
+                  child: SizedBox(
+                    key: ValueKey(bodyweight),
+                    child: bodyweight
+                        ? const Icon(CupertinoIcons.checkmark)
+                        : const Icon(CupertinoIcons.add),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        global.smallHeight(context),
+        SetInput(
+          title: 'Weight',
+          controller: weightController,
+          calcInterval: 2.5,
+          canBeNegative: true,
+        ),
+      ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,407 +163,100 @@ class _AddEditSetState extends State<AddEditSet> {
           child: ListView(
             physics: const BouncingScrollPhysics(),
             children: [
-              SizedBox(
-                width: global.width(context),
-                height: global.height(context) * (1 - 0.88),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Container(
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.all(global.width(context) * 0.005),
-                      width: global.width(context) * 0.14,
-                      height: global.width(context) * 0.14,
-                      decoration: BoxDecoration(
-                        boxShadow: ([global.darkShadow(context)]),
-                        color: Theme.of(context).colorScheme.background,
-                        borderRadius: BorderRadius.circular(1000),
-                      ),
-                      child: IconButton(
-                        splashColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        color: Theme.of(context).colorScheme.onBackground,
-                        icon: const Icon(Icons.arrow_back_rounded),
-                        iconSize: global.width(context) * 0.05,
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                        left: global.width(context) * 0.13,
-                        right: global.width(context) * 0.13,
-                        top: 10,
-                      ),
-                      child: Text(
-                        widget.add ? 'Add Set' : 'Edit Set',
-                        style: TextStyle(
-                          color: Theme.of(context).focusColor,
-                          fontSize: global.width(context) * 0.08,
-                          fontWeight: FontWeight.bold,
+              ShopNavbar(
+                title: widget.add ? 'Add Set' : 'Edit Set',
+                titleSize: global.width(context) * .075,
+                actionButton: ActionButton(
+                  iconData: Icons.check_rounded,
+                  action: () async {
+                    if (widget.add) {
+                      await Save.saveSet(
+                        Set(
+                          date: DateTime.now(),
+                          exerciseName: widget.exerciseName,
+                          reps: int.parse(
+                              repsController.text.replaceAll(',', '.')),
+                          weight: double.tryParse(
+                            weightController.text.replaceAll(',', '.'),
+                          )!,
                         ),
-                      ),
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.all(global.width(context) * 0.005),
-                      width: global.width(context) * 0.14,
-                      height: global.width(context) * 0.14,
-                      decoration: BoxDecoration(
-                        boxShadow: [global.darkShadow(context)],
-                        color: Theme.of(context).colorScheme.background,
-                        borderRadius: BorderRadius.circular(1000),
-                      ),
-                      child: IconButton(
-                        splashColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onPressed: () async {
-                          if (widget.add) {
-                            await Save.saveSet(
-                              Set(
-                                date: DateTime.now(),
-                                exerciseName: widget.exerciseName,
-                                reps: int.parse(
-                                    repsController.text.replaceAll(',', '.')),
-                                weight: double.tryParse(
-                                  weightController.text.replaceAll(',', '.'),
-                                )!,
-                              ),
-                              null,
-                            );
-                          } else {
-                            await Save.editSet(
-                              Set(
-                                setID: widget.set!.setID,
-                                date: widget.set!.date,
-                                exerciseName: widget.set!.exerciseName,
-                                reps: newReps,
-                                weight: newWeight,
-                              ),
-                            );
-                          }
-                          // ignore: use_build_context_synchronously
-                          Navigator.pop(context);
-                          setState(() {});
-                        },
-                        color: Theme.of(context).colorScheme.onBackground,
-                        icon: const Icon(Icons.check_rounded),
-                        iconSize: global.width(context) * 0.065,
-                      ),
-                    ),
-                  ],
+                        null,
+                      );
+                    } else {
+                      await Save.editSet(
+                        Set(
+                          setID: widget.set!.setID,
+                          date: widget.set!.date,
+                          exerciseName: widget.set!.exerciseName,
+                          reps: newReps,
+                          weight: newWeight,
+                        ),
+                      );
+                    }
+                    // ignore: use_build_context_synchronously
+                    Navigator.pop(context);
+                    setState(() {});
+                  },
                 ),
               ),
-              SizedBox(height: global.height(context) * 0.05),
+              global.mediumHeight(context),
               Column(
                 children: [
-                  GestureDetector(
-                    onTap: () {
-                      setState(
-                        () {
-                          amountMetric = !amountMetric;
-                        },
+                  ToggleSetType(
+                    types: setTypes,
+                    onChange: (int newIndex) {
+                      activeTypeIndex = newIndex;
+
+                      typeInputController.animateTo(
+                        global.width(context) * activeTypeIndex,
+                        duration: global.standardAnimationDuration,
+                        curve: Curves.easeInOutCirc,
                       );
                     },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                  ),
+                  global.mediumHeight(context),
+                  SizedBox(
+                    width: global.width(context),
+                    height: global.height(context) * .6,
+                    child: ListView(
+                      controller: typeInputController,
+                      scrollDirection: Axis.horizontal,
+                      physics: const NeverScrollableScrollPhysics(),
                       children: [
-                        Stack(
-                          alignment: amountMetric
-                              ? Alignment.centerLeft
-                              : Alignment.centerRight,
-                          children: [
-                            Container(
-                              height: global.height(context) * 0.05,
-                              width: global.width(context) *
-                                  global.containerWidthFactor,
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.background,
-                                borderRadius: BorderRadius.circular(1000),
-                                boxShadow: [global.darkShadow(context)],
+                        SizedBox(
+                          width: global.width(context),
+                          child: Column(
+                            children: [
+                              SetInput(
+                                title: 'Repetitions',
+                                controller: repsController,
+                                calcInterval: 1,
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(5),
-                              child: Container(
-                                padding: EdgeInsets.only(
-                                  right: global.width(context) * 0.02,
-                                ),
-                                height: global.height(context) * 0.04,
-                                width: global.width(context) * 0.5,
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context).colorScheme.primary,
-                                  borderRadius: BorderRadius.circular(
-                                    global.width(context),
-                                  ),
-                                ),
-                                child: Center(
-                                  child: amountMetric
-                                      ? Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Icon(
-                                              Icons.timer,
-                                              color: Colors.black,
-                                              size: global.width(context) * .05,
-                                            ),
-                                            SizedBox(
-                                              width:
-                                                  global.width(context) * .02,
-                                            ),
-                                            Text(
-                                              "Time",
-                                              style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.02,
-                                              ),
-                                            ),
-                                          ],
-                                        )
-                                      : Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Icon(
-                                              Icons.autorenew,
-                                              color: Colors.black,
-                                              size: global.width(context) * .05,
-                                            ),
-                                            SizedBox(
-                                              width:
-                                                  global.width(context) * .05,
-                                            ),
-                                            Text(
-                                              "Repetitions",
-                                              style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.02,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                ),
+                              ...bodyWeightAndWeigh(),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          width: global.width(context),
+                          child: Column(
+                            children: [
+                              Timeinput(
+                                title: 'Time',
+                                minuteController: _minuteController,
+                                secondController: _secondController,
                               ),
-                            ),
-                          ],
+                              ...bodyWeightAndWeigh(),
+                            ],
+                          ),
                         ),
                       ],
                     ),
-                  ),
-                  SizedBox(height: global.height(context) * 0.02),
-                  amountMetric
-                      ? Container(
-                          margin: EdgeInsets.symmetric(
-                              vertical: global.height(context) * .01),
-                          width: global.width(context) *
-                              global.containerWidthFactor,
-                          height: global.height(context) * .15,
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.background,
-                            borderRadius: BorderRadius.circular(30),
-                            boxShadow: [global.darkShadow(context)],
-                          ),
-                          child: Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              Container(
-                                height: global.height(context) * .04,
-                                width: global.width(context) * .7,
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: Colors.white, width: 1.5),
-                                  borderRadius: BorderRadius.circular(
-                                    global.width(context) * 0.2,
-                                  ),
-                                ),
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SizedBox(
-                                    width: global.width(context) * 0.2,
-                                    child: ListWheelScrollView.useDelegate(
-                                      controller: _minuteController,
-                                      onSelectedItemChanged: (index) {
-                                        setState(() {});
-                                      },
-                                      itemExtent: 50,
-                                      perspective: 0.005,
-                                      diameterRatio: 3.5,
-                                      physics: const FixedExtentScrollPhysics(),
-                                      childDelegate:
-                                          ListWheelChildBuilderDelegate(
-                                        childCount: 30,
-                                        builder: (context, index) {
-                                          return MinuteTile(minutes: index);
-                                        },
-                                      ),
-                                    ),
-                                  ),
-                                  Text(
-                                    "m",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: global.width(context) * .04),
-                                  ),
-                                  SizedBox(
-                                    width: global.width(context) * .05,
-                                  ),
-                                  SizedBox(
-                                    width: global.width(context) * 0.2,
-                                    child: ListWheelScrollView.useDelegate(
-                                      controller: _secondController,
-                                      onSelectedItemChanged: (index) {
-                                        setState(() {});
-                                      },
-                                      itemExtent: 50,
-                                      perspective: 0.005,
-                                      diameterRatio: 3.5,
-                                      physics: const FixedExtentScrollPhysics(),
-                                      childDelegate:
-                                          ListWheelChildBuilderDelegate(
-                                        childCount: 60,
-                                        builder: (context, index) {
-                                          return SecondTile(seconds: index);
-                                        },
-                                      ),
-                                    ),
-                                  ),
-                                  Text(
-                                    "s",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: global.width(context) * .04),
-                                  ),
-                                  SizedBox(
-                                    width: global.width(context) * .05,
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
-                        )
-                      : SetInput(
-                          title: 'Repetitions',
-                          controller: repsController,
-                          calcInterval: 1,
-                        ),
-                  SizedBox(height: global.height(context) * 0.02),
-                  GestureDetector(
-                    onTap: () {
-                      bodyweight = !bodyweight;
-                      setState(
-                        () {},
-                      );
-                    },
-                    child: AnimatedContainer(
-                      duration: global.standardAnimationDuration,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: global.width(context) * 0.075,
-                      ),
-                      height: global.height(context) * 0.1,
-                      width:
-                          global.width(context) * global.containerWidthFactor,
-                      decoration: BoxDecoration(
-                        color: bodyweight
-                            ? Theme.of(context).colorScheme.primary
-                            : Theme.of(context).colorScheme.background,
-                        borderRadius: BorderRadius.circular(
-                            global.width(context) * 0.0375),
-                        boxShadow: global.isDarkMode(context)
-                            ? [global.darkShadow(context)]
-                            : [global.lightShadow(context)],
-                      ),
-                      child: ClipRRect(
-                        clipBehavior: Clip.hardEdge,
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                bodyweight
-                                    ? "Bodyweight added :)"
-                                    : "Tap to add bodyweight to the set",
-                                style: TextStyle(
-                                    color: bodyweight
-                                        ? Colors.black
-                                        : Colors.white,
-                                    fontSize: global.height(context) * 0.01 +
-                                        global.width(context) * 0.02),
-                              ),
-                              bodyweight
-                                  ? Icon(
-                                      CupertinoIcons.checkmark_alt,
-                                      color: Colors.black,
-                                      size: global.width(context) * 0.08,
-                                    )
-                                  : Icon(
-                                      CupertinoIcons.add,
-                                      color: Colors.white,
-                                      size: global.width(context) * 0.07,
-                                    )
-                            ]),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: global.height(context) * 0.02),
-                  SetInput(
-                    title: 'Weight',
-                    controller: weightController,
-                    calcInterval: 2.5,
                   ),
                 ],
               ),
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class MinuteTile extends StatelessWidget {
-  final int minutes;
-
-  const MinuteTile({super.key, required this.minutes});
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        minutes.toString(),
-        style: TextStyle(
-            color: Colors.white,
-            fontSize:
-                global.height(context) * 0.01 + global.width(context) * 0.035),
-      ),
-    );
-  }
-}
-
-class SecondTile extends StatelessWidget {
-  final int seconds;
-
-  const SecondTile({super.key, required this.seconds});
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        seconds.toString(),
-        style: TextStyle(
-            color: Colors.white,
-            fontSize:
-                global.height(context) * 0.01 + global.width(context) * 0.035),
       ),
     );
   }

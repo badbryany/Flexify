@@ -8,11 +8,13 @@ class SetInput extends StatelessWidget {
     required this.title,
     required this.controller,
     required this.calcInterval,
+    this.canBeNegative,
   });
 
   final String title;
   final TextEditingController controller;
   final double calcInterval;
+  final bool? canBeNegative;
 
   final RegExp regex = RegExp(r'([.]*0)(?!.*\d)');
 
@@ -28,7 +30,7 @@ class SetInput extends StatelessWidget {
   String subtract(String text) {
     double? num = double.tryParse(text.replaceAll(',', '.'));
 
-    if (num! <= 1) {
+    if (num! <= 1 && (canBeNegative == false || canBeNegative == null)) {
       return num.toString().replaceAll(regex, '');
     }
 
@@ -84,6 +86,7 @@ class SetInput extends StatelessWidget {
         color: Theme.of(context).colorScheme.background,
         boxShadow: [global.darkShadow(context)],
       ),
+      height: global.height(context) * .18,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

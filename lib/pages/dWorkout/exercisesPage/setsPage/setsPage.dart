@@ -470,7 +470,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                               ),
                               Center(
                                 child: Text(
-                                  'Click  \'+\'  to add a set!  :)',
+                                  'Click  \'+\'  to add a set!',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: global.width(context) * 0.04,
