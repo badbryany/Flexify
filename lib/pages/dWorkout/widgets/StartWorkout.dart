@@ -97,7 +97,7 @@ class _StartWorkoutState extends State<StartWorkout> {
                   Text(
                     'All exercises',
                     style: TextStyle(
-                      fontSize: global.width(context) * .065,
+                      fontSize: global.width(context) * .0625,
                       fontWeight: FontWeight.bold,
                       color: Theme.of(context).focusColor,
                     ),
@@ -105,6 +105,7 @@ class _StartWorkoutState extends State<StartWorkout> {
                   const Icon(CupertinoIcons.arrow_right),
                 ],
               ),
+              const SizedBox(height: 5),
               Text(
                 'a list of all exercises you have',
                 style: TextStyle(

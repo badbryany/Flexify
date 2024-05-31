@@ -44,7 +44,7 @@ class WorkoutPlan extends StatelessWidget {
                     Text(
                       'Personal Plan',
                       style: TextStyle(
-                        fontSize: global.width(context) * .065,
+                        fontSize: global.width(context) * .0625,
                         fontWeight: FontWeight.bold,
                         color: Theme.of(context).focusColor,
                       ),
