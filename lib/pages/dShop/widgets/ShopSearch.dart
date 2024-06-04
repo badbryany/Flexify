@@ -53,6 +53,7 @@ class _ShopSearchState extends State<ShopSearch> {
   ];
 
   final _shopSearchController = TextEditingController();
+  bool selected = false;
 
   @override
   void initState() {
@@ -62,14 +63,16 @@ class _ShopSearchState extends State<ShopSearch> {
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
+      alignment: Alignment.center,
       clipBehavior: Clip.hardEdge,
       duration: global.standardAnimationDuration,
-      padding: EdgeInsets.all(
-        global.width(context) * .05,
-      ),
+      padding: EdgeInsets.only(
+          left: global.width(context) * .05,
+          right: global.width(context) * .05,
+          top: global.height(context) * .015),
       height: expanded
           ? global.height(context) * .525
-          : global.height(context) * .17,
+          : global.height(context) * .15,
       width: global.containerWidth(context),
       decoration: global.boxDecoration(context),
       child: Column(
@@ -85,7 +88,7 @@ class _ShopSearchState extends State<ShopSearch> {
                 child: Icon(
                   CupertinoIcons.text_justifyleft,
                   color: Colors.white,
-                  size: global.width(context) * .1,
+                  size: global.height(context) * .03,
                 ),
               ),
               GestureDetector(
@@ -95,7 +98,7 @@ class _ShopSearchState extends State<ShopSearch> {
                 child: Icon(
                   Icons.shopping_bag_rounded,
                   color: Colors.white,
-                  size: global.width(context) * .1,
+                  size: global.height(context) * .03,
                 ),
               ),
             ],
@@ -143,35 +146,89 @@ class _ShopSearchState extends State<ShopSearch> {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(100),
                   ),
-                  child: TextField(
-                    controller: _shopSearchController,
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.only(top: global.height(context) * .01),
-                      hintText: 'Search',
-                      labelStyle: TextStyle(
-                          color: Colors.black,
-                          fontSize: global.width(context) * .04),
-                      border: InputBorder.none,
-                      hintStyle: TextStyle(
-                        color: Colors.black,
-                        fontSize: global.width(context) * .04,
-                      ),
-                      prefixIcon: const Icon(
-                        Icons.search,
-                        color: Colors.black,
-                      ),
-                      suffixIcon: IconButton(
-                        highlightColor: Colors.transparent,
-                        icon: const Icon(Icons.clear_rounded,
-                            color: Colors.black),
-                        onPressed: () {
-                          clearSuffixOnTap(context);
-                        },
-                      ),
+                  child: GestureDetector(
+                    onTap: () {
+                      print("tap");
+                      selected = !selected;
+                      setState(() {});
+                    },
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(
+                            left: global.width(context) * .03,
+                            right: global.width(context) * .02,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.search,
+                                    color: Colors.black,
+                                    size: global.height(context) * .02,
+                                  ),
+                                  SizedBox(
+                                    width: global.width(context) * .02,
+                                  ),
+                                  GestureDetector(
+                                    child: Container(
+                                      alignment: Alignment.centerLeft,
+                                      width: global.width(context) * .7 - global.height(context) * .04,
+                                      height: global.height(context) * .05,
+                                      child: !selected
+                                          ? Text(
+                                              'Search',
+                                              style: TextStyle(
+                                                fontSize:
+                                                    global.height(context) *
+                                                        .015,
+                                                color: Colors.black
+                                                    .withOpacity(.7),
+                                              ),
+                                            )
+                                          : TextField(
+                                              textAlignVertical:
+                                                  TextAlignVertical.top,
+                                              controller: _shopSearchController,
+                                              autofocus: true,
+                                              onSubmitted: (value) {
+                                                selected = !selected;
+                                              },
+                                              onTapOutside: (event) {
+                                                selected = !selected;
+                                              },
+                                              decoration: const InputDecoration(
+                                                border: InputBorder.none,
+                                              ),
+                                              style: const TextStyle(
+                                                  color: Colors.black),
+                                              cursorColor:
+                                                  Colors.black.withOpacity(.7),
+                                              textAlign: TextAlign.left,
+                                            ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              IconButton(
+                                highlightColor: Colors.transparent,
+                                icon: Icon(
+                                  Icons.clear_rounded,
+                                  color: Colors.black,
+                                  size: global.height(context) * .02,
+                                ),
+                                onPressed: () {
+                                  clearSuffixOnTap(context);
+                                },
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
                     ),
-                    style: const TextStyle(color: Colors.black),
-                    cursorColor: Colors.black.withOpacity(.7),
-                    textAlign: TextAlign.left,
                   ),
                 ),
         ],

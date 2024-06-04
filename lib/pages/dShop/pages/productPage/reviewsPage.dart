@@ -6,6 +6,7 @@ import 'package:flexify/widgets/ModalBottomSheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
+import 'package:image/image.dart';
 
 class ReviewsPage extends StatefulWidget {
   final List<shopData.Review> reviews;
@@ -55,7 +56,7 @@ class _ReviewsPageState extends State<ReviewsPage> {
                 height: global.height(context) * .1,
                 width: global.containerWidth(context),
                 decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 26, 26, 29),
+                  color: global.darkGrey,
                   borderRadius: BorderRadius.circular(30),
                 ),
                 child: const PageButton(
@@ -75,67 +76,59 @@ class _ReviewsPageState extends State<ReviewsPage> {
                 children: [
                   Text(
                     'User reviews',
-                    style: TextStyle(fontSize: global.width(context) * .045),
+                    style: TextStyle(fontSize: global.width(context) * .07),
                   ),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.filter_list_alt,
-                        color: Theme.of(context).focusColor,
-                      ),
-                      SizedBox(
-                        width: global.width(context) * .02,
-                      ),
-                      DropdownButton(
-                        value: reviewComparator,
-                        items: [
-                          ...reviewComparators.map(
-                            (e) => DropdownMenuItem(
-                              value: e,
-                              child: Padding(
-                                padding: EdgeInsets.only(left: global.width(context) * .01),
-                                child: Text(
-                                  e,
-                                  style: TextStyle(fontFamily: 'KronaOne', color: Theme.of(context).focusColor, fontSize: global.width(context) * .04),
+                  Theme(
+                    data: Theme.of(context).copyWith(
+                        canvasColor: global.darkGrey,
+                        focusColor: global.darkGrey),
+                    child: DropdownButton(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: global.width(context) * .03),
+                      value: reviewComparator,
+                      items: [
+                        ...reviewComparators.map(
+                          (e) => DropdownMenuItem(
+                            value: e,
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                  left: global.width(context) * .01),
+                              child: Text(
+                                e,
+                                style: TextStyle(
+                                  fontFamily: 'KronaOne',
+                                  color: Colors.white,
+                                  fontSize: global.width(context) * .04,
                                 ),
                               ),
                             ),
-                          )
-                        ],
-                        alignment: AlignmentDirectional.center,
-                        style: const TextStyle(color: Colors.black),
-                        borderRadius: BorderRadius.circular(30),
-                        dropdownColor:
-                            Theme.of(context).scaffoldBackgroundColor,
-                        iconEnabledColor:
-                            Theme.of(context).colorScheme.onBackground,
-                        underline: const SizedBox(),
-                        onChanged: (String? value) {
-                          if (value is String) {
-                            if (value != reviewComparator) {
-                              String tmp = reviewComparators[0];
-                              reviewComparators[0] = reviewComparators[1];
-                              reviewComparators[1] = tmp;
-                            }
-                            reviewComparator = value;
-
-                            if (reviewComparator == 'Most Useful') {
-                              widget.reviews.sort((reviewA, reviewB) =>
-                                  reviewB.stars.compareTo(reviewA.stars));
-                            } else {
-                              widget.reviews.sort((reviewA, reviewB) =>
-                                  reviewA.date.isAfter(reviewB.date) ? 1 : 0);
-                            }
-                            setState(() {});
+                          ),
+                        )
+                      ],
+                      alignment: AlignmentDirectional.center,
+                      borderRadius: BorderRadius.circular(30),
+                      autofocus: true,
+                      iconEnabledColor: Colors.white,
+                      underline: const SizedBox(),
+                      onChanged: (String? value) {
+                        if (value is String) {
+                          if (value != reviewComparator) {
+                            String tmp = reviewComparators[0];
+                            reviewComparators[0] = reviewComparators[1];
+                            reviewComparators[1] = tmp;
                           }
-                        },
-                      ),
-                      Icon(
-                        Icons.keyboard_arrow_down_rounded,
-                        color: Colors.black,
-                        size: global.width(context) * .05,
-                      ),
-                    ],
+                          reviewComparator = value;
+                          if (reviewComparator == 'Most Useful') {
+                            widget.reviews.sort((reviewA, reviewB) =>
+                                reviewB.stars.compareTo(reviewA.stars));
+                          } else {
+                            widget.reviews.sort((reviewA, reviewB) =>
+                                reviewA.date.isAfter(reviewB.date) ? 1 : 0);
+                          }
+                          setState(() {});
+                        }
+                      },
+                    ),
                   )
                 ],
               ),
@@ -174,7 +167,7 @@ class ReviewsBig extends StatelessWidget {
       height: global.height(context) * .2,
       width: global.containerWidth(context),
       decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 26, 26, 29),
+        color: global.darkGrey,
         borderRadius: BorderRadius.circular(30),
       ),
       child: Row(
@@ -362,7 +355,7 @@ class ReviewWidget extends StatelessWidget {
           width: global.containerWidth(context),
           height: global.height(context) * .2,
           decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 26, 26, 29),
+            color: global.darkGrey,
             borderRadius: BorderRadius.circular(30),
           ),
           child: Column(
@@ -498,9 +491,12 @@ class ProductInfo extends StatelessWidget {
       width: global.containerWidth(context),
       height: global.height(context) * .125,
       decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 26, 26, 29),
-          borderRadius: BorderRadius.circular(30),
-          boxShadow: [global.darkShadow(context)]),
+        color: global.darkGrey,
+        borderRadius: BorderRadius.circular(30),
+        boxShadow: [
+          global.darkShadow(context),
+        ],
+      ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -672,7 +668,7 @@ class ReviewBody extends StatelessWidget {
       height: global.height(context) * .55,
       width: global.containerWidth(context),
       decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 26, 26, 29),
+          color: global.darkGrey,
           borderRadius: BorderRadius.circular(30),
           boxShadow: [global.darkShadow(context)]),
       child: Column(

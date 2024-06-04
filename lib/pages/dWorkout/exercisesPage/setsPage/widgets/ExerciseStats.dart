@@ -21,12 +21,12 @@ class ExerciseStats extends StatefulWidget {
 class _ExerciseStatsState extends State<ExerciseStats> {
   DateTime firstDate = DateTime.now();
   DateTime lastDate = DateTime.now();
-  String statsValueTag = 'weight';
+  String statsValueTag = 'Weight';
   List<String> statsValueTags = [
-    'weight',
-    'reps',
-    'weight per reps',
-    'moved weight'
+    'Weight',
+    'Repetitions',
+    'Weight per repetition',
+    'Moved weight'
   ];
   List<FlSpot> spots = [];
   double maxX = 0;
@@ -60,16 +60,16 @@ class _ExerciseStatsState extends State<ExerciseStats> {
         double y = 0;
 
         switch (statsValueTag) {
-          case 'weight':
+          case 'Weight':
             y = widget.sets[i].weight;
             break;
-          case 'reps':
+          case 'Repetitions':
             y = widget.sets[i].reps.toDouble();
             break;
-          case 'weight per reps':
+          case 'Weight per repetition':
             y = widget.sets[i].weight / widget.sets[i].reps;
             break;
-          case 'moved weight':
+          case 'Moved weight':
             y = widget.sets[i].weight * widget.sets[i].reps;
             break;
         }
@@ -327,40 +327,45 @@ class _ExerciseStatsState extends State<ExerciseStats> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Text(
-                      'diagram value:',
+                      'Choose statistic:',
                       style: TextStyle(
-                        color: Theme.of(context).colorScheme.onBackground,
-                      ),
+                          color: Theme.of(context).colorScheme.onBackground,
+                          fontSize: global.width(context) * .03),
                     ),
                     const SizedBox(),
-                    DropdownButton(
-                      value: statsValueTag,
-                      items: [
-                        ...statsValueTags.map(
-                          (e) => DropdownMenuItem(
-                            value: e,
-                            child: Text(
-                              e,
-                              style: const TextStyle(fontFamily: 'KronaOne'),
+                    Theme(
+                      data: Theme.of(context).copyWith(
+                          canvasColor: Theme.of(context).colorScheme.background,
+                          focusColor: Colors.transparent),
+                      child: DropdownButton(
+                        value: statsValueTag,
+                        items: [
+                          ...statsValueTags.map(
+                            (e) => DropdownMenuItem(
+                              value: e,
+                              child: Text(
+                                e,
+                                style: TextStyle(
+                                  fontFamily: 'KronaOne',
+                                  color: Colors.white,
+                                  fontSize: global.width(context) * .03
+                                ),
+                              ),
                             ),
-                          ),
-                        )
-                      ],
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.onBackground,
+                          )
+                        ],
+                        iconDisabledColor: Colors.white,
+                        iconEnabledColor: Colors.white,
+                        autofocus: true,
+                        borderRadius: BorderRadius.circular(30),
+                        underline: const SizedBox(),
+                        onChanged: (String? value) {
+                          if (value is String) {
+                            statsValueTag = value;
+                            setState(() {});
+                          }
+                        },
                       ),
-                      borderRadius:
-                          BorderRadius.circular(global.borderRadius - 15),
-                      dropdownColor: Theme.of(context).colorScheme.background,
-                      iconEnabledColor:
-                          Theme.of(context).colorScheme.onBackground,
-                      underline: const SizedBox(),
-                      onChanged: (String? value) {
-                        if (value is String) {
-                          statsValueTag = value;
-                          setState(() {});
-                        }
-                      },
                     )
                   ],
                 ),
