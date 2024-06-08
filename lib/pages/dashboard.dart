@@ -24,14 +24,14 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 2;
   bool gotRequests = false;
 
   final List<dynamic> dashboardOptions = [
     {
       'title': 'Shop',
       'widget': const DashboardShop(),
-      'icon': Icons.shopify_sharp,
+      'icon': Icons.shopping_bag_outlined,
     },
     {
       'title': 'Plan',
@@ -80,7 +80,6 @@ class _DashboardState extends State<Dashboard> {
     return PopScope(
       canPop: false,
       child: Scaffold(
-        appBar: AppBar(),
         body: SafeArea(
           child: SizedBox(
             width: global.width(context),
@@ -128,9 +127,9 @@ class _DashboardState extends State<Dashboard> {
                             ),
                           );
                         },
-                        iconSize: 30,
+                        iconSize: 25,
                         icon: Icon(
-                          CupertinoIcons.settings,
+                          Icons.settings_rounded,
                           color: Theme.of(context).focusColor,
                         ),
                       ),

@@ -1,5 +1,6 @@
 import 'package:flexify/pages/dWorkout/exercisesPage/exercisesPage.dart';
 import 'package:flexify/widgets/BounceElement.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flexify/data/AnalyseWorkoutData/analyseWorkoutData.dart'
@@ -94,20 +95,22 @@ class _StartWorkoutState extends State<StartWorkout> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Start Workout:',
+                    'All exercises',
                     style: TextStyle(
-                      fontSize: 25,
+                      fontSize: global.width(context) * .0625,
                       fontWeight: FontWeight.bold,
                       color: Theme.of(context).focusColor,
                     ),
                   ),
-                  const Icon(Icons.arrow_forward_rounded),
+                  const Icon(CupertinoIcons.arrow_right),
                 ],
               ),
+              const SizedBox(height: 5),
               Text(
-                'Recommended Workout',
+                'a list of all exercises you have',
                 style: TextStyle(
-                    color: Theme.of(context).focusColor.withOpacity(0.7)),
+                  color: Theme.of(context).focusColor.withOpacity(0.7),
+                ),
               ),
               ...(nextWorkoutDay == null
                   ? [const Text('error')]
