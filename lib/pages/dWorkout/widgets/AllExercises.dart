@@ -12,8 +12,8 @@ import 'package:flexify/data/exerciseModels.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
 import 'package:page_transition/page_transition.dart';
 
-class StartWorkout extends StatefulWidget {
-  const StartWorkout({
+class AllExercises extends StatefulWidget {
+  const AllExercises({
     super.key,
     required this.reload,
     required this.sets,
@@ -23,10 +23,10 @@ class StartWorkout extends StatefulWidget {
   final List<Set> sets;
 
   @override
-  State<StartWorkout> createState() => _StartWorkoutState();
+  State<AllExercises> createState() => _AllExercisesState();
 }
 
-class _StartWorkoutState extends State<StartWorkout> {
+class _AllExercisesState extends State<AllExercises> {
   WorkoutDay? nextWorkoutDay;
 
   getData() async {

@@ -1,5 +1,5 @@
 import 'package:flexify/data/exerciseModels.dart';
-import 'package:flexify/pages/dWorkout/widgets/StartWorkout.dart';
+import 'package:flexify/pages/dWorkout/widgets/AllExercises.dart';
 import 'package:flexify/pages/dWorkout/widgets/WorkoutPlan.dart';
 import 'package:flexify/pages/dWorkout/widgets/YourTrainingplan.dart';
 import 'package:flexify/pages/dWorkout/widgets/dashboardWorkoutStats.dart';
@@ -33,14 +33,14 @@ class _DashboardWorkoutState extends State<DashboardWorkout> {
     return Column(
       children: [
         DashboardWorkoutStats(sets: sets),
-        SizedBox(height: global.height(context) * .025),
+        global.smallHeight(context),
         const WorkoutPlan(),
-        SizedBox(height: global.height(context) * .025),
-        StartWorkout(
+        global.smallHeight(context),
+        AllExercises(
           sets: sets,
           reload: getData,
         ),
-        const SizedBox(height: 10),
+        global.smallHeight(context),
         YourTrainingPlan(sets: sets),
       ],
     );
