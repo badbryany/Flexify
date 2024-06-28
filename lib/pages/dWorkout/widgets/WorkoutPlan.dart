@@ -25,7 +25,7 @@ class WorkoutPlan extends StatelessWidget {
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.surface,
             borderRadius: BorderRadius.circular(global.borderRadius),
-            boxShadow: [global.darkShadow(context)],
+            boxShadow: [global.lightShadow(context)],
             // border: Border.all(
             //   color: Theme.of(context).colorScheme.primary.withOpacity(.35),
             //   width: 1.5,
@@ -40,16 +40,25 @@ class WorkoutPlan extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  global.gradient(
-                    Text(
-                      'Personal Plan',
-                      style: TextStyle(
-                        fontSize: global.width(context) * .0625,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).focusColor,
-                      ),
-                    ),
-                  ),
+                  global.isDarkMode(context)
+                      ? global.gradient(
+                          Text(
+                            'Personal Plan',
+                            style: TextStyle(
+                              fontSize: global.width(context) * .0625,
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context).focusColor,
+                            ),
+                          ),
+                        )
+                      : Text(
+                          'Personal Plan',
+                          style: TextStyle(
+                            fontSize: global.width(context) * .0625,
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).focusColor,
+                          ),
+                        ),
                   const SizedBox(height: 5),
                   Container(
                     alignment: Alignment.centerLeft,

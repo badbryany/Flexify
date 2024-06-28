@@ -1,5 +1,6 @@
 import 'package:flexify/data/exerciseModels.dart';
 import 'package:flexify/pages/dWorkout/widgets/AllExercises.dart';
+import 'package:flexify/pages/dWorkout/widgets/QuickActions.dart';
 import 'package:flexify/pages/dWorkout/widgets/WorkoutPlan.dart';
 import 'package:flexify/pages/dWorkout/widgets/YourTrainingplan.dart';
 import 'package:flexify/pages/dWorkout/widgets/dashboardWorkoutStats.dart';
@@ -28,21 +29,27 @@ class _DashboardWorkoutState extends State<DashboardWorkout> {
     getData();
   }
 
+  List<Widget> elements(BuildContext context) => [
+        DashboardWorkoutStats(sets: sets),
+        const WorkoutPlan(),
+        QuickActions(),
+        AllExercises(sets: sets, reload: getData),
+        YourTrainingPlan(sets: sets),
+      ];
+
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [
-        DashboardWorkoutStats(sets: sets),
-        global.smallHeight(context),
-        const WorkoutPlan(),
-        global.smallHeight(context),
-        AllExercises(
-          sets: sets,
-          reload: getData,
-        ),
-        global.smallHeight(context),
-        YourTrainingPlan(sets: sets),
-      ],
+      children: elements(context)
+          .map(
+            (e) => Padding(
+              padding: EdgeInsets.only(
+                bottom: global.height(context) * .01,
+              ),
+              child: e,
+            ),
+          )
+          .toList(),
     );
   }
 }
