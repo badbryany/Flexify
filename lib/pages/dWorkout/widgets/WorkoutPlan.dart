@@ -25,7 +25,7 @@ class WorkoutPlan extends StatelessWidget {
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.surface,
             borderRadius: BorderRadius.circular(global.borderRadius),
-            boxShadow: [global.lightShadow(context)],
+            boxShadow: global.shadow(context),
             // border: Border.all(
             //   color: Theme.of(context).colorScheme.primary.withOpacity(.35),
             //   width: 1.5,

@@ -1,4 +1,4 @@
-import 'package:flexify/pages/dWorkout/HIITTimer.dart';
+import 'package:flexify/pages/dWorkout/hiitTimer/HIITTimer.dart';
 import 'package:flexify/widgets/BounceElement.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
@@ -9,18 +9,18 @@ class QuickActions extends StatelessWidget {
 
   final List<Map<String, dynamic>> actions = [
     {
-      'title': 'Start workout',
+      'title': 'Workout',
       'icon': CupertinoIcons.play,
       'link': const SizedBox(),
     },
     {
-      'title': 'HIIT Timer',
+      'title': 'Timer',
       'icon': CupertinoIcons.timer,
       'link': const HIITTimer(),
     },
     {
-      'title': 'New exercise',
-      'icon': CupertinoIcons.add,
+      'title': 'Locker',
+      'icon': CupertinoIcons.bookmark,
       'link': const SizedBox(),
     },
   ];
@@ -49,7 +49,7 @@ class QuickActions extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius:
                           BorderRadius.circular(global.borderRadius - 5),
-                      boxShadow: [global.lightShadow(context)],
+                      boxShadow: global.shadow(context),
                       color: Theme.of(context).colorScheme.surface,
                     ),
                     child: Column(
@@ -59,7 +59,7 @@ class QuickActions extends StatelessWidget {
                         global.gradient(
                           Icon(
                             e['icon'],
-                            size: global.width(context) * .075,
+                            size: global.width(context) * .0775,
                           ),
                         ),
                         global.smallHeight(context),

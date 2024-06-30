@@ -85,7 +85,7 @@ class _AllExercisesState extends State<AllExercises> {
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.surface,
             borderRadius: BorderRadius.circular(global.borderRadius),
-            boxShadow: [global.lightShadow(context)],
+            boxShadow: global.shadow(context),
           ),
           width: global.width(context) * global.containerWidthFactor,
           child: Column(
