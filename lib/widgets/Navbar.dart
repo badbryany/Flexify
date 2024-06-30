@@ -3,11 +3,7 @@ import 'package:flexify/widgets/BounceElement.dart';
 import 'package:flutter/material.dart';
 
 class Navbar extends StatelessWidget {
-  final String title;
-  final double? titleSize;
-  final Function? onTap;
-
-  final ActionButton? actionButton;
+  static double actionButtonWidthFactor = 0.15;
 
   const Navbar({
     super.key,
@@ -15,7 +11,15 @@ class Navbar extends StatelessWidget {
     this.titleSize,
     this.onTap,
     this.actionButton,
+    this.topRightWidget,
   });
+
+  final String title;
+  final double? titleSize;
+  final Function? onTap;
+
+  final ActionButton? actionButton;
+  final Widget? topRightWidget;
 
   @override
   Widget build(BuildContext context) {
@@ -51,9 +55,11 @@ class Navbar extends StatelessWidget {
               fontSize: titleSize ?? global.width(context) * .06,
             ),
           ),
-          actionButton != null
-              ? actionButton!
-              : SizedBox(width: global.width(context) * .155),
+          topRightWidget == null
+              ? actionButton != null
+                  ? actionButton!
+                  : SizedBox(width: global.width(context) * .155)
+              : topRightWidget!,
         ],
       ),
     );
@@ -78,8 +84,8 @@ class ActionButton extends StatelessWidget {
         child: Container(
           alignment: Alignment.center,
           padding: EdgeInsets.all(global.width(context) * 0.005),
-          width: global.width(context) * 0.15,
-          height: global.width(context) * 0.15,
+          width: global.width(context) * Navbar.actionButtonWidthFactor,
+          height: global.width(context) * Navbar.actionButtonWidthFactor,
           decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.background,
               borderRadius: BorderRadius.circular(100),

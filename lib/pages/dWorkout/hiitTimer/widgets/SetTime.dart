@@ -6,22 +6,21 @@ class SetTime extends StatefulWidget {
   const SetTime({
     super.key,
     required this.title,
-    required this.update,
-    required this.initDuration,
+    required this.duration,
+    required this.add,
+    required this.sub,
   });
 
   final String title;
-  final void Function(Duration) update;
-  final Duration initDuration;
+  final void Function(Duration) add;
+  final void Function(Duration) sub;
+  final Duration duration;
 
   @override
   State<SetTime> createState() => _SetTimeState();
 }
 
 class _SetTimeState extends State<SetTime> {
-  Duration globalTime = const Duration(seconds: 30);
-
-  final RegExp regex = RegExp(r'([.]*0)(?!.*\d)');
   bool continueCount = true;
 
   String durationString(Duration dur) {
@@ -55,14 +54,14 @@ class _SetTimeState extends State<SetTime> {
           continueCount = false;
         },
         child: Container(
-          margin: const EdgeInsets.all(20),
-          height: global.height(context) * 0.09,
-          width: global.height(context) * 0.09,
+          margin: const EdgeInsets.all(2.5),
+          height: global.height(context) * 0.035,
+          width: global.height(context) * 0.035,
           alignment: Alignment.center,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(100),
             border: Border.all(
-              width: 2,
+              width: 1,
               color: Theme.of(context).colorScheme.primary,
             ),
           ),
@@ -70,7 +69,7 @@ class _SetTimeState extends State<SetTime> {
             text,
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              fontSize: 40,
+              fontSize: global.width(context) * .07,
               color: Theme.of(context).colorScheme.onBackground,
             ),
           ),
@@ -80,67 +79,44 @@ class _SetTimeState extends State<SetTime> {
   }
 
   @override
-  void initState() {
-    globalTime = widget.initDuration;
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(global.width(context) * 0.02),
-      padding: EdgeInsets.all(global.width(context) * 0.005),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(global.borderRadius),
-        color: Theme.of(context).colorScheme.background,
-        boxShadow: [global.darkShadow(context)],
-      ),
-      height: global.height(context) * .18,
+      // margin: EdgeInsets.all(global.width(context) * 0.02),
+      // padding: EdgeInsets.all(global.width(context) * 0.005),
+      // height: global.height(context) * .18,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: EdgeInsets.only(
-              left: global.width(context) * 0.1,
-              top: global.width(context) * 0.025,
-            ),
-            child: Text(
-              widget.title,
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.onBackground,
-              ),
-            ),
-          ),
+          // Text(
+          //   widget.title,
+          //   style: TextStyle(
+          //     color: Theme.of(context).colorScheme.onBackground,
+          //     fontSize: global.width(context) * .025,
+          //   ),
+          // ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               setButton(
                 context,
-                () {
-                  setState(() => globalTime -= const Duration(seconds: 5));
-
-                  widget.update(globalTime);
-                },
+                () => widget.sub(const Duration(seconds: 1)),
                 '-',
               ),
               SizedBox(
-                width: global.width(context) * 0.35,
+                width: global.width(context) * .21,
                 child: Text(
-                  durationString(globalTime),
+                  durationString(widget.duration),
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: global.width(context) * .1125,
+                    fontSize: global.width(context) * .06,
+                    color: Theme.of(context).colorScheme.onBackground,
                   ),
                 ),
               ),
               setButton(
                 context,
-                () {
-                  setState(() => globalTime += const Duration(seconds: 5));
-
-                  widget.update(globalTime);
-                },
+                () => widget.add(const Duration(seconds: 1)),
                 '+',
               ),
             ],

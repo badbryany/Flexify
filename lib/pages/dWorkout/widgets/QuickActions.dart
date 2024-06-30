@@ -14,7 +14,7 @@ class QuickActions extends StatelessWidget {
       'link': const SizedBox(),
     },
     {
-      'title': 'Timer',
+      'title': 'HIIT Timer',
       'icon': CupertinoIcons.timer,
       'link': const HIITTimer(),
     },
@@ -56,12 +56,17 @@ class QuickActions extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        global.gradient(
-                          Icon(
-                            e['icon'],
-                            size: global.width(context) * .0775,
-                          ),
-                        ),
+                        global.isDarkMode(context)
+                            ? global.gradient(
+                                Icon(
+                                  e['icon'],
+                                  size: global.width(context) * .0775,
+                                ),
+                              )
+                            : Icon(
+                                e['icon'],
+                                size: global.width(context) * .0775,
+                              ),
                         global.smallHeight(context),
                         Text(e['title']),
                       ],

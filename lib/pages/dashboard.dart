@@ -108,13 +108,19 @@ class _DashboardState extends State<Dashboard> {
                       Container(
                         width: global.width(context) * .5,
                         alignment: Alignment.center,
-                        child: Text(
-                          dashboardOptions[_selectedIndex]['title'],
-                          style: TextStyle(
-                            color: Theme.of(context).focusColor,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: -1,
-                            fontSize: global.width(context) * 0.08,
+                        child: AnimatedSwitcher(
+                          duration: global.standardAnimationDuration,
+                          child: Text(
+                            dashboardOptions[_selectedIndex]['title'],
+                            key: ValueKey(
+                              dashboardOptions[_selectedIndex]['title'],
+                            ),
+                            style: TextStyle(
+                              color: Theme.of(context).focusColor,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: -1,
+                              fontSize: global.width(context) * 0.08,
+                            ),
                           ),
                         ),
                       ),
