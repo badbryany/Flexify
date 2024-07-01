@@ -62,7 +62,10 @@ class _HiitTimerState extends State<HiitTimer>
     setState(() {});
   }
 
-  skipRound() {}
+  skipRound() {
+    currentCountDuration = const Duration(seconds: 3);
+    setState(() {});
+  }
 
   startTimer() async {
     List<String> restSequences = [
@@ -158,7 +161,12 @@ class _HiitTimerState extends State<HiitTimer>
                         animationDuration: 1000,
                         curve: Curves.linear,
                         animation: true,
-                        linearGradient: global.linearGradient,
+                        linearGradient: global.isDarkMode(context)
+                            ? global.linearGradient
+                            : null,
+                        progressColor: global.isDarkMode(context)
+                            ? null
+                            : Theme.of(context).colorScheme.primary,
                         percent: currentCountDuration.inSeconds /
                             currentCountDurationInitValue.inSeconds,
                         backgroundColor:
@@ -204,7 +212,9 @@ class _HiitTimerState extends State<HiitTimer>
                       child: Text(
                         'LAP',
                         style: TextStyle(
-                          color: Theme.of(context).colorScheme.primary,
+                          color: global.isDarkMode(context)
+                              ? Theme.of(context).colorScheme.primary
+                              : Colors.black,
                         ),
                       ),
                     ),
