@@ -44,7 +44,7 @@ class _DashboardWorkoutState extends State<DashboardWorkout> {
           .map(
             (e) => Padding(
               padding: EdgeInsets.only(
-                bottom: global.height(context) * .01,
+                bottom: global.height(context) * .015,
               ),
               child: e,
             ),

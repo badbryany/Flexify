@@ -302,14 +302,14 @@ class _ExercisesPageState extends State<ExercisesPage> {
                           duration: global.standardAnimationDuration,
                           opacity: _searchBarOpen == 0 ? 1 : 0,
                           child: Text(
-                            'Workout',
+                            'All exercises',
                             textAlign: TextAlign.center,
                             maxLines: 1,
                             style: TextStyle(
                               color: Theme.of(context).focusColor,
                               fontWeight: FontWeight.bold,
                               letterSpacing: -1,
-                              fontSize: global.width(context) * 0.09,
+                              fontSize: global.width(context) * .075,
                             ),
                           ),
                         ),
