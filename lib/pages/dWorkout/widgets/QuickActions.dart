@@ -1,4 +1,4 @@
-import 'package:flexify/pages/dWorkout/hiitTimer/HIITTimer.dart';
+import 'package:flexify/pages/dWorkout/hiitTimer/SetupHIITTimer.dart';
 import 'package:flexify/widgets/BounceElement.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
@@ -16,7 +16,7 @@ class QuickActions extends StatelessWidget {
     {
       'title': 'HIIT Timer',
       'icon': CupertinoIcons.timer,
-      'link': const HIITTimer(),
+      'link': const SetupHIITTimer(),
     },
     {
       'title': 'Locker',
