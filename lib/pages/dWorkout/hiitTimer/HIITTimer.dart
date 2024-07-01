@@ -116,10 +116,11 @@ class _HIITTimerState extends State<HIITTimer> {
         animatedListKey.currentState!.removeItem(
           i,
           (context, animation) => SizeTransition(
+            axisAlignment: 0,
             sizeFactor: animation,
             child: SlideTransition(
               position: animation.drive(
-                Tween(begin: const Offset(1, 0), end: const Offset(0, 0)),
+                Tween(begin: const Offset(1, .5), end: const Offset(0, 0)),
               ),
               child: child,
             ),
@@ -393,8 +394,11 @@ class Round {
             ),
           ),
           //
-          if (index != totalLength - 1)
-            GestureDetector(
+
+          AnimatedOpacity(
+            duration: global.standardAnimationDuration,
+            opacity: index == totalLength - 1 ? 0 : 1,
+            child: GestureDetector(
               onTap: () => showCustomModalBottomSheet(
                 context,
                 ModalBottomSheet(
@@ -444,9 +448,8 @@ class Round {
                   ),
                 ),
               ),
-            )
-          else
-            const SizedBox(),
+            ),
+          ),
         ],
       );
 }
