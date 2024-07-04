@@ -1,3 +1,4 @@
 {
-    "workbench.colorTheme": "Visual Studio Dark - C++"
+    "workbench.colorTheme": "Visual Studio Dark - C++",
+    "codetogether.virtualCursorJoin": "ownVirtualCursor"
 }

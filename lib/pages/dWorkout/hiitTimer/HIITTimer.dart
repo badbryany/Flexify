@@ -1,11 +1,12 @@
 import 'dart:async';
 import 'dart:math';
-
+import 'package:soundpool/soundpool.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'Round.dart';
+import 'package:flutter/services.dart';
 
 class HiitTimer extends StatefulWidget {
   const HiitTimer({
@@ -31,6 +32,10 @@ class _HiitTimerState extends State<HiitTimer>
   int roundCount = -1;
   int roundIndex = 0;
 
+  Soundpool? _pool;
+  int? beepId;
+  int? boxingBellId;
+
   List<Map<String, dynamic>> durations = [
     {
       'title': 'Get ready!',
@@ -45,7 +50,12 @@ class _HiitTimerState extends State<HiitTimer>
   updateTimer(Timer tim) {
     currentCountDuration -= const Duration(seconds: 1);
 
+    if (currentCountDuration == const Duration(seconds: 2) || currentCountDuration == const Duration(seconds: 1) || currentCountDuration == Duration.zero) {
+      _playSound(beepId);
+    }
+
     if (currentCountDuration < Duration.zero) {
+      _playSound(boxingBellId);
       if (durations[roundIndex]['isRound']) {
         roundCount++;
       }
@@ -104,6 +114,25 @@ class _HiitTimerState extends State<HiitTimer>
 
   stopTimer() => timer?.cancel();
 
+  Future<void> _initSounds() async {
+    _pool = Soundpool(streamType: StreamType.notification);
+
+    beepId = await _loadSound('assets/sounds/beep.mp3');
+    boxingBellId = await _loadSound('assets/sounds/boxing-bell.mp3');
+  }
+
+  Future<int> _loadSound(String asset) async {
+    return await rootBundle.load(asset).then((ByteData soundData) {
+      return _pool!.load(soundData);
+    });
+  }
+
+  void _playSound(int? soundId) {
+    if (soundId != null) {
+      _pool?.play(soundId);
+    }
+  }
+
   @override
   void initState() {
     controller = AnimationController(
@@ -113,12 +142,14 @@ class _HiitTimerState extends State<HiitTimer>
     animation = Tween<double>(begin: 0.0, end: 1.0).animate(controller);
 
     super.initState();
+    _initSounds();
     startTimer();
   }
 
   @override
   void dispose() {
     controller.dispose();
+    _pool?.dispose();
     super.dispose();
   }
 
@@ -201,7 +232,7 @@ class _HiitTimerState extends State<HiitTimer>
                         horizontal: 12.5,
                         vertical: 7.5,
                       ),
-                      width: global.width(context) * .125,
+                      width: global.width(context) * .15,
                       decoration: BoxDecoration(
                         color: Theme.of(context)
                             .colorScheme
@@ -211,6 +242,7 @@ class _HiitTimerState extends State<HiitTimer>
                       ),
                       child: Text(
                         'LAP',
+                        maxLines: 1,
                         style: TextStyle(
                           color: global.isDarkMode(context)
                               ? Theme.of(context).colorScheme.primary
