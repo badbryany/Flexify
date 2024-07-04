@@ -50,7 +50,9 @@ class _HiitTimerState extends State<HiitTimer>
   updateTimer(Timer tim) {
     currentCountDuration -= const Duration(seconds: 1);
 
-    if (currentCountDuration == const Duration(seconds: 2) || currentCountDuration == const Duration(seconds: 1) || currentCountDuration == Duration.zero) {
+    if (currentCountDuration == const Duration(seconds: 2) ||
+        currentCountDuration == const Duration(seconds: 1) ||
+        currentCountDuration == Duration.zero) {
       _playSound(beepId);
     }
 
@@ -161,22 +163,38 @@ class _HiitTimerState extends State<HiitTimer>
           children: [
             Positioned(
               top: global.width(context) * .05,
-              right: global.width(context) * .05,
-              child: IconButton(
-                icon: Icon(
-                  CupertinoIcons.xmark,
-                  color: Theme.of(context).focusColor,
-                  size: global.width(context) * .075,
-                ),
-                onPressed: () async {
-                  await stopTimer();
-                  Navigator.pop(context);
-                },
+              left: 0,
+              right: 0,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const SizedBox(),
+                  Text(
+                    'HIIT Timer - ${widget.rounds.length} rounds',
+                    style: TextStyle(
+                      color: Theme.of(context).focusColor.withOpacity(.25),
+                      fontSize: global.width(context) * .06,
+                    ),
+                  ),
+                  SizedBox(width: global.width(context) * .05),
+                  IconButton(
+                    icon: Icon(
+                      CupertinoIcons.xmark,
+                      color: Theme.of(context).focusColor,
+                      size: global.width(context) * .075,
+                    ),
+                    onPressed: () async {
+                      await stopTimer();
+                      Navigator.pop(context);
+                    },
+                  ),
+                  const SizedBox(),
+                ],
               ),
             ),
             //
             Positioned(
-              top: global.height(context) * .2,
+              top: global.height(context) * .15,
               left: 0,
               right: 0,
               child: Visibility(
@@ -187,8 +205,8 @@ class _HiitTimerState extends State<HiitTimer>
                       alignment: Alignment.center,
                       width: global.width(context),
                       child: CircularPercentIndicator(
-                        radius: global.width(context) * .35,
-                        lineWidth: global.width(context) * .035,
+                        radius: global.width(context) * .425,
+                        lineWidth: global.width(context) * .045,
                         animationDuration: 1000,
                         curve: Curves.linear,
                         animation: true,
@@ -204,17 +222,34 @@ class _HiitTimerState extends State<HiitTimer>
                             Theme.of(context).colorScheme.background,
                         animateFromLastPercent: true,
                         circularStrokeCap: CircularStrokeCap.round,
-                        center: Text(
-                          global.durationString(currentCountDuration),
-                          style: TextStyle(
-                            color: Theme.of(context).focusColor,
-                            fontSize: global.width(context) * .1,
-                          ),
+                        center: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              durations[roundIndex]['isRound']
+                                  ? 'Round ${roundCount + 1}'
+                                  : 'Rest',
+                              style: TextStyle(
+                                fontSize: global.width(context) * .075,
+                                color: Theme.of(context)
+                                    .focusColor
+                                    .withOpacity(.5),
+                              ),
+                            ),
+                            Text(
+                              global.durationString(currentCountDuration),
+                              style: TextStyle(
+                                color: Theme.of(context).focusColor,
+                                fontSize: global.width(context) * .175,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
                     //
                     global.largeHeight(context),
+                    global.smallHeight(context),
                     //
                     Text(
                       durations[roundIndex]['title'],
@@ -304,11 +339,24 @@ class _HiitTimerState extends State<HiitTimer>
             //
             Positioned(
               bottom: global.height(context) * .05,
+              right: 0,
+              left: 0,
               child: AnimatedOpacity(
                 duration: global.standardAnimationDuration,
                 opacity: done ? 0 : 1,
-                child: SizedBox(
-                  width: global.width(context),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context)
+                        .colorScheme
+                        .background
+                        .withOpacity(.5),
+                    borderRadius:
+                        BorderRadius.circular(global.borderRadius - 2.5),
+                    // boxShadow: global.shadow(context),
+                  ),
+                  width: global.containerWidth(context),
+                  margin: EdgeInsets.symmetric(
+                      horizontal: global.width(context) * .075),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -348,9 +396,9 @@ class _HiitTimerState extends State<HiitTimer>
                       IconButton(
                         onPressed: skipRound,
                         icon: Icon(
-                          Icons.skip_next,
+                          CupertinoIcons.arrow_right_to_line_alt,
                           color: Theme.of(context).focusColor,
-                          size: global.width(context) * .1,
+                          size: global.width(context) * .08,
                         ),
                       ),
                     ],
