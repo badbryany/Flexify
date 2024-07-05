@@ -61,6 +61,11 @@ class _DashboardState extends State<Dashboard> {
     http.Response res = await http.get(Uri.parse(
         '${global.host}/getFriendshipRequests?jwt=${prefs.getString('jwt')}'));
 
+    if (res.body == 'jwt not valid') {
+      debugPrint('jwt not valid');
+      return;
+    }
+
     if ((jsonDecode(res.body) as List).isNotEmpty) {
       gotRequests = true;
       setState(() {});

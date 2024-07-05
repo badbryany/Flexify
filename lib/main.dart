@@ -1,6 +1,7 @@
 import 'package:flexify/SignInSignUp/signIn.dart';
 import 'package:flexify/data/exerciseModels.dart';
 import 'package:flexify/themeProvider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/pages/dashboard.dart';
 import 'package:flutter/services.dart';
@@ -53,9 +54,31 @@ Future<ThemeMode> getThemeMode() async {
 }
 
 void main() async {
-  runApp(const MyApp(
-    startWidget: Text('loading'),
-    themeMode: ThemeMode.system,
+  runApp(MyApp(
+    startWidget: Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/logo/darklogo.png',
+              height: 100,
+            ),
+            const SizedBox(height: 25),
+            const Text(
+              'loading Flexify...',
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+            const SizedBox(height: 50),
+            const CupertinoActivityIndicator(),
+          ],
+        ),
+      ),
+    ),
+    themeMode: ThemeMode.dark,
   ));
 
   if (await checkLogin()) {
