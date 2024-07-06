@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flexify/SignInSignUp/signIn.dart';
 import 'package:flexify/data/exerciseModels.dart';
 import 'package:flexify/themeProvider.dart';
@@ -35,8 +37,13 @@ Future<bool> login() async {
       'password': prefs.getString('password'),
     },
   );
-  print(res.body);
-  prefs.setString('jwt', res.body);
+
+  dynamic data = jsonDecode(res.body);
+
+  prefs.setString('jwt', data['jwt']);
+  prefs.setString('email', data['email']);
+  prefs.setString('firstname', data['firstname']);
+
   return true;
 }
 
