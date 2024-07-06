@@ -36,8 +36,8 @@ class _AddEditSetState extends State<AddEditSet> {
       FixedExtentScrollController(initialItem: 0);
 
   List<Map<String, dynamic>> setTypes = [
-    {'title': 'Repetitions', 'icon': Icons.timer},
-    {'title': 'Time', 'icon': Icons.autorenew},
+    {'title': 'Repetitions', 'icon': Icons.autorenew},
+    {'title': 'Time', 'icon': Icons.timer},
   ];
   int activeTypeIndex = 0;
   ScrollController typeInputController = ScrollController();
