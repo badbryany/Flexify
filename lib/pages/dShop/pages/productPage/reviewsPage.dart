@@ -6,7 +6,6 @@ import 'package:flexify/widgets/ModalBottomSheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
-import 'package:image/image.dart';
 
 class ReviewsPage extends StatefulWidget {
   final List<shopData.Review> reviews;

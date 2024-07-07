@@ -69,7 +69,7 @@ class _ShopSearchState extends State<ShopSearch> {
       padding: EdgeInsets.only(
           left: global.width(context) * .05,
           right: global.width(context) * .05,
-          top: global.height(context) * .015),
+          top: global.height(context) * .02),
       height: expanded
           ? global.height(context) * .525
           : global.height(context) * .15,
@@ -88,7 +88,7 @@ class _ShopSearchState extends State<ShopSearch> {
                 child: Icon(
                   CupertinoIcons.text_justifyleft,
                   color: Colors.white,
-                  size: global.height(context) * .03,
+                  size: global.height(context) * .035,
                 ),
               ),
               GestureDetector(
@@ -98,7 +98,7 @@ class _ShopSearchState extends State<ShopSearch> {
                 child: Icon(
                   Icons.shopping_bag_rounded,
                   color: Colors.white,
-                  size: global.height(context) * .03,
+                  size: global.height(context) * .035,
                 ),
               ),
             ],

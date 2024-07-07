@@ -4,7 +4,6 @@ import 'package:flexify/pages/dPlan/dashboardPlan.dart';
 import 'package:flexify/pages/dShop/dashboardShop.dart';
 import 'package:flexify/pages/dLeaderboards/dashboardLeaderboards.dart';
 import 'package:flexify/pages/dProfile/dashboardProfile.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:flexify/data/globalVariables.dart' as global;

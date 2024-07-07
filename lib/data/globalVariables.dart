@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-double borderRadius = 35;
+double borderRadius = 30;
 double containerWidthFactor = 0.95;
 double containerPadding = 30;
 
@@ -176,9 +176,9 @@ Color darkGrey = const Color.fromARGB(255, 26, 26, 29);
 
 BoxDecoration boxDecoration(context) => BoxDecoration(
       color: darkGrey,
-      borderRadius: BorderRadius.circular(30),
+      borderRadius: BorderRadius.circular(borderRadius),
       boxShadow: shadow(context),
-    );
+);
 
 SizedBox smallHeight(context) => SizedBox(height: height(context) * .01);
 SizedBox mediumHeight(context) => SizedBox(height: height(context) * .02);
