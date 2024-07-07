@@ -146,7 +146,7 @@ Widget loadingWidget(BuildContext context, double size) => Center(
       child: SizedBox(
         width: width(context) * .09 * size,
         height: width(context) * .09 * size,
-        child: CircularProgressIndicator(strokeWidth: 4 * size),
+        child: CircularProgressIndicator.adaptive(strokeWidth: 4 * size),
       ),
     );
 
@@ -183,3 +183,20 @@ BoxDecoration boxDecoration(context) => BoxDecoration(
 SizedBox smallHeight(context) => SizedBox(height: height(context) * .01);
 SizedBox mediumHeight(context) => SizedBox(height: height(context) * .02);
 SizedBox largeHeight(context) => SizedBox(height: height(context) * .03);
+
+String durationString(Duration dur) {
+  double microseconds = dur.inMicroseconds.toDouble();
+
+  var minutes = microseconds ~/ Duration.microsecondsPerMinute;
+  microseconds = microseconds.remainder(Duration.microsecondsPerMinute);
+
+  var minutesPadding = minutes < 10 ? "0" : "";
+
+  var seconds = microseconds ~/ Duration.microsecondsPerSecond;
+  microseconds = microseconds.remainder(Duration.microsecondsPerSecond);
+
+  var secondsPadding = seconds < 10 ? "0" : "";
+
+  return "$minutesPadding$minutes:"
+      "$secondsPadding$seconds";
+}

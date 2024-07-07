@@ -34,6 +34,7 @@ dependencies:
   provider: ^6.1.2
   qr_flutter: ^4.1.0
   qr_code_scanner: ^1.0.1
+  soundpool: ^2.4.1
 
 dev_dependencies:
   flutter_test:
@@ -88,3 +89,6 @@ flutter:
     - assets/bodyFatPercentage/female/31-35%.svg
     - assets/bodyFatPercentage/female/36-45%.svg
     - assets/bodyFatPercentage/female/>45%.svg
+
+    - assets/sounds/beep.mp3
+    - assets/sounds/boxing-bell.mp3

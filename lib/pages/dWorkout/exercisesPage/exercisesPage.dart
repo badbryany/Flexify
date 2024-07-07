@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'dart:async';
+import 'package:flexify/pages/dWorkout/exercisesPage/createNewExercisePage.dart';
 import 'package:flexify/widgets/BounceElement.dart';
 import 'package:flexify/pages/dWorkout/exercisesPage/widgets/exerciseButton.dart';
 import 'package:flexify/widgets/SearchBar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/exerciseModels.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
@@ -302,14 +304,14 @@ class _ExercisesPageState extends State<ExercisesPage> {
                           duration: global.standardAnimationDuration,
                           opacity: _searchBarOpen == 0 ? 1 : 0,
                           child: Text(
-                            'Workout',
+                            'All exercises',
                             textAlign: TextAlign.center,
                             maxLines: 1,
                             style: TextStyle(
                               color: Theme.of(context).focusColor,
                               fontWeight: FontWeight.bold,
                               letterSpacing: -1,
-                              fontSize: global.width(context) * 0.09,
+                              fontSize: global.width(context) * .075,
                             ),
                           ),
                         ),
@@ -375,9 +377,30 @@ class _ExercisesPageState extends State<ExercisesPage> {
                                 (!loadingDone ? 0.1 : 0.845),
                             child: !loadingDone
                                 ? const Center(
-                                    child: CircularProgressIndicator())
+                                    child: CupertinoActivityIndicator(),
+                                  )
                                 : !connectedToInternet
-                                    ? const Center(child: Text('no connection'))
+                                    ? Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          SizedBox(
+                                              height: global.height(context) *
+                                                  .075),
+                                          Icon(
+                                            CupertinoIcons.wifi_exclamationmark,
+                                            size: global.width(context) * .125,
+                                          ),
+                                          global.smallHeight(context),
+                                          Text(
+                                            'no connection',
+                                            style: TextStyle(
+                                              fontSize:
+                                                  global.width(context) * .04,
+                                            ),
+                                          ),
+                                        ],
+                                      )
                                     : Scrollbar(
                                         radius: const Radius.circular(100),
                                         child: ListView(
@@ -397,12 +420,17 @@ class _ExercisesPageState extends State<ExercisesPage> {
                                             ...searchExercises
                                                 .map((e) => BounceElement(
                                                       child: GestureDetector(
-                                                        onTap: () async {
-                                                          Save.saveExercise(
-                                                              e['exercise']);
-                                                          e['added'] = true;
-                                                          setState(() {});
-                                                        },
+                                                        onTap: () =>
+                                                            Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                CreateNewExercise(
+                                                              exercise:
+                                                                  e['exercise'],
+                                                            ),
+                                                          ),
+                                                        ),
                                                         child: Container(
                                                           padding: EdgeInsets
                                                               .all(global
@@ -454,32 +482,17 @@ class _ExercisesPageState extends State<ExercisesPage> {
                                                                       ),
                                                                     ),
                                                                   ),
-                                                                  AnimatedSwitcher(
-                                                                    duration: global
-                                                                        .standardAnimationDuration,
-                                                                    transitionBuilder:
-                                                                        (child, animation) =>
-                                                                            RotationTransition(
-                                                                      turns:
-                                                                          animation,
-                                                                      child:
-                                                                          child,
-                                                                    ),
-                                                                    key: ValueKey(
-                                                                        '${e['added']}${e['exercise'].name}'),
-                                                                    child: e[
-                                                                            'added']
-                                                                        ? Icon(
-                                                                            Icons.check_rounded,
-                                                                            color:
-                                                                                Theme.of(context).colorScheme.primary,
-                                                                          )
-                                                                        : Icon(
-                                                                            Icons.add_rounded,
-                                                                            color:
-                                                                                Theme.of(context).colorScheme.onBackground,
-                                                                          ),
-                                                                  ),
+                                                                  Icon(
+                                                                    CupertinoIcons
+                                                                        .add,
+                                                                    color: Theme.of(
+                                                                            context)
+                                                                        .colorScheme
+                                                                        .onBackground,
+                                                                    size: global
+                                                                            .width(context) *
+                                                                        .06,
+                                                                  )
                                                                 ],
                                                               ),
                                                               e['new']
