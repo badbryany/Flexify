@@ -291,7 +291,10 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                       floatingLabelBehavior: FloatingLabelBehavior.never,
                       hintText: widget.helpText,
                       hintStyle: TextStyle(
-                        color: Theme.of(context).colorScheme.onBackground,
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onBackground
+                            .withOpacity(.75),
                         fontSize: global.width(context) * .045,
                         fontWeight: FontWeight.w500,
                       ),
