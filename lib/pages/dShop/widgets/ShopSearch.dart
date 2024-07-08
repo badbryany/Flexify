@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:collection/collection.dart';
 import 'package:flexify/pages/dShop/pages/3_addressPage.dart';
 import 'package:flexify/pages/dShop/pages/1_ordersPage.dart';
@@ -75,9 +73,10 @@ class _ShopSearchState extends State<ShopSearch> {
           clipBehavior: Clip.hardEdge,
           duration: global.standardAnimationDuration,
           padding: EdgeInsets.only(
-              left: global.width(context) * .05,
-              right: global.width(context) * .05,
-              top: global.height(context) * .02),
+            left: global.width(context) * .05,
+            right: global.width(context) * .05,
+            top: global.height(context) * .02,
+          ),
           height: expanded
               ? global.height(context) * .475
               : global.height(context) * .15,
@@ -153,85 +152,85 @@ class _ShopSearchState extends State<ShopSearch> {
                     ),
                   ],
                 )
-              : AnimatedContainer(
-                duration: global.standardAnimationDuration,
-                height: selected ? global.height(context) * .1 : global.height(context) * .05,
-                width: (global.containerWidth(context) - global.width(context) * .1),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(100),
-                ),
-                child: Stack(
-                  alignment: Alignment.center,
+              : Column(
                   children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                        left: global.width(context) * .03,
-                        right: global.width(context) * .02,
+                    AnimatedContainer(
+                      duration: global.standardAnimationDuration,
+                      height: global.height(context) * .05,
+                      width: (global.containerWidth(context) -
+                          global.width(context) * .1),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(100),
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      child: Stack(
+                        alignment: Alignment.center,
                         children: [
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.search,
-                                color: Colors.black,
-                                size: global.height(context) * .02,
-                              ),
-                              SizedBox(
-                                width: global.width(context) * .02,
-                              ),
-                              Container(
-                                alignment: Alignment.centerLeft,
-                                width: global.width(context) * .7 -
-                                    global.height(context) * .04,
-                                height: global.height(context) * .05,
-                                child: TextField(
-                                  textAlignVertical: TextAlignVertical.top,
-                                  controller: _shopSearchController,
-                                  autofocus: false,
-                                  onTap: () => selected = !selected,
-                                  onSubmitted: (value) {
-                                    selected = !selected;
-                                  },
-                                  onTapOutside: (event) {
-                                    selected = !selected;
-                                  },
-                                  decoration: const InputDecoration(
-                                    border: InputBorder.none,
-                                    hintText: 'Search',
-                                    hintStyle:
-                                        TextStyle(color: Colors.black),
-                                    isCollapsed: true,
-                                  ),
-                                  style: const TextStyle(
-                                    color: Colors.black,
-                                  ),
-                                  cursorColor: Colors.black.withOpacity(.7),
-                                  cursorOpacityAnimates: true,
-                                  textAlign: TextAlign.left,
-                                ),
-                              ),
-                            ],
-                          ),
-                          IconButton(
-                            highlightColor: Colors.transparent,
-                            icon: Icon(
-                              Icons.clear_rounded,
-                              color: Colors.black,
-                              size: global.height(context) * .02,
+                          Padding(
+                            padding: EdgeInsets.only(
+                              left: global.width(context) * .03,
+                              right: global.width(context) * .02,
                             ),
-                            onPressed: () {
-                              clearSuffixOnTap(context);
-                            },
-                          ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.search,
+                                      color: Colors.black,
+                                      size: global.height(context) * .02,
+                                    ),
+                                    SizedBox(
+                                      width: global.width(context) * .02,
+                                    ),
+                                    Container(
+                                      alignment: Alignment.centerLeft,
+                                      width: global.width(context) * .7 -
+                                          global.height(context) * .04,
+                                      height: global.height(context) * .05,
+                                      child: TextField(
+                                        textAlignVertical:
+                                            TextAlignVertical.top,
+                                        controller: _shopSearchController,
+                                        autofocus: false,
+                                        decoration: const InputDecoration(
+                                          border: InputBorder.none,
+                                          hintText: 'Search',
+                                          hintStyle:
+                                              TextStyle(color: Colors.black),
+                                          isCollapsed: true,
+                                        ),
+                                        style: const TextStyle(
+                                          color: Colors.black,
+                                        ),
+                                        cursorColor:
+                                            Colors.black.withOpacity(.7),
+                                        cursorOpacityAnimates: true,
+                                        textAlign: TextAlign.left,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                IconButton(
+                                  highlightColor: Colors.transparent,
+                                  icon: Icon(
+                                    Icons.clear_rounded,
+                                    color: Colors.black,
+                                    size: global.height(context) * .02,
+                                  ),
+                                  onPressed: () {
+                                    clearSuffixOnTap(context);
+                                  },
+                                ),
+                              ],
+                            ),
+                          )
                         ],
                       ),
-                    )
+                    ),
                   ],
                 ),
-              ),
         ),
       ],
     );
