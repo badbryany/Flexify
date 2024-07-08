@@ -1,9 +1,7 @@
 import 'package:flexify/pages/dShop/pages/widgets/ShopNavbar.dart';
 import 'package:flexify/pages/dWorkout/exercisesPage/setsPage/addeditSetPage/widgets/SetInput.dart';
 import 'package:flexify/pages/dWorkout/exercisesPage/setsPage/addeditSetPage/widgets/SetTimeBig.dart';
-import 'package:flexify/pages/dWorkout/exercisesPage/setsPage/addeditSetPage/widgets/TimeInput.dart';
 import 'package:flexify/pages/dWorkout/exercisesPage/setsPage/addeditSetPage/widgets/ToggleSetType.dart';
-import 'package:flexify/pages/dWorkout/hiitTimer/widgets/SetTime.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/exerciseModels.dart';

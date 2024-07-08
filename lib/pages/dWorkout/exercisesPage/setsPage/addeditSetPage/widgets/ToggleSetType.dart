@@ -44,13 +44,17 @@ class _ToggleSetTypeState extends State<ToggleSetType> {
                   Icon(
                     widget.types[i]['icon'],
                     size: global.width(context) * .05,
-                    color: Colors.black,
+                    color: activeIndex == i
+                        ? Colors.black
+                        : Colors.white.withOpacity(.5),
                   ),
                   Text(
                     widget.types[i]['title'],
                     style: TextStyle(
                       fontSize: global.width(context) * .0375,
-                      color: Colors.black,
+                      color: activeIndex == i
+                          ? Colors.black
+                          : Colors.white.withOpacity(.5),
                     ),
                   ),
                 ],
