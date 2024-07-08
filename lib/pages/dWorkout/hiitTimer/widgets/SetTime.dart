@@ -42,6 +42,7 @@ class _SetTimeState extends State<SetTime> {
 
   Widget setButton(BuildContext context, Function() onTap, String text) {
     return BounceElement(
+      onTap: () {},
       child: GestureDetector(
         onTapDown: (details) async {
           continueCount = true;

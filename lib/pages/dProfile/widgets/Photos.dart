@@ -74,17 +74,16 @@ class _PhotosState extends State<Photos> {
                   ),
                   SizedBox(height: global.height(context) * .14),
                   BounceElement(
-                    child: GestureDetector(
-                      child: SizedBox(
-                        height: global.height(context) * .1,
-                        width: global.height(context) * .1,
-                        child: Container(
-                          height: global.height(context) * .01,
-                          decoration: BoxDecoration(
-                            color: Colors.black.withOpacity(.8),
-                            borderRadius: BorderRadius.circular(100),
-                            border: Border.all(color: Colors.black, width: 4),
-                          ),
+                    onTap: () {},
+                    child: SizedBox(
+                      height: global.height(context) * .1,
+                      width: global.height(context) * .1,
+                      child: Container(
+                        height: global.height(context) * .01,
+                        decoration: BoxDecoration(
+                          color: Colors.black.withOpacity(.8),
+                          borderRadius: BorderRadius.circular(100),
+                          border: Border.all(color: Colors.black, width: 4),
                         ),
                       ),
                     ),
@@ -131,19 +130,18 @@ class BaseSetTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BounceElement(
-      child: GestureDetector(
-        child: Container(
-          alignment: Alignment.center,
-          width: global.height(context) * 0.09,
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.white),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Text(
-            textAlign: TextAlign.center,
-            "${date.day}${global.getCardinal(date.day)}\n${global.months[date.month - 1]}",
-            style: const TextStyle(color: Colors.white),
-          ),
+      onTap: () {},
+      child: Container(
+        alignment: Alignment.center,
+        width: global.height(context) * 0.09,
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.white),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Text(
+          textAlign: TextAlign.center,
+          "${date.day}${global.getCardinal(date.day)}\n${global.months[date.month - 1]}",
+          style: const TextStyle(color: Colors.white),
         ),
       ),
     );

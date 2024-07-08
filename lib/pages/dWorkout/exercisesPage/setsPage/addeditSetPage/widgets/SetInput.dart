@@ -42,6 +42,7 @@ class SetInput extends StatelessWidget {
   Widget setButton(BuildContext context, Function() onTap, String text) {
     bool continueCount = true;
     return BounceElement(
+      onTap: () {},
       child: GestureDetector(
         onTapDown: (details) async {
           continueCount = true;

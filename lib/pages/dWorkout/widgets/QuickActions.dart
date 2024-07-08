@@ -36,42 +36,40 @@ class QuickActions extends StatelessWidget {
         children: actions
             .map(
               (e) => BounceElement(
-                child: GestureDetector(
                   onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => e['link'],
                     ),
                   ),
-                  child: Container(
-                    alignment: Alignment.center,
-                    height: global.height(context) * .1125,
-                    width: global.width(context) * .3,
-                    decoration: BoxDecoration(
-                      borderRadius:
-                          BorderRadius.circular(global.borderRadius - 5),
-                      boxShadow: global.shadow(context),
-                      color: Theme.of(context).colorScheme.surface,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        global.isDarkMode(context)
-                            ? global.gradient(
-                                Icon(
-                                  e['icon'],
-                                  size: global.width(context) * .0775,
-                                ),
-                              )
-                            : Icon(
+                child: Container(
+                  alignment: Alignment.center,
+                  height: global.height(context) * .1125,
+                  width: global.width(context) * .3,
+                  decoration: BoxDecoration(
+                    borderRadius:
+                        BorderRadius.circular(global.borderRadius - 5),
+                    boxShadow: global.shadow(context),
+                    color: Theme.of(context).colorScheme.surface,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      global.isDarkMode(context)
+                          ? global.gradient(
+                              Icon(
                                 e['icon'],
                                 size: global.width(context) * .0775,
                               ),
-                        global.smallHeight(context),
-                        Text(e['title']),
-                      ],
-                    ),
+                            )
+                          : Icon(
+                              e['icon'],
+                              size: global.width(context) * .0775,
+                            ),
+                      global.smallHeight(context),
+                      Text(e['title']),
+                    ],
                   ),
                 ),
               ),

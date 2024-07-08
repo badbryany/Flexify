@@ -19,43 +19,41 @@ class Button extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BounceElement(
-      child: GestureDetector(
         onTap: onTap,
-        child: Container(
-          padding: const EdgeInsets.all(19),
-          margin: EdgeInsets.all(global.width(context) * .05),
-          width: global.width(context) * .6,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(icon == null ? 100 : 30),
-            color: Theme.of(context).colorScheme.background,
+      child: Container(
+        padding: const EdgeInsets.all(19),
+        margin: EdgeInsets.all(global.width(context) * .05),
+        width: global.width(context) * .6,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(icon == null ? 100 : 30),
+          color: Theme.of(context).colorScheme.background,
+        ),
+        child: AnimatedSwitcher(
+          duration: global.standardAnimationDuration,
+          transitionBuilder: (child, animation) => ScaleTransition(
+            scale: animation,
+            child: child,
           ),
-          child: AnimatedSwitcher(
-            duration: global.standardAnimationDuration,
-            transitionBuilder: (child, animation) => ScaleTransition(
-              scale: animation,
-              child: child,
-            ),
-            child: Center(
-              key: ValueKey(loading),
-              child: loading
-                  ? SizedBox(
-                      width: global.width(context) * 0.05,
-                      height: global.width(context) * 0.05,
-                      child: CircularProgressIndicator(
+          child: Center(
+            key: ValueKey(loading),
+            child: loading
+                ? SizedBox(
+                    width: global.width(context) * 0.05,
+                    height: global.width(context) * 0.05,
+                    child: CircularProgressIndicator(
+                      color: Theme.of(context).colorScheme.onBackground,
+                      strokeWidth: 2,
+                    ),
+                  )
+                : icon ??
+                    Text(
+                      title,
+                      style: TextStyle(
+                        fontSize: global.width(context) * .05,
+                        fontWeight: FontWeight.bold,
                         color: Theme.of(context).colorScheme.onBackground,
-                        strokeWidth: 2,
                       ),
-                    )
-                  : icon ??
-                      Text(
-                        title,
-                        style: TextStyle(
-                          fontSize: global.width(context) * .05,
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).colorScheme.onBackground,
-                        ),
-                      ),
-            ),
+                    ),
           ),
         ),
       ),

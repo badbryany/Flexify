@@ -114,49 +114,47 @@ class _DashboardWorkoutStatsState extends State<DashboardWorkoutStats> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             BounceElement(
-              child: GestureDetector(
                 onTap: () => setState(() => selectedIntesity = i),
-                child: Stack(
-                  alignment: Alignment.bottomCenter,
-                  children: [
-                    Container(
-                      height: global.height(context) * 0.17,
-                      width: global.width(context) * 0.11,
-                      color: Theme.of(context).colorScheme.background,
+              child: Stack(
+                alignment: Alignment.bottomCenter,
+                children: [
+                  Container(
+                    height: global.height(context) * 0.17,
+                    width: global.width(context) * 0.11,
+                    color: Theme.of(context).colorScheme.background,
+                  ),
+                  AnimatedContainer(
+                    duration: const Duration(milliseconds: 400),
+                    height: (global.height(context) * 0.17) /
+                        max(intensityPerDay) *
+                        realIntensity,
+                    width: global.width(context) * 0.11,
+                    margin: const EdgeInsets.only(
+                      left: 0.5,
+                      right: 0.5,
                     ),
-                    AnimatedContainer(
-                      duration: const Duration(milliseconds: 400),
-                      height: (global.height(context) * 0.17) /
-                          max(intensityPerDay) *
-                          realIntensity,
-                      width: global.width(context) * 0.11,
-                      margin: const EdgeInsets.only(
-                        left: 0.5,
-                        right: 0.5,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.surface,
-                        gradient: selectedIntesity == i
-                            ? LinearGradient(
-                                colors: [
-                                  Theme.of(context).colorScheme.primary,
-                                  Theme.of(context).colorScheme.onPrimary,
-                                ],
-                              )
-                            : LinearGradient(
-                                colors: [
-                                  Theme.of(context).colorScheme.surface,
-                                  Theme.of(context).colorScheme.surface,
-                                ],
-                              ),
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(18),
-                          topRight: Radius.circular(18),
-                        ),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.surface,
+                      gradient: selectedIntesity == i
+                          ? LinearGradient(
+                              colors: [
+                                Theme.of(context).colorScheme.primary,
+                                Theme.of(context).colorScheme.onPrimary,
+                              ],
+                            )
+                          : LinearGradient(
+                              colors: [
+                                Theme.of(context).colorScheme.surface,
+                                Theme.of(context).colorScheme.surface,
+                              ],
+                            ),
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(18),
+                        topRight: Radius.circular(18),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
             const SizedBox(height: 10),

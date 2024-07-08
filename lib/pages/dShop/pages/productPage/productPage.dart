@@ -143,7 +143,8 @@ class _ProductPageState extends State<ProductPage> {
                             height: global.height(context) * .8,
                             submitButtonText: "Enter",
                             content: Container(
-                              padding: EdgeInsets.only(top: global.height(context) * .04),
+                              padding: EdgeInsets.only(
+                                  top: global.height(context) * .04),
                               width: global.width(context) * .9,
                               height: global.height(context) * .5,
                               child: const ShippingTiles(),
@@ -253,6 +254,7 @@ class _ProductNavbarState extends State<ProductNavbar> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           BounceElement(
+            onTap: () {},
             child: Container(
               alignment: Alignment.center,
               padding: EdgeInsets.all(global.width(context) * 0.005),
@@ -279,6 +281,7 @@ class _ProductNavbarState extends State<ProductNavbar> {
             ),
           ),
           BounceElement(
+            onTap: () {},
             child: Container(
               alignment: Alignment.center,
               padding: EdgeInsets.all(global.width(context) * 0.005),
@@ -502,7 +505,10 @@ class ProductDetailsWidget extends StatelessWidget {
             height: global.height(context) * .7,
             submitButtonText: "Close",
             content: Container(
-              padding: EdgeInsets.only(left: global.width(context) * .1, right: global.width(context) * .1, top: global.height(context) * .02),
+              padding: EdgeInsets.only(
+                  left: global.width(context) * .1,
+                  right: global.width(context) * .1,
+                  top: global.height(context) * .02),
               height: global.height(context) * .4,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

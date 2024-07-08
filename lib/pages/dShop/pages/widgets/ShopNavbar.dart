@@ -26,6 +26,7 @@ class ShopNavbar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           BounceElement(
+            onTap: () {},
             child: Container(
               alignment: Alignment.center,
               padding: EdgeInsets.all(global.width(context) * 0.005),
@@ -80,22 +81,20 @@ class ActionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BounceElement(
-      child: GestureDetector(
-        onTap: action,
-        child: Container(
-          alignment: Alignment.center,
-          padding: EdgeInsets.all(global.width(context) * 0.005),
-          width: global.width(context) * 0.15,
-          height: global.width(context) * 0.15,
-          decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.background,
-              borderRadius: BorderRadius.circular(100),
-              boxShadow: global.shadow(context)),
-          child: Icon(
-            iconData,
-            color: Theme.of(context).colorScheme.onBackground,
-            size: global.width(context) * 0.05,
-          ),
+      onTap: action,
+      child: Container(
+        alignment: Alignment.center,
+        padding: EdgeInsets.all(global.width(context) * 0.005),
+        width: global.width(context) * 0.15,
+        height: global.width(context) * 0.15,
+        decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.background,
+            borderRadius: BorderRadius.circular(100),
+            boxShadow: global.shadow(context)),
+        child: Icon(
+          iconData,
+          color: Theme.of(context).colorScheme.onBackground,
+          size: global.width(context) * 0.05,
         ),
       ),
     );

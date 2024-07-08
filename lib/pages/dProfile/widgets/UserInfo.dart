@@ -433,30 +433,28 @@ class UserInfoButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BounceElement(
-      child: GestureDetector(
-        onTap: onTap,
-        child: Container(
-          height: global.height(context) * .05,
-          width: global.width(context) * .4,
-          padding: EdgeInsets.symmetric(
-              horizontal: global.width(context) * .1,
-              vertical: global.height(context) * .005),
-          decoration: BoxDecoration(
-              color: highlight == true
-                  ? Theme.of(context).colorScheme.primary.withOpacity(.25)
-                  : const Color.fromARGB(255, 26, 26, 29),
-              boxShadow: [global.lightShadow(context)],
-              borderRadius: BorderRadius.circular(30)),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                icon,
-                color: Colors.white.withOpacity(.9),
-                size: global.width(context) * .06,
-              ),
-            ],
-          ),
+      onTap: onTap,
+      child: Container(
+        height: global.height(context) * .05,
+        width: global.width(context) * .4,
+        padding: EdgeInsets.symmetric(
+            horizontal: global.width(context) * .1,
+            vertical: global.height(context) * .005),
+        decoration: BoxDecoration(
+            color: highlight == true
+                ? Theme.of(context).colorScheme.primary.withOpacity(.25)
+                : const Color.fromARGB(255, 26, 26, 29),
+            boxShadow: [global.lightShadow(context)],
+            borderRadius: BorderRadius.circular(30)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              icon,
+              color: Colors.white.withOpacity(.9),
+              size: global.width(context) * .06,
+            ),
+          ],
         ),
       ),
     );
