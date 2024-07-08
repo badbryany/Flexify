@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:async';
-// import 'package:flexify/pages/dWorkout/exercisesPage/createNewExercisePage.dart';
+import 'package:flexify/pages/dWorkout/exercisesPage/createNewExercisePage.dart';
 import 'package:flexify/widgets/BounceElement.dart';
 import 'package:flexify/pages/dWorkout/exercisesPage/widgets/exerciseButton.dart';
 import 'package:flexify/widgets/SearchBar.dart';
@@ -421,26 +421,26 @@ class _ExercisesPageState extends State<ExercisesPage> {
                                                 .map((e) => BounceElement(
                                                       child: GestureDetector(
                                                         onTap: () {
-                                                          // e['new']
-                                                          //     ? Navigator.push(
-                                                          //         context,
-                                                          //         MaterialPageRoute(
-                                                          //           builder: (context) => CreateNewExercise(
-                                                          //               exercise: e[
-                                                          //                   'exercise'],
-                                                          //               reload:
-                                                          //                   getData),
-                                                          //         ),
-                                                          //       )
-                                                          //     : Save.saveExercise(
-                                                          //         e['exercise']);
-                                                          // getData();
-                                                          // setState(() =>
-                                                          //     _searchBarOpen =
-                                                          //         0);
-                                                          // _controller.text = '';
-                                                          // FocusScope.of(context)
-                                                          //     .unfocus();
+                                                          e['new']
+                                                              ? Navigator.push(
+                                                                  context,
+                                                                  MaterialPageRoute(
+                                                                    builder: (context) => CreateNewExercise(
+                                                                        exercise: e[
+                                                                            'exercise'],
+                                                                        reload:
+                                                                            getData),
+                                                                  ),
+                                                                )
+                                                              : Save.saveExercise(
+                                                                  e['exercise']);
+                                                          getData();
+                                                          setState(() =>
+                                                              _searchBarOpen =
+                                                                  0);
+                                                          _controller.text = '';
+                                                          FocusScope.of(context)
+                                                              .unfocus();
                                                         },
                                                         child: Container(
                                                           padding: EdgeInsets
