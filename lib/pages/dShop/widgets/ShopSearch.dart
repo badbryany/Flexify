@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:collection/collection.dart';
 import 'package:flexify/pages/dShop/pages/3_addressPage.dart';
 import 'package:flexify/pages/dShop/pages/1_ordersPage.dart';
@@ -11,7 +13,9 @@ import 'package:flexify/data/globalVariables.dart' as global;
 import 'package:flexify/pages/dShop/data/shopData.dart' as shopData;
 
 class ShopSearch extends StatefulWidget {
-  const ShopSearch({super.key});
+  const ShopSearch({super.key, required this.callback});
+
+  final Function callback;
 
   @override
   State<ShopSearch> createState() => _ShopSearchState();
@@ -53,6 +57,7 @@ class _ShopSearchState extends State<ShopSearch> {
   ];
 
   final _shopSearchController = TextEditingController();
+  bool selected = false;
 
   @override
   void initState() {
@@ -61,50 +66,63 @@ class _ShopSearchState extends State<ShopSearch> {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
-      clipBehavior: Clip.hardEdge,
-      duration: global.standardAnimationDuration,
-      padding: EdgeInsets.all(
-        global.width(context) * .05,
-      ),
-      height: expanded
-          ? global.height(context) * .525
-          : global.height(context) * .17,
-      width: global.containerWidth(context),
-      decoration: global.boxDecoration(context),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  expanded = !expanded;
-                  setState(() {});
-                },
-                child: Icon(
-                  CupertinoIcons.text_justifyleft,
-                  color: Colors.white,
-                  size: global.width(context) * .1,
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        AnimatedContainer(
+          alignment: Alignment.center,
+          curve: Curves.easeInOutCirc,
+          clipBehavior: Clip.hardEdge,
+          duration: global.standardAnimationDuration,
+          padding: EdgeInsets.only(
+              left: global.width(context) * .05,
+              right: global.width(context) * .05,
+              top: global.height(context) * .02),
+          height: expanded
+              ? global.height(context) * .475
+              : global.height(context) * .15,
+          width: global.containerWidth(context),
+          decoration: global.boxDecoration(context),
+        ),
+        Positioned(
+          top: global.height(context) * .02,
+          left: global.width(context) * .05,
+          right: global.width(context) * .05,
+          child: SizedBox(
+            width: global.containerWidth(context) - global.width(context) * .05,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    expanded = !expanded;
+                    widget.callback();
+                    selected = false;
+                    setState(() {});
+                  },
+                  child: Icon(
+                    CupertinoIcons.text_justifyleft,
+                    color: Colors.white,
+                    size: global.height(context) * .035,
+                  ),
                 ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  openCart(context);
-                },
-                child: Icon(
-                  Icons.shopping_bag_rounded,
-                  color: Colors.white,
-                  size: global.width(context) * .1,
+                GestureDetector(
+                  onTap: () {
+                    openCart(context);
+                  },
+                  child: Icon(
+                    Icons.shopping_bag_rounded,
+                    color: Colors.white,
+                    size: global.height(context) * .035,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-          SizedBox(
-            height: global.height(context) * .02,
-          ),
-          SizedBox(height: global.width(context) * .01),
-          expanded
+        ),
+        Positioned(
+          top: global.height(context) * .075,
+          child: expanded
               ? Column(
                   children: [
                     SizedBox(
@@ -136,46 +154,86 @@ class _ShopSearchState extends State<ShopSearch> {
                   ],
                 )
               : AnimatedContainer(
-                  duration: const Duration(milliseconds: 100),
-                  height: global.height(context) * .05,
-                  width: global.containerWidth(context),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(100),
-                  ),
-                  child: TextField(
-                    controller: _shopSearchController,
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.only(top: global.height(context) * .01),
-                      hintText: 'Search',
-                      labelStyle: TextStyle(
-                          color: Colors.black,
-                          fontSize: global.width(context) * .04),
-                      border: InputBorder.none,
-                      hintStyle: TextStyle(
-                        color: Colors.black,
-                        fontSize: global.width(context) * .04,
-                      ),
-                      prefixIcon: const Icon(
-                        Icons.search,
-                        color: Colors.black,
-                      ),
-                      suffixIcon: IconButton(
-                        highlightColor: Colors.transparent,
-                        icon: const Icon(Icons.clear_rounded,
-                            color: Colors.black),
-                        onPressed: () {
-                          clearSuffixOnTap(context);
-                        },
-                      ),
-                    ),
-                    style: const TextStyle(color: Colors.black),
-                    cursorColor: Colors.black.withOpacity(.7),
-                    textAlign: TextAlign.left,
-                  ),
+                duration: global.standardAnimationDuration,
+                height: selected ? global.height(context) * .1 : global.height(context) * .05,
+                width: (global.containerWidth(context) - global.width(context) * .1),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(100),
                 ),
-        ],
-      ),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                        left: global.width(context) * .03,
+                        right: global.width(context) * .02,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.search,
+                                color: Colors.black,
+                                size: global.height(context) * .02,
+                              ),
+                              SizedBox(
+                                width: global.width(context) * .02,
+                              ),
+                              Container(
+                                alignment: Alignment.centerLeft,
+                                width: global.width(context) * .7 -
+                                    global.height(context) * .04,
+                                height: global.height(context) * .05,
+                                child: TextField(
+                                  textAlignVertical: TextAlignVertical.top,
+                                  controller: _shopSearchController,
+                                  autofocus: false,
+                                  onTap: () => selected = !selected,
+                                  onSubmitted: (value) {
+                                    selected = !selected;
+                                  },
+                                  onTapOutside: (event) {
+                                    selected = !selected;
+                                  },
+                                  decoration: const InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText: 'Search',
+                                    hintStyle:
+                                        TextStyle(color: Colors.black),
+                                    isCollapsed: true,
+                                  ),
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                  ),
+                                  cursorColor: Colors.black.withOpacity(.7),
+                                  cursorOpacityAnimates: true,
+                                  textAlign: TextAlign.left,
+                                ),
+                              ),
+                            ],
+                          ),
+                          IconButton(
+                            highlightColor: Colors.transparent,
+                            icon: Icon(
+                              Icons.clear_rounded,
+                              color: Colors.black,
+                              size: global.height(context) * .02,
+                            ),
+                            onPressed: () {
+                              clearSuffixOnTap(context);
+                            },
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+        ),
+      ],
     );
   }
 

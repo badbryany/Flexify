@@ -143,8 +143,7 @@ class _ProductPageState extends State<ProductPage> {
                             height: global.height(context) * .8,
                             submitButtonText: "Enter",
                             content: Container(
-                              padding: EdgeInsets.only(
-                                  top: global.height(context) * .04),
+                              padding: EdgeInsets.only(top: global.height(context) * .04),
                               width: global.width(context) * .9,
                               height: global.height(context) * .5,
                               child: const ShippingTiles(),
@@ -267,16 +266,10 @@ class _ProductNavbarState extends State<ProductNavbar> {
                     ? [global.darkShadow(context)]
                     : [global.lightShadow(context)],
               ),
-              child: IconButton(
-                splashColor: Colors.transparent,
-                hoverColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                color: Theme.of(context).colorScheme.onBackground,
-                icon: const Icon(Icons.arrow_back_rounded),
-                iconSize: global.width(context) * 0.05,
+              child: Icon(
+                Icons.arrow_back_rounded,
+                size: global.width(context) * 0.05,
+                color: Colors.white,
               ),
             ),
           ),

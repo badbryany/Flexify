@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:math';
+import 'package:keep_screen_on/keep_screen_on.dart';
 import 'package:soundpool/soundpool.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,6 @@ import 'package:flexify/data/globalVariables.dart' as global;
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'Round.dart';
 import 'package:flutter/services.dart';
-import 'package:keep_screen_on/keep_screen_on.dart';
 
 class HiitTimer extends StatefulWidget {
   const HiitTimer({

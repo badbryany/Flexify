@@ -36,21 +36,12 @@ class ShopNavbar extends StatelessWidget {
                   color: Theme.of(context).colorScheme.background,
                   borderRadius: BorderRadius.circular(100),
                   boxShadow: global.shadow(context)),
-              child: IconButton(
-                highlightColor: Colors.transparent,
-                onPressed: () {
-                  // if (onTap != null) {onTap;}
-                  shopData.Address.clearControllers();
-                  shopData.Card.clearControllers();
-                  Navigator.pop(context);
-                },
-                color: Theme.of(context).colorScheme.onBackground,
-                icon: const Icon(
+                child: Icon(
                   Icons.arrow_back_rounded,
+                  size: global.width(context) * 0.05,
+                  color: Colors.white,
                 ),
-                iconSize: global.width(context) * 0.05,
               ),
-            ),
           ),
           Text(
             title,
