@@ -1,5 +1,4 @@
 import 'package:flexify/data/globalVariables.dart' as global;
-import 'package:flexify/pages/dProfile/widgets/SmallQRWidget.dart';
 import 'package:flexify/pages/dProfile/widgets/UserInfo.dart';
 import 'package:flexify/pages/dProfile/widgets/UserStats.dart';
 import 'package:flutter/material.dart';

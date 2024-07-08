@@ -23,7 +23,7 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  int _selectedIndex = 4;
+  int _selectedIndex = 2;
   bool gotRequests = false;
 
   final List<dynamic> dashboardOptions = [
