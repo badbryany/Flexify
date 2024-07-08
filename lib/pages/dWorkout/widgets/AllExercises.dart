@@ -111,22 +111,6 @@ class _AllExercisesState extends State<AllExercises> {
                 color: Theme.of(context).focusColor.withOpacity(0.7),
               ),
             ),
-            ...(nextWorkoutDay == null
-                ? [const Text('error')]
-                : showSets(nextWorkoutDay!)),
-            const SizedBox(height: 20),
-            ...[
-              'More data needed for accurate evalutation',
-              'Please continue using the app for added performance'
-            ].map(
-              (e) => Text(
-                e,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Theme.of(context).focusColor.withOpacity(0.25),
-                ),
-              ),
-            ),
           ],
         ),
       ),
