@@ -419,7 +419,6 @@ class _ExercisesPageState extends State<ExercisesPage> {
                                             ),
                                             ...searchExercises
                                                 .map((e) => BounceElement(
-                                                      child: GestureDetector(
                                                         onTap: () {
                                                           e['new']
                                                               ? Navigator.push(
@@ -442,83 +441,82 @@ class _ExercisesPageState extends State<ExercisesPage> {
                                                           FocusScope.of(context)
                                                               .unfocus();
                                                         },
-                                                        child: Container(
-                                                          padding: EdgeInsets
-                                                              .all(global
-                                                                  .containerPadding),
-                                                          margin:
-                                                              const EdgeInsets
-                                                                  .all(7.5),
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            borderRadius: BorderRadius
-                                                                .circular(global
-                                                                    .borderRadius),
-                                                            color: Theme.of(
-                                                                    context)
-                                                                .colorScheme
-                                                                .background,
-                                                          ),
-                                                          child: Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceBetween,
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .center,
-                                                                children: [
-                                                                  SizedBox(
-                                                                    width: MediaQuery.of(context)
-                                                                            .size
-                                                                            .width *
-                                                                        0.65,
-                                                                    child: Text(
-                                                                      e['exercise']
-                                                                          .name,
-                                                                      style:
-                                                                          TextStyle(
-                                                                        color: Theme.of(context)
-                                                                            .colorScheme
-                                                                            .onBackground,
-                                                                        fontWeight:
-                                                                            FontWeight.bold,
-                                                                        fontSize:
-                                                                            global.width(context) *
-                                                                                0.045,
-                                                                      ),
+                                                      child: Container(
+                                                        padding: EdgeInsets
+                                                            .all(global
+                                                                .containerPadding),
+                                                        margin:
+                                                            const EdgeInsets
+                                                                .all(7.5),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius: BorderRadius
+                                                              .circular(global
+                                                                  .borderRadius),
+                                                          color: Theme.of(
+                                                                  context)
+                                                              .colorScheme
+                                                              .background,
+                                                        ),
+                                                        child: Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                SizedBox(
+                                                                  width: MediaQuery.of(context)
+                                                                          .size
+                                                                          .width *
+                                                                      0.65,
+                                                                  child: Text(
+                                                                    e['exercise']
+                                                                        .name,
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: Theme.of(context)
+                                                                          .colorScheme
+                                                                          .onBackground,
+                                                                      fontWeight:
+                                                                          FontWeight.bold,
+                                                                      fontSize:
+                                                                          global.width(context) *
+                                                                              0.045,
                                                                     ),
                                                                   ),
-                                                                  Icon(
-                                                                    CupertinoIcons
-                                                                        .add,
-                                                                    color: Theme.of(
-                                                                            context)
-                                                                        .colorScheme
-                                                                        .onBackground,
-                                                                    size: global
-                                                                            .width(context) *
-                                                                        .06,
+                                                                ),
+                                                                Icon(
+                                                                  CupertinoIcons
+                                                                      .add,
+                                                                  color: Theme.of(
+                                                                          context)
+                                                                      .colorScheme
+                                                                      .onBackground,
+                                                                  size: global
+                                                                          .width(context) *
+                                                                      .06,
+                                                                )
+                                                              ],
+                                                            ),
+                                                            e['new']
+                                                                ? Text(
+                                                                    'create this exercise',
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: Theme.of(context)
+                                                                          .colorScheme
+                                                                          .onBackground,
+                                                                    ),
                                                                   )
-                                                                ],
-                                                              ),
-                                                              e['new']
-                                                                  ? Text(
-                                                                      'create this exercise',
-                                                                      style:
-                                                                          TextStyle(
-                                                                        color: Theme.of(context)
-                                                                            .colorScheme
-                                                                            .onBackground,
-                                                                      ),
-                                                                    )
-                                                                  : const SizedBox(),
-                                                            ],
-                                                          ),
+                                                                : const SizedBox(),
+                                                          ],
                                                         ),
                                                       ),
                                                     ))

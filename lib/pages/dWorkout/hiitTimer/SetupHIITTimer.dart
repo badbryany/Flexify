@@ -176,22 +176,20 @@ class _SetupHIITTimerrState extends State<SetupHIITTimer> {
                 child: Row(
                   children: [
                     BounceElement(
-                      child: GestureDetector(
-                        onTap: () => addRound(),
-                        child: Container(
-                          alignment: Alignment.center,
-                          height: global.height(context) * .075,
-                          width: global.height(context) * .075,
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.background,
-                            borderRadius: BorderRadius.circular(
-                              global.borderRadius - 5,
-                            ),
+                      onTap: () => addRound(),
+                      child: Container(
+                        alignment: Alignment.center,
+                        height: global.height(context) * .075,
+                        width: global.height(context) * .075,
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.background,
+                          borderRadius: BorderRadius.circular(
+                            global.borderRadius - 5,
                           ),
-                          child: Icon(
-                            CupertinoIcons.add,
-                            color: Theme.of(context).colorScheme.onBackground,
-                          ),
+                        ),
+                        child: Icon(
+                          CupertinoIcons.add,
+                          color: Theme.of(context).colorScheme.onBackground,
                         ),
                       ),
                     ),
@@ -202,35 +200,33 @@ class _SetupHIITTimerrState extends State<SetupHIITTimer> {
                       duration: global.standardAnimationDuration,
                       opacity: rounds.isEmpty ? .5 : 1,
                       child: BounceElement(
-                        child: GestureDetector(
-                          onTap: () => rounds.isEmpty ? null : startTimer(),
-                          child: Container(
-                            alignment: Alignment.center,
-                            height: global.height(context) * .075,
-                            width: global.width(context) * .6,
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).colorScheme.background,
-                              borderRadius: BorderRadius.circular(
-                                global.borderRadius - 5,
-                              ),
+                        onTap: () => rounds.isEmpty ? null : startTimer(),
+                        child: Container(
+                          alignment: Alignment.center,
+                          height: global.height(context) * .075,
+                          width: global.width(context) * .6,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.background,
+                            borderRadius: BorderRadius.circular(
+                              global.borderRadius - 5,
                             ),
-                            child: global.gradient(Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  CupertinoIcons.play,
-                                  size: global.width(context) * .05,
-                                ),
-                                SizedBox(width: global.width(context) * .025),
-                                Text(
-                                  'Start HIIT-Timer',
-                                  style: TextStyle(
-                                    fontSize: global.width(context) * .05,
-                                  ),
-                                ),
-                              ],
-                            )),
                           ),
+                          child: global.gradient(Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                CupertinoIcons.play,
+                                size: global.width(context) * .05,
+                              ),
+                              SizedBox(width: global.width(context) * .025),
+                              Text(
+                                'Start HIIT-Timer',
+                                style: TextStyle(
+                                  fontSize: global.width(context) * .05,
+                                ),
+                              ),
+                            ],
+                          )),
                         ),
                       ),
                     ),

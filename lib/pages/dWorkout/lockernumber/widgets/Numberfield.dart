@@ -76,34 +76,32 @@ class NumberButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BounceElement(
-      child: GestureDetector(
-        onTap: delete == true || save == true
+        onTap: (delete == true || save == true)
             ? (save == true ? () => Navigator.pop(context) : deleteDigit)
             : () => onTap(number),
-        child: Container(
-          alignment: Alignment.center,
-          height: global.width(context) * .25,
-          width: global.width(context) * .25,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(global.borderRadius + 10),
-            color: Theme.of(context).colorScheme.background,
-          ),
-          child: delete == true || save == true
-              ? global.gradient(Icon(
-                  save == true
-                      ? CupertinoIcons.checkmark_alt
-                      : CupertinoIcons.delete_left,
-                  size: global.width(context) * .075,
-                  color: Theme.of(context).colorScheme.onBackground,
-                ))
-              : Text(
-                  '$number',
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.onBackground,
-                    fontSize: global.width(context) * .1,
-                  ),
-                ),
+      child: Container(
+        alignment: Alignment.center,
+        height: global.width(context) * .25,
+        width: global.width(context) * .25,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(global.borderRadius + 10),
+          color: Theme.of(context).colorScheme.background,
         ),
+        child: delete == true || save == true
+            ? global.gradient(Icon(
+                save == true
+                    ? CupertinoIcons.checkmark_alt
+                    : CupertinoIcons.delete_left,
+                size: global.width(context) * .075,
+                color: Theme.of(context).colorScheme.onBackground,
+              ))
+            : Text(
+                '$number',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onBackground,
+                  fontSize: global.width(context) * .1,
+                ),
+              ),
       ),
     );
   }

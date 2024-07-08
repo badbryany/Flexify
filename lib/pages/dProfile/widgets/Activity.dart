@@ -101,94 +101,92 @@ class ActivityButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BounceElement(
-      child: GestureDetector(
-        onTap: () {
-          showCustomModalBottomSheet(
-            context,
-            ModalBottomSheet(
-              onPop: () => Navigator.pop(context),
-              title: text,
-              titleSize: global.width(context) * .08,
-              height: global.height(context) * .6,
-              submitButtonText: "Close",
-              content: Container(
+      onTap: () {
+        showCustomModalBottomSheet(
+          context,
+          ModalBottomSheet(
+            onPop: () => Navigator.pop(context),
+            title: text,
+            titleSize: global.width(context) * .08,
+            height: global.height(context) * .6,
+            submitButtonText: "Close",
+            content: Container(
+              alignment: Alignment.center,
+              height: global.height(context) * .21,
+              width: global.width(context) * .8,
+              child: Text(
+                description,
+                textAlign: TextAlign.center,
+                style:
+                    TextStyle(fontSize: descriptionSize, color: Colors.white),
+              ),
+            ),
+          ),
+        );
+      },
+      child: Container(
+        height: global.height(context) * .1,
+        padding: EdgeInsets.only(
+          right: global.width(context) * .03,
+          left: global.width(context) * .04,
+          top: global.width(context) * .03,
+          bottom: global.width(context) * .03,
+        ),
+        decoration: BoxDecoration(
+          color: const Color.fromARGB(255, 26, 26, 29),
+          borderRadius: BorderRadius.circular(30),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            global.gradient(
+              Stack(
                 alignment: Alignment.center,
-                height: global.height(context) * .21,
-                width: global.width(context) * .8,
-                child: Text(
-                  description,
-                  textAlign: TextAlign.center,
-                  style:
-                      TextStyle(fontSize: descriptionSize, color: Colors.white),
+                children: [
+                  Icon(
+                    icon,
+                    color: Theme.of(context).colorScheme.primary,
+                    size: global.width(context) * .1,
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              width: global.width(context) * .05,
+            ),
+            Container(
+              width: global.width(context) * .4,
+              alignment: Alignment.center,
+              child: Text(
+                text,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: textSize,
                 ),
               ),
             ),
-          );
-        },
-        child: Container(
-          height: global.height(context) * .1,
-          padding: EdgeInsets.only(
-            right: global.width(context) * .03,
-            left: global.width(context) * .04,
-            top: global.width(context) * .03,
-            bottom: global.width(context) * .03,
-          ),
-          decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 26, 26, 29),
-            borderRadius: BorderRadius.circular(30),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              global.gradient(
-                Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Icon(
-                      icon,
-                      color: Theme.of(context).colorScheme.primary,
-                      size: global.width(context) * .1,
-                    ),
-                  ],
-                ),
+            SizedBox(
+              width: global.width(context) * .05,
+            ),
+            Container(
+              alignment: Alignment.center,
+              height: global.width(context) * .15,
+              width: global.width(context) * .15,
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.background,
+                borderRadius: BorderRadius.circular(30),
               ),
-              SizedBox(
-                width: global.width(context) * .05,
-              ),
-              Container(
-                width: global.width(context) * .4,
-                alignment: Alignment.center,
-                child: Text(
-                  text,
+              child: global.gradient(
+                Text(
+                  data,
                   style: TextStyle(
-                    color: Colors.white,
-                    fontSize: textSize,
+                    color: Theme.of(context).colorScheme.primary,
+                    fontSize: dataSize,
                   ),
                 ),
               ),
-              SizedBox(
-                width: global.width(context) * .05,
-              ),
-              Container(
-                alignment: Alignment.center,
-                height: global.width(context) * .15,
-                width: global.width(context) * .15,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.background,
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                child: global.gradient(
-                  Text(
-                    data,
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.primary,
-                      fontSize: dataSize,
-                    ),
-                  ),
-                ),
-              )
-            ],
-          ),
+            )
+          ],
         ),
       ),
     );

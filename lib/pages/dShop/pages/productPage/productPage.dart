@@ -143,8 +143,7 @@ class _ProductPageState extends State<ProductPage> {
                             height: global.height(context) * .8,
                             submitButtonText: "Enter",
                             content: Container(
-                              padding: EdgeInsets.only(
-                                  top: global.height(context) * .04),
+                              padding: EdgeInsets.only(top: global.height(context) * .04),
                               width: global.width(context) * .9,
                               height: global.height(context) * .5,
                               child: const ShippingTiles(),
@@ -253,10 +252,8 @@ class _ProductNavbarState extends State<ProductNavbar> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
+          BounceElement(
+            onTap: () {},
             child: Container(
               alignment: Alignment.center,
               padding: EdgeInsets.all(global.width(context) * 0.005),
@@ -277,30 +274,32 @@ class _ProductNavbarState extends State<ProductNavbar> {
             ),
           ),
           BounceElement(
-            child: GestureDetector(
-              onTap: () {
-                widget.item.itemSaved = !widget.item.itemSaved;
-                setState(() {});
-              },
-              child: Container(
-                alignment: Alignment.center,
-                padding: EdgeInsets.all(global.width(context) * 0.005),
-                width: global.width(context) * 0.15,
-                height: global.width(context) * 0.15,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.background,
-                  borderRadius: BorderRadius.circular(100),
-                  boxShadow: global.isDarkMode(context)
-                      ? [global.darkShadow(context)]
-                      : [global.lightShadow(context)],
-                ),
-                child: Icon(
-                  widget.item.itemSaved
-                      ? CupertinoIcons.bookmark_fill
-                      : CupertinoIcons.bookmark,
-                  size: global.width(context) * .05,
-                  color: Colors.white,
-                ),
+            onTap: () {},
+            child: Container(
+              alignment: Alignment.center,
+              padding: EdgeInsets.all(global.width(context) * 0.005),
+              width: global.width(context) * 0.15,
+              height: global.width(context) * 0.15,
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.background,
+                borderRadius: BorderRadius.circular(100),
+                boxShadow: global.isDarkMode(context)
+                    ? [global.darkShadow(context)]
+                    : [global.lightShadow(context)],
+              ),
+              child: IconButton(
+                splashColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                onPressed: () {
+                  widget.item.itemSaved = !widget.item.itemSaved;
+                  setState(() {});
+                },
+                color: Theme.of(context).colorScheme.onBackground,
+                icon: Icon(widget.item.itemSaved
+                    ? CupertinoIcons.bookmark_fill
+                    : CupertinoIcons.bookmark),
+                iconSize: global.width(context) * 0.05,
               ),
             ),
           ),

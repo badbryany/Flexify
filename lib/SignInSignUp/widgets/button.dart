@@ -22,38 +22,36 @@ class _ButtonWithTextState extends State<ButtonWithText> {
   @override
   Widget build(BuildContext context) {
     return BounceElement(
-      child: GestureDetector(
-        onTap: widget.onTap,
-        child: Container(
-          height: global.height(context) * 0.08,
-          width: global.width(context) * 0.9,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(global.borderRadius * 0.4),
-            color: Theme.of(context).colorScheme.background,
-            boxShadow: [global.darkShadow(context)],
-          ),
-          child: Center(
-            child: AnimatedSwitcher(
-              duration: global.standardAnimationDuration,
-              transitionBuilder: (child, animation) => ScaleTransition(
-                scale: animation,
-                child: child,
-              ),
-              child: widget.loading
-                  ? SizedBox(
-                      height: global.width(context) * 0.05,
-                      width: global.width(context) * 0.05,
-                      child: const CircularProgressIndicator(strokeWidth: 2.5),
-                    )
-                  : Text(
-                      widget.text,
-                      style: TextStyle(
-                        fontSize: global.width(context) * 0.05,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.surface,
-                      ),
-                    ),
+      onTap: widget.onTap,
+      child: Container(
+        height: global.height(context) * 0.08,
+        width: global.width(context) * 0.9,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(global.borderRadius * 0.4),
+          color: Theme.of(context).colorScheme.background,
+          boxShadow: [global.darkShadow(context)],
+        ),
+        child: Center(
+          child: AnimatedSwitcher(
+            duration: global.standardAnimationDuration,
+            transitionBuilder: (child, animation) => ScaleTransition(
+              scale: animation,
+              child: child,
             ),
+            child: widget.loading
+                ? SizedBox(
+                    height: global.width(context) * 0.05,
+                    width: global.width(context) * 0.05,
+                    child: const CircularProgressIndicator(strokeWidth: 2.5),
+                  )
+                : Text(
+                    widget.text,
+                    style: TextStyle(
+                      fontSize: global.width(context) * 0.05,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.surface,
+                    ),
+                  ),
           ),
         ),
       ),
@@ -75,6 +73,7 @@ class ImageButton extends StatelessWidget {
     return Shadow(
       borderRadius: global.borderRadius * 0.2,
       child: BounceElement(
+        onTap: onTap,
         child: SizedBox(
           width: global.width(context) * 0.1,
           height: global.width(context) * 0.1,
@@ -83,11 +82,8 @@ class ImageButton extends StatelessWidget {
               color: Theme.of(context).colorScheme.background,
               borderRadius: BorderRadius.circular(global.borderRadius * 0.2),
             ),
-            child: GestureDetector(
-              onTap: onTap,
-              child: Center(
-                child: image,
-              ),
+            child: Center(
+              child: image,
             ),
           ),
         ),
@@ -113,14 +109,12 @@ class _ButtonWithIconState extends State<ButtonWithIcon> {
   @override
   Widget build(BuildContext context) {
     return BounceElement(
+      onTap: widget.onTap,
       child: Shadow(
         borderRadius: global.borderRadius,
         child: Container(
           color: Colors.black,
-          child: GestureDetector(
-            onTap: widget.onTap,
-            child: widget.icon,
-          ),
+          child: widget.icon,
         ),
       ),
     );

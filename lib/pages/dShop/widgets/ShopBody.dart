@@ -155,7 +155,6 @@ class ProductWidgetTall extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BounceElement(
-      child: GestureDetector(
         onTap: () {
           Navigator.push(
             context,
@@ -166,78 +165,91 @@ class ProductWidgetTall extends StatelessWidget {
             ),
           );
         },
-        child: Container(
-          height: global.height(context) * .3,
-          width: global.width(context) * .5,
-          padding: EdgeInsets.all(global.width(context) * .02),
-          decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 26, 26, 29),
-            borderRadius: BorderRadius.circular(global.width(context) * 0.0375),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                height: global.height(context) * .2,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.background,
-                  borderRadius: BorderRadius.circular(
-                    global.width(context) * 0.0375,
-                  ),
+      child: Container(
+        padding: EdgeInsets.all(
+          global.width(context) * .02,
+        ),
+        width: global.width(context) * .5,
+        decoration: BoxDecoration(
+          color: const Color.fromARGB(255, 26, 26, 29),
+          borderRadius: BorderRadius.circular(global.width(context) * 0.0375),
+          boxShadow: global.isDarkMode(context)
+              ? [global.darkShadow(context)]
+              : [global.lightShadow(context)],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: global.height(context) * .2,
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.background,
+                borderRadius: BorderRadius.circular(
+                  global.width(context) * 0.0375,
                 ),
               ),
-              SizedBox(
-                height: global.height(context) * .01,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    item.itemBrand,
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                      color: Colors.white.withOpacity(.7),
-                      fontSize: global.height(context) * .02,
+            ),
+            SizedBox(
+              height: global.height(context) * .01,
+            ),
+            Row(
+              children: [
+                SizedBox(
+                  width: global.width(context) * .03,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      item.itemBrand,
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                        color: Colors.white.withOpacity(.7),
+                        fontSize: global.width(context) * .06,
+                      ),
                     ),
-                  ),
-                  Text(
-                    item.itemName,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: global.height(context) * .02,
+                    SizedBox(
+                      height: global.height(context) * .01,
                     ),
-                  ),
-                  SizedBox(
-                    height: global.height(context) * .005,
-                  ),
-                  Row(
-                    children: [
-                      global.gradient(
-                        Text(
-                          '\$${item.itemDiscountCost.toString()}',
-                          style: TextStyle(
+                    Text(
+                      item.itemName,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: global.width(context) * .05,
+                      ),
+                    ),
+                    SizedBox(
+                      height: global.height(context) * .01,
+                    ),
+                    Row(
+                      children: [
+                        global.gradient(
+                          Text(
+                            '\$${item.itemDiscountCost.toString()}',
+                            style: TextStyle(
                               color: Theme.of(context).colorScheme.primary,
-                              fontSize: global.height(context) * .01),
+                            ),
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        width: global.width(context) * .02,
-                      ),
-                      Text(
-                        '\$${item.itemOriginalCost.toString()}',
-                        style: TextStyle(
+                        SizedBox(
+                          width: global.width(context) * .02,
+                        ),
+                        Text(
+                          '\$${item.itemOriginalCost.toString()}',
+                          style: TextStyle(
                             color: Colors.white.withOpacity(.7),
                             decoration: TextDecoration.lineThrough,
                             decorationColor: Colors.white.withOpacity(.7),
                             decorationThickness: 1.5,
-                            fontSize: global.height(context) * .01),
-                      )
-                    ],
-                  ),
-                ],
-              )
-            ],
-          ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            )
+          ],
         ),
       ),
     );

@@ -72,64 +72,62 @@ class _AllExercisesState extends State<AllExercises> {
   @override
   Widget build(BuildContext context) {
     return BounceElement(
-      child: GestureDetector(
-        onTap: () => Navigator.push(
-          context,
-          PageTransition(
-            child: ExercisesPage(reload: widget.reload),
-            type: PageTransitionType.rightToLeft,
-          ),
-        ).then((value) => widget.reload()),
-        child: Container(
-          padding: EdgeInsets.all(global.containerPadding),
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surface,
-            borderRadius: BorderRadius.circular(global.borderRadius),
-            boxShadow: global.shadow(context),
-          ),
-          width: global.width(context) * global.containerWidthFactor,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'All exercises',
-                    style: TextStyle(
-                      fontSize: global.width(context) * .0625,
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).focusColor,
-                    ),
-                  ),
-                  const Icon(CupertinoIcons.arrow_right),
-                ],
-              ),
-              const SizedBox(height: 5),
-              Text(
-                'a list of all exercises you have',
-                style: TextStyle(
-                  color: Theme.of(context).focusColor.withOpacity(0.7),
-                ),
-              ),
-              ...(nextWorkoutDay == null
-                  ? [const Text('error')]
-                  : showSets(nextWorkoutDay!)),
-              const SizedBox(height: 20),
-              ...[
-                'More data needed for accurate evalutation',
-                'Please continue using the app for added performance'
-              ].map(
-                (e) => Text(
-                  e,
+      onTap: () => Navigator.push(
+        context,
+        PageTransition(
+          child: ExercisesPage(reload: widget.reload),
+          type: PageTransitionType.rightToLeft,
+        ),
+      ).then((value) => widget.reload()),
+      child: Container(
+        padding: EdgeInsets.all(global.containerPadding),
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.surface,
+          borderRadius: BorderRadius.circular(global.borderRadius),
+          boxShadow: global.shadow(context),
+        ),
+        width: global.width(context) * global.containerWidthFactor,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'All exercises',
                   style: TextStyle(
-                    fontSize: 12,
-                    color: Theme.of(context).focusColor.withOpacity(0.25),
+                    fontSize: global.width(context) * .0625,
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).focusColor,
                   ),
                 ),
+                const Icon(CupertinoIcons.arrow_right),
+              ],
+            ),
+            const SizedBox(height: 5),
+            Text(
+              'a list of all exercises you have',
+              style: TextStyle(
+                color: Theme.of(context).focusColor.withOpacity(0.7),
               ),
-            ],
-          ),
+            ),
+            ...(nextWorkoutDay == null
+                ? [const Text('error')]
+                : showSets(nextWorkoutDay!)),
+            const SizedBox(height: 20),
+            ...[
+              'More data needed for accurate evalutation',
+              'Please continue using the app for added performance'
+            ].map(
+              (e) => Text(
+                e,
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Theme.of(context).focusColor.withOpacity(0.25),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
