@@ -4,7 +4,7 @@ class BounceElement extends StatefulWidget {
   const BounceElement({
     super.key,
     required this.child,
-    required this.onTap,
+    this.onTap,
   });
 
   final Widget child;
