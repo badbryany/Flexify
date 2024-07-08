@@ -29,6 +29,7 @@ class _LockernumberState extends State<Lockernumber> {
   }
 
   setLocker(int digit) {
+    if (lockerNumber == '0') lockerNumber = '';
     if (lockerNumber.length == 5) return;
 
     lockerNumber += digit.toString();
@@ -40,7 +41,7 @@ class _LockernumberState extends State<Lockernumber> {
   deleteDigit() {
     lockerNumber = lockerNumber.substring(0, lockerNumber.length - 1);
     if (lockerNumber.isEmpty) {
-      lockerNumber = '1';
+      lockerNumber = '0';
     }
     setState(() {});
     saveLocker();
@@ -79,7 +80,7 @@ class _LockernumberState extends State<Lockernumber> {
                   'Note your locker number',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Theme.of(context).focusColor.withOpacity(.5),
+                    color: Theme.of(context).focusColor.withOpacity(1),
                     fontSize: global.width(context) * .06,
                   ),
                 ),
@@ -98,41 +99,28 @@ class _LockernumberState extends State<Lockernumber> {
               left: 0,
               right: 0,
               top: global.height(context) * .225,
-              child: Column(
-                children: [
-                  Container(
-                    width: global.width(context) * .75,
-                    padding: !global.isDarkMode(context)
-                        ? const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 10)
-                        : null,
-                    decoration: !global.isDarkMode(context)
-                        ? BoxDecoration(
-                            borderRadius:
-                                BorderRadius.circular(global.borderRadius - 10),
-                            color: Theme.of(context).colorScheme.background,
-                          )
-                        : null,
-                    child: global.gradient(Text(
-                      lockerNumber,
-                      maxLines: 1,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).focusColor,
-                        fontSize: global.width(context) * .2,
-                      ),
-                    )),
+              child: Container(
+                margin: EdgeInsets.symmetric(
+                    horizontal:
+                        (global.width(context) + global.height(context)) *
+                            .02275),
+                width: global.width(context) * .75,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(global.borderRadius - 10),
+                  color: Theme.of(context).colorScheme.background,
+                ),
+                child: global.gradient(Text(
+                  lockerNumber,
+                  maxLines: 1,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).focusColor,
+                    fontSize: global.width(context) * .2,
                   ),
-                  Visibility(
-                    visible: global.isDarkMode(context),
-                    child: Container(
-                      height: 2,
-                      width: global.width(context) * .75,
-                      color: Theme.of(context).colorScheme.background,
-                    ),
-                  ),
-                ],
+                )),
               ),
             ),
           ],
