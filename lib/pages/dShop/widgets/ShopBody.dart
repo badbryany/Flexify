@@ -91,11 +91,17 @@ class _ShopBodyState extends State<ShopBody> {
             },
           ),
         ),
-        SizedBox(height: global.height(context) * .025,),
+        SizedBox(
+          height: global.height(context) * .025,
+        ),
         const ProductRow(),
-        SizedBox(height: global.height(context) * .01,),
+        SizedBox(
+          height: global.height(context) * .01,
+        ),
         const ProductWidgetWide(),
-        SizedBox(height: global.height(context) * .01,),
+        SizedBox(
+          height: global.height(context) * .01,
+        ),
         const ProductRow(),
       ],
     );
@@ -155,20 +161,21 @@ class ProductWidgetTall extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BounceElement(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ProductPage(
-                item: item,
-              ),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ProductPage(
+              item: item,
             ),
-          );
-        },
+          ),
+        );
+      },
       child: Container(
         padding: EdgeInsets.all(
           global.width(context) * .02,
         ),
+        height: global.height(context) * .3,
         width: global.width(context) * .5,
         decoration: BoxDecoration(
           color: const Color.fromARGB(255, 26, 26, 29),
@@ -179,6 +186,7 @@ class ProductWidgetTall extends StatelessWidget {
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
               height: global.height(context) * .2,
@@ -189,62 +197,50 @@ class ProductWidgetTall extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
-              height: global.height(context) * .01,
-            ),
-            Row(
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(
-                  width: global.width(context) * .03,
+                SizedBox(height: global.height(context) * .015,),
+                Text(
+                  item.itemBrand,
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    color: Colors.white.withOpacity(.7),
+                    fontSize: global.height(context) * .018,
+                  ),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                Text(
+                  item.itemName,
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: global.height(context) * .0175,
+                  ),
+                ),
+                Row(
                   children: [
-                    Text(
-                      item.itemBrand,
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                        color: Colors.white.withOpacity(.7),
-                        fontSize: global.width(context) * .06,
+                    global.gradient(
+                      Text(
+                        '\$${item.itemDiscountCost.toString()}',
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.primary,
+                            fontSize: global.height(context) * .015),
                       ),
                     ),
                     SizedBox(
-                      height: global.height(context) * .01,
+                      width: global.width(context) * .02,
                     ),
                     Text(
-                      item.itemName,
+                      '\$${item.itemOriginalCost.toString()}',
+                      textAlign: TextAlign.left,
                       style: TextStyle(
-                        color: Colors.white,
-                        fontSize: global.width(context) * .05,
-                      ),
-                    ),
-                    SizedBox(
-                      height: global.height(context) * .01,
-                    ),
-                    Row(
-                      children: [
-                        global.gradient(
-                          Text(
-                            '\$${item.itemDiscountCost.toString()}',
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.primary,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: global.width(context) * .02,
-                        ),
-                        Text(
-                          '\$${item.itemOriginalCost.toString()}',
-                          style: TextStyle(
-                            color: Colors.white.withOpacity(.7),
-                            decoration: TextDecoration.lineThrough,
-                            decorationColor: Colors.white.withOpacity(.7),
-                            decorationThickness: 1.5,
-                          ),
-                        )
-                      ],
-                    ),
+                          color: Colors.white.withOpacity(.7),
+                          decoration: TextDecoration.lineThrough,
+                          decorationColor: Colors.white.withOpacity(.7),
+                          decorationThickness: 1.5,
+                          fontSize: global.height(context) * .015),
+                    )
                   ],
                 ),
               ],

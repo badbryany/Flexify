@@ -154,8 +154,7 @@ class _ShopSearchState extends State<ShopSearch> {
                 )
               : Column(
                   children: [
-                    AnimatedContainer(
-                      duration: global.standardAnimationDuration,
+                    Container(
                       height: global.height(context) * .05,
                       width: (global.containerWidth(context) -
                           global.width(context) * .1),
