@@ -25,6 +25,15 @@ class EntryWidget extends StatefulWidget {
 class _EntryWidgetState extends State<EntryWidget> {
   void suffixClearOnTap() {
     widget.entryController.clear();
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    widget.entryController.addListener(() {
+      setState(() {});
+    });
   }
 
   @override
@@ -53,15 +62,17 @@ class _EntryWidgetState extends State<EntryWidget> {
                 height: global.height(context) * .8,
                 topPadding: 0,
                 titleSize: global.width(context) * .08,
-                submitButtonText: "Close",
+                submitButtonText: "Enter",
                 content: Container(
                   padding: EdgeInsets.only(bottom: global.height(context) * .3),
                   height: global.height(context) * .38,
                   width: global.width(context) * .8,
                   child: global.gradient(
                     Container(
+                      alignment: Alignment.center,
                       padding: EdgeInsets.only(
-                        top: global.height(context) * .01,
+                        left: global.width(context) * .045,
+                        right: global.width(context) * .03,
                       ),
                       width: global.containerWidth(context),
                       height: global.height(context) * .08,
@@ -71,18 +82,19 @@ class _EntryWidgetState extends State<EntryWidget> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: TextField(
+                        textAlignVertical: TextAlignVertical.center,
                         autofocus: true,
                         onSubmitted: (value) {
                           Navigator.pop(context);
+                          setState(() {
+                            
+                          });
                         },
                         keyboardType:
                             widget.keyboardType ?? widget.keyboardType,
                         controller: widget.entryController,
                         decoration: InputDecoration(
-                          contentPadding: EdgeInsets.only(
-                            top: global.height(context) * .02,
-                            left: global.width(context) * .05,
-                          ),
+                          isCollapsed: true,
                           hintText: widget.hintText ?? widget.hintText,
                           border: InputBorder.none,
                           hintStyle: TextStyle(

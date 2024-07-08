@@ -11,15 +11,18 @@ import 'package:flexify/data/globalVariables.dart' as global;
 import 'package:flexify/pages/dShop/data/shopData.dart' as shopData;
 
 class ShopSearch extends StatefulWidget {
-  const ShopSearch({super.key, required this.callback});
+  const ShopSearch(
+      {super.key, required this.callback, required this.shopSearchController});
 
   final Function callback;
+  final TextEditingController shopSearchController;
 
   @override
   State<ShopSearch> createState() => _ShopSearchState();
 }
 
-class _ShopSearchState extends State<ShopSearch> {
+class _ShopSearchState extends State<ShopSearch>
+    with SingleTickerProviderStateMixin {
   bool expanded = false;
 
   List<List> sections = [
@@ -54,13 +57,15 @@ class _ShopSearchState extends State<ShopSearch> {
     ]
   ];
 
-  final _shopSearchController = TextEditingController();
   bool selected = false;
+  isShopSearchFilled() => widget.shopSearchController.text != '' && !expanded;
+  late final AnimationController _animationController = AnimationController(
+      vsync: this, duration: global.standardAnimationDuration);
 
   @override
   void initState() {
     super.initState();
-    _shopSearchController.addListener(() {
+    _animationController.addListener(() {
       setState(() {});
     });
   }
@@ -97,13 +102,18 @@ class _ShopSearchState extends State<ShopSearch> {
               children: [
                 GestureDetector(
                   onTap: () {
+                    !expanded
+                        ? _animationController.forward()
+                        : _animationController.reverse();
                     expanded = !expanded;
+                    widget.shopSearchController.clear();
                     widget.callback();
                     selected = false;
                     setState(() {});
                   },
-                  child: Icon(
-                    CupertinoIcons.text_justifyleft,
+                  child: AnimatedIcon(
+                    icon: AnimatedIcons.menu_close,
+                    progress: _animationController,
                     color: Colors.white,
                     size: global.height(context) * .035,
                   ),
@@ -124,124 +134,150 @@ class _ShopSearchState extends State<ShopSearch> {
         ),
         Positioned(
           top: global.height(context) * .075,
-          child: expanded
-              ? Column(
-                  children: [
-                    SizedBox(
-                      height: global.height(context) * .4,
-                      width: global.containerWidth(context),
-                      child: Column(
-                        children: sections.mapIndexed(
-                          (idx, e) {
-                            return GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) {
-                                      return sections[idx][1];
-                                    },
-                                  ),
-                                );
-                              },
-                              child: PageButton(
-                                  icon: sections[idx][2],
-                                  title: sections[idx][0],
-                                  border: idx != 3 ? true : false),
+          child: AnimatedOpacity(
+            duration: global.standardAnimationDuration,
+            opacity: expanded ? 1 : 0,
+            child: Column(
+              children: [
+                SizedBox(
+                  height: global.height(context) * .4,
+                  width: global.containerWidth(context),
+                  child: Column(
+                    children: sections.mapIndexed(
+                      (idx, e) {
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return sections[idx][1];
+                                },
+                              ),
                             );
                           },
-                        ).toList(),
-                      ),
-                    ),
-                  ],
-                )
-              : Stack(
-                alignment: Alignment.center,
-                children: [
-                  Container(
-                    height: global.height(context) * .05,
-                    width: (global.containerWidth(context) -
-                        global.width(context) * .1),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: _shopSearchController.text != ''
-                            ? const BorderRadius.only(
-                                topLeft: Radius.circular(30),
-                                topRight: Radius.circular(30))
-                            : BorderRadius.circular(100)),
+                          child: PageButton(
+                              icon: sections[idx][2],
+                              title: sections[idx][0],
+                              border: idx != 3 ? true : false),
+                        );
+                      },
+                    ).toList(),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      left: global.width(context) * .03,
-                      right: global.width(context) * .02,
+                ),
+              ],
+            ),
+          ),
+        ),
+        Positioned(
+          top: global.height(context) * .075,
+          child: AnimatedOpacity(
+            duration: expanded
+                ? global.standardAnimationDuration * .3
+                : global.standardAnimationDuration * 2,
+            curve: Curves.easeInOutCubicEmphasized,
+            opacity: expanded ? 0 : 1,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                AnimatedContainer(
+                  duration: isShopSearchFilled()
+                      ? const Duration(seconds: 0)
+                      : global.standardAnimationDuration * 2,
+                  curve: Curves.RelU,
+                  height: global.height(context) * .05,
+                  width: (global.containerWidth(context) -
+                      global.width(context) * .1),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: const Radius.circular(15),
+                      topRight: const Radius.circular(15),
+                      bottomLeft: isShopSearchFilled()
+                          ? Radius.zero
+                          : const Radius.circular(15),
+                      bottomRight: isShopSearchFilled()
+                          ? Radius.zero
+                          : const Radius.circular(15),
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.search,
+                    border: Border(
+                      left: const BorderSide(
+                        color: Colors.black,
+                      ),
+                      right: const BorderSide(
+                        color: Colors.black,
+                      ),
+                      top: const BorderSide(
+                        color: Colors.black,
+                      ),
+                      bottom: isShopSearchFilled()
+                          ? BorderSide.none
+                          : const BorderSide(
                               color: Colors.black,
-                              size: global.height(context) * .02,
                             ),
-                            SizedBox(
-                              width: global.width(context) * .02,
-                            ),
-                            Container(
-                              alignment: Alignment.centerLeft,
-                              width: global.width(context) * .7 -
-                                  global.height(context) * .04,
-                              height: global.height(context) * .05,
-                              child: TextField(
-                                textAlignVertical: TextAlignVertical.top,
-                                controller: _shopSearchController,
-                                autofocus: false,
-                                decoration: const InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: 'Search',
-                                  hintStyle:
-                                      TextStyle(color: Colors.black),
-                                  isCollapsed: true,
-                                ),
-                                style: const TextStyle(
-                                  color: Colors.black,
-                                ),
-                                cursorColor: Colors.black.withOpacity(.7),
-                                cursorOpacityAnimates: true,
-                                textAlign: TextAlign.left,
-                              ),
-                            ),
-                          ],
-                        ),
-                        IconButton(
-                          highlightColor: Colors.transparent,
-                          icon: Icon(
-                            Icons.clear_rounded,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: global.width(context) * .03,
+                    right: global.width(context) * .02,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.search,
                             color: Colors.black,
                             size: global.height(context) * .02,
                           ),
-                          onPressed: () {
-                            clearSuffixOnTap(context);
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  Positioned(
-                    top: global.height(context) * .04,
-                    child: _shopSearchController.text != ''
-                        ? Container(
+                          SizedBox(
+                            width: global.width(context) * .02,
+                          ),
+                          Container(
+                            alignment: Alignment.centerLeft,
+                            width: global.width(context) * .7 -
+                                global.height(context) * .04,
                             height: global.height(context) * .05,
-                            width: global.containerWidth(context) -
-                                global.width(context) * .1,
-                            decoration:
-                                const BoxDecoration(color: Colors.red),
-                          )
-                        : const SizedBox(),
-                  )
-                ],
-              ),
+                            child: TextField(
+                              textAlignVertical: TextAlignVertical.top,
+                              controller: widget.shopSearchController,
+                              autofocus: false,
+                              decoration: const InputDecoration(
+                                border: InputBorder.none,
+                                hintText: 'Search',
+                                hintStyle: TextStyle(color: Colors.black),
+                                isCollapsed: true,
+                              ),
+                              style: const TextStyle(
+                                color: Colors.black,
+                              ),
+                              cursorColor: Colors.black.withOpacity(.7),
+                              cursorOpacityAnimates: true,
+                              textAlign: TextAlign.left,
+                            ),
+                          ),
+                        ],
+                      ),
+                      IconButton(
+                        highlightColor: Colors.transparent,
+                        icon: Icon(
+                          Icons.clear_rounded,
+                          color: Colors.black,
+                          size: global.height(context) * .02,
+                        ),
+                        onPressed: () {
+                          clearSuffixOnTap(context);
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ],
     );
@@ -249,7 +285,7 @@ class _ShopSearchState extends State<ShopSearch> {
 
   void clearSuffixOnTap(BuildContext context) {
     setState(() {
-      _shopSearchController.clear();
+      widget.shopSearchController.clear();
       FocusScope.of(context).unfocus();
     });
   }

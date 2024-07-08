@@ -32,7 +32,7 @@ class _ShopBodyState extends State<ShopBody> {
         Text(
           "Categories",
           style: TextStyle(
-            fontSize: global.width(context) * .15,
+            fontSize: global.height(context) * .05,
             color: Theme.of(context).focusColor,
           ),
         ),
@@ -201,13 +201,15 @@ class ProductWidgetTall extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(height: global.height(context) * .015,),
+                SizedBox(
+                  height: global.height(context) * .015,
+                ),
                 Text(
                   item.itemBrand,
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     color: Colors.white.withOpacity(.7),
-                    fontSize: global.height(context) * .018,
+                    fontSize: global.height(context) * .021,
                   ),
                 ),
                 Text(
@@ -215,8 +217,11 @@ class ProductWidgetTall extends StatelessWidget {
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: global.height(context) * .0175,
+                    fontSize: global.height(context) * .018,
                   ),
+                ),
+                SizedBox(
+                  height: global.height(context) * .002,
                 ),
                 Row(
                   children: [
@@ -225,11 +230,11 @@ class ProductWidgetTall extends StatelessWidget {
                         '\$${item.itemDiscountCost.toString()}',
                         style: TextStyle(
                             color: Theme.of(context).colorScheme.primary,
-                            fontSize: global.height(context) * .015),
+                            fontSize: global.height(context) * .016),
                       ),
                     ),
                     SizedBox(
-                      width: global.width(context) * .02,
+                      width: global.width(context) * .01,
                     ),
                     Text(
                       '\$${item.itemOriginalCost.toString()}',
@@ -239,7 +244,7 @@ class ProductWidgetTall extends StatelessWidget {
                           decoration: TextDecoration.lineThrough,
                           decorationColor: Colors.white.withOpacity(.7),
                           decorationThickness: 1.5,
-                          fontSize: global.height(context) * .015),
+                          fontSize: global.height(context) * .016),
                     )
                   ],
                 ),
@@ -295,7 +300,7 @@ class _ProductWidgetWideState extends State<ProductWidgetWide> {
                     'Hello',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: global.height(context) * .02 +
+                      fontSize: global.height(context) * .018 +
                           global.width(context) * .035,
                       color: Colors.white,
                     ),
@@ -305,7 +310,7 @@ class _ProductWidgetWideState extends State<ProductWidgetWide> {
                       'Marketing',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: global.height(context) * .02 +
+                        fontSize: global.height(context) * .018 +
                             global.width(context) * .035,
                         letterSpacing: -1,
                       ),
@@ -315,7 +320,7 @@ class _ProductWidgetWideState extends State<ProductWidgetWide> {
                     'Things',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: global.height(context) * .02 +
+                      fontSize: global.height(context) * .018 +
                           global.width(context) * .035,
                       color: Colors.white,
                     ),

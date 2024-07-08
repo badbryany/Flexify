@@ -19,95 +19,99 @@ class _DashboardPlanState extends State<DashboardPlan> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Column(
-        children: [
-          Container(
-            padding:
-                EdgeInsets.symmetric(horizontal: global.width(context) * .03),
-            width: global.containerWidth(context),
-            height: global.height(context) * .1,
-            decoration: BoxDecoration(
-              color: global.darkGrey,
-              boxShadow: global.shadow(context),
-              borderRadius: BorderRadius.circular(100),
-            ),
-            child: Row(
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => const SplitPage(),
-                    //   ),
-                    // );
-                  },
-                  child: Flexible(
-                    flex: 2,
+      child: SizedBox(
+        height: global.height(context),
+        width: global.containerWidth(context),
+        child: Column(
+          children: [
+            Container(
+              padding:
+                  EdgeInsets.symmetric(horizontal: global.width(context) * .03),
+              width: global.containerWidth(context),
+              height: global.height(context) * .1,
+              decoration: BoxDecoration(
+                color: global.darkGrey,
+                boxShadow: global.shadow(context),
+                borderRadius: BorderRadius.circular(100),
+              ),
+              child: Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) => const SplitPage(),
+                      //   ),
+                      // );
+                    },
+                    child: Flexible(
+                      flex: 2,
+                      child: Container(
+                        height: global.height(context) * .08,
+                        width: global.height(context) * .08,
+                        decoration: BoxDecoration(
+                            gradient: global.linearGradient,
+                            borderRadius: BorderRadius.circular(100),
+                            boxShadow: global.shadow(context)),
+                        child: Icon(
+                          Icons.app_registration_rounded,
+                          size: global.height(context) * .04,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Flexible(
+                    flex: 5,
                     child: Container(
-                      height: global.height(context) * .08,
-                      width: global.height(context) * .08,
-                      decoration: BoxDecoration(
+                      alignment: Alignment.center,
+                      child: global.gradient(
+                        Text(
+                          'Equipment',
+                          style: TextStyle(fontSize: global.height(context) * .03),
+                        ),
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) => WorkoutDiaryPage(),
+                      //   ),
+                      // );
+                    },
+                    child: Flexible(
+                      flex: 2,
+                      child: Container(
+                        height: global.height(context) * .08,
+                        width: global.height(context) * .08,
+                        decoration: BoxDecoration(
                           gradient: global.linearGradient,
                           borderRadius: BorderRadius.circular(100),
-                          boxShadow: global.shadow(context)),
-                      child: Icon(
-                        Icons.app_registration_rounded,
-                        size: global.height(context) * .04,
-                        color: Colors.black,
+                          boxShadow: global.shadow(context),
+                        ),
+                        child: Icon(
+                          Icons.calendar_month_outlined,
+                          size: global.height(context) * .04,
+                          color: Colors.black,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                Flexible(
-                  flex: 5,
-                  child: Container(
-                    alignment: Alignment.center,
-                    child: global.gradient(
-                      Text(
-                        'Equipment',
-                        style: TextStyle(fontSize: global.height(context) * .03),
-                      ),
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => WorkoutDiaryPage(),
-                    //   ),
-                    // );
-                  },
-                  child: Flexible(
-                    flex: 2,
-                    child: Container(
-                      height: global.height(context) * .08,
-                      width: global.height(context) * .08,
-                      decoration: BoxDecoration(
-                        gradient: global.linearGradient,
-                        borderRadius: BorderRadius.circular(100),
-                        boxShadow: global.shadow(context),
-                      ),
-                      child: Icon(
-                        Icons.calendar_month_outlined,
-                        size: global.height(context) * .04,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          SizedBox(
-            height: global.height(context) * .02,
-          ),
-          EquipmentWidget(
-            hitboxMuscleGroups: planData.muscleGroupHitboxes.first,
-          )
-        ],
+            SizedBox(
+              height: global.height(context) * .02,
+            ),
+            EquipmentWidget(
+              hitboxMuscleGroups: planData.muscleGroupHitboxes.first,
+            )
+          ],
+        ),
       ),
     );
   }

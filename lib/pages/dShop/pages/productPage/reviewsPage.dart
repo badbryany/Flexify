@@ -137,7 +137,7 @@ class _ReviewsPageState extends State<ReviewsPage> {
             ),
             SizedBox(
               width: global.containerWidth(context),
-              height: global.height(context) * .3,
+              height: global.height(context) * .45,
               child: ListView(
                 children: widget.reviews
                     .map((review) => ReviewWidget(review: review))

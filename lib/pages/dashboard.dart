@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flexify/pages/dPlan/dashboardPlan.dart';
 import 'package:flexify/pages/dShop/dashboardShop.dart';
-import 'package:flexify/pages/dLeaderboards/dashboardLeaderboards.dart';
+import 'package:flexify/pages/dStats/dashboardStats.dart';
 import 'package:flexify/pages/dProfile/dashboardProfile.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -44,7 +44,7 @@ class _DashboardState extends State<Dashboard> {
     },
     {
       'title': 'Stats',
-      'widget': const DashboardLeaderboards(),
+      'widget': const DashboardStats(),
       'icon': Icons.bar_chart_rounded,
     },
     {
@@ -137,7 +137,7 @@ class _DashboardState extends State<Dashboard> {
                             ),
                           );
                         },
-                        iconSize: 25,
+                        iconSize: 35,
                         icon: Icon(
                           Icons.settings_rounded,
                           color: Theme.of(context).focusColor,

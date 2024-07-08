@@ -21,6 +21,7 @@ class _CartPageState extends State<CartPage> {
       body: SafeArea(
         child: Container(
           alignment: Alignment.center,
+          height: global.height(context) * 1.5,
           width: global.containerWidth(context),
           child: Column(
             children: [
@@ -29,10 +30,11 @@ class _CartPageState extends State<CartPage> {
                 titleSize: global.width(context) * .09,
               ),
               Container(
-                height: global.height(context) * .7,
+                height: global.height(context) * .8,
                 width: global.containerWidth(context),
                 padding: EdgeInsets.only(left: global.width(context) * .025),
                 child: ListView(
+                  physics: const BouncingScrollPhysics(),
                   children: [
                     SizedBox(
                       width: global.containerWidth(context),
@@ -78,7 +80,6 @@ class Summary extends StatelessWidget {
 
     return Container(
       padding: EdgeInsets.all(global.width(context) * .05),
-      height: global.height(context) * .225,
       width: global.containerWidth(context),
       decoration: global.boxDecoration(context),
       child: Column(
@@ -214,30 +215,16 @@ class CouponWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      padding: EdgeInsets.only(
-        top: global.width(context) * .06,
-        left: global.width(context) * .05,
-        right: global.width(context) * .05,
-        bottom: global.width(context) * .025,
-      ),
+      padding: EdgeInsets.all(global.width(context) * .05),
       width: global.containerWidth(context),
-      height: global.height(context) * .175,
+      height: global.height(context) * .1 + global.width(context) * .125,
       decoration: global.boxDecoration(context),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            height: global.height(context) * .08,
-            width: global.containerWidth(context),
-            decoration: BoxDecoration(
-              color: global.darkGrey,
-              borderRadius: BorderRadius.circular(30),
-              boxShadow: global.shadow(context),
-            ),
-            child: EntryWidget(
-              title: 'Coupon Code',
-              entryController: shopData.Order.couponController,
-            ),
+          EntryWidget(
+            title: 'Coupon Code',
+            entryController: shopData.Order.couponController,
           )
         ],
       ),

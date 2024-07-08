@@ -1,7 +1,5 @@
 Shop
-    C. Search reccomendations
-    1. Bottom of shop padding
-    2. Make all colums at least height 1 for dashboard
-    3. centre entry widget (isCollapsed)
-    4. coupon code overflow
-    5. shopExpanded extra column height
+    LATE. Search reccomendations
+SetsPage
+    - Choose stastistic: minHeap
+    - 

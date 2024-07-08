@@ -140,12 +140,12 @@ class _ProductPageState extends State<ProductPage> {
                             onPop: () => Navigator.pop(context),
                             title: 'Shipping Information',
                             titleSize: global.width(context) * .08,
-                            height: global.height(context) * .8,
+                            height: global.height(context) * .9,
                             submitButtonText: "Enter",
                             content: Container(
                               padding: EdgeInsets.only(top: global.height(context) * .04),
                               width: global.width(context) * .9,
-                              height: global.height(context) * .5,
+                              height: global.height(context) * .275 + global.width(context) * .4,
                               child: const ShippingTiles(),
                             ),
                           ),
@@ -253,7 +253,9 @@ class _ProductNavbarState extends State<ProductNavbar> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           BounceElement(
-            onTap: () {},
+            onTap: () {
+              Navigator.pop(context);
+            },
             child: Container(
               alignment: Alignment.center,
               padding: EdgeInsets.all(global.width(context) * 0.005),
@@ -274,7 +276,8 @@ class _ProductNavbarState extends State<ProductNavbar> {
             ),
           ),
           BounceElement(
-            onTap: () {},
+            onTap: () {
+            },
             child: Container(
               alignment: Alignment.center,
               padding: EdgeInsets.all(global.width(context) * 0.005),
@@ -320,7 +323,6 @@ class ProductInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: global.height(context) * .25,
       width: global.containerWidth(context),
       padding: EdgeInsets.all(global.width(context) * .05),
       decoration: BoxDecoration(
@@ -655,10 +657,9 @@ class _ShippingTilesState extends State<ShippingTiles> {
               top: global.width(context) * .01,
               left: global.width(context) * .01,
               right: global.width(context) * .01,
-              bottom: global.width(context) * .1,
+              bottom: global.width(context) * .05,
             ),
             width: global.width(context) * .8,
-            height: global.height(context) * .175,
             decoration: selected
                 ? BoxDecoration(
                     gradient: global.linearGradient,
@@ -673,7 +674,6 @@ class _ShippingTilesState extends State<ShippingTiles> {
                 global.width(context) * .05,
               ),
               width: global.width(context) * .4,
-              height: global.height(context) * 02,
               decoration: BoxDecoration(
                 color: const Color.fromARGB(255, 26, 26, 29),
                 borderRadius: BorderRadius.circular(30),
@@ -742,10 +742,9 @@ class _ShippingTilesState extends State<ShippingTiles> {
               top: global.width(context) * .01,
               left: global.width(context) * .01,
               right: global.width(context) * .01,
-              bottom: global.width(context) * .1,
+              bottom: global.width(context) * .05,
             ),
             width: global.width(context) * .8,
-            height: global.height(context) * .24,
             decoration: !selected
                 ? BoxDecoration(
                     gradient: global.linearGradient,
@@ -760,7 +759,6 @@ class _ShippingTilesState extends State<ShippingTiles> {
                 global.width(context) * .05,
               ),
               width: global.width(context) * .4,
-              height: global.height(context) * 03,
               decoration: BoxDecoration(
                 color: const Color.fromARGB(255, 26, 26, 29),
                 borderRadius: BorderRadius.circular(30),
@@ -812,7 +810,7 @@ class _ShippingTilesState extends State<ShippingTiles> {
                     ),
                   ),
                   SizedBox(
-                    height: global.height(context) * .03,
+                    height: global.height(context) * .025,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -821,13 +819,13 @@ class _ShippingTilesState extends State<ShippingTiles> {
                         'Order up to €49.99:',
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize: global.width(context) * .04),
+                            fontSize: global.width(context) * .035),
                       ),
                       Text(
                         '€4.95',
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize: global.width(context) * .04),
+                            fontSize: global.width(context) * .035),
                       ),
                     ],
                   ),
@@ -838,13 +836,13 @@ class _ShippingTilesState extends State<ShippingTiles> {
                         'Order €50 and over:',
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize: global.width(context) * .04),
+                            fontSize: global.width(context) * .035),
                       ),
                       Text(
                         'Free',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: global.width(context) * .04,
+                          fontSize: global.width(context) * .035,
                         ),
                       ),
                     ],

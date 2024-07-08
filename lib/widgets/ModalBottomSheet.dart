@@ -46,6 +46,7 @@ class _ModalBottomSheetState extends State<ModalBottomSheet> {
     
     return Container(
       height: widget.height,
+      padding: EdgeInsets.symmetric(horizontal: global.width(context) * .05),
       width: global.width(context),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
