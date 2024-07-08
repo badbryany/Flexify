@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
 import 'package:flexify/pages/dShop/data/shopData.dart' as shopData;
+import 'dart:math' as math;
 
 class ShopSearch extends StatefulWidget {
   const ShopSearch(
@@ -184,7 +185,7 @@ class _ShopSearchState extends State<ShopSearch>
                   duration: isShopSearchFilled()
                       ? const Duration(seconds: 0)
                       : global.standardAnimationDuration * 2,
-                  curve: Curves.RelU,
+                  curve: const _ReLUCurve._(),
                   height: global.height(context) * .05,
                   width: (global.containerWidth(context) -
                       global.width(context) * .1),
@@ -302,3 +303,12 @@ class _ShopSearchState extends State<ShopSearch>
     );
   }
 }
+
+class _ReLUCurve extends Curve {
+  const _ReLUCurve._();
+
+    @override
+    double transformInternal(double t) {
+      return math.max(0, (2*t) - 1);
+    }
+  }

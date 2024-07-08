@@ -82,9 +82,6 @@ class ChartTitle extends StatelessWidget {
           child: Container(
             height: global.height(context) * .05,
             width: double.infinity,
-            padding: EdgeInsets.only(
-              left: global.width(context) * .025,
-            ),
             alignment: Alignment.center,
             clipBehavior: Clip.hardEdge,
             decoration: BoxDecoration(
@@ -93,17 +90,22 @@ class ChartTitle extends StatelessWidget {
               boxShadow: global.shadow(context),
               border: Border.all(color: Colors.white),
             ),
-            child: const Row(
-              children: [
-                 Text(
-                  'Select Rep-Range',
-                  style: TextStyle(color: Colors.white, fontSize: 15),
-                ),
-                Icon(
-                  Icons.arrow_drop_down_outlined,
-                  color: Colors.white,
-                )
-              ],
+            child: Container(
+              alignment: Alignment.center,
+              color: Colors.red,
+              width: global.width(context) * .2,
+              child: Row(
+                children: [
+                   Text(
+                    'Select Rep-Range',
+                    style: TextStyle(color: Colors.white, fontSize: global.width(context) * .0175),
+                  ),
+                  const Icon(
+                    Icons.arrow_drop_down_outlined,
+                    color: Colors.white,
+                  )
+                ],
+              ),
             ),
           ),
         ),
