@@ -60,6 +60,9 @@ class _ShopSearchState extends State<ShopSearch> {
   @override
   void initState() {
     super.initState();
+    _shopSearchController.addListener(() {
+      setState(() {});
+    });
   }
 
   @override
@@ -152,84 +155,93 @@ class _ShopSearchState extends State<ShopSearch> {
                     ),
                   ],
                 )
-              : Column(
-                  children: [
-                    Container(
-                      height: global.height(context) * .05,
-                      width: (global.containerWidth(context) -
-                          global.width(context) * .1),
-                      decoration: BoxDecoration(
+              : Stack(
+                alignment: Alignment.center,
+                children: [
+                  Container(
+                    height: global.height(context) * .05,
+                    width: (global.containerWidth(context) -
+                        global.width(context) * .1),
+                    decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(100),
-                      ),
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(
-                              left: global.width(context) * .03,
-                              right: global.width(context) * .02,
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.search,
-                                      color: Colors.black,
-                                      size: global.height(context) * .02,
-                                    ),
-                                    SizedBox(
-                                      width: global.width(context) * .02,
-                                    ),
-                                    Container(
-                                      alignment: Alignment.centerLeft,
-                                      width: global.width(context) * .7 -
-                                          global.height(context) * .04,
-                                      height: global.height(context) * .05,
-                                      child: TextField(
-                                        textAlignVertical:
-                                            TextAlignVertical.top,
-                                        controller: _shopSearchController,
-                                        autofocus: false,
-                                        decoration: const InputDecoration(
-                                          border: InputBorder.none,
-                                          hintText: 'Search',
-                                          hintStyle:
-                                              TextStyle(color: Colors.black),
-                                          isCollapsed: true,
-                                        ),
-                                        style: const TextStyle(
-                                          color: Colors.black,
-                                        ),
-                                        cursorColor:
-                                            Colors.black.withOpacity(.7),
-                                        cursorOpacityAnimates: true,
-                                        textAlign: TextAlign.left,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                IconButton(
-                                  highlightColor: Colors.transparent,
-                                  icon: Icon(
-                                    Icons.clear_rounded,
-                                    color: Colors.black,
-                                    size: global.height(context) * .02,
-                                  ),
-                                  onPressed: () {
-                                    clearSuffixOnTap(context);
-                                  },
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
+                        borderRadius: _shopSearchController.text != ''
+                            ? const BorderRadius.only(
+                                topLeft: Radius.circular(30),
+                                topRight: Radius.circular(30))
+                            : BorderRadius.circular(100)),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                      left: global.width(context) * .03,
+                      right: global.width(context) * .02,
                     ),
-                  ],
-                ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.search,
+                              color: Colors.black,
+                              size: global.height(context) * .02,
+                            ),
+                            SizedBox(
+                              width: global.width(context) * .02,
+                            ),
+                            Container(
+                              alignment: Alignment.centerLeft,
+                              width: global.width(context) * .7 -
+                                  global.height(context) * .04,
+                              height: global.height(context) * .05,
+                              child: TextField(
+                                textAlignVertical: TextAlignVertical.top,
+                                controller: _shopSearchController,
+                                autofocus: false,
+                                decoration: const InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: 'Search',
+                                  hintStyle:
+                                      TextStyle(color: Colors.black),
+                                  isCollapsed: true,
+                                ),
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                ),
+                                cursorColor: Colors.black.withOpacity(.7),
+                                cursorOpacityAnimates: true,
+                                textAlign: TextAlign.left,
+                              ),
+                            ),
+                          ],
+                        ),
+                        IconButton(
+                          highlightColor: Colors.transparent,
+                          icon: Icon(
+                            Icons.clear_rounded,
+                            color: Colors.black,
+                            size: global.height(context) * .02,
+                          ),
+                          onPressed: () {
+                            clearSuffixOnTap(context);
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  Positioned(
+                    top: global.height(context) * .04,
+                    child: _shopSearchController.text != ''
+                        ? Container(
+                            height: global.height(context) * .05,
+                            width: global.containerWidth(context) -
+                                global.width(context) * .1,
+                            decoration:
+                                const BoxDecoration(color: Colors.red),
+                          )
+                        : const SizedBox(),
+                  )
+                ],
+              ),
         ),
       ],
     );
