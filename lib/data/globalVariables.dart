@@ -179,7 +179,7 @@ BoxDecoration boxDecoration(context) => BoxDecoration(
       color: darkGrey,
       borderRadius: BorderRadius.circular(borderRadius),
       boxShadow: shadow(context),
-);
+    );
 
 SizedBox smallHeight(context) => SizedBox(height: height(context) * .01);
 SizedBox mediumHeight(context) => SizedBox(height: height(context) * .02);
