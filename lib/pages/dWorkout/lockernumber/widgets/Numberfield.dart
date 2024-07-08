@@ -16,8 +16,10 @@ class Numberfield extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: global.height(context) * .5,
-      margin: EdgeInsets.symmetric(horizontal: global.width(context) * .05),
+      height: (global.height(context) + global.width(context)) * .375,
+      margin: EdgeInsets.symmetric(
+          horizontal:
+              (global.width(context) + global.height(context)) * .02275),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -76,9 +78,9 @@ class NumberButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BounceElement(
-        onTap: (delete == true || save == true)
-            ? (save == true ? () => Navigator.pop(context) : deleteDigit)
-            : () => onTap(number),
+      onTap: (delete == true || save == true)
+          ? (save == true ? () => Navigator.pop(context) : deleteDigit)
+          : () => onTap(number),
       child: Container(
         alignment: Alignment.center,
         height: global.width(context) * .25,

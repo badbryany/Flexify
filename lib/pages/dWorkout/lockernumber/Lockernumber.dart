@@ -86,7 +86,7 @@ class _LockernumberState extends State<Lockernumber> {
               ),
             ),
             Positioned(
-              bottom: global.height(context) * .1,
+              bottom: (global.height(context) + global.width(context)) * .03,
               left: 0,
               right: 0,
               child: Numberfield(
