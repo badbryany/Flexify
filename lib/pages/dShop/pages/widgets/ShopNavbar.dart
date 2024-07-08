@@ -25,7 +25,7 @@ class ShopNavbar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           BounceElement(
-            onTap: () {},
+            onTap: () => Navigator.pop(context),
             child: Container(
               alignment: Alignment.center,
               padding: EdgeInsets.all(global.width(context) * 0.005),
