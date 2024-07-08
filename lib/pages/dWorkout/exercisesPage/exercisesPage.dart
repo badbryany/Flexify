@@ -92,9 +92,9 @@ class _ExercisesPageState extends State<ExercisesPage> {
     loadingDone = false;
     setState(() {});
 
-    ConnectivityResult connectivityResult =
+    List<ConnectivityResult> connectivityResult =
         await Connectivity().checkConnectivity();
-    if (connectivityResult == ConnectivityResult.none) {
+    if (connectivityResult.contains(ConnectivityResult.none)) {
       loadingDone = true;
       connectedToInternet = false;
       setState(() {});
@@ -420,17 +420,27 @@ class _ExercisesPageState extends State<ExercisesPage> {
                                             ...searchExercises
                                                 .map((e) => BounceElement(
                                                       child: GestureDetector(
-                                                        onTap: () => {
-                                                        //     Navigator.push(
-                                                        //   context,
-                                                        //   MaterialPageRoute(
-                                                        //     builder: (context) =>
-                                                        //         CreateNewExercise(
-                                                        //       exercise:
-                                                        //           e['exercise'],
-                                                        //     ),
-                                                        //   ),
-                                                        // ),
+                                                        onTap: () {
+                                                          e['new']
+                                                              ? Navigator.push(
+                                                                  context,
+                                                                  MaterialPageRoute(
+                                                                    builder: (context) => CreateNewExercise(
+                                                                        exercise: e[
+                                                                            'exercise'],
+                                                                        reload:
+                                                                            getData),
+                                                                  ),
+                                                                )
+                                                              : Save.saveExercise(
+                                                                  e['exercise']);
+                                                          getData();
+                                                          setState(() =>
+                                                              _searchBarOpen =
+                                                                  0);
+                                                          _controller.text = '';
+                                                          FocusScope.of(context)
+                                                              .unfocus();
                                                         },
                                                         child: Container(
                                                           padding: EdgeInsets

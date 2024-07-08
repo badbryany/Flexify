@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 double borderRadius = 30;
 double containerWidthFactor = 0.95;
@@ -146,7 +147,7 @@ Widget loadingWidget(BuildContext context, double size) => Center(
       child: SizedBox(
         width: width(context) * .09 * size,
         height: width(context) * .09 * size,
-        child: CircularProgressIndicator.adaptive(strokeWidth: 4 * size),
+        child: const CupertinoActivityIndicator(),
       ),
     );
 

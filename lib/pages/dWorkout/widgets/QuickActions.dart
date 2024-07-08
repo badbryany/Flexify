@@ -1,4 +1,5 @@
 import 'package:flexify/pages/dWorkout/hiitTimer/SetupHIITTimer.dart';
+import 'package:flexify/pages/dWorkout/lockernumber/Lockernumber.dart';
 import 'package:flexify/widgets/BounceElement.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
@@ -20,8 +21,8 @@ class QuickActions extends StatelessWidget {
     },
     {
       'title': 'Locker',
-      'icon': CupertinoIcons.bookmark,
-      'link': const SizedBox(),
+      'icon': CupertinoIcons.lock,
+      'link': const Lockernumber(),
     },
   ];
 

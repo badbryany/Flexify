@@ -16,10 +16,10 @@ class Exercise {
     this.synced,
   });
 
-  final String name;
-  final String type;
-  final String affectedMuscle;
-  final String equipment;
+  String name;
+  String type;
+  String affectedMuscle;
+  String equipment;
   int? synced;
 
   Map<String, dynamic> toJson() {
@@ -39,6 +39,16 @@ class Exercise {
       affectedMuscle: values['affectedMuscle'],
       equipment: values['equipment'],
     );
+  }
+
+  @override
+  String toString() {
+    return '''
+      \n\tname: "$name"
+      \ttype: "$type"
+      \taffectedMuscle: "$affectedMuscle"
+      \tequipment: "$equipment"
+    ''';
   }
 }
 
@@ -78,6 +88,17 @@ class Set {
       weight: values['weight'].toDouble(),
       date: DateTime.parse(values['date']),
     );
+  }
+
+  @override
+  String toString() {
+    return '''
+      \n\ts_id: "$setID"
+      \texerciseName: "$exerciseName"
+      \treps: "$reps"
+      \tweight: "$weight"
+      \tdate: "$date".toString()
+    ''';
   }
 }
 
