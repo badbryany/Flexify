@@ -4,9 +4,11 @@ class BounceElement extends StatefulWidget {
   const BounceElement({
     super.key,
     required this.child,
+    //required this.onTap,
   });
 
   final Widget child;
+  //final Function() onTap;
 
   @override
   State<BounceElement> createState() => _BounceElementState();
@@ -22,11 +24,11 @@ class _BounceElementState extends State<BounceElement> {
       duration: Duration(milliseconds: duration),
       scale: scale,
       child: GestureDetector(
+        //onTap: widget.onTap,
         onTapDown: (value) => setState(() {
           scale = 0.98;
         }),
         onTapUp: (value) => setState(() {
-          // arthur hat das async rausgenommen, weil es eine ewige fehlermeldung gab
           scale = 1.02;
           Future.delayed(
             Duration(milliseconds: duration),

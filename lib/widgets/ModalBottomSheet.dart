@@ -41,7 +41,6 @@ class ModalBottomSheet extends StatefulWidget {
 class _ModalBottomSheetState extends State<ModalBottomSheet> {
   @override
   Widget build(BuildContext context) {
-    widget.onPop ?? () => Navigator.pop(context);
     widget.bigTitle ?? false;
     widget.submitButtonText ?? 'fertig';
     
@@ -95,7 +94,7 @@ class _ModalBottomSheetState extends State<ModalBottomSheet> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     GestureDetector(
-                      onTap: () => widget.onPop!(),
+                      onTap: () => Navigator.pop(context),
                       child: Container(
                         width: 200,
                         padding: const EdgeInsets.all(15),

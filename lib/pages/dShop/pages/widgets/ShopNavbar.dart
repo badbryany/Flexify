@@ -89,7 +89,7 @@ class ActionButton extends StatelessWidget {
               boxShadow: global.shadow(context)),
           child: Icon(
             iconData,
-            color: Theme.of(context).colorScheme.onBackground,
+            color: Colors.white,
             size: global.width(context) * 0.05,
           ),
         ),

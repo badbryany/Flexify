@@ -54,6 +54,7 @@ class _DashboardPlanState extends State<DashboardPlan> {
                       child: Icon(
                         Icons.app_registration_rounded,
                         size: global.height(context) * .04,
+                        color: Colors.black,
                       ),
                     ),
                   ),
@@ -92,6 +93,7 @@ class _DashboardPlanState extends State<DashboardPlan> {
                       child: Icon(
                         Icons.calendar_month_outlined,
                         size: global.height(context) * .04,
+                        color: Colors.black,
                       ),
                     ),
                   ),

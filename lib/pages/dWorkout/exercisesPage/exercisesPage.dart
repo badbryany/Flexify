@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:async';
-import 'package:flexify/pages/dWorkout/exercisesPage/createNewExercisePage.dart';
+// import 'package:flexify/pages/dWorkout/exercisesPage/createNewExercisePage.dart';
 import 'package:flexify/widgets/BounceElement.dart';
 import 'package:flexify/pages/dWorkout/exercisesPage/widgets/exerciseButton.dart';
 import 'package:flexify/widgets/SearchBar.dart';
@@ -393,7 +393,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
                                           ),
                                           global.smallHeight(context),
                                           Text(
-                                            'no connection',
+                                            'No Connection',
                                             style: TextStyle(
                                               fontSize:
                                                   global.width(context) * .04,
@@ -409,7 +409,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
                                               const BouncingScrollPhysics(),
                                           children: [
                                             Text(
-                                              '${searchExercises.length} Ergebnisse (0.${loadingSpeed.inMilliseconds.toString().substring(1)[0]} Sekunden)',
+                                              '${searchExercises.length} Ergebniss(e) (0.${loadingSpeed.inMilliseconds.toString().substring(1)[0]} Sekunden)',
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                 color: Theme.of(context)
@@ -420,17 +420,18 @@ class _ExercisesPageState extends State<ExercisesPage> {
                                             ...searchExercises
                                                 .map((e) => BounceElement(
                                                       child: GestureDetector(
-                                                        onTap: () =>
-                                                            Navigator.push(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                CreateNewExercise(
-                                                              exercise:
-                                                                  e['exercise'],
-                                                            ),
-                                                          ),
-                                                        ),
+                                                        onTap: () => {
+                                                        //     Navigator.push(
+                                                        //   context,
+                                                        //   MaterialPageRoute(
+                                                        //     builder: (context) =>
+                                                        //         CreateNewExercise(
+                                                        //       exercise:
+                                                        //           e['exercise'],
+                                                        //     ),
+                                                        //   ),
+                                                        // ),
+                                                        },
                                                         child: Container(
                                                           padding: EdgeInsets
                                                               .all(global
