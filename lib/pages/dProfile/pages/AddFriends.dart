@@ -306,9 +306,9 @@ class _AddFriendsState extends State<AddFriends> {
     loadingDone = false;
     setState(() {});
 
-    ConnectivityResult connectivityResult =
+    List<ConnectivityResult> connectivityResult =
         await Connectivity().checkConnectivity();
-    if (connectivityResult == ConnectivityResult.none) {
+    if (connectivityResult.contains(ConnectivityResult.none)) {
       loadingDone = true;
       connectedToInternet = false;
       setState(() {});
