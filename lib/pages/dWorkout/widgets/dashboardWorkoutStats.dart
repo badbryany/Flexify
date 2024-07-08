@@ -1,4 +1,3 @@
-import 'package:flexify/pages/dWorkout/workoutStatsPage/workoutStatsPage.dart';
 import 'package:flexify/widgets/BounceElement.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/exerciseModels.dart';
@@ -114,7 +113,7 @@ class _DashboardWorkoutStatsState extends State<DashboardWorkoutStats> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             BounceElement(
-                onTap: () => setState(() => selectedIntesity = i),
+              onTap: () => setState(() => selectedIntesity = i),
               child: Stack(
                 alignment: Alignment.bottomCenter,
                 children: [
@@ -210,45 +209,23 @@ class _DashboardWorkoutStatsState extends State<DashboardWorkoutStats> {
                   ),
                 ),
               ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const WorkoutStatsPage(),
-                    ),
-                  );
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          Theme.of(context).colorScheme.primary,
-                          Theme.of(context).colorScheme.onPrimary,
-                        ],
-                      ),
-                      borderRadius:
-                          BorderRadius.circular(global.width(context) * 0.1)),
-                  child: Padding(
-                    padding: EdgeInsets.all(global.width(context) * 0.03),
-                    child: Row(
-                      children: [
-                        Text(
-                          'See more',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: global.width(context) * 0.03,
-                          ),
-                        ),
-                        SizedBox(
-                          width: global.width(context) * 0.005,
-                        ),
-                        Icon(
-                          Icons.arrow_forward_rounded,
-                          color: Colors.black,
-                          size: global.width(context) * 0.03,
-                        )
+              Container(
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Theme.of(context).colorScheme.primary,
+                        Theme.of(context).colorScheme.onPrimary,
                       ],
+                    ),
+                    borderRadius:
+                        BorderRadius.circular(global.width(context) * 0.1)),
+                child: Padding(
+                  padding: EdgeInsets.all(global.width(context) * 0.03),
+                  child: Text(
+                    'Activity',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: global.width(context) * 0.03,
                     ),
                   ),
                 ),

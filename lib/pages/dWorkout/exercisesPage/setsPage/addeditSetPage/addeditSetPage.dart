@@ -1,6 +1,6 @@
 import 'package:flexify/pages/dShop/pages/widgets/ShopNavbar.dart';
 import 'package:flexify/pages/dWorkout/exercisesPage/setsPage/addeditSetPage/widgets/SetInput.dart';
-import 'package:flexify/pages/dWorkout/exercisesPage/setsPage/addeditSetPage/widgets/TimeInput.dart';
+import 'package:flexify/pages/dWorkout/exercisesPage/setsPage/addeditSetPage/widgets/SetTimeBig.dart';
 import 'package:flexify/pages/dWorkout/exercisesPage/setsPage/addeditSetPage/widgets/ToggleSetType.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -30,10 +30,8 @@ class _AddEditSetState extends State<AddEditSet> {
   final TextEditingController weightController = TextEditingController(
     text: '10',
   );
-  final FixedExtentScrollController _minuteController =
-      FixedExtentScrollController(initialItem: 1);
-  final FixedExtentScrollController _secondController =
-      FixedExtentScrollController(initialItem: 0);
+
+  Duration durTime = const Duration(seconds: 45);
 
   List<Map<String, dynamic>> setTypes = [
     {'title': 'Repetitions', 'icon': Icons.autorenew},
@@ -240,10 +238,13 @@ class _AddEditSetState extends State<AddEditSet> {
                           width: global.width(context),
                           child: Column(
                             children: [
-                              Timeinput(
-                                title: 'Time',
-                                minuteController: _minuteController,
-                                secondController: _secondController,
+                              SetTimeBig(
+                                title: 'Duration',
+                                duration: durTime,
+                                add: (dur) => setState(() => durTime += dur),
+                                sub: (dur) => durTime != Duration.zero
+                                    ? setState(() => durTime -= dur)
+                                    : null,
                               ),
                               ...bodyWeightAndWeigh(),
                             ],
