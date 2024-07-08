@@ -1,5 +1,4 @@
 import 'package:flexify/data/globalVariables.dart' as global;
-import 'package:flexify/pages/dShop/data/shopData.dart' as shopData;
 import 'package:flexify/widgets/BounceElement.dart';
 import 'package:flutter/material.dart';
 
@@ -36,12 +35,12 @@ class ShopNavbar extends StatelessWidget {
                   color: Theme.of(context).colorScheme.background,
                   borderRadius: BorderRadius.circular(100),
                   boxShadow: global.shadow(context)),
-                child: Icon(
-                  Icons.arrow_back_rounded,
-                  size: global.width(context) * 0.05,
-                  color: Colors.white,
-                ),
+              child: Icon(
+                Icons.arrow_back_rounded,
+                size: global.width(context) * 0.05,
+                color: Colors.white,
               ),
+            ),
           ),
           Text(
             title,

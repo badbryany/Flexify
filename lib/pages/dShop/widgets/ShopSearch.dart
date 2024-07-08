@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:collection/collection.dart';
 import 'package:flexify/pages/dShop/pages/3_addressPage.dart';
 import 'package:flexify/pages/dShop/pages/1_ordersPage.dart';
