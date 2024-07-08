@@ -1,4 +1,3 @@
-import 'package:flexify/pages/dWorkout/workoutStatsPage/workoutStatsPage.dart';
 import 'package:flexify/widgets/BounceElement.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/exerciseModels.dart';
