@@ -7,6 +7,7 @@ import 'package:flexify/data/globalVariables.dart' as global;
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'Round.dart';
 import 'package:flutter/services.dart';
+import 'package:keep_screen_on/keep_screen_on.dart';
 
 class HiitTimer extends StatefulWidget {
   const HiitTimer({
@@ -75,7 +76,7 @@ class _HiitTimerState extends State<HiitTimer>
   }
 
   skipRound() {
-    currentCountDuration = const Duration(seconds: 3);
+    currentCountDuration = Duration.zero;
     setState(() {});
   }
 
@@ -143,6 +144,8 @@ class _HiitTimerState extends State<HiitTimer>
     );
     animation = Tween<double>(begin: 0.0, end: 1.0).animate(controller);
 
+    KeepScreenOn.turnOn();
+
     super.initState();
     _initSounds();
     startTimer();
@@ -152,6 +155,7 @@ class _HiitTimerState extends State<HiitTimer>
   void dispose() {
     controller.dispose();
     _pool?.dispose();
+    KeepScreenOn.turnOff();
     super.dispose();
   }
 
