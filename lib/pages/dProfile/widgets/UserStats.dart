@@ -83,6 +83,8 @@ class _UserStatsState extends State<UserStats> {
                 child: AspectRatio(
                   aspectRatio: 1.5,
                   child: BarChart(
+                    swapAnimationDuration: global.standardAnimationDuration,
+                    swapAnimationCurve: Curves.easeInOut,
                     BarChartData(
                       maxY: durations
                           .reduce((dur1, dur2) => dur1 >= dur2 ? dur1 : dur2)

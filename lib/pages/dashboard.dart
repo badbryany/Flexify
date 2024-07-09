@@ -153,7 +153,7 @@ class _DashboardState extends State<Dashboard> {
                             ),
                           );
                         },
-                        iconSize: 35,
+                        iconSize: global.width(context) * .0675,
                         icon: Icon(
                           Icons.settings_rounded,
                           color: Theme.of(context).focusColor,
@@ -170,8 +170,13 @@ class _DashboardState extends State<Dashboard> {
                   ),
                   transitionBuilder: (child, animation) => FadeTransition(
                     opacity: animation,
-                    child: ScaleTransition(
-                      scale: animation,
+                    child: SlideTransition(
+                      position: animation.drive(
+                        Tween(
+                          begin: const Offset(0, 1),
+                          end: const Offset(0, 0),
+                        ),
+                      ),
                       child: child,
                     ),
                   ),
