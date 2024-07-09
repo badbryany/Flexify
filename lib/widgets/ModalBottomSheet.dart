@@ -1,4 +1,5 @@
 import 'package:flexify/data/globalVariables.dart' as global;
+import 'package:flexify/widgets/BounceElement.dart';
 import 'package:flutter/material.dart';
 
 showCustomModalBottomSheet(
@@ -22,7 +23,9 @@ class ModalBottomSheet extends StatefulWidget {
     this.onPop,
     this.bigTitle,
     this.height,
-    this.topPadding
+    this.topPadding,
+    this.extraButtonTitle,
+    this.extraButtonOnTap,
   }) : super(key: key);
 
   final String title;
@@ -33,6 +36,8 @@ class ModalBottomSheet extends StatefulWidget {
   final bool? bigTitle;
   final double? height;
   final double? topPadding;
+  final String? extraButtonTitle;
+  final Function()? extraButtonOnTap;
 
   @override
   State<ModalBottomSheet> createState() => _ModalBottomSheetState();
@@ -43,7 +48,7 @@ class _ModalBottomSheetState extends State<ModalBottomSheet> {
   Widget build(BuildContext context) {
     widget.bigTitle ?? false;
     widget.submitButtonText ?? 'fertig';
-    
+
     return Container(
       height: widget.height,
       padding: EdgeInsets.symmetric(horizontal: global.width(context) * .05),
@@ -92,12 +97,14 @@ class _ModalBottomSheetState extends State<ModalBottomSheet> {
                 const SizedBox(height: 25),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    GestureDetector(
-                      onTap: () => Navigator.pop(context),
+                    BounceElement(
+                      onTap: () => widget.onPop != null
+                          ? widget.onPop!()
+                          : Navigator.pop(context),
                       child: Container(
-                        width: 200,
+                        width: global.width(context) * .3,
                         padding: const EdgeInsets.all(15),
                         decoration: BoxDecoration(
                             borderRadius: const BorderRadius.all(
@@ -107,8 +114,8 @@ class _ModalBottomSheetState extends State<ModalBottomSheet> {
                         child: Center(
                           child: Text(
                             widget.submitButtonText!,
-                            style: const TextStyle(
-                              fontSize: 18,
+                            style: TextStyle(
+                              fontSize: global.width(context) * .04,
                               color: Colors.black,
                               fontWeight: FontWeight.w600,
                             ),
@@ -116,6 +123,36 @@ class _ModalBottomSheetState extends State<ModalBottomSheet> {
                         ),
                       ),
                     ),
+                    widget.extraButtonOnTap != null &&
+                            widget.extraButtonTitle != null
+                        ? BounceElement(
+                            onTap: widget.extraButtonOnTap,
+                            child: Container(
+                              width: global.width(context) * .4,
+                              padding: const EdgeInsets.all(15),
+                              decoration: BoxDecoration(
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(10),
+                                ),
+                                border: Border.all(
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  widget.extraButtonTitle!,
+                                  maxLines: 1,
+                                  style: TextStyle(
+                                    fontSize: global.width(context) * .04,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onBackground,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                        : const SizedBox(),
                   ],
                 )
               ],

@@ -19,13 +19,12 @@ class Button extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BounceElement(
-        onTap: onTap,
+      onTap: onTap,
       child: Container(
         padding: const EdgeInsets.all(19),
-        margin: EdgeInsets.all(global.width(context) * .05),
-        width: global.width(context) * .6,
+        margin: EdgeInsets.all(global.width(context) * .025),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(icon == null ? 100 : 30),
+          borderRadius: BorderRadius.circular(icon == null ? 20 : 30),
           color: Theme.of(context).colorScheme.background,
         ),
         child: AnimatedSwitcher(
@@ -40,10 +39,7 @@ class Button extends StatelessWidget {
                 ? SizedBox(
                     width: global.width(context) * 0.05,
                     height: global.width(context) * 0.05,
-                    child: CircularProgressIndicator(
-                      color: Theme.of(context).colorScheme.onBackground,
-                      strokeWidth: 2,
-                    ),
+                    child: global.loadingWidget(context, 1),
                   )
                 : icon ??
                     Text(

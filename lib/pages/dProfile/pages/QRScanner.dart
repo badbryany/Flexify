@@ -57,7 +57,7 @@ class _QRScannerState extends State<QRScanner> {
 
     controller.scannedDataStream.listen(
       (barcode) {
-        print(barcode);
+        print(barcode.code);
         controller.pauseCamera();
       },
     );

@@ -54,7 +54,7 @@ class LoadingImage extends StatelessWidget {
                             return SizedBox(
                               width: global.width(context) * .05,
                               height: global.width(context) * .05,
-                              child: const CircularProgressIndicator(),
+                              child: global.loadingWidget(context, 1),
                             );
                           },
                           width: width,

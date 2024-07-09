@@ -33,16 +33,8 @@ class _AddFriendsState extends State<AddFriends> {
   List<dynamic> openRequests = [];
   List<List<String>> searchUsers = [];
 
-  Widget loadingWidget(double size) => Center(
-        child: SizedBox(
-          width: global.width(context) * .09 * size,
-          height: global.width(context) * .09 * size,
-          child: CircularProgressIndicator(strokeWidth: 4 * size),
-        ),
-      );
-
   List<Widget> friendsWidgets(BuildContext context) {
-    if (!loadingDone) return [loadingWidget(.75)];
+    if (!loadingDone) return [global.loadingWidget(context, 1)];
 
     List<Widget> returnWidgets = [];
     if (friends.isEmpty) {
@@ -168,7 +160,7 @@ class _AddFriendsState extends State<AddFriends> {
   }
 
   List<Widget> openRequestsWidgets(BuildContext context) {
-    if (!loadingDone) return [loadingWidget(.75)];
+    if (!loadingDone) return [global.loadingWidget(context, 1)];
 
     List<Widget> returnWidgets = [];
 
@@ -526,7 +518,7 @@ class _AddFriendsState extends State<AddFriends> {
                           duration: global.standardAnimationDuration,
                           opacity: _searchBarOpen == 0 ? 1 : 0,
                           child: Text(
-                            'Friends',
+                            'Friendslist',
                             textAlign: TextAlign.center,
                             maxLines: 1,
                             style: TextStyle(
@@ -559,9 +551,7 @@ class _AddFriendsState extends State<AddFriends> {
                                       width: global.width(context) * .2,
                                       height: global.width(context) * .2,
                                       alignment: Alignment.center,
-                                      child: const CircularProgressIndicator(
-                                        strokeWidth: 2,
-                                      ),
+                                      child: global.loadingWidget(context, 1),
                                     )
                                   ]
                                 : (searchUsers.isNotEmpty
@@ -604,34 +594,33 @@ class _AddFriendsState extends State<AddFriends> {
                               ])
                       ]
                     : [
-                        Center(
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                              vertical: global.height(context) * .025,
-                            ),
-                            child: Text(
-                              'Your Friends',
-                              style: TextStyle(
-                                color: Theme.of(context).focusColor,
-                                fontSize: global.width(context) * .075,
-                                fontWeight: FontWeight.bold,
-                              ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            vertical: global.height(context) * .025,
+                            horizontal: global.width(context) * .1,
+                          ),
+                          child: Text(
+                            'Your Friends',
+                            style: TextStyle(
+                              color: Theme.of(context).focusColor,
+                              fontSize: global.width(context) * .075,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
                         ...friendsWidgets(context),
-                        Center(
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                              vertical: global.height(context) * .025,
-                            ),
-                            child: Text(
-                              'Friendship Requests',
-                              style: TextStyle(
-                                color: Theme.of(context).focusColor,
-                                fontSize: global.width(context) * .075,
-                                fontWeight: FontWeight.bold,
-                              ),
+                        global.largeHeight(context),
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            vertical: global.height(context) * .025,
+                            horizontal: global.width(context) * .1,
+                          ),
+                          child: Text(
+                            'Friendship Requests',
+                            style: TextStyle(
+                              color: Theme.of(context).focusColor,
+                              fontSize: global.width(context) * .075,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
@@ -647,7 +636,7 @@ class _AddFriendsState extends State<AddFriends> {
                 color:
                     Theme.of(context).scaffoldBackgroundColor.withOpacity(.9),
                 alignment: Alignment.center,
-                child: const CircularProgressIndicator(strokeWidth: 2),
+                child: global.loadingWidget(context, 1),
               ),
             ),
           ],

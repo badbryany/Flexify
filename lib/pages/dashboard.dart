@@ -26,6 +26,8 @@ class _DashboardState extends State<Dashboard> {
   int _selectedIndex = 2;
   bool gotRequests = false;
 
+  bool _isDesposed = false;
+
   final List<dynamic> dashboardOptions = [
     {
       'title': 'Shop',
@@ -55,6 +57,8 @@ class _DashboardState extends State<Dashboard> {
   ];
 
   getData() async {
+    if (_isDesposed) return;
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     http.Response res = await http.get(Uri.parse(
@@ -69,6 +73,18 @@ class _DashboardState extends State<Dashboard> {
       gotRequests = true;
       setState(() {});
     }
+  }
+
+  @override
+  void initState() {
+    _isDesposed = false;
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _isDesposed = true;
+    super.dispose();
   }
 
   @override
@@ -137,7 +153,7 @@ class _DashboardState extends State<Dashboard> {
                             ),
                           );
                         },
-                        iconSize: 35,
+                        iconSize: global.width(context) * .0675,
                         icon: Icon(
                           Icons.settings_rounded,
                           color: Theme.of(context).focusColor,
@@ -154,9 +170,17 @@ class _DashboardState extends State<Dashboard> {
                   ),
                   transitionBuilder: (child, animation) => FadeTransition(
                     opacity: animation,
-                    child: ScaleTransition(
-                      scale: animation,
-                      child: child,
+                    child: FadeTransition(
+                      opacity: animation,
+                      child: SlideTransition(
+                        position: animation.drive(
+                          Tween(
+                            begin: const Offset(0, 1),
+                            end: const Offset(0, 0),
+                          ),
+                        ),
+                        child: child,
+                      ),
                     ),
                   ),
                 ),

@@ -1,11 +1,9 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
-import 'package:flexify/pages/dProfile/widgets/PRTimeline.dart';
-import 'package:flexify/pages/dProfile/widgets/Photos.dart';
+import 'package:flexify/pages/dProfile/widgets/ShareWithFriends.dart';
 import 'package:flexify/pages/dProfile/widgets/UserInfo.dart';
-import 'package:flexify/pages/dProfile/widgets/Activity.dart';
+import 'package:flexify/pages/dProfile/widgets/UserStats.dart';
 import 'package:flutter/material.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DashboardProfile extends StatefulWidget {
   const DashboardProfile({super.key});
@@ -15,57 +13,34 @@ class DashboardProfile extends StatefulWidget {
 }
 
 class _DashboardProfileState extends State<DashboardProfile> {
-  CarouselController carouselController = CarouselController();
-  List<Widget> carouselItems = [
-    const Activity(),
-    const Photos(),
-    PRTimeline(
-      tileHeightFactor: .1,
-      tileWidthFactor: global.containerWidthFactor / 8,
-    ),
-  ];
-  PageController pageController = PageController();
-  int pageIndex = 0;
+  String username = '';
+
+  getData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    username = prefs.getString('username')!;
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
+        global.mediumHeight(context),
         const UserInfo(),
-        SizedBox(
-          height: global.height(context) * .02,
+        global.largeHeight(context),
+        global.mediumHeight(context),
+        const UserStats(),
+        global.largeHeight(context),
+        ShareWithFriends(
+          username: username,
         ),
-        CarouselSlider(
-          items: carouselItems,
-          carouselController: carouselController,
-          options: CarouselOptions(
-            onPageChanged: (index, reason) => setState(() => pageIndex = index),
-            viewportFraction: 1,
-            height: global.height(context) * .42,
-            enlargeCenterPage: true,
-            enlargeFactor: .25,
-            initialPage: pageIndex,
-            padEnds: true,
-            enableInfiniteScroll: false,
-            scrollPhysics: const BouncingScrollPhysics(),
-          ),
-        ),
-        AnimatedSmoothIndicator(
-          count: carouselItems.length,
-          activeIndex: pageIndex,
-          onDotClicked: (int index) => carouselController.animateToPage(
-            index,
-            duration: global.standardAnimationDuration,
-          ),
-          effect: WormEffect(
-            dotColor: Theme.of(context).focusColor.withOpacity(.8),
-            activeDotColor: Theme.of(context).colorScheme.primary,
-            spacing: 5,
-            dotHeight: global.width(context) * .025,
-            dotWidth: global.width(context) * .025,
-            type: WormType.thin,
-          ),
-        )
+        global.largeHeight(context),
       ],
     );
   }
