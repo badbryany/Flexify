@@ -17,7 +17,7 @@ class _DashboardProfileState extends State<DashboardProfile> {
 
   getData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    username = prefs.getString('useername')!;
+    username = prefs.getString('username')!;
     setState(() {});
   }
 

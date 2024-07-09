@@ -5,7 +5,6 @@ import 'package:flexify/widgets/ModalBottomSheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
-import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class ShareWithFriends extends StatelessWidget {
   const ShareWithFriends({
@@ -30,7 +29,7 @@ class ShareWithFriends extends StatelessWidget {
           extraButtonOnTap: () => Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => QRScanner(),
+              builder: (context) => const QRScanner(),
             ),
           ),
         ),

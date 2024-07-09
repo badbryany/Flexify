@@ -31,8 +31,24 @@ class _DashboardWorkoutStatsState extends State<DashboardWorkoutStats> {
   int selectedIntesity = 6; // yesterday
   bool initial = true;
 
+  bool _isDisposed = false;
+
+  @override
+  void initState() {
+    _isDisposed = false;
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _isDisposed = true;
+    super.dispose();
+  }
+
   getData() async {
     for (int i = 0; i < dates.length; i++) {
+      if (_isDisposed) return;
+
       int thisDaySets = 0;
       for (int j = 0; j < widget.sets.length; j++) {
         if (widget.sets[j].date.day == dates[i].day &&
@@ -48,7 +64,7 @@ class _DashboardWorkoutStatsState extends State<DashboardWorkoutStats> {
       }
       initial = false;
       await Future.delayed(const Duration(milliseconds: 125));
-      setState(() {});
+      if (!_isDisposed) setState(() {});
     }
   }
 
