@@ -80,7 +80,7 @@ class _ShopSearchState extends State<ShopSearch>
           alignment: Alignment.center,
           curve: Curves.easeInOutCirc,
           clipBehavior: Clip.hardEdge,
-          duration: global.standardAnimationDuration,
+          duration: global.standardAnimationDuration * .5,
           padding: EdgeInsets.only(
             left: global.width(context) * .05,
             right: global.width(context) * .05,
@@ -136,7 +136,7 @@ class _ShopSearchState extends State<ShopSearch>
         Positioned(
           top: global.height(context) * .075,
           child: AnimatedOpacity(
-            duration: global.standardAnimationDuration,
+            duration: global.standardAnimationDuration * .5,
             opacity: expanded ? 1 : 0,
             child: Column(
               children: [
@@ -192,30 +192,17 @@ class _ShopSearchState extends State<ShopSearch>
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
-                      topLeft: const Radius.circular(15),
-                      topRight: const Radius.circular(15),
+                      topLeft: const Radius.circular(30),
+                      topRight: const Radius.circular(30),
                       bottomLeft: isShopSearchFilled()
                           ? Radius.zero
-                          : const Radius.circular(15),
+                          : const Radius.circular(30),
                       bottomRight: isShopSearchFilled()
                           ? Radius.zero
-                          : const Radius.circular(15),
+                          : const Radius.circular(30),
                     ),
-                    border: Border(
-                      left: const BorderSide(
-                        color: Colors.black,
-                      ),
-                      right: const BorderSide(
-                        color: Colors.black,
-                      ),
-                      top: const BorderSide(
-                        color: Colors.black,
-                      ),
-                      bottom: isShopSearchFilled()
-                          ? BorderSide.none
-                          : const BorderSide(
-                              color: Colors.black,
-                            ),
+                    border: Border.all(
+                      color: Colors.black,
                     ),
                   ),
                 ),
@@ -307,8 +294,8 @@ class _ShopSearchState extends State<ShopSearch>
 class _ReLUCurve extends Curve {
   const _ReLUCurve._();
 
-    @override
-    double transformInternal(double t) {
-      return math.max(0, (2*t) - 1);
-    }
+  @override
+  double transformInternal(double t) {
+    return math.max(0, (2 * t) - 1);
   }
+}

@@ -201,3 +201,5 @@ String durationString(Duration dur) {
   return "$minutesPadding$minutes:"
       "$secondsPadding$seconds";
 }
+
+bool isKg = true;

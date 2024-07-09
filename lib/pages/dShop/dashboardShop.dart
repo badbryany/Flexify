@@ -1,5 +1,8 @@
+import 'package:flexify/pages/dShop/data/shopData.dart' as shopData;
+import 'package:flexify/pages/dShop/pages/productPage/productPage.dart';
 import 'package:flexify/pages/dShop/widgets/ShopBody.dart';
 import 'package:flexify/pages/dShop/widgets/ShopSearch.dart';
+import 'package:flexify/widgets/BounceElement.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
 
@@ -60,8 +63,8 @@ class _DashboardShopState extends State<DashboardShop> {
                 decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(15),
-                    bottomRight: Radius.circular(15),
+                    bottomLeft: Radius.circular(30),
+                    bottomRight: Radius.circular(30),
                   ),
                   border: Border(
                     left: BorderSide(
@@ -75,6 +78,58 @@ class _DashboardShopState extends State<DashboardShop> {
                     ),
                   ),
                 ),
+                child: ListView.builder(
+                    itemCount: shopData.dummyItems.length,
+                    itemBuilder: (context, idx) {
+                      return BounceElement(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ProductPage(
+                                item: shopData.dummyItems[idx],
+                              ),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          height: global.height(context) * .1,
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.all(global.width(context) * .02),
+                          decoration: BoxDecoration(
+                              border: idx != 0
+                                  ? const Border(
+                                      top: BorderSide(color: Colors.black),
+                                    )
+                                  : null),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Flexible(
+                                flex: 1,
+                                child: Container(
+                                  height: global.height(context) * .8,
+                                  width: global.width(context) * .3,
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.black),
+                                      borderRadius: BorderRadius.circular(30)),
+                                ),
+                              ),
+                              Flexible(
+                                flex: 2,
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    '${shopData.dummyItems[idx].itemBrand}\n${shopData.dummyItems[idx].itemName}',
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    }),
               ),
             ),
           ),
