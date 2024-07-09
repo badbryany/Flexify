@@ -129,11 +129,7 @@ class _DashboardStatsState extends State<DashboardStats> {
               ),
               Flexible(
                 flex: 2,
-                child: Container(
-                  height: double.infinity,
-                  width: double.infinity,
-                  decoration: global.boxDecoration(context),
-                ),
+                child: TimeWidget(),
               ),
             ],
           ),
@@ -169,6 +165,24 @@ class _DashboardStatsState extends State<DashboardStats> {
   }
 }
 
+class TimeWidget extends StatelessWidget {
+  const TimeWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: double.infinity,
+      width: double.infinity,
+      decoration: global.boxDecoration(context),
+      child: Column(
+        
+      ),
+    );
+  }
+}
+
 class StreaksWIdget extends StatelessWidget {
   const StreaksWIdget({
     super.key,
@@ -177,16 +191,16 @@ class StreaksWIdget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Flexible dayWidget = Flexible(
-                            flex: 1,
-                            child: Container(
-                              height: global.height(context) * .055 * (1/2),
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                gradient: global.linearGradient,
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                            ),
-                          );
+      flex: 1,
+      child: Container(
+        height: global.height(context) * .055 * (1 / 2),
+        width: double.infinity,
+        decoration: BoxDecoration(
+          gradient: global.linearGradient,
+          borderRadius: BorderRadius.circular(15),
+        ),
+      ),
+    );
     return Container(
       height: double.infinity,
       width: double.infinity,
@@ -247,21 +261,53 @@ class StreaksWIdget extends StatelessWidget {
                       width: double.infinity,
                       child: Row(
                         children: [
-                          const Flexible(flex: 1, child: SizedBox(width: double.infinity,)),
+                          const Flexible(
+                              flex: 1,
+                              child: SizedBox(
+                                width: double.infinity,
+                              )),
                           dayWidget,
-                          const Flexible(flex: 1, child: SizedBox(width: double.infinity,)),
+                          const Flexible(
+                              flex: 1,
+                              child: SizedBox(
+                                width: double.infinity,
+                              )),
                           dayWidget,
-                          const Flexible(flex: 1, child: SizedBox(width: double.infinity,)),
+                          const Flexible(
+                              flex: 1,
+                              child: SizedBox(
+                                width: double.infinity,
+                              )),
                           dayWidget,
-                          const Flexible(flex: 1, child: SizedBox(width: double.infinity,)),
+                          const Flexible(
+                              flex: 1,
+                              child: SizedBox(
+                                width: double.infinity,
+                              )),
                           dayWidget,
-                          const Flexible(flex: 1, child: SizedBox(width: double.infinity,)),
+                          const Flexible(
+                              flex: 1,
+                              child: SizedBox(
+                                width: double.infinity,
+                              )),
                           dayWidget,
-                          const Flexible(flex: 1, child: SizedBox(width: double.infinity,)),
+                          const Flexible(
+                              flex: 1,
+                              child: SizedBox(
+                                width: double.infinity,
+                              )),
                           dayWidget,
-                          const Flexible(flex: 1, child: SizedBox(width: double.infinity,)),
+                          const Flexible(
+                              flex: 1,
+                              child: SizedBox(
+                                width: double.infinity,
+                              )),
                           dayWidget,
-                          const Flexible(flex: 1, child: SizedBox(width: double.infinity,)),
+                          const Flexible(
+                              flex: 1,
+                              child: SizedBox(
+                                width: double.infinity,
+                              )),
                         ],
                       ),
                     ),
@@ -278,7 +324,10 @@ class StreaksWIdget extends StatelessWidget {
                       ),
                       child: Text(
                         '16',
-                        style: TextStyle(fontSize: global.width(context) * .06),
+                        style: TextStyle(
+                          fontSize: global.width(context) * .06,
+                          color: Colors.black,
+                        ),
                       ),
                     ),
                   )
@@ -362,8 +411,6 @@ class AchievementsDashboardWidget extends StatelessWidget {
   }
 }
 
-late FixedExtentScrollController _repRangeController;
-
 class ChartTitle extends StatefulWidget {
   const ChartTitle(
       {super.key,
@@ -393,6 +440,8 @@ class _ChartTitleState extends State<ChartTitle> {
     '20 +'
   ];
   String repSelected = 'Select Rep-Range';
+
+  late FixedExtentScrollController _repRangeController;
 
   @override
   void initState() {

@@ -118,10 +118,16 @@ class _DashboardShopState extends State<DashboardShop> {
                               Flexible(
                                 flex: 2,
                                 child: Container(
-                                  alignment: Alignment.center,
+                                  alignment: Alignment.centerLeft,
+                                  padding: EdgeInsets.only(
+                                    left: global.width(context) * .075,
+                                  ),
                                   child: Text(
                                     '${shopData.dummyItems[idx].itemBrand}\n${shopData.dummyItems[idx].itemName}',
-                                    textAlign: TextAlign.center,
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: global.width(context) * .04),
                                   ),
                                 ),
                               ),

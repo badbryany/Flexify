@@ -97,7 +97,7 @@ class _ModalBottomSheetState extends State<ModalBottomSheet> {
                 const SizedBox(height: 25),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     BounceElement(
                       onTap: () => widget.onPop != null
