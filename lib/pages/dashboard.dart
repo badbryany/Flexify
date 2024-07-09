@@ -170,14 +170,17 @@ class _DashboardState extends State<Dashboard> {
                   ),
                   transitionBuilder: (child, animation) => FadeTransition(
                     opacity: animation,
-                    child: SlideTransition(
-                      position: animation.drive(
-                        Tween(
-                          begin: const Offset(0, 1),
-                          end: const Offset(0, 0),
+                    child: FadeTransition(
+                      opacity: animation,
+                      child: SlideTransition(
+                        position: animation.drive(
+                          Tween(
+                            begin: const Offset(0, 1),
+                            end: const Offset(0, 0),
+                          ),
                         ),
+                        child: child,
                       ),
-                      child: child,
                     ),
                   ),
                 ),

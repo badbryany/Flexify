@@ -100,7 +100,9 @@ class _ModalBottomSheetState extends State<ModalBottomSheet> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     BounceElement(
-                      onTap: () => Navigator.pop(context),
+                      onTap: () => widget.onPop != null
+                          ? widget.onPop!()
+                          : Navigator.pop(context),
                       child: Container(
                         width: global.width(context) * .3,
                         padding: const EdgeInsets.all(15),
@@ -112,8 +114,8 @@ class _ModalBottomSheetState extends State<ModalBottomSheet> {
                         child: Center(
                           child: Text(
                             widget.submitButtonText!,
-                            style: const TextStyle(
-                              fontSize: 18,
+                            style: TextStyle(
+                              fontSize: global.width(context) * .04,
                               color: Colors.black,
                               fontWeight: FontWeight.w600,
                             ),
@@ -139,8 +141,9 @@ class _ModalBottomSheetState extends State<ModalBottomSheet> {
                               child: Center(
                                 child: Text(
                                   widget.extraButtonTitle!,
+                                  maxLines: 1,
                                   style: TextStyle(
-                                    fontSize: 18,
+                                    fontSize: global.width(context) * .04,
                                     color: Theme.of(context)
                                         .colorScheme
                                         .onBackground,

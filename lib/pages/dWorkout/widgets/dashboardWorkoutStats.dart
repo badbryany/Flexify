@@ -266,9 +266,13 @@ class _DashboardWorkoutStatsState extends State<DashboardWorkoutStats> {
           // CHART
           SizedBox(
             height: global.height(context) * 0.225,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: chartWidgets(),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              physics: const NeverScrollableScrollPhysics(),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: chartWidgets(),
+              ),
             ),
           ),
         ],

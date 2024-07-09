@@ -1,8 +1,8 @@
+import 'package:flexify/pages/dProfile/pages/AddFriends.dart';
 import 'package:flexify/pages/dProfile/pages/QRScanner.dart';
 import 'package:flexify/pages/dProfile/widgets/SmallQRWidget.dart';
 import 'package:flexify/widgets/BounceElement.dart';
 import 'package:flexify/widgets/ModalBottomSheet.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
 
@@ -22,9 +22,13 @@ class ShareWithFriends extends StatelessWidget {
         ModalBottomSheet(
           title: 'Connect with Friends',
           titleSize: global.width(context) * .075,
-          height: global.height(context) * .6,
+          height: global.height(context) * .525,
           content: SmallQRWidget(data: username),
-          submitButtonText: 'done',
+          submitButtonText: 'manual',
+          onPop: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const AddFriends()),
+          ),
           extraButtonTitle: 'Scan QR-Code',
           extraButtonOnTap: () => Navigator.push(
             context,
@@ -59,11 +63,11 @@ class ShareWithFriends extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              Icon(
-                CupertinoIcons.share,
-                color: Colors.black,
-                size: global.width(context) * .06,
-              ),
+              // Icon(
+              //   Icons.connect_without_contact_outlined,
+              //   color: Colors.black,
+              //   size: global.width(context) * .06,
+              // ),
             ],
           ),
         ),

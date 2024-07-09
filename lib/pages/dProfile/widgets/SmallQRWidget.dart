@@ -19,7 +19,7 @@ class SmallQRWidget extends StatelessWidget {
         boxShadow: [global.lightShadow(context)],
       ),
       child: QrImageView(
-        size: global.height(context) * .3,
+        size: global.height(context) * .25,
         data: data,
         embeddedImage: AssetImage('assets/logo/darklogoBG.png'),
         foregroundColor: Theme.of(context).colorScheme.onBackground,

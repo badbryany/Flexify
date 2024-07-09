@@ -1,5 +1,5 @@
 import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flexify/data/exerciseModels.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
 
@@ -11,8 +11,8 @@ class UserStats extends StatefulWidget {
 }
 
 class _UserStatsState extends State<UserStats> {
-  int totalSets = 200;
   int friends = 5;
+  String totalSetsStr = '';
 
   List<Duration> durations = [];
 
@@ -24,7 +24,26 @@ class _UserStatsState extends State<UserStats> {
     durations.add(const Duration(minutes: 45));
     durations.add(const Duration(hours: 1));
 
+    List<Set> sets = await Save.getSetList();
+
+    totalSetsStr = shrinkNum(sets.length);
+    // ! get friends when backend ist not down anymore
+
     setState(() {});
+  }
+
+  String shrinkNum(int number) {
+    if (number < 10000) return '$number';
+
+    if (number < 1000000) {
+      return '${(global.roundDouble((number / 1000), 1)).toString().replaceAll('.0', '')}K';
+    }
+
+    if (number >= 1000000) {
+      return '${(global.roundDouble((number / 100000), 1)).toString().replaceAll('.0', '')}M';
+    }
+
+    return 'many';
   }
 
   @override
@@ -45,7 +64,7 @@ class _UserStatsState extends State<UserStats> {
             borderRadius: BorderRadius.circular(global.borderRadius),
           ),
           width: global.containerWidth(context),
-          height: global.height(context) * .5,
+          height: global.height(context) * .4525,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -65,7 +84,7 @@ class _UserStatsState extends State<UserStats> {
                     ),
                     global.smallHeight(context),
                     Text(
-                      'Daily total training duration',
+                      'Daily total training duration in minutes',
                       style: TextStyle(
                         fontSize: global.width(context) * .04,
                         color: Theme.of(context)
@@ -210,7 +229,7 @@ class _UserStatsState extends State<UserStats> {
                   top: 0,
                   bottom: 0,
                   child: SmallBox(
-                    title: '$totalSets',
+                    title: totalSetsStr,
                     subtitle: 'total sets',
                   ),
                 ),

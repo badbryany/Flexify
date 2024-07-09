@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'dart:math';
 
 double borderRadius = 30;
 double containerWidthFactor = 0.95;
@@ -174,6 +175,11 @@ LinearGradient linearGradient = const LinearGradient(
 );
 
 Color darkGrey = const Color.fromARGB(255, 26, 26, 29);
+
+double roundDouble(double value, int places) {
+  double mod = pow(10.0, places).toDouble();
+  return ((value * mod).round().toDouble() / mod);
+}
 
 BoxDecoration boxDecoration(context) => BoxDecoration(
       color: darkGrey,

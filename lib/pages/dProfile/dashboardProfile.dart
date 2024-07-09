@@ -31,6 +31,7 @@ class _DashboardProfileState extends State<DashboardProfile> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        global.mediumHeight(context),
         const UserInfo(),
         global.largeHeight(context),
         global.mediumHeight(context),
