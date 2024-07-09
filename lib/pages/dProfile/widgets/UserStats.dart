@@ -1,7 +1,4 @@
 import 'package:fl_chart/fl_chart.dart';
-import 'package:flexify/pages/dProfile/pages/QRScanner.dart';
-import 'package:flexify/pages/dProfile/widgets/SmallQRWidget.dart';
-import 'package:flexify/widgets/BounceElement.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
@@ -48,7 +45,7 @@ class _UserStatsState extends State<UserStats> {
             borderRadius: BorderRadius.circular(global.borderRadius),
           ),
           width: global.containerWidth(context),
-          height: global.height(context) * 1.075,
+          height: global.height(context) * .5,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -56,12 +53,28 @@ class _UserStatsState extends State<UserStats> {
               global.largeHeight(context),
               Padding(
                 padding: EdgeInsets.only(left: global.width(context) * .05),
-                child: Text(
-                  'Your daily stats',
-                  style: TextStyle(
-                    fontSize: global.width(context) * .075,
-                    color: Theme.of(context).colorScheme.onBackground,
-                  ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Your daily stats',
+                      style: TextStyle(
+                        fontSize: global.width(context) * .075,
+                        color: Theme.of(context).colorScheme.onBackground,
+                      ),
+                    ),
+                    global.smallHeight(context),
+                    Text(
+                      'Daily total training duration',
+                      style: TextStyle(
+                        fontSize: global.width(context) * .04,
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onBackground
+                            .withOpacity(.5),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               global.largeHeight(context),
@@ -165,91 +178,6 @@ class _UserStatsState extends State<UserStats> {
                   ),
                 ),
               ),
-
-              //
-              global.largeHeight(context),
-              global.largeHeight(context),
-              //
-
-              Center(
-                child: Container(
-                  width: global.width(context) * .75,
-                  height: global.height(context) * .075,
-                  decoration: BoxDecoration(
-                    borderRadius:
-                        BorderRadius.circular(global.borderRadius - 10),
-                    gradient: LinearGradient(
-                      colors: [
-                        Theme.of(context).colorScheme.primary,
-                        Theme.of(context).colorScheme.onPrimary,
-                      ],
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Invite Friends',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: global.width(context) * .05,
-                        ),
-                      ),
-                      Icon(
-                        CupertinoIcons.share,
-                        color: Colors.black,
-                        size: global.width(context) * .06,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-
-              //
-              global.largeHeight(context),
-              global.largeHeight(context),
-              //
-              Padding(
-                padding: EdgeInsets.only(left: global.width(context) * .05),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Share with friends',
-                      style: TextStyle(
-                        fontSize: global.width(context) * .075,
-                        color: Theme.of(context).colorScheme.onBackground,
-                      ),
-                    ),
-                    BounceElement(
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const QRScanner(),
-                        ),
-                      ),
-                      child: Container(
-                        padding: const EdgeInsets.all(15),
-                        decoration: BoxDecoration(
-                          borderRadius:
-                              BorderRadius.circular(global.borderRadius - 10),
-                          color: Colors.black,
-                        ),
-                        child: Icon(
-                          CupertinoIcons.qrcode_viewfinder,
-                          size: global.width(context) * .06,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(),
-                  ],
-                ),
-              ),
-              global.largeHeight(context),
-              const Center(child: SmallQRWidget()),
             ],
           ),
         ),

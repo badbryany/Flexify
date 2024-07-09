@@ -3,7 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class SmallQRWidget extends StatelessWidget {
-  const SmallQRWidget({super.key});
+  const SmallQRWidget({
+    super.key,
+    required this.data,
+  });
+
+  final String data;
 
   @override
   Widget build(BuildContext context) {
@@ -12,12 +17,12 @@ class SmallQRWidget extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         boxShadow: [global.lightShadow(context)],
-        color: Colors.black,
       ),
       child: QrImageView(
         size: global.height(context) * .3,
-        data: 'This QR code has an embedded image as well',
-        foregroundColor: Colors.white,
+        data: data,
+        embeddedImage: AssetImage('assets/logo/darklogoBG.png'),
+        foregroundColor: Theme.of(context).colorScheme.onBackground,
         version: QrVersions.auto,
       ),
     );

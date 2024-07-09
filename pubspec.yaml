@@ -71,6 +71,7 @@ flutter:
     - assets/logo/Light Logo.svg
     - assets/logo/darklogo.png
     - assets/logo/lightlogo.png
+    - assets/logo/darklogoBG.png
 
     - assets/icon/google.png
     - assets/icon/visa.svg
