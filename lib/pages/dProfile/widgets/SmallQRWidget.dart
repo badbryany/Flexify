@@ -1,6 +1,6 @@
 import 'package:flexify/data/globalVariables.dart' as global;
 import 'package:flutter/material.dart';
-import 'package:qr_flutter/qr_flutter.dart';
+import 'package:pretty_qr_code/pretty_qr_code.dart';
 
 class SmallQRWidget extends StatelessWidget {
   const SmallQRWidget({
@@ -18,13 +18,28 @@ class SmallQRWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
         boxShadow: [global.lightShadow(context)],
       ),
-      child: QrImageView(
+      child: PrettyQr(
+        data: data,
+        size: global.width(context) * .6,
+        roundEdges: true,
+        elementColor: Theme.of(context).colorScheme.onBackground,
+        image: const AssetImage('assets/logo/darklogo.png'),
+        // decoration: PrettyQrDecoration(
+        //   image: const PrettyQrDecorationImage(
+        //     image: AssetImage('assets/logo/darklogo.png'),
+        //   ),
+        //   // background: Theme.of(context).colorScheme.onBackground,
+        // ((conte))),
+      ),
+    );
+  }
+}
+
+/*QrImageView(
         size: global.height(context) * .25,
         data: data,
         embeddedImage: AssetImage('assets/logo/darklogoBG.png'),
         foregroundColor: Theme.of(context).colorScheme.onBackground,
         version: QrVersions.auto,
       ),
-    );
-  }
-}
+    ) */

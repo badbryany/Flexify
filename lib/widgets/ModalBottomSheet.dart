@@ -123,36 +123,39 @@ class _ModalBottomSheetState extends State<ModalBottomSheet> {
                         ),
                       ),
                     ),
-                    widget.extraButtonOnTap != null &&
-                            widget.extraButtonTitle != null
-                        ? BounceElement(
-                            onTap: widget.extraButtonOnTap,
-                            child: Container(
-                              width: global.width(context) * .4,
-                              padding: const EdgeInsets.all(15),
-                              decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(10),
-                                ),
-                                border: Border.all(
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
+                    if (widget.extraButtonOnTap != null &&
+                        widget.extraButtonTitle != null)
+                      Padding(
+                        padding:
+                            EdgeInsets.only(left: global.width(context) * .05),
+                        child: BounceElement(
+                          onTap: widget.extraButtonOnTap,
+                          child: Container(
+                            width: global.width(context) * .4,
+                            padding: const EdgeInsets.all(15),
+                            decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(10),
                               ),
-                              child: Center(
-                                child: Text(
-                                  widget.extraButtonTitle!,
-                                  maxLines: 1,
-                                  style: TextStyle(
-                                    fontSize: global.width(context) * .04,
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onBackground,
-                                  ),
+                              border: Border.all(
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                            ),
+                            child: Center(
+                              child: Text(
+                                widget.extraButtonTitle!,
+                                maxLines: 1,
+                                style: TextStyle(
+                                  fontSize: global.width(context) * .04,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onBackground,
                                 ),
                               ),
                             ),
-                          )
-                        : const SizedBox(),
+                          ),
+                        ),
+                      ),
                   ],
                 )
               ],

@@ -205,7 +205,7 @@ class _UserStatsState extends State<UserStats> {
                   child: Container(
                     decoration: BoxDecoration(
                       boxShadow: global.shadow(context),
-                      color: Theme.of(context).colorScheme.surface,
+                      color: global.darkGrey,
                     ),
                     width: 50,
                     height: global.height(context) * .025,
@@ -254,7 +254,7 @@ class SmallBox extends StatelessWidget {
       width: global.width(context) * .2,
       height: global.height(context) * .125,
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
+        color: global.darkGrey,
         borderRadius: BorderRadius.circular(global.borderRadius - 15),
         boxShadow: global.shadow(context),
       ),
@@ -265,7 +265,7 @@ class SmallBox extends StatelessWidget {
             title,
             style: TextStyle(
               fontSize: global.width(context) * .045,
-              color: Theme.of(context).colorScheme.onSurface,
+              color: Colors.white,
             ),
           ),
           const SizedBox(height: 2.5),
@@ -273,7 +273,7 @@ class SmallBox extends StatelessWidget {
             subtitle,
             style: TextStyle(
               fontSize: global.width(context) * .025,
-              color: Theme.of(context).colorScheme.onSurface.withOpacity(.75),
+              color: Colors.white.withOpacity(.75),
             ),
           ),
         ],

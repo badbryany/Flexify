@@ -11,7 +11,7 @@ ModalBottomSheet modalBottomSheet(BuildContext context, String data) =>
       titleSize: global.width(context) * .075,
       height: global.height(context) * .525,
       content: SmallQRWidget(data: data),
-      submitButtonText: 'manual',
+      submitButtonText: 'Manual',
       onPop: () => Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const AddFriends()),

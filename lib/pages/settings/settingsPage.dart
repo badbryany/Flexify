@@ -138,7 +138,10 @@ class SettingsPage extends StatelessWidget {
                                           .onBackground
                                           .withOpacity(.25),
                                     )
-                                  : const BorderSide(),
+                                  : BorderSide(
+                                      color: Theme.of(context)
+                                          .scaffoldBackgroundColor,
+                                    ),
                             ),
                           ),
                           height: global.height(context) * 0.1,

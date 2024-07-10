@@ -21,17 +21,18 @@ class ShareWithFriends extends StatelessWidget {
       ),
       child: Center(
         child: Container(
-          width: global.width(context) * .75,
+          width: global.containerWidth(context),
           height: global.height(context) * .075,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(global.borderRadius - 10),
             boxShadow: global.shadow(context),
-            gradient: LinearGradient(
-              colors: [
-                Theme.of(context).colorScheme.primary,
-                Theme.of(context).colorScheme.onPrimary,
-              ],
-            ),
+            color: Theme.of(context).colorScheme.background,
+            // gradient: LinearGradient(
+            //   colors: [
+            //     Theme.of(context).colorScheme.primary,
+            //     Theme.of(context).colorScheme.onPrimary,
+            //   ],
+            // ),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -40,7 +41,7 @@ class ShareWithFriends extends StatelessWidget {
               Text(
                 'Connect with Friends',
                 style: TextStyle(
-                  color: Colors.black,
+                  color: Theme.of(context).colorScheme.onBackground,
                   fontSize: global.width(context) * .05,
                   fontWeight: FontWeight.bold,
                 ),
