@@ -1,4 +1,5 @@
 import 'package:flexify/pages/dWorkout/lockernumber/widgets/Numberfield.dart';
+import 'package:flexify/widgets/Navbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
@@ -57,61 +58,27 @@ class _LockernumberState extends State<Lockernumber> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Stack(
+        child: Column(
           children: [
-            Positioned(
-              top: global.width(context) * .05,
-              left: global.width(context) * .05,
-              child: IconButton(
-                icon: Icon(
-                  CupertinoIcons.arrow_left,
-                  color: Theme.of(context).focusColor,
-                  size: global.width(context) * .07,
-                ),
-                onPressed: () => Navigator.pop(context),
-              ),
+            Navbar(
+              title: 'Locker',
+              titleSize: global.width(context) * .1,
             ),
-            Positioned(
-              left: 0,
-              right: 0,
-              top: global.height(context) * .125,
-              child: Center(
-                child: Text(
-                  'Note your locker number',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Theme.of(context).focusColor.withOpacity(1),
-                    fontSize: global.width(context) * .06,
-                  ),
-                ),
+            global.largeHeight(context),
+            global.largeHeight(context),
+            Container(
+              margin: EdgeInsets.symmetric(
+                horizontal:
+                    (global.width(context) + global.height(context)) * .02275,
               ),
-            ),
-            Positioned(
-              bottom: (global.height(context) + global.width(context)) * .03,
-              left: 0,
-              right: 0,
-              child: Numberfield(
-                onEnter: setLocker,
-                onDelete: deleteDigit,
+              width: global.containerWidth(context),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(global.borderRadius - 10),
+                color: Theme.of(context).colorScheme.background,
               ),
-            ),
-            Positioned(
-              left: 0,
-              right: 0,
-              top: global.height(context) * .225,
-              child: Container(
-                margin: EdgeInsets.symmetric(
-                    horizontal:
-                        (global.width(context) + global.height(context)) *
-                            .02275),
-                width: global.width(context) * .75,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(global.borderRadius - 10),
-                  color: Theme.of(context).colorScheme.background,
-                ),
-                child: global.gradient(Text(
+              child: global.gradient(
+                Text(
                   lockerNumber,
                   maxLines: 1,
                   textAlign: TextAlign.center,
@@ -120,8 +87,13 @@ class _LockernumberState extends State<Lockernumber> {
                     color: Theme.of(context).focusColor,
                     fontSize: global.width(context) * .2,
                   ),
-                )),
+                ),
               ),
+            ),
+            global.mediumHeight(context),
+            Numberfield(
+              onEnter: setLocker,
+              onDelete: deleteDigit,
             ),
           ],
         ),

@@ -18,10 +18,11 @@ class Numberfield extends StatelessWidget {
     return Container(
       height: (global.height(context) + global.width(context)) * .375,
       margin: EdgeInsets.symmetric(
-          horizontal:
-              (global.width(context) + global.height(context)) * .02275),
+        horizontal: (global.width(context) + global.height(context)) * .02275,
+        vertical: global.height(context) * .025,
+      ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           ...[
@@ -30,7 +31,7 @@ class Numberfield extends StatelessWidget {
             [7, 8, 9]
           ].map(
             (e) => Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: (e as List)
                   .map((el) => NumberButton(number: el, onTap: onEnter))
                   .toList(),
