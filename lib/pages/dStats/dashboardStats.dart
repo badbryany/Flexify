@@ -127,9 +127,11 @@ class _DashboardStatsState extends State<DashboardStats> {
               SizedBox(
                 width: global.height(context) * .01,
               ),
-              Flexible(
+              const Flexible(
                 flex: 2,
-                child: TimeWidget(),
+                child: TimeWidget(
+                  totalWorkoutTime: Duration(hours: 2, minutes: 10),
+                ),
               ),
             ],
           ),
@@ -142,271 +144,23 @@ class _DashboardStatsState extends State<DashboardStats> {
           width: global.containerWidth(context),
           child: Row(
             children: [
-              Flexible(
+              const Flexible(
                 flex: 2,
-                child: Container(
-                  height: double.infinity,
-                  width: double.infinity,
-                  decoration: global.boxDecoration(context),
+                child: PRWidget(
+                  recordNumber: 10,
                 ),
               ),
               SizedBox(
                 width: global.height(context) * .01,
               ),
-              Flexible(
+              const Flexible(
                 flex: 3,
-                child: AchievementsDashboardWidget(),
+                child: AveragesWidget(),
               ),
             ],
           ),
         ),
       ],
-    );
-  }
-}
-
-class TimeWidget extends StatelessWidget {
-  const TimeWidget({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: double.infinity,
-      width: double.infinity,
-      decoration: global.boxDecoration(context),
-      child: Column(
-        
-      ),
-    );
-  }
-}
-
-class StreaksWIdget extends StatelessWidget {
-  const StreaksWIdget({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    Flexible dayWidget = Flexible(
-      flex: 1,
-      child: Container(
-        height: global.height(context) * .055 * (1 / 2),
-        width: double.infinity,
-        decoration: BoxDecoration(
-          gradient: global.linearGradient,
-          borderRadius: BorderRadius.circular(15),
-        ),
-      ),
-    );
-    return Container(
-      height: double.infinity,
-      width: double.infinity,
-      padding: EdgeInsets.all(
-        global.height(context) * .02,
-      ),
-      decoration: global.boxDecoration(context),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Flexible(
-            flex: 3,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Flexible(
-                  flex: 1,
-                  child: global.gradient(
-                    Icon(
-                      Icons.whatshot_outlined,
-                      size: global.width(context) * .075,
-                    ),
-                  ),
-                ),
-                Flexible(
-                  flex: 2,
-                  child: Container(
-                    alignment: Alignment.center,
-                    child: Text(
-                      'Streaks',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: global.width(context) * .06,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Flexible(
-            flex: 3,
-            child: Container(
-              height: double.infinity,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.background,
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Flexible(
-                    flex: 4,
-                    child: SizedBox(
-                      height: double.infinity,
-                      width: double.infinity,
-                      child: Row(
-                        children: [
-                          const Flexible(
-                              flex: 1,
-                              child: SizedBox(
-                                width: double.infinity,
-                              )),
-                          dayWidget,
-                          const Flexible(
-                              flex: 1,
-                              child: SizedBox(
-                                width: double.infinity,
-                              )),
-                          dayWidget,
-                          const Flexible(
-                              flex: 1,
-                              child: SizedBox(
-                                width: double.infinity,
-                              )),
-                          dayWidget,
-                          const Flexible(
-                              flex: 1,
-                              child: SizedBox(
-                                width: double.infinity,
-                              )),
-                          dayWidget,
-                          const Flexible(
-                              flex: 1,
-                              child: SizedBox(
-                                width: double.infinity,
-                              )),
-                          dayWidget,
-                          const Flexible(
-                              flex: 1,
-                              child: SizedBox(
-                                width: double.infinity,
-                              )),
-                          dayWidget,
-                          const Flexible(
-                              flex: 1,
-                              child: SizedBox(
-                                width: double.infinity,
-                              )),
-                          dayWidget,
-                          const Flexible(
-                              flex: 1,
-                              child: SizedBox(
-                                width: double.infinity,
-                              )),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Flexible(
-                    flex: 2,
-                    child: Container(
-                      height: double.infinity,
-                      width: double.infinity,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        gradient: global.linearGradient,
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: Text(
-                        '16',
-                        style: TextStyle(
-                          fontSize: global.width(context) * .06,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class AchievementsDashboardWidget extends StatelessWidget {
-  const AchievementsDashboardWidget({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: double.infinity,
-      width: double.infinity,
-      padding: EdgeInsets.all(
-        global.height(context) * .02,
-      ),
-      decoration: global.boxDecoration(context),
-      child: Column(
-        children: [
-          Flexible(
-            flex: 1,
-            child: Row(
-              children: [
-                global.gradient(
-                  Icon(
-                    Icons.assistant_photo_outlined,
-                    size: global.width(context) * .2 - 50,
-                  ),
-                ),
-                SizedBox(
-                  width: global.width(context) * .03,
-                ),
-                Text(
-                  'Achievements',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: global.width(context) * .05 - 5),
-                )
-              ],
-            ),
-          ),
-          Flexible(
-            flex: 1,
-            child: Container(
-              alignment: Alignment.center,
-              child: Container(
-                width: double.infinity,
-                height: global.height(context) * .02,
-                padding: const EdgeInsets.all(2),
-                clipBehavior: Clip.hardEdge,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.background,
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                child: Container(
-                  height: double.infinity,
-                  width: (global.containerWidth(context) -
-                          global.height(context) * .01) *
-                      (3 / 5) *
-                      .5,
-                  decoration: BoxDecoration(
-                      gradient: global.linearGradient,
-                      borderRadius: BorderRadius.circular(30)),
-                ),
-              ),
-            ),
-          )
-        ],
-      ),
     );
   }
 }
@@ -734,14 +488,14 @@ class ChartBody extends StatelessWidget {
               show: true,
               getDrawingHorizontalLine: (value) {
                 return FlLine(
-                  color: Theme.of(context).colorScheme.surface.withOpacity(.5),
+                  color: Colors.white.withOpacity(.2),
                   strokeWidth: 1,
                 );
               },
               drawVerticalLine: true,
               getDrawingVerticalLine: (value) {
                 return FlLine(
-                  color: Theme.of(context).colorScheme.surface.withOpacity(.5),
+                  color: Colors.white.withOpacity(.2),
                   strokeWidth: 1,
                 );
               },
@@ -790,5 +544,450 @@ class _ReLUCurve extends Curve {
   @override
   double transformInternal(double t) {
     return math.max(0, (2 * t) - 1);
+  }
+}
+
+class StreaksWIdget extends StatelessWidget {
+  const StreaksWIdget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: double.infinity,
+      width: double.infinity,
+      padding: EdgeInsets.all(
+        global.height(context) * .02,
+      ),
+      decoration: global.boxDecoration(context),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Flexible(
+            flex: 3,
+            child: Container(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  global.gradient(
+                    Icon(
+                      Icons.whatshot_outlined,
+                      size: global.width(context) * .075,
+                    ),
+                  ),
+                  Text(
+                    ' Streaks',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: global.width(context) * .08 - 5,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(
+            height: global.height(context) * .01,
+          ),
+          Flexible(
+            flex: 3,
+            child: Container(
+              height: double.infinity,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.background,
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const Flexible(
+                    flex: 2,
+                    child: SizedBox(
+                      height: double.infinity,
+                      width: double.infinity,
+                      child: Row(
+                        children: [
+                          Flexible(
+                              flex: 5,
+                              child: SizedBox(
+                                width: double.infinity,
+                              )),
+                          StreakDash(trained: true, idx: 0),
+                          Flexible(
+                              flex: 5,
+                              child: SizedBox(
+                                width: double.infinity,
+                              )),
+                          StreakDash(trained: true, idx: 1),
+                          Flexible(
+                              flex: 5,
+                              child: SizedBox(
+                                width: double.infinity,
+                              )),
+                          StreakDash(trained: true, idx: 2),
+                          Flexible(
+                              flex: 5,
+                              child: SizedBox(
+                                width: double.infinity,
+                              )),
+                          StreakDash(trained: true, idx: 3),
+                          Flexible(
+                              flex: 5,
+                              child: SizedBox(
+                                width: double.infinity,
+                              )),
+                          StreakDash(trained: true, idx: 4),
+                          Flexible(
+                              flex: 5,
+                              child: SizedBox(
+                                width: double.infinity,
+                              )),
+                          StreakDash(trained: true, idx: 5),
+                          Flexible(
+                              flex: 5,
+                              child: SizedBox(
+                                width: double.infinity,
+                              )),
+                          StreakDash(trained: true, idx: 6),
+                          Flexible(
+                              flex: 5,
+                              child: SizedBox(
+                                width: double.infinity,
+                              )),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Container(
+                    height: double.infinity,
+                    width: (global.height(context) * .15 -
+                            global.height(context) * .02) *
+                        (1 / 2),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      gradient: global.linearGradient,
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Text(
+                      '16',
+                      style: TextStyle(
+                        fontSize: global.width(context) * .03 + 15,
+                        color: Colors.black,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class StreakDash extends StatefulWidget {
+  const StreakDash({super.key, required this.trained, required this.idx});
+
+  final bool trained;
+  final int idx;
+
+  @override
+  State<StreakDash> createState() => _StreakDashState();
+}
+
+class _StreakDashState extends State<StreakDash> {
+  @override
+  Widget build(BuildContext context) {
+    return Flexible(
+      flex: 3,
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: global.height(context) * .01),
+        alignment:
+            widget.idx % 2 == 0 ? Alignment.topCenter : Alignment.bottomCenter,
+        child: Container(
+          height: global.height(context) * .055 * (3 / 7),
+          width: double.infinity,
+          decoration: widget.trained
+              ? BoxDecoration(
+                  gradient: global.linearGradient,
+                  borderRadius: BorderRadius.circular(15),
+                )
+              : BoxDecoration(
+                  color: global.darkGrey,
+                  borderRadius: BorderRadius.circular(15),
+                ),
+        ),
+      ),
+    );
+  }
+}
+
+class TimeWidget extends StatefulWidget {
+  const TimeWidget({super.key, required this.totalWorkoutTime});
+
+  final Duration totalWorkoutTime;
+
+  @override
+  State<TimeWidget> createState() => _TimeWidgetState();
+}
+
+class _TimeWidgetState extends State<TimeWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: double.infinity,
+      width: double.infinity,
+      padding: EdgeInsets.only(
+        top: global.height(context) * .02,
+        left: global.height(context) * .02,
+        right: global.height(context) * .02,
+        bottom: global.height(context) * .02,
+      ),
+      decoration: global.boxDecoration(context),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              global.gradient(
+                Icon(
+                  Icons.alarm,
+                  size: global.width(context) * .075,
+                ),
+              ),
+              SizedBox(
+                width: global.width(context) * .02,
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Workout',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: global.width(context) * .035),
+                  ),
+                  global.gradient(
+                    Text(
+                      'Time',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: global.width(context) * .035),
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
+          SizedBox(
+            height: global.height(context) * .01,
+          ),
+          Container(
+            padding: EdgeInsets.only(top: global.height(context) * .005),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  '${(widget.totalWorkoutTime.inMinutes / 60).toStringAsFixed(0)}h ${widget.totalWorkoutTime.inMinutes % 60}m',
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: global.width(context) * .07 + 5,
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class PRWidget extends StatelessWidget {
+  const PRWidget({super.key, required this.recordNumber});
+
+  final int recordNumber;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: double.infinity,
+      width: double.infinity,
+      padding: EdgeInsets.all(global.width(context) * .02),
+      decoration: global.boxDecoration(context),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Flexible(
+                flex: 3,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    global.gradient(
+                      Icon(
+                        Icons.star_rounded,
+                        size: global.width(context) * .075,
+                      ),
+                    ),
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      padding:
+                          EdgeInsets.only(left: global.width(context) * .02),
+                      child: Text(
+                        'PRs',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: global.width(context) * .08 - 5,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          Flexible(
+            flex: 3,
+            child: Container(
+              height: double.infinity,
+              width: double.infinity,
+              padding: EdgeInsets.all(global.width(context) * .01),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        '$recordNumber',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          fontSize: global.width(context) * .03 + 26,
+                          color: Colors.white,
+                        ),
+                      ),
+                      global.gradient(
+                        Text(
+                          ' Personal \n Records',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            fontSize: global.width(context) * .03 + 1,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Text(
+                    '${dateUtils.dateString(DateTime.now())} - ${dateUtils.dateString(DateTime.now().subtract(Duration(days: 7)))}',
+                    style: TextStyle(
+                        color: Colors.white.withOpacity(.7),
+                        fontSize: global.width(context) * .03 - 3),
+                  )
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class AveragesWidget extends StatelessWidget {
+  const AveragesWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: double.infinity,
+      width: double.infinity,
+      padding: EdgeInsets.all(
+        global.height(context) * .02,
+      ),
+      decoration: global.boxDecoration(context),
+      child: Container(
+        width: double.infinity,
+        alignment: Alignment.center,
+        child: Row(
+          children: [
+            const AverageTile(title: 'Avg. Workout per Week', value: 5),
+            SizedBox(width: global.width(context) * .02),
+            const AverageTile(title: 'Avg. Sets per Workout', value: 20),
+            SizedBox(width: global.width(context) * .02),
+            const AverageTile(title: 'Avg. Reps per Set', value: 12),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class AverageTile extends StatelessWidget {
+  const AverageTile({super.key, required this.title, required this.value});
+
+  final String title;
+  final int value;
+
+  @override
+  Widget build(BuildContext context) {
+    return Flexible(
+      flex: 1,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Flexible(
+            flex: 3,
+            child: SizedBox(
+              height: double.infinity,
+              width: double.infinity,
+              child: Text(
+                title,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: global.width(context) * .02125),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: global.height(context) * .0,
+          ),
+          Flexible(
+            flex: 5,
+            child: Container(
+              height: double.infinity,
+              width: double.infinity,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                  color: global.darkGrey,
+                  borderRadius: BorderRadius.circular(15),
+                  border: Border.all(color: Colors.white.withOpacity(.5))),
+              child: global.gradient(
+                Text(
+                  value.toString(),
+                  style: TextStyle(
+                    fontSize: global.width(context) * .07,
+                  ),
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
+    );
   }
 }
