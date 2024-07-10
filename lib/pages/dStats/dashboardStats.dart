@@ -801,7 +801,7 @@ class _TimeWidgetState extends State<TimeWidget> {
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: global.width(context) * .07 + 5,
+                    fontSize: global.width(context) * .07,
                   ),
                 ),
               ],
