@@ -136,10 +136,11 @@ class _DashboardWorkoutStatsState extends State<DashboardWorkoutStats> {
                   Container(
                     height: global.height(context) * 0.17,
                     width: global.width(context) * 0.11,
-                    color: Theme.of(context).colorScheme.background,
+                    color: Theme.of(context).colorScheme.surface,
                   ),
                   AnimatedContainer(
                     duration: const Duration(milliseconds: 400),
+                    curve: Curves.easeInOut,
                     height: (global.height(context) * 0.17) /
                         max(intensityPerDay) *
                         realIntensity,
@@ -149,7 +150,7 @@ class _DashboardWorkoutStatsState extends State<DashboardWorkoutStats> {
                       right: 0.5,
                     ),
                     decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.surface,
+                      color: Theme.of(context).colorScheme.background,
                       gradient: selectedIntesity == i
                           ? LinearGradient(
                               colors: [
@@ -157,12 +158,7 @@ class _DashboardWorkoutStatsState extends State<DashboardWorkoutStats> {
                                 Theme.of(context).colorScheme.onPrimary,
                               ],
                             )
-                          : LinearGradient(
-                              colors: [
-                                Theme.of(context).colorScheme.surface,
-                                Theme.of(context).colorScheme.surface,
-                              ],
-                            ),
+                          : null,
                       borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(18),
                         topRight: Radius.circular(18),
@@ -201,7 +197,7 @@ class _DashboardWorkoutStatsState extends State<DashboardWorkoutStats> {
           right: global.containerPadding),
       margin: const EdgeInsets.only(top: 20),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.background,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(global.borderRadius),
         boxShadow: [global.lightShadow(context)],
       ),
