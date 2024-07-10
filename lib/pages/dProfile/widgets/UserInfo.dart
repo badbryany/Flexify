@@ -177,6 +177,8 @@ class _UserInfoState extends State<UserInfo> {
                 // username and email Column
                 AnimatedSwitcher(
                   duration: global.standardAnimationDuration,
+                  switchInCurve: Curves.easeInOut,
+                  switchOutCurve: Curves.easeInOut,
                   child: SizedBox(
                     key: ValueKey(editing),
                     child: editing

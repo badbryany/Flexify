@@ -98,17 +98,20 @@ class _AllExercisesState extends State<AllExercises> {
                   style: TextStyle(
                     fontSize: global.width(context) * .0625,
                     fontWeight: FontWeight.bold,
-                    color: Theme.of(context).focusColor,
+                    color: Theme.of(context).colorScheme.onSurface,
                   ),
                 ),
-                const Icon(CupertinoIcons.arrow_right),
+                Icon(
+                  CupertinoIcons.arrow_right,
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
               ],
             ),
             const SizedBox(height: 5),
             Text(
               'a list of all exercises you have',
               style: TextStyle(
-                color: Theme.of(context).focusColor.withOpacity(0.7),
+                color: Theme.of(context).colorScheme.onSurface,
               ),
             ),
           ],

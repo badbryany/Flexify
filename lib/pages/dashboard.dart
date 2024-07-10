@@ -149,7 +149,7 @@ class _DashboardState extends State<Dashboard> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => SettingsPage(),
+                              builder: (context) => const SettingsPage(),
                             ),
                           );
                         },
@@ -213,7 +213,8 @@ class _DashboardState extends State<Dashboard> {
                     icon: e['icon'],
                     text: e['title'],
                     padding: const EdgeInsets.all(15),
-                    iconColor: Theme.of(context).colorScheme.onBackground,
+                    textColor: Theme.of(context).colorScheme.onSurface,
+                    iconColor: Theme.of(context).colorScheme.onSurface,
                     iconActiveColor: Theme.of(context).colorScheme.onSurface,
                   ),
                 )

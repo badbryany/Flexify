@@ -36,12 +36,12 @@ class QuickActions extends StatelessWidget {
         children: actions
             .map(
               (e) => BounceElement(
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => e['link'],
-                    ),
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => e['link'],
                   ),
+                ),
                 child: Container(
                   alignment: Alignment.center,
                   height: global.height(context) * .1125,
@@ -56,17 +56,12 @@ class QuickActions extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      global.isDarkMode(context)
-                          ? global.gradient(
-                              Icon(
-                                e['icon'],
-                                size: global.width(context) * .0775,
-                              ),
-                            )
-                          : Icon(
-                              e['icon'],
-                              size: global.width(context) * .0775,
-                            ),
+                      global.gradient(
+                        Icon(
+                          e['icon'],
+                          size: global.width(context) * .0775,
+                        ),
+                      ),
                       global.smallHeight(context),
                       Text(e['title']),
                     ],

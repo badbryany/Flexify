@@ -2,7 +2,7 @@ import 'package:flexify/data/exerciseModels.dart';
 import 'package:flexify/pages/dWorkout/widgets/AllExercises.dart';
 import 'package:flexify/pages/dWorkout/widgets/QuickActions.dart';
 import 'package:flexify/pages/dWorkout/widgets/WorkoutPlan.dart';
-import 'package:flexify/pages/dWorkout/widgets/YourTrainingplan.dart';
+// import 'package:flexify/pages/dWorkout/widgets/YourTrainingplan.dart';
 import 'package:flexify/pages/dWorkout/widgets/dashboardWorkoutStats.dart';
 import 'package:flutter/material.dart';
 
@@ -34,7 +34,7 @@ class _DashboardWorkoutState extends State<DashboardWorkout> {
         const WorkoutPlan(),
         QuickActions(),
         AllExercises(sets: sets, reload: getData),
-        YourTrainingPlan(sets: sets),
+        // YourTrainingPlan(sets: sets),
       ];
 
   @override

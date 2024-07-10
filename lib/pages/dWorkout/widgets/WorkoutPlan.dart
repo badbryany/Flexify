@@ -39,25 +39,16 @@ class WorkoutPlan extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                global.isDarkMode(context)
-                    ? global.gradient(
-                        Text(
-                          'Personal Plan',
-                          style: TextStyle(
-                            fontSize: global.width(context) * .0625,
-                            fontWeight: FontWeight.bold,
-                            color: Theme.of(context).focusColor,
-                          ),
-                        ),
-                      )
-                    : Text(
-                        'Personal Plan',
-                        style: TextStyle(
-                          fontSize: global.width(context) * .0625,
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).focusColor,
-                        ),
-                      ),
+                global.gradient(
+                  Text(
+                    'Personal Plan',
+                    style: TextStyle(
+                      fontSize: global.width(context) * .0625,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).focusColor,
+                    ),
+                  ),
+                ),
                 const SizedBox(height: 5),
                 Container(
                   alignment: Alignment.centerLeft,
@@ -67,13 +58,16 @@ class WorkoutPlan extends StatelessWidget {
                     'Your personal recommended exercises of your regular plan',
                     textAlign: TextAlign.left,
                     style: TextStyle(
-                      color: Theme.of(context).focusColor.withOpacity(0.7),
+                      color: Theme.of(context).colorScheme.onSurface,
                     ),
                   ),
                 ),
               ],
             ),
-            const Icon(CupertinoIcons.arrow_right),
+            Icon(
+              CupertinoIcons.arrow_right,
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
           ],
         ),
       ),
