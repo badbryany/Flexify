@@ -26,24 +26,10 @@ class _UserStatsState extends State<UserStats> {
 
     List<Set> sets = await Save.getSetList();
 
-    totalSetsStr = shrinkNum(sets.length);
+    totalSetsStr = global.shrinkNum(sets.length);
     // ! get friends when backend ist not down anymore
 
     setState(() {});
-  }
-
-  String shrinkNum(int number) {
-    if (number < 10000) return '$number';
-
-    if (number < 1000000) {
-      return '${(global.roundDouble((number / 1000), 1)).toString().replaceAll('.0', '')}K';
-    }
-
-    if (number >= 1000000) {
-      return '${(global.roundDouble((number / 100000), 1)).toString().replaceAll('.0', '')}M';
-    }
-
-    return 'many';
   }
 
   @override
@@ -62,9 +48,10 @@ class _UserStatsState extends State<UserStats> {
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.background,
             borderRadius: BorderRadius.circular(global.borderRadius),
+            boxShadow: global.shadow(context),
           ),
           width: global.containerWidth(context),
-          height: global.height(context) * .4525,
+          height: global.height(context) * .475,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

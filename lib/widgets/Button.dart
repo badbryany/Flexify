@@ -26,6 +26,7 @@ class Button extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(icon == null ? 20 : 30),
           color: Theme.of(context).colorScheme.background,
+          boxShadow: global.shadow(context),
         ),
         child: AnimatedSwitcher(
           duration: global.standardAnimationDuration,

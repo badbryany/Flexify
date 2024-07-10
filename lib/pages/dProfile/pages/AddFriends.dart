@@ -7,6 +7,7 @@ import 'package:flexify/data/globalVariables.dart' as global;
 import 'package:flexify/widgets/DeleteAlertDialog.dart';
 import 'package:flexify/widgets/LoadingImage.dart';
 import 'package:flexify/widgets/SearchBar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -663,7 +664,11 @@ class UserWidget extends StatefulWidget {
 }
 
 class _UserWidgetState extends State<UserWidget> {
+  bool sent = false;
   sendFriendshipRequest() async {
+    sent = true;
+    setState(() {});
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
     http.Response res = await http.post(
       Uri.parse('${global.host}/sendFriendshipRequest'),
@@ -778,11 +783,17 @@ class _UserWidgetState extends State<UserWidget> {
           ),
           contains
               ? const SizedBox()
-              : IconButton(
-                  onPressed: sendFriendshipRequest,
-                  icon: Icon(
-                    Icons.add,
-                    color: Theme.of(context).colorScheme.onBackground,
+              : AnimatedSwitcher(
+                  duration: global.standardAnimationDuration,
+                  child: IconButton(
+                    key: ValueKey(sent),
+                    onPressed: sendFriendshipRequest,
+                    icon: Icon(
+                      sent ? CupertinoIcons.check_mark : CupertinoIcons.add,
+                      color: sent
+                          ? Theme.of(context).colorScheme.primary
+                          : Theme.of(context).colorScheme.onBackground,
+                    ),
                   ),
                 ),
         ],

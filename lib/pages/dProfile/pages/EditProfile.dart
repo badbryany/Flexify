@@ -215,7 +215,7 @@ class _EditProfileState extends State<EditProfile> {
                                 width: global.width(context) * .2,
                                 height: global.height(context) * .035,
                                 decoration: BoxDecoration(
-                                  color: Theme.of(context).colorScheme.surface,
+                                  color: global.darkGrey,
                                   borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(
                                         global.borderRadius - 10),
@@ -267,6 +267,7 @@ class _EditProfileState extends State<EditProfile> {
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.background,
                   borderRadius: BorderRadius.circular(global.borderRadius - 5),
+                  boxShadow: global.shadow(context),
                 ),
                 child: Column(
                   children: [

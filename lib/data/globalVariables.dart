@@ -209,3 +209,17 @@ String durationString(Duration dur) {
 }
 
 bool isKg = true;
+
+String shrinkNum(int number) {
+  if (number < 10000) return '$number';
+
+  if (number < 1000000) {
+    return '${(roundDouble((number / 1000), 1)).toString().replaceAll('.0', '')}K';
+  }
+
+  if (number >= 1000000) {
+    return '${(roundDouble((number / 100000), 1)).toString().replaceAll('.0', '')}M';
+  }
+
+  return 'many';
+}

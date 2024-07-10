@@ -33,7 +33,6 @@ class _DashboardProfileState extends State<DashboardProfile> {
       children: [
         global.mediumHeight(context),
         const UserInfo(),
-        global.largeHeight(context),
         global.mediumHeight(context),
         const UserStats(),
         global.largeHeight(context),

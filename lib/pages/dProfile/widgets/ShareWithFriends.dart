@@ -1,6 +1,4 @@
-import 'package:flexify/pages/dProfile/pages/AddFriends.dart';
-import 'package:flexify/pages/dProfile/pages/QRScanner.dart';
-import 'package:flexify/pages/dProfile/widgets/SmallQRWidget.dart';
+import 'package:flexify/pages/dProfile/widgets/QRBottomsheet.dart';
 import 'package:flexify/widgets/BounceElement.dart';
 import 'package:flexify/widgets/ModalBottomSheet.dart';
 import 'package:flutter/material.dart';
@@ -19,24 +17,7 @@ class ShareWithFriends extends StatelessWidget {
     return BounceElement(
       onTap: () => showCustomModalBottomSheet(
         context,
-        ModalBottomSheet(
-          title: 'Connect with Friends',
-          titleSize: global.width(context) * .075,
-          height: global.height(context) * .525,
-          content: SmallQRWidget(data: username),
-          submitButtonText: 'manual',
-          onPop: () => Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const AddFriends()),
-          ),
-          extraButtonTitle: 'Scan QR-Code',
-          extraButtonOnTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const QRScanner(),
-            ),
-          ),
-        ),
+        modalBottomSheet(context, username),
       ),
       child: Center(
         child: Container(
@@ -44,6 +25,7 @@ class ShareWithFriends extends StatelessWidget {
           height: global.height(context) * .075,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(global.borderRadius - 10),
+            boxShadow: global.shadow(context),
             gradient: LinearGradient(
               colors: [
                 Theme.of(context).colorScheme.primary,
