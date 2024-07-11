@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:math';
+import 'package:flexify/pages/dShop/pages/widgets/ShopNavbar.dart';
 import 'package:keep_screen_on/keep_screen_on.dart';
 import 'package:soundpool/soundpool.dart';
 import 'package:flutter/cupertino.dart';
@@ -163,63 +164,34 @@ class _HiitTimerState extends State<HiitTimer>
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Stack(
+        child: Column(
           children: [
-            Positioned(
-              top: global.width(context) * .05,
-              left: 0,
-              right: 0,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const SizedBox(),
-                  Text(
-                    'HIIT Timer - ${widget.rounds.length} rounds',
-                    style: TextStyle(
-                      color: Theme.of(context).focusColor.withOpacity(.25),
-                      fontSize: global.width(context) * .06,
-                    ),
-                  ),
-                  SizedBox(width: global.width(context) * .05),
-                  IconButton(
-                    icon: Icon(
-                      CupertinoIcons.xmark,
-                      color: Theme.of(context).focusColor,
-                      size: global.width(context) * .075,
-                    ),
-                    onPressed: () async {
-                      await stopTimer();
-                      Navigator.pop(context);
-                    },
-                  ),
-                  const SizedBox(),
-                ],
-              ),
+            ShopNavbar(
+              title: 'HIIT Timer - ${widget.rounds.length} Rounds',
+              titleSize: global.width(context) * .06,
+              alignmentWidth: 0,
             ),
-            //
-            Positioned(
-              top: global.height(context) * .15,
-              left: 0,
-              right: 0,
-              child: Visibility(
-                visible: !done,
-                child: Column(
-                  children: [
-                    Container(
+            Visibility(
+              visible: !done,
+              child: Column(
+                children: [
+                  Container(
+                    height: global.width(context) * .85 + 20,
+                    width: global.width(context) * .85 + 20,
+                    decoration: BoxDecoration(
+                      color: global.darkGrey,
+                      borderRadius: BorderRadius.circular(1000),
+                      border: Border.all(color: Colors.black, width: 20),
+                    ),
+                    child: Container(
                       alignment: Alignment.center,
-                      width: global.width(context),
                       child: CircularPercentIndicator(
                         radius: global.width(context) * .425,
                         lineWidth: global.width(context) * .045,
                         animationDuration: 1000,
                         curve: Curves.linear,
                         animation: true,
-                        linearGradient: global.isDarkMode(context)
-                            ? global.linearGradient
-                            : null,
-                        progressColor: global.isDarkMode(context)
-                            ? null
-                            : Theme.of(context).colorScheme.primary,
+                        linearGradient: global.linearGradient,
                         percent: currentCountDuration.inSeconds /
                             currentCountDurationInitValue.inSeconds,
                         backgroundColor:
@@ -235,15 +207,13 @@ class _HiitTimerState extends State<HiitTimer>
                                   : 'Rest',
                               style: TextStyle(
                                 fontSize: global.width(context) * .075,
-                                color: Theme.of(context)
-                                    .focusColor
-                                    .withOpacity(.5),
+                                color: Colors.white,
                               ),
                             ),
                             Text(
                               global.durationString(currentCountDuration),
                               style: TextStyle(
-                                color: Theme.of(context).focusColor,
+                                color: Colors.white,
                                 fontSize: global.width(context) * .175,
                               ),
                             ),
@@ -251,95 +221,54 @@ class _HiitTimerState extends State<HiitTimer>
                         ),
                       ),
                     ),
-                    //
-                    global.largeHeight(context),
-                    global.smallHeight(context),
-                    //
-                    Text(
-                      durations[roundIndex]['title'],
-                      style: TextStyle(
-                        fontSize: global.width(context) * .1,
-                      ),
+                  ),
+                  Text(
+                    '${roundCount + 1}/${widget.rounds.length}',
+                    style: TextStyle(
+                      color: Theme.of(context).focusColor,
+                      fontSize: global.width(context) * .1125,
                     ),
-                    //
-                    global.largeHeight(context),
-                    global.mediumHeight(context),
-                    //
-                    Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12.5,
-                        vertical: 7.5,
-                      ),
-                      width: global.width(context) * .15,
-                      decoration: BoxDecoration(
-                        color: Theme.of(context)
-                            .colorScheme
-                            .primary
-                            .withOpacity(.25),
-                        borderRadius: BorderRadius.circular(100),
-                      ),
-                      child: Text(
-                        'LAP',
-                        maxLines: 1,
-                        style: TextStyle(
-                          color: global.isDarkMode(context)
-                              ? Theme.of(context).colorScheme.primary
-                              : Colors.black,
-                        ),
-                      ),
-                    ),
-                    //
-                    global.mediumHeight(context),
-                    //
-                    Text(
-                      '${roundCount + 1}/${widget.rounds.length}',
-                      style: TextStyle(
-                        color: Theme.of(context).focusColor,
-                        fontSize: global.width(context) * .1125,
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
             //
-            Positioned(
-              top: global.height(context) * .2,
-              left: 0,
-              right: 0,
-              child: AnimatedOpacity(
-                duration: global.standardAnimationDuration,
-                opacity: done ? 1 : 0,
-                child: Container(
-                  padding: const EdgeInsets.all(15),
-                  margin: EdgeInsets.symmetric(
-                    horizontal: global.width(context) *
-                        ((1 - global.containerWidthFactor) / 2),
-                  ),
-                  width: global.containerWidth(context),
-                  decoration: BoxDecoration(
-                    boxShadow: global.shadow(context),
-                    color: Theme.of(context).colorScheme.background,
-                    borderRadius:
-                        BorderRadius.circular(global.borderRadius - 5),
-                  ),
-                  child: Column(
-                    children: [
-                      Text(
-                        'Finished!',
-                        style: TextStyle(
-                          fontSize: global.width(context) * .1,
-                        ),
-                      ),
-                      Text(
-                        'Total Workouttime: ${global.durationString(Duration(seconds: durations.map((e) => (e['duration'] as Duration).inSeconds).reduce((a, b) => a + b)))}',
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+            // Positioned(
+            //   top: global.height(context) * .2,
+            //   left: 0,
+            //   right: 0,
+            //   child: AnimatedOpacity(
+            //     duration: global.standardAnimationDuration,
+            //     opacity: done ? 1 : 0,
+            //     child: Container(
+            //       padding: const EdgeInsets.all(15),
+            //       margin: EdgeInsets.symmetric(
+            //         horizontal: global.width(context) *
+            //             ((1 - global.containerWidthFactor) / 2),
+            //       ),
+            //       width: global.containerWidth(context),
+            //       decoration: BoxDecoration(
+            //         boxShadow: global.shadow(context),
+            //         color: Theme.of(context).colorScheme.background,
+            //         borderRadius:
+            //             BorderRadius.circular(global.borderRadius - 5),
+            //       ),
+            //       child: Column(
+            //         children: [
+            //           Text(
+            //             'Finished!',
+            //             style: TextStyle(
+            //               fontSize: global.width(context) * .1,
+            //             ),
+            //           ),
+            //           Text(
+            //             'Total Workouttime: ${global.durationString(Duration(seconds: durations.map((e) => (e['duration'] as Duration).inSeconds).reduce((a, b) => a + b)))}',
+            //           ),
+            //         ],
+            //       ),
+            //     ),
+            //   ),
+            // ),
             //
             Positioned(
               bottom: global.height(context) * .05,
@@ -350,13 +279,8 @@ class _HiitTimerState extends State<HiitTimer>
                 opacity: done ? 0 : 1,
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Theme.of(context)
-                        .colorScheme
-                        .background
-                        .withOpacity(.5),
                     borderRadius:
                         BorderRadius.circular(global.borderRadius - 2.5),
-                    // boxShadow: global.shadow(context),
                   ),
                   width: global.containerWidth(context),
                   margin: EdgeInsets.symmetric(
@@ -397,12 +321,19 @@ class _HiitTimerState extends State<HiitTimer>
                           size: global.width(context) * .15,
                         ),
                       ),
-                      IconButton(
-                        onPressed: skipRound,
-                        icon: Icon(
-                          CupertinoIcons.arrow_right_to_line_alt,
-                          color: Theme.of(context).focusColor,
-                          size: global.width(context) * .08,
+                      Container(
+                        padding: EdgeInsets.all(global.width(context) * .025),
+                        decoration: BoxDecoration(
+                          color: global.lightGrey,
+                          borderRadius: BorderRadius.circular(100)
+                        ),
+                        child: IconButton(
+                          onPressed: skipRound,
+                          icon: Icon(
+                            CupertinoIcons.arrow_right_to_line_alt,
+                            color: Colors.white,
+                            size: global.width(context) * .08,
+                          ),
                         ),
                       ),
                     ],

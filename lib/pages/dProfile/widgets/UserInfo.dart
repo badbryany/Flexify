@@ -33,7 +33,7 @@ class _UserInfoState extends State<UserInfo> {
 
   List<Map<String, dynamic>> controllers = [
     {
-      'title': 'username',
+      'title': 'Username',
       'controller': TextEditingController(),
       'textInputType': TextInputType.text,
       'password': false,
@@ -43,7 +43,7 @@ class _UserInfoState extends State<UserInfo> {
       ),
     },
     {
-      'title': 'firstname',
+      'title': 'Nickname',
       'controller': TextEditingController(),
       'textInputType': TextInputType.text,
       'password': false,
@@ -62,16 +62,16 @@ class _UserInfoState extends State<UserInfo> {
         size: 20,
       ),
     },
-    // {
-    //   'title': 'password',
-    //   'controller': TextEditingController(),
-    //   'textInputType': TextInputType.text,
-    //   'password': true,
-    //   'icon': const Icon(
-    //     Icons.key,
-    //     size: 20,
-    //   ),
-    // },
+    {
+      'title': 'Password',
+      'controller': TextEditingController(),
+      'textInputType': TextInputType.text,
+      'password': true,
+      'icon': const Icon(
+        Icons.key,
+        size: 20,
+      ),
+    },
   ];
 
   getData() async {
@@ -219,7 +219,7 @@ class _UserInfoState extends State<UserInfo> {
             height: editing ? containerHeight * 2 : containerHeight,
             width: global.width(context) * global.containerWidthFactor,
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.background,
+              color: global.darkGrey,
               borderRadius: BorderRadius.circular(global.borderRadius),
               boxShadow: global.isDarkMode(context)
                   ? [global.darkShadow(context)]
@@ -261,7 +261,7 @@ class _UserInfoState extends State<UserInfo> {
                             alignment: Alignment.center,
                             margin: EdgeInsets.only(
                               top: containerHeight * .3,
-                              left: global.width(context) * .175,
+                              left: global.width(context) * .1,
                             ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -325,19 +325,21 @@ class _UserInfoState extends State<UserInfo> {
                       child: Stack(
                         children: [
                           Container(
+                            padding: const EdgeInsets.all(2),
                             decoration: BoxDecoration(
-                              border: Border.all(
-                                color: Theme.of(context).colorScheme.primary,
-                                width: 1,
+                                gradient: global.linearGradient,
+                                borderRadius: BorderRadius.circular(100)),
+                            child: Container(
+                              padding: const EdgeInsets.all(4),
+                              decoration: BoxDecoration(
+                                  color: global.darkGrey,
+                                  borderRadius: BorderRadius.circular(100)),
+                              child: LoadingImage(
+                                url:
+                                    'https://flexify.kellermann.team/api/getProfilePicture?username=$username',
+                                path: image?.path,
+                                width: global.width(context) * .25,
                               ),
-                              borderRadius: BorderRadius.circular(1000),
-                            ),
-                            padding: const EdgeInsets.all(4),
-                            child: LoadingImage(
-                              url:
-                                  'https://flexify.kellermann.team/api/getProfilePicture?username=$username',
-                              path: image?.path,
-                              width: global.width(context) * .25,
                             ),
                           ),
                           AnimatedOpacity(
@@ -514,7 +516,7 @@ class UserInfoButton extends StatelessWidget {
               horizontal: global.width(context) * .1,
               vertical: global.height(context) * .005),
           decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 26, 26, 29),
+              color: global.lightGrey,
               gradient: highlight == true
                   ? LinearGradient(
                       begin: Alignment.bottomLeft,
@@ -528,7 +530,7 @@ class UserInfoButton extends StatelessWidget {
                       ],
                     )
                   : null,
-              boxShadow: [global.lightShadow(context)],
+              boxShadow: [global.darkShadow(context)],
               borderRadius: BorderRadius.circular(30)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,

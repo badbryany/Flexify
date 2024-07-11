@@ -75,7 +75,7 @@ class _ReviewsPageState extends State<ReviewsPage> {
                 children: [
                   Text(
                     'User reviews',
-                    style: TextStyle(fontSize: global.width(context) * .07),
+                    style: TextStyle(fontSize: global.width(context) * .07, color: Theme.of(context).focusColor),
                   ),
                   Theme(
                     data: Theme.of(context).copyWith(
@@ -246,17 +246,17 @@ class ReviewsBigStar extends StatelessWidget {
             reviews.length);
     return (starColor > 0)
         ? Icon(
-            Icons.star_rate_rounded,
-            color: Theme.of(context).colorScheme.background,
+            Icons.star_sharp,
+            color: global.lightGrey,
             size: global.width(context) * .075,
           )
         : (starColor < 1)
             ? Icon(
-                Icons.star_rounded,
+                Icons.star_sharp,
                 size: global.width(context) * .075,
                 color: Colors.amber[300],
               )
-            : Icon(Icons.star_half_rounded,
+            : Icon(Icons.star_sharp,
                 size: global.width(context) * .075, color: Colors.amber[300]);
   }
 }
@@ -314,7 +314,7 @@ class _ReviewsBigBarState extends State<ReviewsBigBar> {
                 height: global.height(context) * .01,
                 width: (global.containerWidth(context) / 4.5),
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(.5),
+                  color: global.lightGrey,
                   borderRadius: BorderRadius.circular(30),
                 ),
               ),
@@ -442,10 +442,10 @@ class ReviewStar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Icon(
-      Icons.star_rate_rounded,
+      Icons.star_rate,
       color: (index < review.stars)
           ? Colors.amber[300]
-          : Theme.of(context).colorScheme.background,
+          : global.lightGrey,
     );
   }
 }
@@ -503,7 +503,7 @@ class ProductInfo extends StatelessWidget {
             height: global.height(context) * .1,
             width: global.height(context) * .1,
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.background,
+              color: global.lightGrey,
               borderRadius: BorderRadius.circular(30),
             ),
           ),
@@ -627,7 +627,7 @@ class ReviewBody extends StatelessWidget {
             height: global.height(context) * .1,
             width: global.containerWidth(context),
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.background,
+              color: global.lightGrey,
               borderRadius: BorderRadius.circular(10),
             ),
             child: Text(
@@ -708,10 +708,10 @@ class _ReviewStarEntryState extends State<ReviewStarEntry> {
         padding: EdgeInsets.all(global.width(context) * .02),
         width: global.width(context) * .16,
         child: Icon(
-          Icons.star_rate_rounded,
+          Icons.star_rate,
           color: stars >= index
               ? Colors.amber[300]
-              : Theme.of(context).colorScheme.background,
+              : global.lightGrey,
           size: global.width(context) * .125,
         ),
       ),

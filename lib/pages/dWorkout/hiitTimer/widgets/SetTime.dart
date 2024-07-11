@@ -55,23 +55,23 @@ class _SetTimeState extends State<SetTime> {
           continueCount = false;
         },
         child: Container(
-          margin: const EdgeInsets.all(2.5),
-          height: global.height(context) * 0.035,
-          width: global.height(context) * 0.035,
-          alignment: Alignment.center,
+          padding: const EdgeInsets.all(1),
           decoration: BoxDecoration(
+            gradient: global.linearGradient,
             borderRadius: BorderRadius.circular(100),
-            border: Border.all(
-              width: 1,
-              color: Theme.of(context).colorScheme.primary,
-            ),
           ),
-          child: Text(
-            text,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: global.width(context) * .07,
-              color: Theme.of(context).colorScheme.onBackground,
+          child: Container(
+            margin: const EdgeInsets.all(1),
+            height: global.width(context) * 0.1 - 10,
+            width: global.width(context) * 0.1 - 10,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: global.darkGrey,
+              borderRadius: BorderRadius.circular(100),
+            ),
+            child: Icon(
+              text == '+' ? Icons.add : Icons.remove,
+              color: Colors.white,
             ),
           ),
         ),
@@ -82,26 +82,17 @@ class _SetTimeState extends State<SetTime> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // margin: EdgeInsets.all(global.width(context) * 0.02),
-      // padding: EdgeInsets.all(global.width(context) * 0.005),
-      // height: global.height(context) * .18,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // Text(
-          //   widget.title,
-          //   style: TextStyle(
-          //     color: Theme.of(context).colorScheme.onBackground,
-          //     fontSize: global.width(context) * .025,
-          //   ),
-          // ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               setButton(
                 context,
-                () => widget.sub(const Duration(seconds: 1)),
+                () => widget.sub(const Duration(seconds: 5)),
                 '-',
               ),
               SizedBox(
@@ -117,7 +108,7 @@ class _SetTimeState extends State<SetTime> {
               ),
               setButton(
                 context,
-                () => widget.add(const Duration(seconds: 1)),
+                () => widget.add(const Duration(seconds: 5)),
                 '+',
               ),
             ],

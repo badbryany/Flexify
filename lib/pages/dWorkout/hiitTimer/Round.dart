@@ -31,52 +31,76 @@ class Round {
       Column(
         children: [
           Container(
+            height: global.height(context) * .15,
             margin: EdgeInsets.symmetric(
               horizontal: global.width(context) * .03,
             ),
             padding: const EdgeInsets.all(15),
-            width: global.containerWidth(context),
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.background,
-              borderRadius: BorderRadius.circular(global.borderRadius - 5),
-            ),
+                gradient: LinearGradient(
+                  colors: [
+                    global.darkGrey,
+                    global.lightGrey,
+                  ],
+                ),
+                borderRadius: BorderRadius.circular(global.borderRadius - 5),
+                boxShadow: global.shadow(context)),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const SizedBox(),
-                Text(
-                  title,
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.onBackground,
-                    fontSize: global.width(context) * .05,
+                Flexible(
+                  flex: 4,
+                  child: Container(
+                    alignment: Alignment.center,
+                    width: double.infinity,
+                    child: Text(
+                      title,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onBackground,
+                        fontSize: global.width(context) * .065,
+                      ),
+                    ),
                   ),
                 ),
-                SetTime(
-                  title: 'Rundenzeit',
-                  duration: roundDuration,
-                  add: (foo) {
-                    roundDuration += const Duration(seconds: 1);
-                    setState(() {});
-                  },
-                  sub: (foo) {
-                    if (roundDuration == const Duration(seconds: 1)) return;
+                Flexible(
+                  flex: 5,
+                  child: Container(
+                    alignment: Alignment.center,
+                    width: double.infinity,
+                    child: SetTime(
+                      title: 'Rundenzeit',
+                      duration: roundDuration,
+                      add: (addDuration) {
+                        roundDuration += addDuration;
+                        setState(() {});
+                      },
+                      sub: (subDuration) {
+                        if (roundDuration == const Duration(seconds: 1)) return;
 
-                    roundDuration -= const Duration(seconds: 1);
-                    setState(() {});
-                  },
-                ),
-                IconButton(
-                  onPressed: () => remove(
-                    this,
-                    getWidget(context, setState, remove, index, totalLength),
+                        roundDuration -= subDuration;
+                        setState(() {});
+                      },
+                    ),
                   ),
-                  icon: Icon(
-                    CupertinoIcons.trash,
-                    size: global.width(context) * .05,
-                    color: Theme.of(context)
-                        .colorScheme
-                        .onBackground
-                        .withOpacity(.5),
+                ),
+                Flexible(
+                  flex: 2,
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: IconButton(
+                      onPressed: () => remove(
+                        this,
+                        getWidget(
+                            context, setState, remove, index, totalLength),
+                      ),
+                      icon: Icon(
+                        CupertinoIcons.trash,
+                        size: global.width(context) * .05,
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onBackground
+                            .withOpacity(.5),
+                      ),
+                    ),
                   ),
                 ),
               ],
@@ -104,17 +128,17 @@ class Round {
                         child: SetTime(
                           title: '',
                           duration: restDuration,
-                          add: (foo) {
-                            restDuration += const Duration(seconds: 1);
+                          add: (addDuration) {
+                            restDuration += addDuration;
                             innerSetState(() {});
                             setState(() {});
                           },
-                          sub: (foo) {
-                            if (restDuration == const Duration(seconds: 1)) {
+                          sub: (subDuration) {
+                            if (restDuration == const Duration(seconds: 5)) {
                               return;
                             }
 
-                            restDuration -= const Duration(seconds: 1);
+                            restDuration -= subDuration;
                             innerSetState(() {});
                             setState(() {});
                           },
@@ -130,11 +154,11 @@ class Round {
                 width: global.containerWidth(context),
                 color: Colors.transparent,
                 child: Text(
-                  '${global.durationString(restDuration)} rest',
+                  '${global.durationString(restDuration)} Rest',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Theme.of(context).focusColor.withOpacity(.75),
-                  ),
+                      color: Colors.black,
+                      fontSize: global.height(context) * .025),
                 ),
               ),
             ),

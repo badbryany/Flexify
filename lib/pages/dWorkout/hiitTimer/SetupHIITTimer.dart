@@ -1,6 +1,6 @@
+import 'package:flexify/pages/dShop/pages/widgets/ShopNavbar.dart';
 import 'package:flexify/pages/dWorkout/hiitTimer/HIITTimer.dart';
 import 'package:flexify/widgets/BounceElement.dart';
-import 'package:flexify/widgets/Navbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
@@ -75,165 +75,152 @@ class _SetupHIITTimerrState extends State<SetupHIITTimer> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Stack(
+        child: Column(
           children: [
-            Positioned(
-              top: 0,
-              width: global.width(context),
-              child: Navbar(
-                title: 'HIIT Timer',
-                titleSize: global.width(context) * .075,
-                topRightWidget: SizedBox(
-                  width: global.width(context) * Navbar.actionButtonWidthFactor,
-                  child: Column(
-                    children: [
-                      Text(
-                        '${rounds.length}',
-                        style: TextStyle(
-                          fontSize: global.width(context) * .075,
-                        ),
-                      ),
-                      Text(
-                        'round${rounds.length > 1 ? 's' : ''}',
-                        style: TextStyle(
-                          fontSize: global.width(context) * .025,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+            ShopNavbar(
+              title: 'HIIT Timer',
+              titleSize: global.width(context) * .075,
             ),
-            //
-            Center(
-              child: AnimatedOpacity(
-                opacity: rounds.isEmpty ? 1 : 0,
-                duration: global.standardAnimationDuration,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Click  \'+\'  to add a round!',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: global.width(context) * 0.04,
-                        color: Theme.of(context).focusColor,
-                      ),
-                    ),
-                    Transform.rotate(
-                      angle: -1.8,
-                      child: Transform(
-                        alignment: Alignment.center,
-                        transform: Matrix4.rotationY(math.pi),
-                        child: SvgPicture.asset(
-                          'assets/Squiggly Arrow.svg',
-                          width: global.width(context) * 0.8,
-                          height: global.width(context) * 0.6,
-                          color: Theme.of(context).focusColor,
+            rounds.isEmpty
+                ? Center(
+                    child: AnimatedOpacity(
+                      opacity: rounds.isEmpty ? 1 : 0,
+                      duration: global.standardAnimationDuration,
+                      child: SizedBox(
+                        height: global.height(context) * .85 - global.width(context) * .175,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Click  \'+\'  to add a round!',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: global.width(context) * 0.04,
+                                color: Theme.of(context).focusColor,
+                              ),
+                            ),
+                            Transform.rotate(
+                              angle: -1.8,
+                              child: Transform(
+                                alignment: Alignment.center,
+                                transform: Matrix4.rotationY(math.pi),
+                                child: SvgPicture.asset(
+                                  'assets/Squiggly Arrow.svg',
+                                  width: global.width(context) * 0.8,
+                                  height: global.width(context) * 0.6,
+                                  color: Theme.of(context).focusColor,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
-                  ],
-                ),
-              ),
-            ),
-            AnimatedOpacity(
-              duration: global.standardAnimationDuration,
-              opacity: rounds.isEmpty ? 0 : 1,
-              child: Center(
-                child: SizedBox(
-                  width: global.width(context),
-                  height: global.height(context) * .7,
-                  child: AnimatedList(
-                    key: animatedListKey,
-                    initialItemCount: rounds.length,
-                    physics: const BouncingScrollPhysics(),
-                    itemBuilder: (context, index, animation) => SlideTransition(
-                      position: animation.drive(
-                        Tween(
-                          begin: const Offset(1, 0),
-                          end: const Offset(0, 0),
-                        ),
-                      ),
-                      child: rounds[index].getWidget(
-                        context,
-                        setState,
-                        removeRound,
-                        index,
-                        rounds.length,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            //
-            Positioned(
-              bottom: 0,
-              child: Container(
-                margin: EdgeInsets.all(global.width(context) * .1),
-                width: global.containerWidth(context),
-                child: Row(
-                  children: [
-                    BounceElement(
-                      onTap: () => addRound(),
-                      child: Container(
-                        alignment: Alignment.center,
-                        height: global.height(context) * .075,
-                        width: global.height(context) * .075,
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.background,
-                          borderRadius: BorderRadius.circular(
-                            global.borderRadius - 5,
+                  )
+                : AnimatedOpacity(
+                    duration: global.standardAnimationDuration,
+                    opacity: rounds.isEmpty ? 0 : 1,
+                    child: Center(
+                      child: SizedBox(
+                        width: global.width(context),
+                        height: (rounds.isEmpty
+                            ? global.height(context) - global.width(context) * .175 - global.height(context) * .15 - global.height(context) * .5
+                            : global.height(context) - global.width(context) * .175 - global.height(context) * .15),
+                        child: AnimatedList(
+                          key: animatedListKey,
+                          initialItemCount: rounds.length,
+                          physics: const BouncingScrollPhysics(),
+                          itemBuilder: (context, index, animation) =>
+                              SlideTransition(
+                            position: animation.drive(
+                              Tween(
+                                begin: const Offset(1, 0),
+                                end: const Offset(0, 0),
+                              ),
+                            ),
+                            child: rounds[index].getWidget(
+                              context,
+                              setState,
+                              removeRound,
+                              index,
+                              rounds.length,
+                            ),
                           ),
                         ),
-                        child: Icon(
-                          CupertinoIcons.add,
-                          color: Theme.of(context).colorScheme.onBackground,
-                        ),
                       ),
                     ),
-                    //
-                    SizedBox(width: global.width(context) * .05),
-                    //
-                    AnimatedOpacity(
+                  ),
+            Container(
+              width: global.containerWidth(context),
+              height:
+                  (global.height(context) * .1),
+              child: Row(
+                children: [
+                  BounceElement(
+                    onTap: () => addRound(),
+                    child: Container(
+                      width: (global.height(context) * .1),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.background,
+                        borderRadius: BorderRadius.circular(
+                          global.borderRadius - 5,
+                        ),
+                      ),
+                      child: Icon(
+                        CupertinoIcons.add,
+                        color: Theme.of(context).colorScheme.onBackground,
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: global.width(context) * .05),
+                  Flexible(
+                    flex: 4,
+                    child: AnimatedOpacity(
                       duration: global.standardAnimationDuration,
                       opacity: rounds.isEmpty ? .5 : 1,
                       child: BounceElement(
                         onTap: () => rounds.isEmpty ? null : startTimer(),
                         child: Container(
                           alignment: Alignment.center,
-                          height: global.height(context) * .075,
-                          width: global.width(context) * .6,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: global.width(context) * .025,
+                            vertical: global.height(context) * .01
+                          ),
                           decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.background,
+                            color: global.darkGrey,
                             borderRadius: BorderRadius.circular(
                               global.borderRadius - 5,
                             ),
                           ),
-                          child: global.gradient(Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                CupertinoIcons.play,
-                                size: global.width(context) * .05,
-                              ),
-                              SizedBox(width: global.width(context) * .025),
-                              Text(
-                                'Start HIIT-Timer',
-                                style: TextStyle(
-                                  fontSize: global.width(context) * .05,
+                          child: global.gradient(
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  CupertinoIcons.play,
+                                  size: (global.height(context) * .04),
                                 ),
-                              ),
-                            ],
-                          )),
+                                SizedBox(width: global.width(context) * .025),
+                                Text(
+                                  'Start HIIT Timer',
+                                  style: TextStyle(
+                                    fontSize: (global.width(context) * .04) ,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
+            SizedBox(
+              height: global.width(context) * .025,
+            )
           ],
         ),
       ),

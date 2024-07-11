@@ -174,6 +174,7 @@ LinearGradient linearGradient = const LinearGradient(
   ],
 );
 
+Color lightGrey = const Color.fromARGB(255, 38, 38, 43);
 Color darkGrey = const Color.fromARGB(255, 26, 26, 29);
 
 double roundDouble(double value, int places) {

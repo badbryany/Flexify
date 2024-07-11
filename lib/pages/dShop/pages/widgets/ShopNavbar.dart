@@ -6,6 +6,7 @@ class ShopNavbar extends StatelessWidget {
   final String title;
   final double? titleSize;
   final Function? onTap;
+  final double? alignmentWidth;
 
   final ActionButton? actionButton;
 
@@ -15,12 +16,13 @@ class ShopNavbar extends StatelessWidget {
     this.titleSize,
     this.onTap,
     this.actionButton,
+    this.alignmentWidth,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(global.width(context) * .05),
+      padding: EdgeInsets.all(global.height(context) * .025),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -28,13 +30,14 @@ class ShopNavbar extends StatelessWidget {
             onTap: () => Navigator.pop(context),
             child: Container(
               alignment: Alignment.center,
-              padding: EdgeInsets.all(global.width(context) * 0.005),
+              padding: EdgeInsets.all(global.height(context) * 0.0025),
               width: global.width(context) * 0.15,
               height: global.width(context) * 0.15,
               decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.background,
-                  borderRadius: BorderRadius.circular(100),
-                  boxShadow: global.shadow(context)),
+                color: Theme.of(context).colorScheme.background,
+                borderRadius: BorderRadius.circular(100),
+                boxShadow: global.shadow(context),
+              ),
               child: Icon(
                 Icons.arrow_back_rounded,
                 size: global.width(context) * 0.05,
@@ -51,7 +54,7 @@ class ShopNavbar extends StatelessWidget {
           ),
           actionButton != null
               ? actionButton!
-              : SizedBox(width: global.width(context) * .155),
+              : SizedBox(width: alignmentWidth ?? global.width(context) * .155),
         ],
       ),
     );

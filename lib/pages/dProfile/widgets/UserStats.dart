@@ -91,12 +91,11 @@ class _UserStatsState extends State<UserStats> {
           margin: EdgeInsets.only(top: global.height(context) * .025),
           alignment: Alignment.bottomCenter,
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.background,
+            color: global.darkGrey,
             borderRadius: BorderRadius.circular(global.borderRadius),
             boxShadow: global.shadow(context),
           ),
           width: global.containerWidth(context),
-          height: global.height(context) * .475,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -291,7 +290,7 @@ class _UserStatsState extends State<UserStats> {
                   child: Container(
                     decoration: BoxDecoration(
                       boxShadow: global.shadow(context),
-                      color: global.darkGrey,
+                      color: global.lightGrey,
                     ),
                     width: 50,
                     height: global.height(context) * .025,
@@ -303,7 +302,7 @@ class _UserStatsState extends State<UserStats> {
                   bottom: 0,
                   child: SmallBox(
                     title: totalSetsStr,
-                    subtitle: 'total sets',
+                    subtitle: 'Total Sets',
                   ),
                 ),
                 Positioned(
@@ -340,7 +339,7 @@ class SmallBox extends StatelessWidget {
       width: global.width(context) * .2,
       height: global.height(context) * .125,
       decoration: BoxDecoration(
-        color: global.darkGrey,
+        color: global.lightGrey,
         borderRadius: BorderRadius.circular(global.borderRadius - 15),
         boxShadow: global.shadow(context),
       ),
