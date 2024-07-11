@@ -192,8 +192,15 @@ SizedBox smallHeight(context) => SizedBox(height: height(context) * .01);
 SizedBox mediumHeight(context) => SizedBox(height: height(context) * .02);
 SizedBox largeHeight(context) => SizedBox(height: height(context) * .03);
 
-String durationString(Duration dur) {
+String durationString(Duration dur, {bool? hours}) {
   double microseconds = dur.inMicroseconds.toDouble();
+
+  int? hoursCount;
+
+  if (hours == true) {
+    hoursCount = microseconds ~/ Duration.microsecondsPerHour;
+    microseconds = microseconds.remainder(Duration.microsecondsPerHour);
+  }
 
   var minutes = microseconds ~/ Duration.microsecondsPerMinute;
   microseconds = microseconds.remainder(Duration.microsecondsPerMinute);
@@ -205,7 +212,7 @@ String durationString(Duration dur) {
 
   var secondsPadding = seconds < 10 ? "0" : "";
 
-  return "$minutesPadding$minutes:"
+  return "${hours == true ? '$hoursCount:' : ''}$minutesPadding$minutes:"
       "$secondsPadding$seconds";
 }
 
@@ -223,4 +230,10 @@ String shrinkNum(int number) {
   }
 
   return 'many';
+}
+
+extension DateOnlyCompare on DateTime {
+  bool isSameDate(DateTime other) {
+    return year == other.year && month == other.month && day == other.day;
+  }
 }

@@ -1,6 +1,7 @@
 import 'package:flexify/SignInSignUp/widgets/input.dart';
 import 'package:flexify/widgets/BounceElement.dart';
 import 'package:flexify/widgets/Button.dart';
+import 'package:flexify/widgets/DeleteAlertDialog.dart';
 import 'package:flexify/widgets/LoadingImage.dart';
 import 'package:flexify/widgets/Navbar.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,7 @@ class _EditProfileState extends State<EditProfile> {
   String firstname = '';
   String email = '';
 
-  List<Map<String, dynamic>> inputs = [
+  List<Map<String, dynamic>> controllers = [
     {
       'title': 'username',
       'controller': TextEditingController(),
@@ -52,9 +53,9 @@ class _EditProfileState extends State<EditProfile> {
     firstname = prefs.getString('firstname')!;
     email = prefs.getString('email')!;
 
-    inputs[0]['controller'].text = username;
-    inputs[1]['controller'].text = email;
-    inputs[2]['controller'].text = firstname;
+    controllers[0]['controller'].text = username;
+    controllers[1]['controller'].text = email;
+    controllers[2]['controller'].text = firstname;
 
     setState(() {});
   }
@@ -117,9 +118,53 @@ class _EditProfileState extends State<EditProfile> {
       await uploadImage(image!);
     }
 
-    // !TODO implement me
+    SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    print('update Data');
+    if ((controllers[0]['controller'] as TextEditingController).text ==
+            username &&
+        (controllers[1]['controller'] as TextEditingController).text ==
+            prefs.getString('firstname') &&
+        (controllers[2]['controller'] as TextEditingController).text == email) {
+      loading = false;
+      setState(() {});
+      return;
+    }
+
+    http.Response res =
+        await http.post(Uri.parse('${global.host}/editAccount'), body: {
+      'jwt': prefs.getString('jwt'),
+      'username': (controllers[0]['controller'] as TextEditingController).text,
+      'firstname': (controllers[1]['controller'] as TextEditingController).text,
+      'email': (controllers[2]['controller'] as TextEditingController).text,
+    });
+
+    if (res.body == 'username already taken') {
+      await showDialog(
+        context: context,
+        builder: (context) => DeleteAlertDialog(
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Got it!'),
+            )
+          ],
+          title: 'The username is already taken!',
+        ),
+      );
+      (controllers[0]['controller'] as TextEditingController).text = username;
+    }
+
+    if (res.body == 'done') {
+      prefs.setString('username',
+          (controllers[0]['controller'] as TextEditingController).text);
+      prefs.setString('firstname',
+          (controllers[1]['controller'] as TextEditingController).text);
+      prefs.setString('email',
+          (controllers[2]['controller'] as TextEditingController).text);
+
+      username = (controllers[0]['controller'] as TextEditingController).text;
+      email = (controllers[2]['controller'] as TextEditingController).text;
+    }
 
     loading = false;
     setState(() {});
@@ -271,7 +316,7 @@ class _EditProfileState extends State<EditProfile> {
                 ),
                 child: Column(
                   children: [
-                    ...inputs.map((e) => Input(
+                    ...controllers.map((e) => Input(
                           hintText: e['title'],
                           textInputType: e['inputType'],
                           controller: e['controller'],

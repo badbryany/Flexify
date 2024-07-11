@@ -2,6 +2,10 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flexify/data/exerciseModels.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UserStats extends StatefulWidget {
   const UserStats({super.key});
@@ -11,25 +15,66 @@ class UserStats extends StatefulWidget {
 }
 
 class _UserStatsState extends State<UserStats> {
-  int friends = 5;
+  int friends = -1;
   String totalSetsStr = '';
 
   List<Duration> durations = [];
 
+  List<DateTime> dates = [
+    DateTime.now().subtract(const Duration(days: 5)),
+    DateTime.now().subtract(const Duration(days: 4)),
+    DateTime.now().subtract(const Duration(days: 3)),
+    DateTime.now().subtract(const Duration(days: 2)),
+    DateTime.now().subtract(const Duration(days: 1)),
+    DateTime.now(),
+  ];
+
   getData() async {
-    durations.add(const Duration(hours: 1, minutes: 23));
-    durations.add(const Duration(hours: 1, minutes: 3));
-    durations.add(const Duration(minutes: 23));
-    durations.add(const Duration(hours: 1, minutes: 56));
-    durations.add(const Duration(minutes: 45));
-    durations.add(const Duration(hours: 1));
+    SharedPreferences.getInstance().then(
+      (prefs) => http
+          .get(
+        Uri.parse('${global.host}/getFriends?jwt=${prefs.getString('jwt')}'),
+      )
+          .then((res) {
+        if (res.body == 'bad request') {
+          friends = 0;
+          return;
+        }
+        friends = jsonDecode(res.body).length;
+        setState(() {});
+      }),
+    );
 
     List<Set> sets = await Save.getSetList();
 
     totalSetsStr = global.shrinkNum(sets.length);
-    // ! get friends when backend ist not down anymore
+
+    getDurations(sets);
 
     setState(() {});
+  }
+
+  getDurations(List<Set> sets) {
+    sets = sets.where((set) => set.date.isAfter(dates.first)).toList();
+
+    for (var date in dates) {
+      DateTime startOfDay = DateTime(date.year, date.month, date.day);
+      DateTime endOfDay = startOfDay.add(const Duration(days: 1));
+
+      List<Set> setsOfTheDay = sets
+          .where((set) =>
+              set.date.isAfter(startOfDay) && set.date.isBefore(endOfDay))
+          .toList();
+
+      if (setsOfTheDay.isNotEmpty) {
+        DateTime firstSetTime = setsOfTheDay.first.date;
+        DateTime lastSetTime = setsOfTheDay.last.date;
+
+        durations.add(lastSetTime.difference(firstSetTime).abs());
+      } else {
+        durations.add(Duration.zero);
+      }
+    }
   }
 
   @override
@@ -87,101 +132,142 @@ class _UserStatsState extends State<UserStats> {
                 padding: EdgeInsets.all(global.width(context) * .05),
                 child: AspectRatio(
                   aspectRatio: 1.5,
-                  child: BarChart(
-                    swapAnimationDuration: global.standardAnimationDuration,
-                    swapAnimationCurve: Curves.easeInOut,
-                    BarChartData(
-                      maxY: durations
-                          .reduce((dur1, dur2) => dur1 >= dur2 ? dur1 : dur2)
-                          .inMinutes
-                          .toDouble(),
-                      minY: 0,
-                      barTouchData: BarTouchData(enabled: false),
-                      titlesData: FlTitlesData(
-                        show: true,
-                        bottomTitles: AxisTitles(
-                          sideTitles: SideTitles(
-                            showTitles: true,
-                            getTitlesWidget: (double value, TitleMeta meta) {
-                              return SideTitleWidget(
-                                axisSide: meta.axisSide,
-                                space: 16.0,
-                                child: Text(
-                                  [
-                                    'Mon',
-                                    'Tue',
-                                    'Wed',
-                                    'Thu',
-                                    'Fri',
-                                    'Sat',
-                                    'Sun'
-                                  ][value.toInt()],
-                                ),
-                              );
-                            },
-                            reservedSize: 40,
-                          ),
-                        ),
-                        leftTitles: AxisTitles(
-                          sideTitles: SideTitles(
-                            showTitles: true,
-                            interval: 20,
-                            reservedSize: global.width(context) * .075,
-                            getTitlesWidget: (double value, TitleMeta meta) =>
-                                SideTitleWidget(
-                              angle: 45,
-                              axisSide: meta.axisSide,
-                              space: global.width(context) * .075,
-                              child: Text(
-                                value.round().toString(),
+                  child: AnimatedSwitcher(
+                    duration: global.standardAnimationDuration,
+                    switchInCurve: Curves.easeInOut,
+                    switchOutCurve: Curves.easeInOut,
+                    child: durations.isEmpty
+                        ? global.loadingWidget(context, 1)
+                        : durations
+                                    .reduce((dur1, dur2) =>
+                                        dur1 >= dur2 ? dur1 : dur2)
+                                    .inMinutes
+                                    .toDouble() ==
+                                0
+                            ? Text(
+                                'no data jet',
                                 style: TextStyle(
-                                  fontSize: global.width(context) * .025,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSurface
+                                      .withOpacity(.75),
+                                ),
+                              )
+                            : BarChart(
+                                key: const ValueKey('chart'),
+                                swapAnimationDuration:
+                                    global.standardAnimationDuration,
+                                swapAnimationCurve: Curves.easeInOut,
+                                BarChartData(
+                                  maxY: durations
+                                      .reduce((dur1, dur2) =>
+                                          dur1 >= dur2 ? dur1 : dur2)
+                                      .inMinutes
+                                      .toDouble(),
+                                  minY: 0,
+                                  barTouchData: BarTouchData(
+                                    enabled: true,
+                                    touchTooltipData: BarTouchTooltipData(
+                                      getTooltipColor: (group) =>
+                                          Colors.transparent,
+                                      getTooltipItem:
+                                          (group, groupIndex, rod, rodIndex) {
+                                        return BarTooltipItem(
+                                          '${rod.toY.round()} min',
+                                          TextStyle(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onSurface,
+                                            fontSize:
+                                                global.width(context) * .03,
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                  titlesData: FlTitlesData(
+                                    show: true,
+                                    bottomTitles: AxisTitles(
+                                      sideTitles: SideTitles(
+                                        showTitles: true,
+                                        getTitlesWidget:
+                                            (double value, TitleMeta meta) {
+                                          return SideTitleWidget(
+                                            axisSide: meta.axisSide,
+                                            space: 16.0,
+                                            child: Text(
+                                              global.weekdaysShort[
+                                                  dates[value.toInt()].weekday -
+                                                      1],
+                                            ),
+                                          );
+                                        },
+                                        reservedSize: 40,
+                                      ),
+                                    ),
+                                    leftTitles: const AxisTitles(
+                                      sideTitles: SideTitles(
+                                        showTitles: false,
+                                      ),
+                                    ),
+                                    rightTitles: const AxisTitles(
+                                      sideTitles: SideTitles(showTitles: false),
+                                    ),
+                                    topTitles: const AxisTitles(
+                                      sideTitles: SideTitles(showTitles: false),
+                                    ),
+                                  ),
+                                  gridData: FlGridData(
+                                    show: true,
+                                    drawVerticalLine: false,
+                                    horizontalInterval: durations
+                                            .reduce((dur1, dur2) =>
+                                                dur1 >= dur2 ? dur1 : dur2)
+                                            .inMinutes
+                                            .toDouble() /
+                                        6,
+                                  ),
+                                  borderData: FlBorderData(show: false),
+                                  barGroups: durations
+                                      .asMap()
+                                      .entries
+                                      .map(
+                                        (entry) => BarChartGroupData(
+                                          x: entry.key,
+                                          showingTooltipIndicators: durations
+                                              .map((e) => e.inMinutes)
+                                              .toList(),
+                                          barRods: [
+                                            BarChartRodData(
+                                              toY: entry.value.inMinutes
+                                                  .toDouble(),
+                                              width:
+                                                  global.width(context) * .03,
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .primary,
+                                              gradient: LinearGradient(
+                                                colors: [
+                                                  Theme.of(context)
+                                                      .colorScheme
+                                                      .primary,
+                                                  Theme.of(context)
+                                                      .colorScheme
+                                                      .onPrimary,
+                                                ],
+                                              ),
+                                              backDrawRodData:
+                                                  BackgroundBarChartRodData(
+                                                show: true,
+                                                toY: entry.key.toDouble(),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                      .toList(),
                                 ),
                               ),
-                            ),
-                          ),
-                        ),
-                        rightTitles: const AxisTitles(
-                          sideTitles: SideTitles(showTitles: false),
-                        ),
-                        topTitles: const AxisTitles(
-                          sideTitles: SideTitles(showTitles: false),
-                        ),
-                      ),
-                      gridData: const FlGridData(
-                        show: true,
-                        drawVerticalLine: false,
-                      ),
-                      borderData: FlBorderData(show: false),
-                      barGroups: durations
-                          .asMap()
-                          .entries
-                          .map(
-                            (entry) => BarChartGroupData(
-                              x: entry.key,
-                              showingTooltipIndicators:
-                                  durations.map((e) => e.inMinutes).toList(),
-                              barRods: [
-                                BarChartRodData(
-                                  toY: entry.value.inMinutes.toDouble(),
-                                  width: global.width(context) * .03,
-                                  color: Theme.of(context).colorScheme.primary,
-                                  gradient: LinearGradient(
-                                    colors: [
-                                      Theme.of(context).colorScheme.primary,
-                                      Theme.of(context).colorScheme.onPrimary,
-                                    ],
-                                  ),
-                                  backDrawRodData: BackgroundBarChartRodData(
-                                    show: true,
-                                    toY: entry.key.toDouble(),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )
-                          .toList(),
-                    ),
                   ),
                 ),
               ),
@@ -224,8 +310,8 @@ class _UserStatsState extends State<UserStats> {
                   top: 0,
                   bottom: 0,
                   child: SmallBox(
-                    title: '$friends',
-                    subtitle: 'Friends',
+                    title: friends == -1 ? '---' : '$friends',
+                    subtitle: 'friends',
                   ),
                 ),
               ],

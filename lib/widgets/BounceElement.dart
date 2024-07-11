@@ -18,6 +18,18 @@ class _BounceElementState extends State<BounceElement> {
   double scale = 1;
   int duration = 100;
 
+  bool isDisposed = false;
+
+  @override
+  void dispose() {
+    isDisposed = true;
+    super.dispose();
+  }
+
+  setStateCustom(void Function() fn) {
+    if (!isDisposed) setState(fn);
+  }
+
   @override
   Widget build(BuildContext context) {
     return AnimatedScale(
@@ -25,23 +37,23 @@ class _BounceElementState extends State<BounceElement> {
       scale: scale,
       child: GestureDetector(
         onTap: widget.onTap,
-        onTapDown: (value) => setState(() {
+        onTapDown: (value) => setStateCustom(() {
           scale = 0.98;
         }),
-        onTapUp: (value) => setState(() {
+        onTapUp: (value) => setStateCustom(() {
           scale = 1.02;
           Future.delayed(
             Duration(milliseconds: duration),
             () {
-              setState(() => scale = 1);
+              setStateCustom(() => scale = 1);
             },
           );
         }),
-        onTapCancel: () => setState(() {
+        onTapCancel: () => setStateCustom(() {
           scale = 1.02;
           Future.delayed(
             Duration(milliseconds: duration),
-            () => setState(() => scale = 1),
+            () => setStateCustom(() => scale = 1),
           );
         }),
         child: widget.child,
