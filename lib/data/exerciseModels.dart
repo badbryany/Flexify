@@ -87,7 +87,6 @@ class Set {
   }
 
   static Set fromJSONtoObject(Map<String, dynamic> values) {
-    print(values['duration']);
     return Set(
       setID: values['s_id'],
       exerciseName: values['exerciseName'],

@@ -175,53 +175,77 @@ class _HiitTimerState extends State<HiitTimer>
               visible: !done,
               child: Column(
                 children: [
-                  Container(
-                    height: global.width(context) * .85 + 20,
-                    width: global.width(context) * .85 + 20,
-                    decoration: BoxDecoration(
-                      color: global.darkGrey,
-                      borderRadius: BorderRadius.circular(1000),
-                      border: Border.all(color: Colors.black, width: 20),
-                    ),
+                  Center(
                     child: Container(
+                      height: global.width(context) * .825,
+                      width: global.width(context) * .825,
                       alignment: Alignment.center,
-                      child: CircularPercentIndicator(
-                        radius: global.width(context) * .425,
-                        lineWidth: global.width(context) * .045,
-                        animationDuration: 1000,
-                        curve: Curves.linear,
-                        animation: true,
-                        linearGradient: global.linearGradient,
-                        percent: currentCountDuration.inSeconds /
-                            currentCountDurationInitValue.inSeconds,
-                        backgroundColor:
-                            Theme.of(context).colorScheme.background,
-                        animateFromLastPercent: true,
-                        circularStrokeCap: CircularStrokeCap.round,
-                        center: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              durations[roundIndex]['isRound']
-                                  ? 'Round ${roundCount + 1}'
-                                  : 'Rest',
-                              style: TextStyle(
-                                fontSize: global.width(context) * .075,
-                                color: Colors.white,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(1000),
+                        color: global.darkGrey,
+                      ),
+                      child: Center(
+                        child: CircularPercentIndicator(
+                          radius: global.width(context) * .8 / 2,
+                          lineWidth: global.width(context) * .045,
+                          animationDuration: 1000,
+                          curve: Curves.linear,
+                          animation: true,
+                          linearGradient: global.linearGradient,
+                          percent: currentCountDuration.inSeconds /
+                              currentCountDurationInitValue.inSeconds,
+                          backgroundColor:
+                              Theme.of(context).colorScheme.background,
+                          animateFromLastPercent: true,
+                          circularStrokeCap: CircularStrokeCap.round,
+                          center: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                durations[roundIndex]['isRound']
+                                    ? 'Round ${roundCount + 1}'
+                                    : 'Rest',
+                                style: TextStyle(
+                                  fontSize: global.width(context) * .07,
+                                  color: Colors.white,
+                                ),
                               ),
-                            ),
-                            Text(
-                              global.durationString(currentCountDuration),
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: global.width(context) * .175,
+                              global.mediumHeight(context),
+                              Text(
+                                global.durationString(currentCountDuration),
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: global.width(context) * .15,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
                   ),
+                  global.largeHeight(context),
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: global.width(context) * .03,
+                      vertical: global.width(context) * .015,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .primary
+                          .withOpacity(.25),
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                    child: Text(
+                      'LAP',
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.primary,
+                        fontSize: global.width(context) * .05,
+                      ),
+                    ),
+                  ),
+                  global.mediumHeight(context),
                   Text(
                     '${roundCount + 1}/${widget.rounds.length}',
                     style: TextStyle(
@@ -232,7 +256,6 @@ class _HiitTimerState extends State<HiitTimer>
                 ],
               ),
             ),
-            //
             // Positioned(
             //   top: global.height(context) * .2,
             //   left: 0,
@@ -269,75 +292,69 @@ class _HiitTimerState extends State<HiitTimer>
             //     ),
             //   ),
             // ),
-            //
-            Positioned(
-              bottom: global.height(context) * .05,
-              right: 0,
-              left: 0,
-              child: AnimatedOpacity(
-                duration: global.standardAnimationDuration,
-                opacity: done ? 0 : 1,
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius:
-                        BorderRadius.circular(global.borderRadius - 2.5),
-                  ),
-                  width: global.containerWidth(context),
-                  margin: EdgeInsets.symmetric(
-                      horizontal: global.width(context) * .075),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      IconButton(
-                        onPressed: () => setState(
-                          () => currentCountDuration =
-                              currentCountDurationInitValue,
-                        ),
-                        icon: Icon(
-                          CupertinoIcons.refresh,
-                          color: Theme.of(context).focusColor,
-                          size: global.width(context) * .075,
-                        ),
+
+            global.largeHeight(context),
+            global.largeHeight(context),
+            global.largeHeight(context),
+            global.largeHeight(context),
+
+            AnimatedOpacity(
+              duration: global.standardAnimationDuration,
+              opacity: done ? 0 : 1,
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius:
+                      BorderRadius.circular(global.borderRadius - 2.5),
+                  color: global.darkGrey,
+                ),
+                width: global.width(context) * 825,
+                margin: EdgeInsets.symmetric(
+                    horizontal: global.width(context) * .075),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    IconButton(
+                      onPressed: () => setState(
+                        () => currentCountDuration =
+                            currentCountDurationInitValue,
                       ),
-                      IconButton(
-                        onPressed: () => setState(
-                          () {
-                            paused = !paused;
-                            if (paused) {
-                              timer?.cancel();
-                              controller.forward();
-                            } else {
-                              updateTimer(timer!);
-                              timer = Timer.periodic(
-                                  const Duration(seconds: 1), updateTimer);
-                              controller.reverse();
-                            }
-                          },
-                        ),
-                        icon: AnimatedIcon(
-                          icon: AnimatedIcons.pause_play,
-                          progress: animation,
-                          color: Theme.of(context).focusColor,
-                          size: global.width(context) * .15,
-                        ),
+                      icon: Icon(
+                        CupertinoIcons.refresh,
+                        color: Colors.white,
+                        size: global.width(context) * .075,
                       ),
-                      Container(
-                        padding: EdgeInsets.all(global.width(context) * .025),
-                        decoration: BoxDecoration(
-                          color: global.lightGrey,
-                          borderRadius: BorderRadius.circular(100)
-                        ),
-                        child: IconButton(
-                          onPressed: skipRound,
-                          icon: Icon(
-                            CupertinoIcons.arrow_right_to_line_alt,
-                            color: Colors.white,
-                            size: global.width(context) * .08,
-                          ),
-                        ),
+                    ),
+                    IconButton(
+                      onPressed: () => setState(
+                        () {
+                          paused = !paused;
+                          if (paused) {
+                            timer?.cancel();
+                            controller.forward();
+                          } else {
+                            updateTimer(timer!);
+                            timer = Timer.periodic(
+                                const Duration(seconds: 1), updateTimer);
+                            controller.reverse();
+                          }
+                        },
                       ),
-                    ],
-                  ),
+                      icon: AnimatedIcon(
+                        icon: AnimatedIcons.pause_play,
+                        progress: animation,
+                        color: Colors.white,
+                        size: global.width(context) * .15,
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: skipRound,
+                      icon: Icon(
+                        CupertinoIcons.arrow_right_to_line_alt,
+                        color: Colors.white,
+                        size: global.width(context) * .08,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
