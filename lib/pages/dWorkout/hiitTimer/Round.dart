@@ -31,20 +31,19 @@ class Round {
       Column(
         children: [
           Container(
-            height: global.height(context) * .15,
+            // height: global.height(context) * .15,
             margin: EdgeInsets.symmetric(
               horizontal: global.width(context) * .03,
+              vertical: global.height(context) * .005,
             ),
-            padding: const EdgeInsets.all(15),
+            padding: EdgeInsets.symmetric(
+              vertical: global.height(context) * .025,
+            ),
             decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    global.darkGrey,
-                    global.lightGrey,
-                  ],
-                ),
-                borderRadius: BorderRadius.circular(global.borderRadius - 5),
-                boxShadow: global.shadow(context)),
+              color: global.darkGrey,
+              borderRadius: BorderRadius.circular(global.borderRadius),
+              boxShadow: global.shadow(context),
+            ),
             child: Row(
               children: [
                 Flexible(
@@ -56,7 +55,7 @@ class Round {
                       title,
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.onBackground,
-                        fontSize: global.width(context) * .065,
+                        fontSize: global.width(context) * .055,
                       ),
                     ),
                   ),
@@ -86,19 +85,21 @@ class Round {
                   flex: 2,
                   child: SizedBox(
                     width: double.infinity,
-                    child: IconButton(
-                      onPressed: () => remove(
-                        this,
-                        getWidget(
-                            context, setState, remove, index, totalLength),
-                      ),
-                      icon: Icon(
-                        CupertinoIcons.trash,
-                        size: global.width(context) * .05,
-                        color: Theme.of(context)
-                            .colorScheme
-                            .onBackground
-                            .withOpacity(.5),
+                    child: Center(
+                      child: IconButton(
+                        onPressed: () => remove(
+                          this,
+                          getWidget(
+                              context, setState, remove, index, totalLength),
+                        ),
+                        icon: Icon(
+                          CupertinoIcons.trash,
+                          size: global.width(context) * .05,
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onBackground
+                              .withOpacity(.5),
+                        ),
                       ),
                     ),
                   ),

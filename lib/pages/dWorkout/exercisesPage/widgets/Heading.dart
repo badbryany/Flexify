@@ -32,7 +32,7 @@ class Heading extends StatelessWidget {
               title,
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: global.width(context) * .05,
+                fontSize: global.width(context) * .04,
                 color: Theme.of(context).colorScheme.onSurface,
               ),
             ),

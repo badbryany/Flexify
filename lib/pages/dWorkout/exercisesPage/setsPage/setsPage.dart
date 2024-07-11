@@ -148,13 +148,14 @@ class _ExerciseSetsState extends State<ExerciseSets> {
       returnList.add(
         Heading(
           title:
-              'date: ${dateString(setList.first.date)}                       total sets: ${setList.length}',
+              'date: ${dateString(setList.first.date)}                     total sets: ${setList.length}',
         ),
       );
       for (int i = setList.length - 1; i >= 0; i--) {
         returnList.add(SizedBox(
           height: global.width(context) * 0.01,
         ));
+
         returnList.add(
           Dismissible(
             key: ValueKey(setList[i].setID),
@@ -242,29 +243,36 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     // WEIGHT
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
+                    Column(
                       children: [
-                        Text(
-                          '${setList[i].weight}',
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.primary,
-                            fontSize: global.width(context) * 0.08,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(
-                            bottom: global.height(context) * 0.009,
-                          ),
-                          child: Text(
-                            'kg',
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.primary,
-                              fontSize: global.width(context) * 0.04,
-                              fontWeight: FontWeight.bold,
+                        setList[i].isBodyweight
+                            ? Text('Bodyweight + ')
+                            : SizedBox(),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text(
+                              '${setList[i].weight}',
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.primary,
+                                fontSize: global.width(context) * 0.08,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                bottom: global.height(context) * 0.009,
+                              ),
+                              child: Text(
+                                'kg',
+                                style: TextStyle(
+                                  color: Theme.of(context).colorScheme.primary,
+                                  fontSize: global.width(context) * 0.04,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -282,14 +290,24 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                     ),
 
                     //REPS
-                    Text(
-                      'x${setList[i].reps}',
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.onBackground,
-                        fontSize: global.width(context) * 0.06,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    sets[i].durationInSeconds != null &&
+                            sets[i].durationInSeconds != 0
+                        ? Text(
+                            global.durationString(sets[i].getDuration()),
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.onBackground,
+                              fontSize: global.width(context) * 0.06,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                        : Text(
+                            'x${setList[i].reps}',
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.onBackground,
+                              fontSize: global.width(context) * 0.06,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                   ],
                 ),
               ),
@@ -331,7 +349,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
     return PopScope(
       onPopInvoked: (foo) => widget.refresh(),
       child: Scaffold(
-        appBar: AppBar(),
+        // appBar: AppBar(),
         body: ListView(
           physics: const BouncingScrollPhysics(),
           children: [

@@ -15,9 +15,6 @@ import 'package:provider/provider.dart';
 checkLogin() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
 
-  // prefs.setString('username', '');
-  // prefs.setString('password', '');
-
   if (prefs.getString('username') == null ||
       prefs.getString('username') == '' ||
       prefs.getString('password') == null ||

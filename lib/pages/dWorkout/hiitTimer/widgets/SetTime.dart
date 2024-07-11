@@ -72,6 +72,7 @@ class _SetTimeState extends State<SetTime> {
             child: Icon(
               text == '+' ? Icons.add : Icons.remove,
               color: Colors.white,
+              size: global.width(context) * .05,
             ),
           ),
         ),
@@ -81,40 +82,38 @@ class _SetTimeState extends State<SetTime> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              setButton(
-                context,
-                () => widget.sub(const Duration(seconds: 5)),
-                '-',
-              ),
-              SizedBox(
-                width: global.width(context) * .21,
-                child: Text(
-                  durationString(widget.duration),
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: global.width(context) * .06,
-                    color: Theme.of(context).colorScheme.onBackground,
-                  ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            setButton(
+              context,
+              () => widget.sub(const Duration(seconds: 1)),
+              '-',
+            ),
+            SizedBox(
+              width: global.width(context) * .21,
+              child: Text(
+                durationString(widget.duration),
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: global.width(context) * .06,
+                  color: Theme.of(context).colorScheme.onBackground,
                 ),
               ),
-              setButton(
-                context,
-                () => widget.add(const Duration(seconds: 5)),
-                '+',
-              ),
-            ],
-          ),
-        ],
-      ),
+            ),
+            setButton(
+              context,
+              () => widget.add(const Duration(seconds: 1)),
+              '+',
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

@@ -81,13 +81,18 @@ class _SetupHIITTimerrState extends State<SetupHIITTimer> {
               title: 'HIIT Timer',
               titleSize: global.width(context) * .075,
             ),
-            rounds.isEmpty
-                ? Center(
+            SizedBox(
+              height: global.height(context) * .75,
+              width: global.containerWidth(context),
+              child: Stack(
+                children: [
+                  Center(
                     child: AnimatedOpacity(
                       opacity: rounds.isEmpty ? 1 : 0,
                       duration: global.standardAnimationDuration,
                       child: SizedBox(
-                        height: global.height(context) * .85 - global.width(context) * .175,
+                        height: global.height(context) * .85 -
+                            global.width(context) * .175,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -116,16 +121,14 @@ class _SetupHIITTimerrState extends State<SetupHIITTimer> {
                         ),
                       ),
                     ),
-                  )
-                : AnimatedOpacity(
+                  ),
+                  AnimatedOpacity(
                     duration: global.standardAnimationDuration,
                     opacity: rounds.isEmpty ? 0 : 1,
                     child: Center(
                       child: SizedBox(
                         width: global.width(context),
-                        height: (rounds.isEmpty
-                            ? global.height(context) - global.width(context) * .175 - global.height(context) * .15 - global.height(context) * .5
-                            : global.height(context) - global.width(context) * .175 - global.height(context) * .15),
+                        height: global.height(context) * .75,
                         child: AnimatedList(
                           key: animatedListKey,
                           initialItemCount: rounds.length,
@@ -149,22 +152,25 @@ class _SetupHIITTimerrState extends State<SetupHIITTimer> {
                         ),
                       ),
                     ),
-                  ),
-            Container(
+                  )
+                ],
+              ),
+            ),
+            SizedBox(
               width: global.containerWidth(context),
-              height:
-                  (global.height(context) * .1),
               child: Row(
                 children: [
                   BounceElement(
-                    onTap: () => addRound(),
+                    onTap: addRound,
                     child: Container(
-                      width: (global.height(context) * .1),
+                      width: global.height(context) * .08,
+                      height: global.height(context) * .08,
+                      padding: EdgeInsets.all(global.width(context) * .05),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.background,
+                        color: global.darkGrey,
                         borderRadius: BorderRadius.circular(
-                          global.borderRadius - 5,
+                          global.borderRadius,
                         ),
                       ),
                       child: Icon(
@@ -183,14 +189,15 @@ class _SetupHIITTimerrState extends State<SetupHIITTimer> {
                         onTap: () => rounds.isEmpty ? null : startTimer(),
                         child: Container(
                           alignment: Alignment.center,
+                          height: global.height(context) * .08,
                           padding: EdgeInsets.symmetric(
                             horizontal: global.width(context) * .025,
-                            vertical: global.height(context) * .01
+                            vertical: global.height(context) * .025,
                           ),
                           decoration: BoxDecoration(
                             color: global.darkGrey,
                             borderRadius: BorderRadius.circular(
-                              global.borderRadius - 5,
+                              global.borderRadius,
                             ),
                           ),
                           child: global.gradient(
@@ -199,13 +206,13 @@ class _SetupHIITTimerrState extends State<SetupHIITTimer> {
                               children: [
                                 Icon(
                                   CupertinoIcons.play,
-                                  size: (global.height(context) * .04),
+                                  size: global.width(context) * .06,
                                 ),
                                 SizedBox(width: global.width(context) * .025),
                                 Text(
                                   'Start HIIT Timer',
                                   style: TextStyle(
-                                    fontSize: (global.width(context) * .04) ,
+                                    fontSize: global.width(context) * .05,
                                   ),
                                 ),
                               ],

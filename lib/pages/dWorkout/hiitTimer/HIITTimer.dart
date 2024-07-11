@@ -234,28 +234,34 @@ class _HiitTimerState extends State<HiitTimer>
                 ],
               ),
             ),
-            //   child: CircularPercentIndicator(
-            //     radius: global.width(context) * .425,
-            //     lineWidth: global.width(context) * .045,
-            //     animationDuration: 1000,
-            //     curve: Curves.linear,
-            //     animation: true,
-            //     linearGradient: global.linearGradient,
-            //     percent: currentCountDuration.inSeconds /
-            //         currentCountDurationInitValue.inSeconds,
-            //     backgroundColor: global.lightGrey,
-            //     animateFromLastPercent: true,
-            //     circularStrokeCap: CircularStrokeCap.round,
-            //     center: Column(
-            //       mainAxisAlignment: MainAxisAlignment.center,
-            //       children: [
-            //         Text(
-            //           durations[roundIndex]['isRound']
-            //               ? 'Round ${roundCount + 1}'
-            //               : 'Rest',
-            //           style: TextStyle(
-            //             fontSize: global.width(context) * .075,
-            //             color: Colors.white,
+            //
+            // Positioned(
+            //   top: global.height(context) * .2,
+            //   left: 0,
+            //   right: 0,
+            //   child: AnimatedOpacity(
+            //     duration: global.standardAnimationDuration,
+            //     opacity: done ? 1 : 0,
+            //     child: Container(
+            //       padding: const EdgeInsets.all(15),
+            //       margin: EdgeInsets.symmetric(
+            //         horizontal: global.width(context) *
+            //             ((1 - global.containerWidthFactor) / 2),
+            //       ),
+            //       width: global.containerWidth(context),
+            //       decoration: BoxDecoration(
+            //         boxShadow: global.shadow(context),
+            //         color: Theme.of(context).colorScheme.background,
+            //         borderRadius:
+            //             BorderRadius.circular(global.borderRadius - 5),
+            //       ),
+            //       child: Column(
+            //         children: [
+            //           Text(
+            //             'Finished!',
+            //             style: TextStyle(
+            //               fontSize: global.width(context) * .1,
+            //             ),
             //           ),
             //         ),
             //         Text(
@@ -270,73 +276,36 @@ class _HiitTimerState extends State<HiitTimer>
             //   ),
             // ),
             //
-            AnimatedOpacity(
-              duration: global.standardAnimationDuration,
-              opacity: done ? 1 : 0,
-              child: Container(
-                padding: const EdgeInsets.all(15),
-                margin: EdgeInsets.symmetric(
-                  horizontal: global.width(context) *
-                      ((1 - global.containerWidthFactor) / 2),
-                ),
-                height: !done ? 0 : global.height(context) * .1,
-                width: global.containerWidth(context),
-                decoration: BoxDecoration(
-                  boxShadow: global.shadow(context),
-                  color: Theme.of(context).colorScheme.background,
-                  borderRadius: BorderRadius.circular(global.borderRadius - 5),
-                ),
-                child: Column(
-                  children: [
-                    Text(
-                      'Finished!',
-                      style: TextStyle(
-                        fontSize: global.width(context) * .1,
-                      ),
-                    ),
-                    Text(
-                      'Total Workouttime: ${global.durationString(Duration(seconds: durations.map((e) => (e['duration'] as Duration).inSeconds).reduce((a, b) => a + b)))}',
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            AnimatedOpacity(
-              duration: global.standardAnimationDuration,
-              opacity: done ? 0 : 1,
-              child: Container(
-                width: global.containerWidth(context),
-                margin: EdgeInsets.symmetric(
-                    horizontal: global.width(context) * .075),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Container(
-                      padding: EdgeInsets.all(global.width(context) * .025),
-                      decoration: BoxDecoration(
-                        color: global.darkGrey,
-                        borderRadius: BorderRadius.circular(100),
-                        boxShadow: global.shadow(context),
-                      ),
-                      child: IconButton(
+            Positioned(
+              bottom: global.height(context) * .05,
+              right: 0,
+              left: 0,
+              child: AnimatedOpacity(
+                duration: global.standardAnimationDuration,
+                opacity: done ? 0 : 1,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius:
+                        BorderRadius.circular(global.borderRadius - 2.5),
+                  ),
+                  width: global.containerWidth(context),
+                  margin: EdgeInsets.symmetric(
+                      horizontal: global.width(context) * .075),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      IconButton(
                         onPressed: () => setState(
                           () => currentCountDuration =
                               currentCountDurationInitValue,
                         ),
                         icon: Icon(
                           CupertinoIcons.refresh,
-                          color: Colors.white,
+                          color: Theme.of(context).focusColor,
                           size: global.width(context) * .075,
                         ),
                       ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.all(global.width(context) * .025),
-                      decoration: BoxDecoration(
-                          color: global.darkGrey,
-                          borderRadius: BorderRadius.circular(100),
-                          boxShadow: global.shadow(context)),
-                      child: IconButton(
+                      IconButton(
                         onPressed: () => setState(
                           () {
                             paused = !paused;
@@ -354,34 +323,30 @@ class _HiitTimerState extends State<HiitTimer>
                         icon: AnimatedIcon(
                           icon: AnimatedIcons.pause_play,
                           progress: animation,
-                          color: Colors.white,
+                          color: Theme.of(context).focusColor,
                           size: global.width(context) * .15,
                         ),
                       ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.all(global.width(context) * .025),
-                      decoration: BoxDecoration(
-                        color: global.darkGrey,
-                        borderRadius: BorderRadius.circular(100),
-                        boxShadow: global.shadow(context),
-                      ),
-                      child: IconButton(
-                        onPressed: skipRound,
-                        icon: Icon(
-                          CupertinoIcons.arrow_right_to_line_alt,
-                          color: Colors.white,
-                          size: global.width(context) * .08,
+                      Container(
+                        padding: EdgeInsets.all(global.width(context) * .025),
+                        decoration: BoxDecoration(
+                          color: global.lightGrey,
+                          borderRadius: BorderRadius.circular(100)
+                        ),
+                        child: IconButton(
+                          onPressed: skipRound,
+                          icon: Icon(
+                            CupertinoIcons.arrow_right_to_line_alt,
+                            color: Colors.white,
+                            size: global.width(context) * .08,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
-            const SizedBox(
-              height: 10,
-            )
           ],
         ),
       ),

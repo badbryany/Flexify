@@ -34,6 +34,7 @@ class _ExerciseButtonState extends State<ExerciseButton> {
         setID: -1,
         date: DateTime.now(),
         exerciseName: widget.exercise.name,
+        isBodyweight: false,
         reps: 0,
         weight: 0,
       );
@@ -111,6 +112,7 @@ class _ExerciseButtonState extends State<ExerciseButton> {
             exerciseName: '',
             reps: 0,
             weight: 0,
+            isBodyweight: false,
             setID: -10,
           ),
           empty: true,

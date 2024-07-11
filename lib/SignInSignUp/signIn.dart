@@ -387,6 +387,7 @@ syncData() async {
         reps: notParsedSets[i][2],
         weight: double.parse(notParsedSets[i][3].toString()),
         date: DateTime.parse(notParsedSets[i][4]),
+        isBodyweight: false, // ! FIXME
         synced: 1,
       ),
       notParsedSets[i][0],
