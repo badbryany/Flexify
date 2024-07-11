@@ -1,3 +1,4 @@
+import 'package:flexify/pages/dWorkout/widgets/WorkoutTimer.dart';
 import 'package:flexify/widgets/BounceElement.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/exerciseModels.dart';
@@ -16,6 +17,8 @@ class DashboardWorkoutStats extends StatefulWidget {
 }
 
 class _DashboardWorkoutStatsState extends State<DashboardWorkoutStats> {
+  bool isTraining = false;
+
   List<DateTime> dates = [
     DateTime.now().subtract(const Duration(days: 6)),
     DateTime.now().subtract(const Duration(days: 5)),
@@ -65,6 +68,12 @@ class _DashboardWorkoutStatsState extends State<DashboardWorkoutStats> {
       initial = false;
       await Future.delayed(const Duration(milliseconds: 125));
       if (!_isDisposed) setState(() {});
+    }
+
+    if (widget.sets.last.date.difference(DateTime.now()).abs() <=
+        const Duration(minutes: 20)) {
+      isTraining = true;
+      setState(() {});
     }
   }
 
@@ -221,27 +230,29 @@ class _DashboardWorkoutStatsState extends State<DashboardWorkoutStats> {
                   ),
                 ),
               ),
-              Container(
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        Theme.of(context).colorScheme.primary,
-                        Theme.of(context).colorScheme.onPrimary,
-                      ],
+              isTraining
+                  ? WorkoutTimer(sets: widget.sets)
+                  : Container(
+                      decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              Theme.of(context).colorScheme.primary,
+                              Theme.of(context).colorScheme.onPrimary,
+                            ],
+                          ),
+                          borderRadius: BorderRadius.circular(
+                              global.width(context) * 0.1)),
+                      child: Padding(
+                        padding: EdgeInsets.all(global.width(context) * 0.03),
+                        child: Text(
+                          'Activity',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: global.width(context) * 0.03,
+                          ),
+                        ),
+                      ),
                     ),
-                    borderRadius:
-                        BorderRadius.circular(global.width(context) * 0.1)),
-                child: Padding(
-                  padding: EdgeInsets.all(global.width(context) * 0.03),
-                  child: Text(
-                    'Activity',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: global.width(context) * 0.03,
-                    ),
-                  ),
-                ),
-              ),
             ],
           ),
           const SizedBox(height: 5),
