@@ -17,15 +17,15 @@ class _QuickActionsState extends State<QuickActions> {
   int lockerNumber = 0;
 
   setLockerNumber(int number) {
-    lockerNumber = number;
+    isLockerNumberSet = true;
+    lockerNumber = lockerNumber;
+    setState(() {});
   }
 
   @override
   void initState() {
     super.initState();
   }
-
-
 
   final List<Map<String, dynamic>> actions = [
     {
@@ -41,7 +41,7 @@ class _QuickActionsState extends State<QuickActions> {
     {
       'title': 'Locker',
       'icon': CupertinoIcons.lock,
-      'link': Lockernumber(setLockerNumber: setLockerNumber(5)),
+      'link': LockerNumberPage(),
     },
   ];
 

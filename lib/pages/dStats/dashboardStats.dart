@@ -607,7 +607,7 @@ class StreaksWidget extends StatelessWidget {
                         color: global.lightGrey,
                         borderRadius: BorderRadius.circular(15),
                       ),
-                      child: Row(
+                      child: const Row(
                         children: [
                           Flexible(
                               flex: 6,

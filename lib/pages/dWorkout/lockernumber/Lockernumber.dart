@@ -5,16 +5,19 @@ import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
 import 'package:shared_preferences/shared_preferences.dart';
 
-class Lockernumber extends StatefulWidget {
-  const Lockernumber({super.key, required this.setLockerNumber});
-  
-  final Function setLockerNumber;
+class LockerNumberPage extends StatefulWidget {
+  const LockerNumberPage({
+    super.key,
+    // required this.setLockerNumber,
+  });
+
+  // final Function setLockerNumber;
 
   @override
-  State<Lockernumber> createState() => _LockernumberState();
+  State<LockerNumberPage> createState() => _LockerNumberPageState();
 }
 
-class _LockernumberState extends State<Lockernumber> {
+class _LockerNumberPageState extends State<LockerNumberPage> {
   String lockerNumber = '1';
 
   saveLocker() async {
@@ -132,7 +135,7 @@ class _LockernumberState extends State<Lockernumber> {
             flex: 1,
             child: BounceElement(
               onTap: () {
-                widget.saveNumber();
+                // widget.setLockerNumber(int.parse(lockerNumber));
                 Navigator.pop(context);
               },
               child: Container(
