@@ -31,7 +31,7 @@ class _AddEditSetState extends State<AddEditSet> {
     text: '10',
   );
 
-  Duration durTime = const Duration(seconds: 45);
+  Duration durTime = Duration.zero;
 
   List<Map<String, dynamic>> setTypes = [
     {'title': 'Repetitions', 'icon': Icons.autorenew},
@@ -48,10 +48,24 @@ class _AddEditSetState extends State<AddEditSet> {
   getData() async {
     List<Set> sets = await Save.getSetList();
 
-    for (int i = 0; i < sets.length; i++) {
+    for (int i = sets.length - 1; i >= 0; i--) {
       if (sets[i].exerciseName == widget.exerciseName) {
         repsController.text = sets[i].reps.toString();
         weightController.text = sets[i].weight.toString();
+        bodyweight = sets[i].isBodyweight;
+        durTime = Duration(seconds: sets[i].durationInSeconds ?? 0);
+
+        if (durTime != Duration.zero) {
+          activeTypeIndex = 1;
+          typeInputController.animateTo(
+            global.width(context) * activeTypeIndex,
+            duration: global.standardAnimationDuration,
+            curve: Curves.easeInOutCirc,
+          );
+        }
+
+        setState(() {});
+        break;
       }
     }
   }
@@ -61,6 +75,19 @@ class _AddEditSetState extends State<AddEditSet> {
     newWeight = widget.set!.weight;
     repsController.text = widget.set!.reps.toString();
     weightController.text = widget.set!.weight.toString();
+    bodyweight = widget.set!.isBodyweight;
+    durTime = Duration(seconds: widget.set!.durationInSeconds ?? 0);
+
+    if (durTime != Duration.zero) {
+      activeTypeIndex = 1;
+      typeInputController.animateTo(
+        global.width(context) * activeTypeIndex,
+        duration: global.standardAnimationDuration,
+        curve: Curves.easeInOutCirc,
+      );
+    }
+
+    setState(() {});
 
     repsController.addListener(() {
       newReps = int.parse(repsController.text);
@@ -69,12 +96,6 @@ class _AddEditSetState extends State<AddEditSet> {
     weightController.addListener(() {
       newWeight = double.tryParse(weightController.text)!;
     });
-  }
-
-  @override
-  void initState() {
-    widget.add ? getData() : editSetInit();
-    super.initState();
   }
 
   List<Widget> bodyWeightAndWeigh() => [
@@ -152,6 +173,12 @@ class _AddEditSetState extends State<AddEditSet> {
       ];
 
   @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero, widget.add ? getData : editSetInit);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
@@ -170,6 +197,8 @@ class _AddEditSetState extends State<AddEditSet> {
                     if (widget.add) {
                       await Save.saveSet(
                         Set(
+                          isBodyweight: bodyweight,
+                          durationInSeconds: durTime.inSeconds,
                           date: DateTime.now(),
                           exerciseName: widget.exerciseName,
                           reps: int.parse(
@@ -183,11 +212,13 @@ class _AddEditSetState extends State<AddEditSet> {
                     } else {
                       await Save.editSet(
                         Set(
+                          isBodyweight: bodyweight,
                           setID: widget.set!.setID,
                           date: widget.set!.date,
                           exerciseName: widget.set!.exerciseName,
                           reps: newReps,
                           weight: newWeight,
+                          durationInSeconds: durTime.inSeconds,
                         ),
                       );
                     }
@@ -202,8 +233,10 @@ class _AddEditSetState extends State<AddEditSet> {
                 children: [
                   ToggleSetType(
                     types: setTypes,
+                    activeIndex: activeTypeIndex,
                     onChange: (int newIndex) {
                       activeTypeIndex = newIndex;
+                      setState(() {});
 
                       typeInputController.animateTo(
                         global.width(context) * activeTypeIndex,

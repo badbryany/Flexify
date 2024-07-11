@@ -64,6 +64,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
                 exerciseName: '',
                 reps: 0,
                 weight: 0,
+                isBodyweight: false,
                 setID: -10,
               )
             ]);
@@ -164,6 +165,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
                   reps: 0,
                   weight: 0,
                   setID: -10,
+                  isBodyweight: false,
                 )
               ]);
     }
@@ -419,44 +421,42 @@ class _ExercisesPageState extends State<ExercisesPage> {
                                             ),
                                             ...searchExercises
                                                 .map((e) => BounceElement(
-                                                        onTap: () {
-                                                          e['new']
-                                                              ? Navigator.push(
-                                                                  context,
-                                                                  MaterialPageRoute(
-                                                                    builder: (context) => CreateNewExercise(
-                                                                        exercise: e[
-                                                                            'exercise'],
-                                                                        reload:
-                                                                            getData),
-                                                                  ),
-                                                                )
-                                                              : Save.saveExercise(
-                                                                  e['exercise']);
-                                                          getData();
-                                                          setState(() =>
-                                                              _searchBarOpen =
-                                                                  0);
-                                                          _controller.text = '';
-                                                          FocusScope.of(context)
-                                                              .unfocus();
-                                                        },
+                                                      onTap: () {
+                                                        e['new']
+                                                            ? Navigator.push(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                  builder: (context) => CreateNewExercise(
+                                                                      exercise: e[
+                                                                          'exercise'],
+                                                                      reload:
+                                                                          getData),
+                                                                ),
+                                                              )
+                                                            : Save.saveExercise(
+                                                                e['exercise']);
+                                                        getData();
+                                                        setState(() =>
+                                                            _searchBarOpen = 0);
+                                                        _controller.text = '';
+                                                        FocusScope.of(context)
+                                                            .unfocus();
+                                                      },
                                                       child: Container(
-                                                        padding: EdgeInsets
-                                                            .all(global
+                                                        padding: EdgeInsets.all(
+                                                            global
                                                                 .containerPadding),
-                                                        margin:
-                                                            const EdgeInsets
-                                                                .all(7.5),
+                                                        margin: const EdgeInsets
+                                                            .all(7.5),
                                                         decoration:
                                                             BoxDecoration(
                                                           borderRadius: BorderRadius
                                                               .circular(global
                                                                   .borderRadius),
-                                                          color: Theme.of(
-                                                                  context)
-                                                              .colorScheme
-                                                              .background,
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .colorScheme
+                                                                  .background,
                                                         ),
                                                         child: Column(
                                                           crossAxisAlignment:
@@ -472,7 +472,8 @@ class _ExercisesPageState extends State<ExercisesPage> {
                                                                       .center,
                                                               children: [
                                                                 SizedBox(
-                                                                  width: MediaQuery.of(context)
+                                                                  width: MediaQuery.of(
+                                                                              context)
                                                                           .size
                                                                           .width *
                                                                       0.65,
@@ -481,11 +482,13 @@ class _ExercisesPageState extends State<ExercisesPage> {
                                                                         .name,
                                                                     style:
                                                                         TextStyle(
-                                                                      color: Theme.of(context)
+                                                                      color: Theme.of(
+                                                                              context)
                                                                           .colorScheme
                                                                           .onBackground,
                                                                       fontWeight:
-                                                                          FontWeight.bold,
+                                                                          FontWeight
+                                                                              .bold,
                                                                       fontSize:
                                                                           global.width(context) *
                                                                               0.045,
@@ -499,8 +502,8 @@ class _ExercisesPageState extends State<ExercisesPage> {
                                                                           context)
                                                                       .colorScheme
                                                                       .onBackground,
-                                                                  size: global
-                                                                          .width(context) *
+                                                                  size: global.width(
+                                                                          context) *
                                                                       .06,
                                                                 )
                                                               ],
@@ -510,7 +513,8 @@ class _ExercisesPageState extends State<ExercisesPage> {
                                                                     'create this exercise',
                                                                     style:
                                                                         TextStyle(
-                                                                      color: Theme.of(context)
+                                                                      color: Theme.of(
+                                                                              context)
                                                                           .colorScheme
                                                                           .onBackground,
                                                                     ),

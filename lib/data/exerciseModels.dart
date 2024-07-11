@@ -59,6 +59,8 @@ class Set {
     required this.reps,
     required this.weight,
     required this.date,
+    required this.isBodyweight,
+    this.durationInSeconds,
     this.synced,
   });
 
@@ -67,6 +69,8 @@ class Set {
   final int reps;
   final double weight;
   final DateTime date;
+  final bool isBodyweight;
+  final int? durationInSeconds;
   int? synced;
 
   Map<String, dynamic> toJson() {
@@ -76,16 +80,21 @@ class Set {
       'reps': reps,
       'weight': weight,
       'date': date.toString(),
+      'duration': durationInSeconds ?? 0,
+      'isBodyweight': isBodyweight ? 1 : 0,
       'synced': synced == null ? 0 : synced!,
     };
   }
 
   static Set fromJSONtoObject(Map<String, dynamic> values) {
+    print(values['duration']);
     return Set(
       setID: values['s_id'],
       exerciseName: values['exerciseName'],
       reps: values['reps'],
       weight: values['weight'].toDouble(),
+      isBodyweight: values['isBodyWeight'] == 1 ? true : false,
+      durationInSeconds: values['duration'],
       date: DateTime.parse(values['date']),
     );
   }
@@ -97,8 +106,14 @@ class Set {
       \texerciseName: "$exerciseName"
       \treps: "$reps"
       \tweight: "$weight"
-      \tdate: "$date".toString()
+      \tduration: "$durationInSeconds"
+      \tisBodyweight: "$isBodyweight"
+      \tdate: "$date"
     ''';
+  }
+
+  getDuration() {
+    return Duration(seconds: durationInSeconds ?? 0);
   }
 }
 
@@ -117,7 +132,7 @@ class Save {
           'CREATE TABLE IF NOT EXISTS "exercises" ("name"	TEXT NOT NULL, "type" TEXT, "affectedMuscle" TEXT, "equipment" TEXT, "synced" INTEGER NOT NULL, PRIMARY KEY("name"));',
         );
         await db.execute(
-          'CREATE TABLE IF NOT EXISTS "sets" ("s_id"	INTEGER NOT NULL, "exerciseName" TEXT NOT NULL, "reps" INTEGER NOT NULL, "weight" NUMERIC NOT NULL, "date" DATE NOT NULL, "synced" INTEGER NOT NULL, PRIMARY KEY("s_id"));',
+          'CREATE TABLE IF NOT EXISTS "sets" ("s_id"	INTEGER NOT NULL, "exerciseName" TEXT NOT NULL, "reps" INTEGER NOT NULL, "weight" NUMERIC NOT NULL, "date" DATE NOT NULL, "duration" INTEGER, "isBodyWeight" INTEGER NOT NULL, "synced" INTEGER NOT NULL, PRIMARY KEY("s_id"));',
         );
       },
     );
@@ -204,6 +219,8 @@ class Save {
       reps: set.reps,
       weight: set.weight,
       date: set.date,
+      isBodyweight: set.isBodyweight,
+      durationInSeconds: set.durationInSeconds,
       synced: set.synced,
     );
 
@@ -236,7 +253,7 @@ class Save {
     Database db = await getDatabase();
 
     await db.rawUpdate(
-      'UPDATE sets SET reps=${set.reps}, weight=${set.weight}, synced=0 WHERE sets.s_id=${set.setID}',
+      'UPDATE sets SET reps=${set.reps}, weight=${set.weight}, duration=${set.durationInSeconds}, isBodyWeight=${set.isBodyweight ? 1 : 0}, synced=0 WHERE sets.s_id=${set.setID}',
     );
     Save.syncData();
   }
@@ -337,7 +354,7 @@ class Save {
 
   static Future<void> clearData() async {
     Database db = await getDatabase();
-    await db.execute('DELETE FROM exercises;');
-    await db.execute('DELETE FROM sets;');
+    await db.execute('DROP TABLE IF EXISTS exercises;');
+    await db.execute('DROP TABLE IF EXISTS sets;');
   }
 }

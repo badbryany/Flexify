@@ -70,10 +70,12 @@ class _DashboardWorkoutStatsState extends State<DashboardWorkoutStats> {
       if (!_isDisposed) setState(() {});
     }
 
-    if (widget.sets.last.date.difference(DateTime.now()).abs() <=
-        const Duration(minutes: 20)) {
-      isTraining = true;
-      if (!_isDisposed) setState(() {});
+    if (widget.sets.isNotEmpty) {
+      if (widget.sets.last.date.difference(DateTime.now()).abs() <=
+          const Duration(minutes: 20)) {
+        isTraining = true;
+        if (!_isDisposed) setState(() {});
+      }
     }
   }
 
@@ -232,7 +234,7 @@ class _DashboardWorkoutStatsState extends State<DashboardWorkoutStats> {
                 ),
               ),
               SizedBox(
-                height: global.height(context) * .0375,
+                height: global.height(context) * .04,
                 child: AnimatedSwitcher(
                   duration: global.standardAnimationDuration,
                   switchInCurve: Curves.easeInOut,

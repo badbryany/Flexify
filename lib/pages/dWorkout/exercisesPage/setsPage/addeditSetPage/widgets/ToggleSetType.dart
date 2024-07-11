@@ -6,10 +6,12 @@ class ToggleSetType extends StatefulWidget {
     super.key,
     required this.types,
     required this.onChange,
+    required this.activeIndex,
   });
 
   final List<Map<String, dynamic>> types;
   final Function(int) onChange;
+  final int activeIndex;
 
   @override
   State<ToggleSetType> createState() => _ToggleSetTypeState();
@@ -70,6 +72,7 @@ class _ToggleSetTypeState extends State<ToggleSetType> {
 
   @override
   Widget build(BuildContext context) {
+    activeIndex = widget.activeIndex;
     return Container(
       width: global.containerWidth(context),
       height: global.height(context) * .055,
