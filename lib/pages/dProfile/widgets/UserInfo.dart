@@ -2,6 +2,7 @@ import 'package:flexify/SignInSignUp/widgets/input.dart';
 import 'package:flexify/pages/dProfile/pages/AddFriends.dart';
 import 'package:flexify/pages/dProfile/widgets/QRBottomsheet.dart';
 import 'package:flexify/widgets/BounceElement.dart';
+import 'package:flexify/widgets/DeleteAlertDialog.dart';
 import 'package:flexify/widgets/LoadingImage.dart';
 import 'package:flexify/widgets/ModalBottomSheet.dart';
 import 'package:flutter/cupertino.dart';
@@ -61,16 +62,16 @@ class _UserInfoState extends State<UserInfo> {
         size: 20,
       ),
     },
-    {
-      'title': 'password',
-      'controller': TextEditingController(),
-      'textInputType': TextInputType.text,
-      'password': true,
-      'icon': const Icon(
-        Icons.key,
-        size: 20,
-      ),
-    },
+    // {
+    //   'title': 'password',
+    //   'controller': TextEditingController(),
+    //   'textInputType': TextInputType.text,
+    //   'password': true,
+    //   'icon': const Icon(
+    //     Icons.key,
+    //     size: 20,
+    //   ),
+    // },
   ];
 
   getData() async {
@@ -78,6 +79,12 @@ class _UserInfoState extends State<UserInfo> {
 
     username = prefs.getString('username')!;
     email = prefs.getString('email')!;
+
+    (controllers[0]['controller'] as TextEditingController).text = username;
+    (controllers[1]['controller'] as TextEditingController).text =
+        prefs.getString('firstname')!;
+    (controllers[2]['controller'] as TextEditingController).text = email;
+
     setState(() {});
   }
 
@@ -139,11 +146,57 @@ class _UserInfoState extends State<UserInfo> {
       await uploadImage(image!);
     }
 
-    // !TODO implement me
+    SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    print('update Data');
+    if ((controllers[0]['controller'] as TextEditingController).text ==
+            username &&
+        (controllers[1]['controller'] as TextEditingController).text ==
+            prefs.getString('firstname') &&
+        (controllers[2]['controller'] as TextEditingController).text == email) {
+      editing = false;
+      loading = false;
+      setState(() {});
+      return;
+    }
 
-    editing = false;
+    http.Response res =
+        await http.post(Uri.parse('${global.host}/editAccount'), body: {
+      'jwt': prefs.getString('jwt'),
+      'username': (controllers[0]['controller'] as TextEditingController).text,
+      'firstname': (controllers[1]['controller'] as TextEditingController).text,
+      'email': (controllers[2]['controller'] as TextEditingController).text,
+    });
+
+    if (res.body == 'username already taken') {
+      await showDialog(
+        context: context,
+        builder: (context) => DeleteAlertDialog(
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Got it!'),
+            )
+          ],
+          title: 'The username is already taken!',
+        ),
+      );
+      (controllers[0]['controller'] as TextEditingController).text = username;
+    }
+
+    if (res.body == 'done') {
+      prefs.setString('username',
+          (controllers[0]['controller'] as TextEditingController).text);
+      prefs.setString('firstname',
+          (controllers[1]['controller'] as TextEditingController).text);
+      prefs.setString('email',
+          (controllers[2]['controller'] as TextEditingController).text);
+
+      username = (controllers[0]['controller'] as TextEditingController).text;
+      email = (controllers[2]['controller'] as TextEditingController).text;
+
+      editing = false;
+    }
+
     loading = false;
     setState(() {});
   }
@@ -163,7 +216,7 @@ class _UserInfoState extends State<UserInfo> {
           child: AnimatedContainer(
             duration: global.standardAnimationDuration,
             curve: Curves.easeInOut,
-            height: editing ? containerHeight * 2.5 : containerHeight,
+            height: editing ? containerHeight * 2 : containerHeight,
             width: global.width(context) * global.containerWidthFactor,
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.background,
@@ -186,19 +239,22 @@ class _UserInfoState extends State<UserInfo> {
                             margin: EdgeInsets.only(
                                 top: global.height(context) * .1),
                             alignment: Alignment.center,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: controllers
-                                  .map(
-                                    (e) => Input(
-                                      hintText: e['title'],
-                                      textInputType: e['textInputType'],
-                                      controller: e['controller'],
-                                      password: e['password'],
-                                      icon: e['icon'],
-                                    ),
-                                  )
-                                  .toList(),
+                            child: SingleChildScrollView(
+                              physics: const NeverScrollableScrollPhysics(),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: controllers
+                                    .map(
+                                      (e) => Input(
+                                        hintText: e['title'],
+                                        textInputType: e['textInputType'],
+                                        controller: e['controller'],
+                                        password: e['password'],
+                                        icon: e['icon'],
+                                      ),
+                                    )
+                                    .toList(),
+                              ),
                             ),
                           )
                         : Container(
@@ -367,16 +423,17 @@ class _UserInfoState extends State<UserInfo> {
                         child: child,
                       ),
                       child: Container(
-                          padding: EdgeInsets.all(global.width(context) * .025),
-                          decoration: BoxDecoration(
-                            color: Colors.black.withOpacity(.5),
-                            borderRadius: BorderRadius.circular(12.5),
-                          ),
-                          key: ValueKey(editing),
-                          child: Icon(
-                            editing ? Icons.close : Icons.edit,
-                            color: Theme.of(context).colorScheme.onBackground,
-                          )),
+                        padding: EdgeInsets.all(global.width(context) * .025),
+                        decoration: BoxDecoration(
+                          color: Colors.black.withOpacity(.5),
+                          borderRadius: BorderRadius.circular(12.5),
+                        ),
+                        key: ValueKey(editing),
+                        child: Icon(
+                          editing ? Icons.close : Icons.edit,
+                          color: Theme.of(context).colorScheme.onBackground,
+                        ),
+                      ),
                     ),
                   ),
                 ),

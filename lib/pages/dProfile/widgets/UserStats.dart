@@ -139,117 +139,136 @@ class _UserStatsState extends State<UserStats> {
                     switchOutCurve: Curves.easeInOut,
                     child: durations.isEmpty
                         ? global.loadingWidget(context, 1)
-                        : BarChart(
-                            key: const ValueKey('chart'),
-                            swapAnimationDuration:
-                                global.standardAnimationDuration,
-                            swapAnimationCurve: Curves.easeInOut,
-                            BarChartData(
-                              maxY: durations
-                                  .reduce((dur1, dur2) =>
-                                      dur1 >= dur2 ? dur1 : dur2)
-                                  .inMinutes
-                                  .toDouble(),
-                              minY: 0,
-                              barTouchData: BarTouchData(
-                                enabled: true,
-                                touchTooltipData: BarTouchTooltipData(
-                                  getTooltipColor: (group) =>
-                                      Colors.transparent,
-                                  getTooltipItem:
-                                      (group, groupIndex, rod, rodIndex) {
-                                    return BarTooltipItem(
-                                      '${rod.toY.round()} min',
-                                      TextStyle(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onSurface,
-                                        fontSize: global.width(context) * .03,
+                        : durations
+                                    .reduce((dur1, dur2) =>
+                                        dur1 >= dur2 ? dur1 : dur2)
+                                    .inMinutes
+                                    .toDouble() ==
+                                0
+                            ? Text(
+                                'no data jet',
+                                style: TextStyle(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSurface
+                                      .withOpacity(.75),
+                                ),
+                              )
+                            : BarChart(
+                                key: const ValueKey('chart'),
+                                swapAnimationDuration:
+                                    global.standardAnimationDuration,
+                                swapAnimationCurve: Curves.easeInOut,
+                                BarChartData(
+                                  maxY: durations
+                                      .reduce((dur1, dur2) =>
+                                          dur1 >= dur2 ? dur1 : dur2)
+                                      .inMinutes
+                                      .toDouble(),
+                                  minY: 0,
+                                  barTouchData: BarTouchData(
+                                    enabled: true,
+                                    touchTooltipData: BarTouchTooltipData(
+                                      getTooltipColor: (group) =>
+                                          Colors.transparent,
+                                      getTooltipItem:
+                                          (group, groupIndex, rod, rodIndex) {
+                                        return BarTooltipItem(
+                                          '${rod.toY.round()} min',
+                                          TextStyle(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onSurface,
+                                            fontSize:
+                                                global.width(context) * .03,
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                  titlesData: FlTitlesData(
+                                    show: true,
+                                    bottomTitles: AxisTitles(
+                                      sideTitles: SideTitles(
+                                        showTitles: true,
+                                        getTitlesWidget:
+                                            (double value, TitleMeta meta) {
+                                          return SideTitleWidget(
+                                            axisSide: meta.axisSide,
+                                            space: 16.0,
+                                            child: Text(
+                                              global.weekdaysShort[
+                                                  dates[value.toInt()].weekday -
+                                                      1],
+                                            ),
+                                          );
+                                        },
+                                        reservedSize: 40,
                                       ),
-                                    );
-                                  },
-                                ),
-                              ),
-                              titlesData: FlTitlesData(
-                                show: true,
-                                bottomTitles: AxisTitles(
-                                  sideTitles: SideTitles(
-                                    showTitles: true,
-                                    getTitlesWidget:
-                                        (double value, TitleMeta meta) {
-                                      return SideTitleWidget(
-                                        axisSide: meta.axisSide,
-                                        space: 16.0,
-                                        child: Text(
-                                          global.weekdaysShort[
-                                              dates[value.toInt()].weekday - 1],
-                                        ),
-                                      );
-                                    },
-                                    reservedSize: 40,
+                                    ),
+                                    leftTitles: const AxisTitles(
+                                      sideTitles: SideTitles(
+                                        showTitles: false,
+                                      ),
+                                    ),
+                                    rightTitles: const AxisTitles(
+                                      sideTitles: SideTitles(showTitles: false),
+                                    ),
+                                    topTitles: const AxisTitles(
+                                      sideTitles: SideTitles(showTitles: false),
+                                    ),
                                   ),
-                                ),
-                                leftTitles: const AxisTitles(
-                                  sideTitles: SideTitles(
-                                    showTitles: false,
+                                  gridData: FlGridData(
+                                    show: true,
+                                    drawVerticalLine: false,
+                                    horizontalInterval: durations
+                                            .reduce((dur1, dur2) =>
+                                                dur1 >= dur2 ? dur1 : dur2)
+                                            .inMinutes
+                                            .toDouble() /
+                                        6,
                                   ),
-                                ),
-                                rightTitles: const AxisTitles(
-                                  sideTitles: SideTitles(showTitles: false),
-                                ),
-                                topTitles: const AxisTitles(
-                                  sideTitles: SideTitles(showTitles: false),
-                                ),
-                              ),
-                              gridData: FlGridData(
-                                show: true,
-                                drawVerticalLine: false,
-                                horizontalInterval: durations
-                                        .reduce((dur1, dur2) =>
-                                            dur1 >= dur2 ? dur1 : dur2)
-                                        .inMinutes
-                                        .toDouble() /
-                                    6,
-                              ),
-                              borderData: FlBorderData(show: false),
-                              barGroups: durations
-                                  .asMap()
-                                  .entries
-                                  .map(
-                                    (entry) => BarChartGroupData(
-                                      x: entry.key,
-                                      showingTooltipIndicators: durations
-                                          .map((e) => e.inMinutes)
-                                          .toList(),
-                                      barRods: [
-                                        BarChartRodData(
-                                          toY: entry.value.inMinutes.toDouble(),
-                                          width: global.width(context) * .03,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .primary,
-                                          gradient: LinearGradient(
-                                            colors: [
-                                              Theme.of(context)
+                                  borderData: FlBorderData(show: false),
+                                  barGroups: durations
+                                      .asMap()
+                                      .entries
+                                      .map(
+                                        (entry) => BarChartGroupData(
+                                          x: entry.key,
+                                          showingTooltipIndicators: durations
+                                              .map((e) => e.inMinutes)
+                                              .toList(),
+                                          barRods: [
+                                            BarChartRodData(
+                                              toY: entry.value.inMinutes
+                                                  .toDouble(),
+                                              width:
+                                                  global.width(context) * .03,
+                                              color: Theme.of(context)
                                                   .colorScheme
                                                   .primary,
-                                              Theme.of(context)
-                                                  .colorScheme
-                                                  .onPrimary,
-                                            ],
-                                          ),
-                                          backDrawRodData:
-                                              BackgroundBarChartRodData(
-                                            show: true,
-                                            toY: entry.key.toDouble(),
-                                          ),
+                                              gradient: LinearGradient(
+                                                colors: [
+                                                  Theme.of(context)
+                                                      .colorScheme
+                                                      .primary,
+                                                  Theme.of(context)
+                                                      .colorScheme
+                                                      .onPrimary,
+                                                ],
+                                              ),
+                                              backDrawRodData:
+                                                  BackgroundBarChartRodData(
+                                                show: true,
+                                                toY: entry.key.toDouble(),
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ],
-                                    ),
-                                  )
-                                  .toList(),
-                            ),
-                          ),
+                                      )
+                                      .toList(),
+                                ),
+                              ),
                   ),
                 ),
               ),
