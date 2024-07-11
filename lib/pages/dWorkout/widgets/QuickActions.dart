@@ -5,8 +5,27 @@ import 'package:flutter/cupertino.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
 import 'package:flutter/material.dart';
 
-class QuickActions extends StatelessWidget {
-  QuickActions({super.key});
+class QuickActions extends StatefulWidget {
+  const QuickActions({super.key});
+
+  @override
+  State<QuickActions> createState() => _QuickActionsState();
+}
+
+class _QuickActionsState extends State<QuickActions> {
+  bool isLockerNumberSet = false;
+  int lockerNumber = 0;
+
+  setLockerNumber(int number) {
+    lockerNumber = number;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+
 
   final List<Map<String, dynamic>> actions = [
     {
@@ -22,7 +41,7 @@ class QuickActions extends StatelessWidget {
     {
       'title': 'Locker',
       'icon': CupertinoIcons.lock,
-      'link': const Lockernumber(),
+      'link': Lockernumber(setLockerNumber: setLockerNumber(5)),
     },
   ];
 

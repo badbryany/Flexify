@@ -33,9 +33,9 @@ class _SetupHIITTimerrState extends State<SetupHIITTimer> {
     rounds.add(Round(
       title: 'Round ${rounds.length + 1}',
       roundDuration: rounds.isEmpty
-          ? const Duration(seconds: 45)
+          ? const Duration(seconds: 60)
           : rounds.last.roundDuration,
-      restDuration: const Duration(seconds: 10),
+      restDuration: const Duration(seconds: 30),
     ));
     setState(() {});
 

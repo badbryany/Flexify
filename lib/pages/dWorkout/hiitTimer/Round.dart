@@ -157,7 +157,7 @@ class Round {
                   '${global.durationString(restDuration)} Rest',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      color: Colors.black,
+                      color: Theme.of(context).focusColor,
                       fontSize: global.height(context) * .025),
                 ),
               ),

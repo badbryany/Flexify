@@ -1,12 +1,14 @@
-import 'package:flexify/pages/dWorkout/lockernumber/widgets/Numberfield.dart';
-import 'package:flexify/widgets/Navbar.dart';
+import 'package:flexify/pages/dShop/pages/widgets/ShopNavbar.dart';
+import 'package:flexify/widgets/BounceElement.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Lockernumber extends StatefulWidget {
-  const Lockernumber({super.key});
+  const Lockernumber({super.key, required this.setLockerNumber});
+  
+  final Function setLockerNumber;
 
   @override
   State<Lockernumber> createState() => _LockernumberState();
@@ -54,47 +56,193 @@ class _LockernumberState extends State<Lockernumber> {
     super.initState();
   }
 
+  getNumberButton(int number) {
+    return Container(
+      decoration: BoxDecoration(
+        color: global.darkGrey,
+        borderRadius: BorderRadius.circular(1000),
+      ),
+      child: Text(
+        number.toString(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
+    getNumberButton(int number) {
+      return BounceElement(
+        onTap: () => setLocker(number),
+        child: Container(
+          height: double.infinity,
+          width: double.infinity,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: global.darkGrey,
+            borderRadius: BorderRadius.circular(30),
+            boxShadow: global.shadow(context),
+          ),
+          child: Text(
+            number.toString(),
+            style: TextStyle(
+                color: Colors.white, fontSize: global.width(context) * .2),
+          ),
+        ),
+      );
+    }
+
+    getNumberRow(List<int> numbers) {
+      return SizedBox(
+        height:
+            (global.containerWidth(context) - global.height(context) * .05) *
+                (1 / 3),
+        width: global.containerWidth(context),
+        child: Row(
           children: [
-            Navbar(
-              title: 'Locker',
-              titleSize: global.width(context) * .1,
+            Flexible(
+              flex: 1,
+              child: getNumberButton(numbers.elementAt(0)),
             ),
-            global.largeHeight(context),
-            global.largeHeight(context),
-            Container(
-              margin: EdgeInsets.symmetric(
-                horizontal:
-                    (global.width(context) + global.height(context)) * .02275,
-              ),
-              width: global.containerWidth(context),
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(global.borderRadius - 10),
-                color: Theme.of(context).colorScheme.background,
-              ),
-              child: global.gradient(
-                Text(
-                  lockerNumber,
-                  maxLines: 1,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).focusColor,
-                    fontSize: global.width(context) * .2,
+            SizedBox(
+              width: global.height(context) * .025,
+            ),
+            Flexible(
+              flex: 1,
+              child: getNumberButton(numbers.elementAt(1)),
+            ),
+            SizedBox(
+              width: global.height(context) * .025,
+            ),
+            Flexible(
+              flex: 1,
+              child: getNumberButton(numbers.elementAt(2)),
+            )
+          ],
+        ),
+      );
+    }
+
+    SizedBox bottomRow = SizedBox(
+      height: (global.containerWidth(context) - global.height(context) * .05) *
+          (1 / 3),
+      width: global.containerWidth(context),
+      child: Row(
+        children: [
+          Flexible(
+            flex: 1,
+            child: BounceElement(
+              onTap: () {
+                widget.saveNumber();
+                Navigator.pop(context);
+              },
+              child: Container(
+                height: double.infinity,
+                width: double.infinity,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: global.darkGrey,
+                  borderRadius: BorderRadius.circular(30),
+                  boxShadow: global.shadow(context),
+                ),
+                child: global.gradient(
+                  Icon(
+                    CupertinoIcons.checkmark_alt,
+                    size: global.width(context) * .2 - 20,
                   ),
                 ),
               ),
             ),
-            global.mediumHeight(context),
-            Numberfield(
-              onEnter: setLocker,
-              onDelete: deleteDigit,
+          ),
+          SizedBox(
+            width: global.height(context) * .025,
+          ),
+          Flexible(
+            flex: 1,
+            child: getNumberButton(0),
+          ),
+          SizedBox(
+            width: global.height(context) * .025,
+          ),
+          Flexible(
+            flex: 1,
+            child: BounceElement(
+              onTap: () {
+                deleteDigit();
+              },
+              child: Container(
+                height: double.infinity,
+                width: double.infinity,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: global.darkGrey,
+                  borderRadius: BorderRadius.circular(30),
+                  boxShadow: global.shadow(context),
+                ),
+                child: global.gradient(
+                  Icon(
+                    CupertinoIcons.delete_left,
+                    size: global.width(context) * .2 - 20,
+                  ),
+                ),
+              ),
             ),
+          )
+        ],
+      ),
+    );
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          children: [
+            ShopNavbar(
+              title: 'Locker',
+              titleSize: global.width(context) * .1,
+              alignmentWidth: global.width(context) * .125,
+            ),
+            global.largeHeight(context),
+            Container(
+              width: global.containerWidth(context),
+              padding: EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: global.darkGrey,
+                borderRadius: BorderRadius.circular(global.borderRadius - 10),
+                boxShadow: global.shadow(context),
+              ),
+              child: Container(
+                height: global.height(context) * .15,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(global.borderRadius - 10),
+                  color: global.lightGrey,
+                ),
+                child: global.gradient(
+                  Text(
+                    lockerNumber,
+                    maxLines: 1,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).focusColor,
+                      fontSize: global.width(context) * .2,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            global.largeHeight(context),
+            Flexible(flex: 1, child: getNumberRow([1, 2, 3])),
+            SizedBox(
+              height: global.height(context) * .025,
+            ),
+            Flexible(flex: 1, child: getNumberRow([4, 5, 6])),
+            SizedBox(
+              height: global.height(context) * .025,
+            ),
+            Flexible(flex: 1, child: getNumberRow([7, 8, 9])),
+            SizedBox(
+              height: global.height(context) * .025,
+            ),
+            Flexible(flex: 1, child: bottomRow),
           ],
         ),
       ),
