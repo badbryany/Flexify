@@ -1,5 +1,4 @@
 import 'package:flexify/data/globalVariables.dart' as global;
-import 'package:flexify/pages/dProfile/widgets/ShareWithFriends.dart';
 import 'package:flexify/pages/dProfile/widgets/UserInfo.dart';
 import 'package:flexify/pages/dProfile/widgets/UserStats.dart';
 import 'package:flutter/material.dart';
@@ -35,10 +34,6 @@ class _DashboardProfileState extends State<DashboardProfile> {
         const UserInfo(),
         global.mediumHeight(context),
         const UserStats(),
-        global.largeHeight(context),
-        ShareWithFriends(
-          username: username,
-        ),
         global.largeHeight(context),
       ],
     );

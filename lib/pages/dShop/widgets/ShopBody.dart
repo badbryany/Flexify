@@ -191,7 +191,7 @@ class ProductWidgetTall extends StatelessWidget {
             Container(
               height: global.height(context) * .2,
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.background,
+                color: global.lightGrey,
                 borderRadius: BorderRadius.circular(
                   global.width(context) * 0.0375,
                 ),
@@ -283,7 +283,7 @@ class _ProductWidgetWideState extends State<ProductWidgetWide> {
             child: Container(
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30),
-                  color: Theme.of(context).colorScheme.background),
+                  color: global.lightGrey),
             ),
           ),
           Flexible(

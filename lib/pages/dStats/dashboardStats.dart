@@ -7,8 +7,6 @@ import 'package:flexify/data/globalVariables.dart' as global;
 import 'package:flexify/data/dateUtils.dart' as dateUtils;
 import 'dart:math' as math;
 
-import 'package:flutter/rendering.dart';
-
 class DashboardStats extends StatefulWidget {
   const DashboardStats({super.key});
 
@@ -122,7 +120,7 @@ class _DashboardStatsState extends State<DashboardStats> {
             children: [
               const Flexible(
                 flex: 3,
-                child: StreaksWIdget(),
+                child: StreaksWidget(),
               ),
               SizedBox(
                 width: global.height(context) * .01,
@@ -418,8 +416,8 @@ class ChartBody extends StatelessWidget {
       width: global.containerWidth(context) - 38,
       padding: const EdgeInsets.all(1),
       decoration: BoxDecoration(
-        gradient: global.linearGradient,
         borderRadius: BorderRadius.circular(15),
+        boxShadow: [global.darkShadow(context)]
       ),
       child: Container(
         height: global.height(context) * .3,
@@ -547,8 +545,8 @@ class _ReLUCurve extends Curve {
   }
 }
 
-class StreaksWIdget extends StatelessWidget {
-  const StreaksWIdget({
+class StreaksWidget extends StatelessWidget {
+  const StreaksWidget({
     super.key,
   });
 
@@ -597,64 +595,64 @@ class StreaksWIdget extends StatelessWidget {
             child: Container(
               height: double.infinity,
               width: double.infinity,
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.background,
-                borderRadius: BorderRadius.circular(15),
-              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  const Flexible(
+                  Flexible(
                     flex: 2,
-                    child: SizedBox(
+                    child: Container(
                       height: double.infinity,
                       width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: global.lightGrey,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
                       child: Row(
                         children: [
                           Flexible(
-                              flex: 5,
+                              flex: 6,
                               child: SizedBox(
                                 width: double.infinity,
                               )),
                           StreakDash(trained: true, idx: 0),
                           Flexible(
-                              flex: 5,
+                              flex: 6,
                               child: SizedBox(
                                 width: double.infinity,
                               )),
                           StreakDash(trained: true, idx: 1),
                           Flexible(
-                              flex: 5,
+                              flex: 6,
                               child: SizedBox(
                                 width: double.infinity,
                               )),
                           StreakDash(trained: true, idx: 2),
                           Flexible(
-                              flex: 5,
+                              flex: 6,
                               child: SizedBox(
                                 width: double.infinity,
                               )),
                           StreakDash(trained: true, idx: 3),
                           Flexible(
-                              flex: 5,
+                              flex: 6,
                               child: SizedBox(
                                 width: double.infinity,
                               )),
                           StreakDash(trained: true, idx: 4),
                           Flexible(
-                              flex: 5,
+                              flex: 6,
                               child: SizedBox(
                                 width: double.infinity,
                               )),
                           StreakDash(trained: true, idx: 5),
                           Flexible(
-                              flex: 5,
+                              flex: 6,
                               child: SizedBox(
                                 width: double.infinity,
                               )),
                           StreakDash(trained: true, idx: 6),
                           Flexible(
-                              flex: 5,
+                              flex: 6,
                               child: SizedBox(
                                 width: double.infinity,
                               )),
@@ -662,21 +660,25 @@ class StreaksWIdget extends StatelessWidget {
                       ),
                     ),
                   ),
+                  SizedBox(
+                    width: global.width(context) * .02,
+                  ),
                   Container(
                     height: double.infinity,
                     width: (global.height(context) * .15 -
                             global.height(context) * .02) *
                         (1 / 2),
+                    padding: const EdgeInsets.all(2),
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                      gradient: global.linearGradient,
+                      color: global.lightGrey,
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: Text(
                       '16',
                       style: TextStyle(
                         fontSize: global.width(context) * .03 + 15,
-                        color: Colors.black,
+                        color: Colors.white,
                       ),
                     ),
                   )
@@ -704,7 +706,7 @@ class _StreakDashState extends State<StreakDash> {
   @override
   Widget build(BuildContext context) {
     return Flexible(
-      flex: 3,
+      flex: 2,
       child: Container(
         padding: EdgeInsets.symmetric(vertical: global.height(context) * .01),
         alignment:
@@ -774,14 +776,12 @@ class _TimeWidgetState extends State<TimeWidget> {
                         color: Colors.white,
                         fontSize: global.width(context) * .035),
                   ),
-                  global.gradient(
-                    Text(
-                      'Time',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: global.width(context) * .035),
-                    ),
+                  Text(
+                    'Time',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: global.width(context) * .035),
                   ),
                 ],
               )
@@ -823,14 +823,14 @@ class PRWidget extends StatelessWidget {
     return Container(
       height: double.infinity,
       width: double.infinity,
-      padding: EdgeInsets.all(global.width(context) * .02),
+      padding: EdgeInsets.all(global.width(context) * .02 + global.height(context) * .005),
       decoration: global.boxDecoration(context),
       child: Column(
         children: [
           Row(
             children: [
               Flexible(
-                flex: 3,
+                flex: 1,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -845,7 +845,7 @@ class PRWidget extends StatelessWidget {
                       padding:
                           EdgeInsets.only(left: global.width(context) * .02),
                       child: Text(
-                        'PRs',
+                        'PR',
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           color: Colors.white,
@@ -859,7 +859,7 @@ class PRWidget extends StatelessWidget {
             ],
           ),
           Flexible(
-            flex: 3,
+            flex: 4,
             child: Container(
               height: double.infinity,
               width: double.infinity,
@@ -868,24 +868,21 @@ class PRWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         '$recordNumber',
-                        textAlign: TextAlign.left,
                         style: TextStyle(
-                          fontSize: global.width(context) * .03 + 26,
+                          fontSize: global.width(context) * .06,
                           color: Colors.white,
                         ),
                       ),
-                      global.gradient(
-                        Text(
-                          ' Personal \n Records',
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                            fontSize: global.width(context) * .03 + 1,
-                          ),
-                        ),
+                      Text(
+                        ' Personal \n Records',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                            fontSize: global.width(context) * .03,
+                            color: Colors.white),
                       ),
                     ],
                   ),
@@ -924,11 +921,11 @@ class AveragesWidget extends StatelessWidget {
         alignment: Alignment.center,
         child: Row(
           children: [
-            const AverageTile(title: 'Avg. Workout per Week', value: 5),
+            const AverageTile(title: 'Workout per Week', value: 5),
             SizedBox(width: global.width(context) * .02),
-            const AverageTile(title: 'Avg. Sets per Workout', value: 20),
+            const AverageTile(title: 'Sets per \nWorkout', value: 20),
             SizedBox(width: global.width(context) * .02),
-            const AverageTile(title: 'Avg. Reps per Set', value: 12),
+            const AverageTile(title: 'Reps per \nSet', value: 12),
           ],
         ),
       ),
@@ -951,9 +948,10 @@ class AverageTile extends StatelessWidget {
         children: [
           Flexible(
             flex: 3,
-            child: SizedBox(
+            child: Container(
               height: double.infinity,
               width: double.infinity,
+              alignment: Alignment.center,
               child: Text(
                 title,
                 textAlign: TextAlign.center,
@@ -973,16 +971,13 @@ class AverageTile extends StatelessWidget {
               width: double.infinity,
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                  color: global.darkGrey,
-                  borderRadius: BorderRadius.circular(15),
-                  border: Border.all(color: Colors.white.withOpacity(.5))),
-              child: global.gradient(
-                Text(
-                  value.toString(),
-                  style: TextStyle(
-                    fontSize: global.width(context) * .07,
-                  ),
-                ),
+                color: global.lightGrey,
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Text(
+                value.toString(),
+                style: TextStyle(
+                    fontSize: global.width(context) * .07, color: Colors.white),
               ),
             ),
           )
