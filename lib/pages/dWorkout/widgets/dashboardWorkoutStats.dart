@@ -73,7 +73,7 @@ class _DashboardWorkoutStatsState extends State<DashboardWorkoutStats> {
     if (widget.sets.last.date.difference(DateTime.now()).abs() <=
         const Duration(minutes: 20)) {
       isTraining = true;
-      setState(() {});
+      if (!_isDisposed) setState(() {});
     }
   }
 
@@ -214,6 +214,7 @@ class _DashboardWorkoutStatsState extends State<DashboardWorkoutStats> {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
                 alignment: Alignment.centerLeft,
@@ -230,29 +231,53 @@ class _DashboardWorkoutStatsState extends State<DashboardWorkoutStats> {
                   ),
                 ),
               ),
-              isTraining
-                  ? WorkoutTimer(sets: widget.sets)
-                  : Container(
-                      decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [
-                              Theme.of(context).colorScheme.primary,
-                              Theme.of(context).colorScheme.onPrimary,
-                            ],
-                          ),
-                          borderRadius: BorderRadius.circular(
-                              global.width(context) * 0.1)),
-                      child: Padding(
-                        padding: EdgeInsets.all(global.width(context) * 0.03),
-                        child: Text(
-                          'Activity',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: global.width(context) * 0.03,
-                          ),
+              SizedBox(
+                height: global.height(context) * .0375,
+                child: AnimatedSwitcher(
+                  duration: global.standardAnimationDuration,
+                  switchInCurve: Curves.easeInOut,
+                  switchOutCurve: Curves.easeInOut,
+                  transitionBuilder: (child, animation) => FadeTransition(
+                    opacity: animation,
+                    child: SlideTransition(
+                      position: animation.drive(
+                        Tween(
+                          begin: const Offset(1, 0),
+                          end: const Offset(0, 0),
                         ),
                       ),
+                      child: child,
                     ),
+                  ),
+                  child: isTraining
+                      ? WorkoutTimer(
+                          sets: widget.sets,
+                          getData: getData,
+                        )
+                      : Container(
+                          width: global.width(context) * .25,
+                          height: global.height(context) * .0375,
+                          key: const ValueKey('activity text'),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  Theme.of(context).colorScheme.primary,
+                                  Theme.of(context).colorScheme.onPrimary,
+                                ],
+                              ),
+                              borderRadius: BorderRadius.circular(
+                                  global.width(context) * 0.1)),
+                          child: Text(
+                            'Activity',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: global.width(context) * 0.035,
+                            ),
+                          ),
+                        ),
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 5),

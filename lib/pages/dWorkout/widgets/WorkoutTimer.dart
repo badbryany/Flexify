@@ -8,9 +8,11 @@ class WorkoutTimer extends StatefulWidget {
   const WorkoutTimer({
     super.key,
     required this.sets,
+    required this.getData,
   });
 
   final List<Set> sets;
+  final Function() getData;
 
   @override
   State<WorkoutTimer> createState() => _WorkoutTimerState();
@@ -18,6 +20,7 @@ class WorkoutTimer extends StatefulWidget {
 
 class _WorkoutTimerState extends State<WorkoutTimer> {
   DateTime startTime = DateTime.now();
+  bool isDisposed = false;
 
   startTimer() {
     // find first set this workout
@@ -43,6 +46,14 @@ class _WorkoutTimerState extends State<WorkoutTimer> {
   }
 
   update(Timer timer) {
+    if (isDisposed) {
+      timer.cancel();
+      return;
+    }
+
+    if (startTime.difference(DateTime.now()).abs().inMinutes % 20 == 0) {
+      widget.getData();
+    }
     setState(() {});
   }
 
@@ -53,8 +64,15 @@ class _WorkoutTimerState extends State<WorkoutTimer> {
   }
 
   @override
+  void dispose() {
+    isDisposed = true;
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
+      key: const ValueKey('workouttimer'),
       width: global.width(context) * .25,
       child: Column(
         children: [
