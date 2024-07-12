@@ -86,9 +86,11 @@ class _LockerNumberPageState extends State<LockerNumberPage> {
             boxShadow: global.shadow(context),
           ),
           child: Text(
-            number.toString(),
+            '$number',
             style: TextStyle(
-                color: Colors.white, fontSize: global.width(context) * .2),
+              color: Colors.white,
+              fontSize: global.width(context) * .15,
+            ),
           ),
         ),
       );
@@ -134,10 +136,14 @@ class _LockerNumberPageState extends State<LockerNumberPage> {
           Flexible(
             flex: 1,
             child: BounceElement(
+<<<<<<< HEAD
               onTap: () {
                 widget.setLockerNumber(int.parse(lockerNumber));
                 Navigator.pop(context);
               },
+=======
+              onTap: deleteDigit,
+>>>>>>> 93dd280d22fd4d1653d53687bc256486fc095797
               child: Container(
                 height: double.infinity,
                 width: double.infinity,
@@ -149,8 +155,8 @@ class _LockerNumberPageState extends State<LockerNumberPage> {
                 ),
                 child: global.gradient(
                   Icon(
-                    CupertinoIcons.checkmark_alt,
-                    size: global.width(context) * .2 - 20,
+                    CupertinoIcons.delete_left,
+                    size: global.width(context) * .1,
                   ),
                 ),
               ),
@@ -169,9 +175,7 @@ class _LockerNumberPageState extends State<LockerNumberPage> {
           Flexible(
             flex: 1,
             child: BounceElement(
-              onTap: () {
-                deleteDigit();
-              },
+              onTap: () => Navigator.pop(context),
               child: Container(
                 height: double.infinity,
                 width: double.infinity,
@@ -183,13 +187,13 @@ class _LockerNumberPageState extends State<LockerNumberPage> {
                 ),
                 child: global.gradient(
                   Icon(
-                    CupertinoIcons.delete_left,
-                    size: global.width(context) * .2 - 20,
+                    CupertinoIcons.checkmark_alt,
+                    size: global.width(context) * .1,
                   ),
                 ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );

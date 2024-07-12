@@ -62,16 +62,6 @@ class _UserInfoState extends State<UserInfo> {
         size: 20,
       ),
     },
-    {
-      'title': 'Password',
-      'controller': TextEditingController(),
-      'textInputType': TextInputType.text,
-      'password': true,
-      'icon': const Icon(
-        Icons.key,
-        size: 20,
-      ),
-    },
   ];
 
   getData() async {
@@ -325,10 +315,11 @@ class _UserInfoState extends State<UserInfo> {
                       child: Stack(
                         children: [
                           Container(
-                            padding: const EdgeInsets.all(2),
+                            padding: const EdgeInsets.all(1.5),
                             decoration: BoxDecoration(
-                                gradient: global.linearGradient,
-                                borderRadius: BorderRadius.circular(100)),
+                              gradient: global.linearGradient,
+                              borderRadius: BorderRadius.circular(100),
+                            ),
                             child: Container(
                               padding: const EdgeInsets.all(4),
                               decoration: BoxDecoration(
