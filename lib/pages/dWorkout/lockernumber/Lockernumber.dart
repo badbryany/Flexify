@@ -136,14 +136,7 @@ class _LockerNumberPageState extends State<LockerNumberPage> {
           Flexible(
             flex: 1,
             child: BounceElement(
-<<<<<<< HEAD
-              onTap: () {
-                widget.setLockerNumber(int.parse(lockerNumber));
-                Navigator.pop(context);
-              },
-=======
               onTap: deleteDigit,
->>>>>>> 93dd280d22fd4d1653d53687bc256486fc095797
               child: Container(
                 height: double.infinity,
                 width: double.infinity,
