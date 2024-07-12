@@ -115,17 +115,11 @@ class _AddEditSetState extends State<AddEditSet> {
             height: global.height(context) * 0.1,
             width: global.width(context) * global.containerWidthFactor,
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.background,
+              color: global.darkGrey,
               borderRadius: BorderRadius.circular(global.borderRadius - 5),
               boxShadow: global.isDarkMode(context)
                   ? [global.darkShadow(context)]
                   : [global.lightShadow(context)],
-              border: bodyweight
-                  ? Border.all(
-                      color: Theme.of(context).colorScheme.primary,
-                      width: 1.25,
-                    )
-                  : null,
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -135,15 +129,23 @@ class _AddEditSetState extends State<AddEditSet> {
                   child: SizedBox(
                     width: global.width(context) * .7,
                     key: ValueKey(bodyweight),
-                    child: Text(
-                      bodyweight
-                          ? "Bodyweight added"
-                          : "Tap to add bodyweight to the set",
-                      style: TextStyle(
-                          color: Theme.of(context).colorScheme.onBackground,
-                          fontSize: global.height(context) * 0.01 +
-                              global.width(context) * 0.02),
-                    ),
+                    child: bodyweight
+                        ? global.gradient(Text(
+                            "Bodyweight added",
+                            style: TextStyle(
+                                color:
+                                    Theme.of(context).colorScheme.onBackground,
+                                fontSize: global.height(context) * 0.01 +
+                                    global.width(context) * 0.02),
+                          ))
+                        : Text(
+                            "Tap to add bodyweight to the set",
+                            style: TextStyle(
+                                color:
+                                    Theme.of(context).colorScheme.onBackground,
+                                fontSize: global.height(context) * 0.01 +
+                                    global.width(context) * 0.02),
+                          ),
                   ),
                 ),
                 AnimatedSwitcher(
@@ -155,7 +157,7 @@ class _AddEditSetState extends State<AddEditSet> {
                   child: SizedBox(
                     key: ValueKey(bodyweight),
                     child: bodyweight
-                        ? const Icon(CupertinoIcons.checkmark)
+                        ? global.gradient(const Icon(CupertinoIcons.checkmark))
                         : const Icon(CupertinoIcons.add),
                   ),
                 ),
@@ -248,7 +250,7 @@ class _AddEditSetState extends State<AddEditSet> {
                   global.mediumHeight(context),
                   SizedBox(
                     width: global.width(context),
-                    height: global.height(context) * .6,
+                    height: global.height(context),
                     child: ListView(
                       controller: typeInputController,
                       scrollDirection: Axis.horizontal,

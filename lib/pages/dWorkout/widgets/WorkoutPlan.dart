@@ -22,13 +22,9 @@ class WorkoutPlan extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(global.containerPadding),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface,
+          color: global.darkGrey,
           borderRadius: BorderRadius.circular(global.borderRadius),
           boxShadow: global.shadow(context),
-          // border: Border.all(
-          //   color: Theme.of(context).colorScheme.primary.withOpacity(.35),
-          //   width: 1.5,
-          // ),
         ),
         width: global.width(context) * global.containerWidthFactor,
         child: Row(

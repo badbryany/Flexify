@@ -368,7 +368,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                     height: global.width(context) * 0.14,
                     decoration: BoxDecoration(
                       boxShadow: ([global.darkShadow(context)]),
-                      color: Theme.of(context).colorScheme.background,
+                      color: global.darkGrey,
                       borderRadius: BorderRadius.circular(1000),
                     ),
                     child: IconButton(
@@ -403,7 +403,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                     height: global.width(context) * 0.14,
                     decoration: BoxDecoration(
                       boxShadow: [global.darkShadow(context)],
-                      color: Theme.of(context).colorScheme.background,
+                      color: global.darkGrey,
                       borderRadius: BorderRadius.circular(1000),
                     ),
                     child: IconButton(

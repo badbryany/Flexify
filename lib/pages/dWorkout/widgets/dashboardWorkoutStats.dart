@@ -147,7 +147,7 @@ class _DashboardWorkoutStatsState extends State<DashboardWorkoutStats> {
                   Container(
                     height: global.height(context) * 0.17,
                     width: global.width(context) * 0.11,
-                    color: Theme.of(context).colorScheme.surface,
+                    color: global.darkGrey
                   ),
                   AnimatedContainer(
                     duration: const Duration(milliseconds: 400),
@@ -208,7 +208,7 @@ class _DashboardWorkoutStatsState extends State<DashboardWorkoutStats> {
           right: global.containerPadding),
       margin: const EdgeInsets.only(top: 20),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
+        color: global.darkGrey,
         borderRadius: BorderRadius.circular(global.borderRadius),
         boxShadow: [global.lightShadow(context)],
       ),

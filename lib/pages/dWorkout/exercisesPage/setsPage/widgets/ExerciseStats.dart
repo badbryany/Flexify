@@ -184,8 +184,8 @@ class _ExerciseStatsState extends State<ExerciseStats> {
         clipBehavior: Clip.none,
         children: [
           Container(
-            height: global.height(context) * 0.46,
-            width: global.width(context) * global.containerWidthFactor,
+            height: global.width(context) * .4 + global.height(context) * .4 - 200,
+            width: global.containerWidth(context),
             margin: const EdgeInsets.all(10),
             padding: const EdgeInsets.only(
               top: 20,
@@ -195,36 +195,38 @@ class _ExerciseStatsState extends State<ExerciseStats> {
             ),
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.background,
+              color: global.darkGrey,
               borderRadius: BorderRadius.circular(global.width(context) * 0.1),
               boxShadow: [global.darkShadow(context)],
             ),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
                   width: global.width(context) * global.containerWidthFactor,
                   height: global.width(context) * 0.1,
                   decoration: BoxDecoration(
-                    color: global.darken(
-                      Theme.of(context).colorScheme.background,
-                      .05,
-                    ),
+                    color: global.lightGrey,
                     borderRadius:
                         BorderRadius.circular(global.width(context) * 0.1),
                   ),
                   child: Stack(
+                    alignment: Alignment.center,
                     children: [
-                      GestureDetector(
-                        onTap: () => datePicker(context, true),
-                        child: Container(
-                          color: Colors.transparent,
-                          alignment: Alignment.center,
-                          width: global.width(context) * 0.4,
-                          child: Text(
-                            dateString(firstDate),
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.onBackground,
-                              fontSize: global.width(context) * 0.03,
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        child: GestureDetector(
+                          onTap: () => datePicker(context, true),
+                          child: Container(
+                            color: Colors.transparent,
+                            alignment: Alignment.center,
+                            width: global.width(context) * 0.4,
+                            child: Text(
+                              dateString(firstDate),
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: global.width(context) * 0.03,
+                              ),
                             ),
                           ),
                         ),
@@ -300,14 +302,13 @@ class _ExerciseStatsState extends State<ExerciseStats> {
                     : (spots.isEmpty
                         ? noSetLoadingWrapper(
                             Padding(
-                              padding: EdgeInsets.only(
-                                top: global.height(context) * 0.11,
-                                bottom: global.height(context) * 0.11,
+                              padding: EdgeInsets.symmetric(
+                                vertical: global.height(context) * 0.11,
                               ),
                               child: Text(
                                 widget.sets.isEmpty
-                                    ? 'no sets yet'
-                                    : 'no sets in this interval',
+                                    ? 'No sets found'
+                                    : 'No sets found in this interval',
                                 style: TextStyle(
                                   color: Theme.of(context)
                                       .colorScheme
@@ -322,12 +323,11 @@ class _ExerciseStatsState extends State<ExerciseStats> {
                             spots: spots,
                             tag: statsValueTag,
                           ))),
-                const SizedBox(height: 15),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Text(
-                      'Choose statistic:',
+                      'Choose Metric:',
                       style: TextStyle(
                           color: Theme.of(context).colorScheme.onBackground,
                           fontSize: global.width(context) * .03),
@@ -346,10 +346,9 @@ class _ExerciseStatsState extends State<ExerciseStats> {
                               child: Text(
                                 e,
                                 style: TextStyle(
-                                  fontFamily: 'KronaOne',
-                                  color: Colors.white,
-                                  fontSize: global.width(context) * .03
-                                ),
+                                    fontFamily: 'KronaOne',
+                                    color: Colors.white,
+                                    fontSize: global.width(context) * .03),
                               ),
                             ),
                           )
@@ -515,13 +514,9 @@ class Statistics extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      alignment: Alignment.centerLeft,
-      margin: EdgeInsets.only(
-        top: global.height(context) * 0.025,
-        right: global.width(context) * 0.05,
-      ),
+      alignment: Alignment.center,
+      padding: EdgeInsets.all(global.width(context) * .1),
       height: global.height(context) * 0.225,
-      width: global.width(context) * 0.85,
       child: LineChart(
         LineChartData(
           baselineX: maxX,
@@ -539,32 +534,14 @@ class Statistics extends StatelessWidget {
             topTitles: const AxisTitles(
               sideTitles: SideTitles(showTitles: false),
             ),
-            leftTitles: AxisTitles(
-              axisNameSize: 30,
-              axisNameWidget: Padding(
-                padding: const EdgeInsets.only(bottom: 0),
-                child: Text(
-                  tag,
-                  style: TextStyle(
-                    fontSize: 10,
-                    color: Theme.of(context).colorScheme.onBackground,
-                  ),
-                ),
-              ),
+            leftTitles: const AxisTitles(
               sideTitles: SideTitles(
-                showTitles: true,
-                getTitlesWidget: (value, meta) => Text(
-                  '${value.round()}',
-                  style: TextStyle(
-                    fontSize: 10,
-                    color: Theme.of(context).colorScheme.onBackground,
-                  ),
-                ),
+                showTitles: false,
               ),
             ),
             bottomTitles: AxisTitles(
               sideTitles: SideTitles(
-                showTitles: true,
+                showTitles: false,
                 getTitlesWidget: (value, meta) => Text(
                   '${value.round()}',
                   style: TextStyle(

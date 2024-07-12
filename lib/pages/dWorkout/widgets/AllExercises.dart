@@ -82,7 +82,7 @@ class _AllExercisesState extends State<AllExercises> {
       child: Container(
         padding: EdgeInsets.all(global.containerPadding),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface,
+          color: global.darkGrey,
           borderRadius: BorderRadius.circular(global.borderRadius),
           boxShadow: global.shadow(context),
         ),

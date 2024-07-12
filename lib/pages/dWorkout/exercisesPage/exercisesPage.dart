@@ -171,23 +171,6 @@ class _ExercisesPageState extends State<ExercisesPage> {
     }
     List<Widget> returnList = [];
 
-    /* exercises.sort((a, b) {
-      var aSets =
-          sets.where((element) => element.exerciseName == a.name).toList();
-      double foo = 0;
-      if (aSets.isNotEmpty) {
-        foo = aSets.last.date.difference(DateTime.now()).inHours.abs() / 72;
-      }
-
-      var bSets =
-          sets.where((element) => element.exerciseName == b.name).toList();
-      double bar = 0;
-      if (bSets.isNotEmpty) {
-        bar = bSets.last.date.difference(DateTime.now()).inHours.abs() / 72;
-      }
-      return (bar * 100).round() - (foo * 100).round();
-    }); */
-
     for (int i = 0; i < exercises.length; i++) {
       returnList.add(
         ExerciseButton(
@@ -216,8 +199,8 @@ class _ExercisesPageState extends State<ExercisesPage> {
   @override
   Widget build(BuildContext context) {
     Widget animSearchBar = AnimSearchBar(
-      color: Theme.of(context).colorScheme.background,
-      textFieldColor: Theme.of(context).colorScheme.background,
+      color: global.darkGrey,
+      textFieldColor: global.darkGrey,
       textColor: Colors.white,
       helpText: 'Add exercise',
       width: global.width(context) * global.containerWidthFactor * 0.95,
@@ -279,7 +262,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
                           width: global.width(context) * 0.15,
                           height: global.width(context) * 0.15,
                           decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.background,
+                            color: global.darkGrey,
                             borderRadius: BorderRadius.circular(100),
                             boxShadow: [global.darkShadow(context)],
                           ),

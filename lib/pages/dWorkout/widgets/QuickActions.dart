@@ -16,34 +16,59 @@ class _QuickActionsState extends State<QuickActions> {
   bool isLockerNumberSet = false;
   int lockerNumber = 0;
 
-  setLockerNumber(int number) {
-    isLockerNumberSet = true;
-    lockerNumber = lockerNumber;
-    setState(() {});
-  }
-
   @override
   void initState() {
     super.initState();
   }
 
-  final List<Map<String, dynamic>> actions = [
-    {
-      'title': 'Workout',
-      'icon': CupertinoIcons.play,
-      'link': const SizedBox(),
-    },
-    {
-      'title': 'HIIT Timer',
-      'icon': CupertinoIcons.timer,
-      'link': const SetupHIITTimer(),
-    },
-    {
-      'title': 'Locker',
-      'icon': CupertinoIcons.lock,
-      'link': LockerNumberPage(),
-    },
-  ];
+  setLockerNumber(int number) {
+    isLockerNumberSet = true;
+    lockerNumber = number;
+    setState(() {});
+  }
+
+  getQuickActionButton(String title, IconData icon, Widget page) =>
+      BounceElement(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => page,
+            ),
+          );
+        },
+        child: Container(
+          alignment: Alignment.center,
+          height: global.height(context) * .1125,
+          width: global.width(context) * .3,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(global.borderRadius - 5),
+            boxShadow: global.shadow(context),
+            color: global.darkGrey,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              isLockerNumberSet && icon == CupertinoIcons.lock
+                  ? global.gradient(
+                      Text(
+                        lockerNumber.toString(),
+                        style: TextStyle(fontSize: global.width(context) * .1 - (lockerNumber.toString().length * global.width(context) * .01) ),
+                      ),
+                    )
+                  : global.gradient(
+                      Icon(
+                        icon,
+                        size: global.width(context) * .0775,
+                      ),
+                    ),
+              global.smallHeight(context),
+              Text(title),
+            ],
+          ),
+        ),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -52,43 +77,34 @@ class _QuickActionsState extends State<QuickActions> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: actions
-            .map(
-              (e) => BounceElement(
-                onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => e['link'],
-                  ),
-                ),
-                child: Container(
-                  alignment: Alignment.center,
-                  height: global.height(context) * .1125,
-                  width: global.width(context) * .3,
-                  decoration: BoxDecoration(
-                    borderRadius:
-                        BorderRadius.circular(global.borderRadius - 5),
-                    boxShadow: global.shadow(context),
-                    color: Theme.of(context).colorScheme.surface,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      global.gradient(
-                        Icon(
-                          e['icon'],
-                          size: global.width(context) * .0775,
-                        ),
-                      ),
-                      global.smallHeight(context),
-                      Text(e['title']),
-                    ],
-                  ),
-                ),
+        children: [
+          Flexible(
+            flex: 1,
+            child: getQuickActionButton(
+              'Workout',
+              CupertinoIcons.play,
+              const SizedBox(),
+            ),
+          ),
+          Flexible(
+            flex: 1,
+            child: getQuickActionButton(
+              'HIIT Timer',
+              CupertinoIcons.timer,
+              const SetupHIITTimer(),
+            ),
+          ),
+          Flexible(
+            flex: 1,
+            child: getQuickActionButton(
+              'Locker',
+              CupertinoIcons.lock,
+              LockerNumberPage(
+                setLockerNumber: setLockerNumber,
               ),
-            )
-            .toList(),
+            ),
+          ),
+        ],
       ),
     );
   }

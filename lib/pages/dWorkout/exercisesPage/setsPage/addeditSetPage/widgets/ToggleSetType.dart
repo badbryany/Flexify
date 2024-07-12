@@ -92,7 +92,7 @@ class _ToggleSetTypeState extends State<ToggleSetType> {
               height: global.height(context) * .055,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(100),
-                color: Theme.of(context).colorScheme.primary,
+                gradient: global.linearGradient
               ),
             ),
           ),

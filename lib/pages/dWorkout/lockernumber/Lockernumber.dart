@@ -8,10 +8,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 class LockerNumberPage extends StatefulWidget {
   const LockerNumberPage({
     super.key,
-    // required this.setLockerNumber,
+    required this.setLockerNumber,
   });
 
-  // final Function setLockerNumber;
+  final Function setLockerNumber;
 
   @override
   State<LockerNumberPage> createState() => _LockerNumberPageState();
@@ -135,7 +135,7 @@ class _LockerNumberPageState extends State<LockerNumberPage> {
             flex: 1,
             child: BounceElement(
               onTap: () {
-                // widget.setLockerNumber(int.parse(lockerNumber));
+                widget.setLockerNumber(int.parse(lockerNumber));
                 Navigator.pop(context);
               },
               child: Container(
@@ -211,23 +211,15 @@ class _LockerNumberPageState extends State<LockerNumberPage> {
                 borderRadius: BorderRadius.circular(global.borderRadius - 10),
                 boxShadow: global.shadow(context),
               ),
-              child: Container(
-                height: global.height(context) * .15,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(global.borderRadius - 10),
-                  color: global.lightGrey,
-                ),
-                child: global.gradient(
-                  Text(
-                    lockerNumber,
-                    maxLines: 1,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).focusColor,
-                      fontSize: global.width(context) * .2,
-                    ),
+              child: global.gradient(
+                Text(
+                  lockerNumber,
+                  maxLines: 1,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).focusColor,
+                    fontSize: global.width(context) * .2,
                   ),
                 ),
               ),

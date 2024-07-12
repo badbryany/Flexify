@@ -282,7 +282,7 @@ class _ExerciseButtonState extends State<ExerciseButton> {
           padding: EdgeInsets.all(global.width(context) * 0.05),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(global.borderRadius),
-            color: Theme.of(context).colorScheme.background,
+            color: global.darkGrey,
             boxShadow: [global.darkShadow(context)],
           ),
           child: Column(
@@ -296,7 +296,7 @@ class _ExerciseButtonState extends State<ExerciseButton> {
                         (global.containerWidthFactor - 0.25),
                     margin: const EdgeInsets.only(left: 10),
                     child: AnimatedScale(
-                      scale: isExpanded ? 1.1 : 1,
+                      scale: 1,
                       duration: global.standardAnimationDuration,
                       child: Text(
                         name,
@@ -379,24 +379,29 @@ class _ExerciseButtonState extends State<ExerciseButton> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Text(
-                                getPRWeight(),
-                                style: TextStyle(
-                                  color: Theme.of(context).colorScheme.primary,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: global.width(context) * 0.06,
-                                ),
-                              ),
-                              SizedBox(
-                                width: global.width(context) * 0.18,
-                                child: Text(
-                                  timeString,
-                                  textAlign: TextAlign.center,
+                              global.gradient(
+                                Text(
+                                  getPRWeight(),
                                   style: TextStyle(
                                     color:
                                         Theme.of(context).colorScheme.primary,
                                     fontWeight: FontWeight.bold,
                                     fontSize: global.width(context) * 0.06,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: global.width(context) * 0.18,
+                                child: global.gradient(
+                                  Text(
+                                    timeString,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: global.width(context) * 0.06,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -444,7 +449,7 @@ class _ExerciseButtonState extends State<ExerciseButton> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             const SizedBox(),
-                            ...['last 3 sets:', '($lastWorkoutSets)'].map(
+                            ...['Previous sets', '($lastWorkoutSets)'].map(
                               (e) => Text(
                                 e,
                                 style: TextStyle(
@@ -501,11 +506,8 @@ class SmallSetWidget extends StatelessWidget {
       padding: const EdgeInsets.all(10),
       margin: const EdgeInsets.all(4),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(global.borderRadius - 20),
-        color: Theme.of(context).colorScheme.surface.withOpacity(empty!
-            ? (global.isDarkMode(context) ? .4 : 0.025)
-            : (global.isDarkMode(context) ? 1 : 0.05)),
-      ),
+          borderRadius: BorderRadius.circular(global.borderRadius - 20),
+          color: global.lightGrey),
       child: SizedBox(
         width: global.width(context) * 0.65,
         child: Column(
@@ -515,11 +517,13 @@ class SmallSetWidget extends StatelessWidget {
                 : Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Text(
-                        '${set.weight}kg',
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.primary,
-                          fontWeight: FontWeight.bold,
+                      global.gradient(
+                        Text(
+                          '${set.weight}kg',
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.primary,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                       Text(

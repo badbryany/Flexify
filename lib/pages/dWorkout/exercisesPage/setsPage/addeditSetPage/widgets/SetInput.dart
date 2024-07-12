@@ -53,23 +53,26 @@ class SetInput extends StatelessWidget {
         },
         onTapUp: (details) => continueCount = false,
         child: Container(
-          margin: const EdgeInsets.all(20),
-          height: global.height(context) * 0.09,
-          width: global.height(context) * 0.09,
-          alignment: Alignment.center,
+          padding: const EdgeInsets.all(5),
           decoration: BoxDecoration(
+            gradient: global.linearGradient,
             borderRadius: BorderRadius.circular(100),
-            border: Border.all(
-              width: 2,
-              color: Theme.of(context).colorScheme.primary,
-            ),
           ),
-          child: Text(
-            text,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 40,
-              color: Theme.of(context).colorScheme.onBackground,
+          child: Container(
+            height: global.height(context) * 0.09,
+            width: global.height(context) * 0.09,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: global.darkGrey,
+              borderRadius: BorderRadius.circular(100),
+            ),
+            child: Text(
+              text,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 40,
+                color: Theme.of(context).colorScheme.onBackground,
+              ),
             ),
           ),
         ),
@@ -81,27 +84,35 @@ class SetInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.all(global.width(context) * 0.02),
-      padding: EdgeInsets.all(global.width(context) * 0.005),
+      padding: EdgeInsets.symmetric(
+          horizontal: global.width(context) * 0.025,
+          vertical: global.height(context) * .02),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(global.borderRadius),
-        color: Theme.of(context).colorScheme.background,
+        color: global.darkGrey,
         boxShadow: [global.darkShadow(context)],
       ),
-      height: global.height(context) * .18,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Padding(
-            padding: EdgeInsets.only(
-              left: global.width(context) * 0.1,
-              top: global.width(context) * 0.025,
+          Container(
+            alignment: Alignment.center,
+            padding: EdgeInsets.symmetric(vertical: global.height(context) * .01),
+            decoration: BoxDecoration(
+              color: global.lightGrey,
+              borderRadius: BorderRadius.circular(100),
             ),
             child: Text(
               title,
+              textAlign: TextAlign.center,
               style: TextStyle(
                 color: Theme.of(context).colorScheme.onBackground,
+                fontSize: global.width(context) * .05,
               ),
             ),
+          ),
+          SizedBox(
+            height: global.height(context) * .02,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -114,7 +125,6 @@ class SetInput extends StatelessWidget {
               ),
               SizedBox(
                 width: global.width(context) * 0.35,
-                // height: global.height(context) * 0.1,
                 child: TextFormField(
                   style: TextStyle(
                     fontSize: 60,

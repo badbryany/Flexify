@@ -69,12 +69,12 @@ class _LeadWorkoutState extends State<LeadWorkout> {
           global.gradient(Container(
             margin: EdgeInsets.all(global.width(context) * .1),
             alignment: Alignment.bottomRight,
-            child: Text('done'),
+            child: const Text('done'),
           )),
           Container(
             margin: EdgeInsets.all(global.width(context) * .1),
             alignment: Alignment.bottomLeft,
-            child: Text('timer'),
+            child: const Text('timer'),
           ),
         ],
       ),
