@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:flexify/pages/dShop/pages/widgets/ShopNavbar.dart';
+import 'package:flexify/widgets/BounceElement.dart';
 import 'package:keep_screen_on/keep_screen_on.dart';
 import 'package:soundpool/soundpool.dart';
 import 'package:flutter/cupertino.dart';
@@ -234,42 +235,6 @@ class _HiitTimerState extends State<HiitTimer>
                 ],
               ),
             ),
-            //   child: CircularPercentIndicator(
-            //     radius: global.width(context) * .425,
-            //     lineWidth: global.width(context) * .045,
-            //     animationDuration: 1000,
-            //     curve: Curves.linear,
-            //     animation: true,
-            //     linearGradient: global.linearGradient,
-            //     percent: currentCountDuration.inSeconds /
-            //         currentCountDurationInitValue.inSeconds,
-            //     backgroundColor: global.lightGrey,
-            //     animateFromLastPercent: true,
-            //     circularStrokeCap: CircularStrokeCap.round,
-            //     center: Column(
-            //       mainAxisAlignment: MainAxisAlignment.center,
-            //       children: [
-            //         Text(
-            //           durations[roundIndex]['isRound']
-            //               ? 'Round ${roundCount + 1}'
-            //               : 'Rest',
-            //           style: TextStyle(
-            //             fontSize: global.width(context) * .075,
-            //             color: Colors.white,
-            //           ),
-            //         ),
-            //         Text(
-            //           global.durationString(currentCountDuration),
-            //           style: TextStyle(
-            //             color: Colors.white,
-            //             fontSize: global.width(context) * .175,
-            //           ),
-            //         ),
-            //       ],
-            //     ),
-            //   ),
-            // ),
-            //
             AnimatedOpacity(
               duration: global.standardAnimationDuration,
               opacity: done ? 1 : 0,
@@ -311,47 +276,47 @@ class _HiitTimerState extends State<HiitTimer>
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Container(
-                      padding: EdgeInsets.all(global.width(context) * .025),
-                      decoration: BoxDecoration(
-                        color: global.darkGrey,
-                        borderRadius: BorderRadius.circular(100),
-                        boxShadow: global.shadow(context),
+                    BounceElement(
+                      onTap: () => setState(
+                        () => currentCountDuration =
+                            currentCountDurationInitValue,
                       ),
-                      child: IconButton(
-                        onPressed: () => setState(
-                          () => currentCountDuration =
-                              currentCountDurationInitValue,
+                      child: Container(
+                        padding: EdgeInsets.all(global.width(context) * .05),
+                        decoration: BoxDecoration(
+                          color: global.darkGrey,
+                          borderRadius: BorderRadius.circular(100),
+                          boxShadow: global.shadow(context),
                         ),
-                        icon: Icon(
+                        child: Icon(
                           CupertinoIcons.refresh,
                           color: Colors.white,
                           size: global.width(context) * .075,
                         ),
                       ),
                     ),
-                    Container(
-                      padding: EdgeInsets.all(global.width(context) * .025),
-                      decoration: BoxDecoration(
-                          color: global.darkGrey,
-                          borderRadius: BorderRadius.circular(100),
-                          boxShadow: global.shadow(context)),
-                      child: IconButton(
-                        onPressed: () => setState(
-                          () {
-                            paused = !paused;
-                            if (paused) {
-                              timer?.cancel();
-                              controller.forward();
-                            } else {
-                              updateTimer(timer!);
-                              timer = Timer.periodic(
-                                  const Duration(seconds: 1), updateTimer);
-                              controller.reverse();
-                            }
-                          },
-                        ),
-                        icon: AnimatedIcon(
+                    BounceElement(
+                      onTap: () => setState(
+                        () {
+                          paused = !paused;
+                          if (paused) {
+                            timer?.cancel();
+                            controller.forward();
+                          } else {
+                            updateTimer(timer!);
+                            timer = Timer.periodic(
+                                const Duration(seconds: 1), updateTimer);
+                            controller.reverse();
+                          }
+                        },
+                      ),
+                      child: Container(
+                        padding: EdgeInsets.all(global.width(context) * .05),
+                        decoration: BoxDecoration(
+                            color: global.darkGrey,
+                            borderRadius: BorderRadius.circular(100),
+                            boxShadow: global.shadow(context)),
+                        child: AnimatedIcon(
                           icon: AnimatedIcons.pause_play,
                           progress: animation,
                           color: Colors.white,
@@ -359,16 +324,16 @@ class _HiitTimerState extends State<HiitTimer>
                         ),
                       ),
                     ),
-                    Container(
-                      padding: EdgeInsets.all(global.width(context) * .025),
-                      decoration: BoxDecoration(
-                        color: global.darkGrey,
-                        borderRadius: BorderRadius.circular(100),
-                        boxShadow: global.shadow(context),
-                      ),
-                      child: IconButton(
-                        onPressed: skipRound,
-                        icon: Icon(
+                    BounceElement(
+                      onTap: skipRound,
+                      child: Container(
+                        padding: EdgeInsets.all(global.width(context) * .05),
+                        decoration: BoxDecoration(
+                          color: global.darkGrey,
+                          borderRadius: BorderRadius.circular(100),
+                          boxShadow: global.shadow(context),
+                        ),
+                        child: Icon(
                           CupertinoIcons.arrow_right_to_line_alt,
                           color: Colors.white,
                           size: global.width(context) * .08,
