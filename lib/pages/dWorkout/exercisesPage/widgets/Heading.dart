@@ -20,9 +20,9 @@ class Heading extends StatelessWidget {
         alignment: Alignment.center,
         width: global.containerWidth(context),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface,
+          color: global.lightGrey,
           borderRadius: BorderRadius.circular(global.borderRadius - 10),
-          boxShadow: [global.lightShadow(context)],
+          boxShadow: global.shadow(context),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

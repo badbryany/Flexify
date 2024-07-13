@@ -2,6 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flexify/pages/dPlan/data/planData.dart';
 import 'package:flexify/widgets/BounceElement.dart';
 import 'package:flexify/widgets/ModalBottomSheet.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
 import 'package:flexify/data/dateUtils.dart' as dateUtils;
@@ -114,22 +115,17 @@ class _DashboardStatsState extends State<DashboardStats> {
           height: global.height(context) * .01,
         ),
         Container(
-          height: global.height(context) * .15,
+          height:
+              global.height(context) * .03 + global.width(context) * .2 + 10,
           width: global.containerWidth(context),
           child: Row(
             children: [
-              const Flexible(
-                flex: 3,
-                child: StreaksWidget(),
-              ),
+              const StreaksWidget(),
               SizedBox(
                 width: global.height(context) * .01,
               ),
-              const Flexible(
-                flex: 2,
-                child: TimeWidget(
-                  totalWorkoutTime: Duration(hours: 2, minutes: 10),
-                ),
+              const TimeWidget(
+                totalWorkoutTime: Duration(hours: 2, minutes: 10),
               ),
             ],
           ),
@@ -138,7 +134,7 @@ class _DashboardStatsState extends State<DashboardStats> {
           height: global.height(context) * .01,
         ),
         Container(
-          height: global.height(context) * .01 + global.width(context) * .25,
+          height: global.height(context) * .1 + global.width(context) * .25,
           width: global.containerWidth(context),
           child: Row(
             children: [
@@ -158,6 +154,7 @@ class _DashboardStatsState extends State<DashboardStats> {
             ],
           ),
         ),
+        SizedBox(height: global.width(context) * .05)
       ],
     );
   }
@@ -416,9 +413,8 @@ class ChartBody extends StatelessWidget {
       width: global.containerWidth(context) - 38,
       padding: const EdgeInsets.all(1),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
-        boxShadow: [global.darkShadow(context)]
-      ),
+          borderRadius: BorderRadius.circular(15),
+          boxShadow: [global.darkShadow(context)]),
       child: Container(
         height: global.height(context) * .3,
         clipBehavior: Clip.hardEdge,
@@ -553,8 +549,8 @@ class StreaksWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: double.infinity,
-      width: double.infinity,
+      width: (global.containerWidth(context) - global.height(context) * .01) *
+          (3 / 5),
       padding: EdgeInsets.all(
         global.height(context) * .02,
       ),
@@ -742,8 +738,8 @@ class _TimeWidgetState extends State<TimeWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: double.infinity,
-      width: double.infinity,
+      width: (global.containerWidth(context) - global.height(context) * .01) *
+          (2 / 5),
       padding: EdgeInsets.only(
         top: global.height(context) * .02,
         left: global.height(context) * .02,
@@ -823,7 +819,8 @@ class PRWidget extends StatelessWidget {
     return Container(
       height: double.infinity,
       width: double.infinity,
-      padding: EdgeInsets.all(global.width(context) * .02 + global.height(context) * .005),
+      padding: EdgeInsets.all(
+          global.width(context) * .02 + global.height(context) * .005),
       decoration: global.boxDecoration(context),
       child: Column(
         children: [
@@ -859,38 +856,69 @@ class PRWidget extends StatelessWidget {
             ],
           ),
           Flexible(
-            flex: 4,
+            flex: 3,
             child: Container(
+              alignment: Alignment.topLeft,
               height: double.infinity,
               width: double.infinity,
-              padding: EdgeInsets.all(global.width(context) * .01),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         '$recordNumber',
                         style: TextStyle(
-                          fontSize: global.width(context) * .06,
+                          fontSize: global.width(context) * .1,
                           color: Colors.white,
                         ),
                       ),
-                      Text(
-                        ' Personal \n Records',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                            fontSize: global.width(context) * .03,
-                            color: Colors.white),
+                      SizedBox(
+                        width: global.width(context) * .01,
                       ),
+                      global.gradient(
+                        Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 4),
+                              child: Icon(
+                                CupertinoIcons.up_arrow,
+                                size: global.width(context) * .0325,
+                              ),
+                            ),
+                            Text(
+                              '5%',
+                              style: TextStyle(
+                                  fontSize: global.width(context) * .05),
+                            )
+                          ],
+                        ),
+                      )
                     ],
                   ),
                   Text(
+                    'Personal Records',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                        fontSize: global.width(context) * .035,
+                        color: Colors.white),
+                  ),
+                  Text(
                     '${dateUtils.dateString(DateTime.now())} - ${dateUtils.dateString(DateTime.now().subtract(Duration(days: 7)))}',
+                    textAlign: TextAlign.left,
                     style: TextStyle(
                         color: Colors.white.withOpacity(.7),
                         fontSize: global.width(context) * .03 - 3),
+                  ),
+                  SizedBox(
+                    height: global.height(context) * .01,
+                  ),
+                  Text(
+                    'Personal Records are gained whenever you exceed your previous best rep count for a given weight and exercise',
+                    style: TextStyle(
+                        color: Colors.white.withOpacity(.3),
+                        fontSize: global.width(context) * .01 + 5),
                   )
                 ],
               ),
@@ -916,16 +944,46 @@ class AveragesWidget extends StatelessWidget {
         global.height(context) * .02,
       ),
       decoration: global.boxDecoration(context),
-      child: Container(
+      child: SizedBox(
         width: double.infinity,
-        alignment: Alignment.center,
-        child: Row(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const AverageTile(title: 'Workout per Week', value: 5),
-            SizedBox(width: global.width(context) * .02),
-            const AverageTile(title: 'Sets per \nWorkout', value: 20),
-            SizedBox(width: global.width(context) * .02),
-            const AverageTile(title: 'Reps per \nSet', value: 12),
+            Flexible(
+              flex: 1,
+              child: Row(
+                children: [
+                  global.gradient(
+                    Icon(
+                      Icons.align_vertical_bottom,
+                      size: global.width(context) * .075,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: global.width(context) * .02),
+                    child: Text(
+                      'Averages',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: global.width(context) * .08 - 5,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Flexible(
+              flex: 4,
+              child: Row(
+                children: [
+                  const AverageTile(title: 'Workout\nper Week', value: 5),
+                  SizedBox(width: global.width(context) * .02),
+                  const AverageTile(title: 'Sets per\nWorkout', value: 20),
+                  SizedBox(width: global.width(context) * .02),
+                  const AverageTile(title: 'Reps\n per Set', value: 12),
+                ],
+              ),
+            ),
           ],
         ),
       ),
@@ -956,8 +1014,7 @@ class AverageTile extends StatelessWidget {
                 title,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    color: Colors.white,
-                    fontSize: global.width(context) * .02125),
+                    color: Colors.white, fontSize: global.width(context) * .03),
               ),
             ),
           ),
@@ -965,7 +1022,7 @@ class AverageTile extends StatelessWidget {
             height: global.height(context) * .0,
           ),
           Flexible(
-            flex: 5,
+            flex: 3,
             child: Container(
               height: double.infinity,
               width: double.infinity,

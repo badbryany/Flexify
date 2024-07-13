@@ -275,17 +275,19 @@ class _ExerciseButtonState extends State<ExerciseButton> {
           ),
         ).then((value) => widget.reload),
         child: AnimatedContainer(
+          alignment: Alignment.center,
           duration: global.standardAnimationDuration,
           width: global.width(context) * global.containerWidthFactor,
-          height: global.height(context) * (isExpanded ? 0.48 : 0.18),
+          height: isExpanded ? global.height(context) * .48 : global.height(context) * .125 + global.width(context) * .05 ,
           margin: EdgeInsets.all(global.width(context) * 0.02),
-          padding: EdgeInsets.all(global.width(context) * 0.05),
+          padding: EdgeInsets.symmetric(horizontal: global.width(context) * 0.05),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(global.borderRadius),
             color: global.darkGrey,
             boxShadow: [global.darkShadow(context)],
           ),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,

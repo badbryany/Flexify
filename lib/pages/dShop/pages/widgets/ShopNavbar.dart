@@ -34,7 +34,7 @@ class ShopNavbar extends StatelessWidget {
               width: global.width(context) * 0.15,
               height: global.width(context) * 0.15,
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.background,
+                color: global.darkGrey,
                 borderRadius: BorderRadius.circular(100),
                 boxShadow: global.shadow(context),
               ),

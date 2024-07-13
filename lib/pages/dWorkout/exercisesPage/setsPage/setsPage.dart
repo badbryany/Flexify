@@ -1,6 +1,7 @@
 import 'package:flexify/pages/dWorkout/exercisesPage/setsPage/widgets/ExerciseTimer.dart';
 import 'package:flexify/pages/dWorkout/exercisesPage/widgets/Heading.dart';
 import 'package:flexify/widgets/DeleteAlertDialog.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:flexify/pages/dWorkout/exercisesPage/setsPage/widgets/ExerciseStats.dart';
@@ -148,7 +149,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
       returnList.add(
         Heading(
           title:
-              'date: ${dateString(setList.first.date)}                     total sets: ${setList.length}',
+              'Date:  ${dateString(setList.first.date)}                     Total Sets:  ${setList.length}',
         ),
       );
       for (int i = setList.length - 1; i >= 0; i--) {
@@ -162,34 +163,31 @@ class _ExerciseSetsState extends State<ExerciseSets> {
             dismissThresholds: const {DismissDirection.endToStart: 0.7},
             direction: DismissDirection.horizontal,
             background: AnimatedContainer(
-              key: const ValueKey(Alignment),
-              duration: const Duration(milliseconds: 150),
-              alignment: thresholdReached
-                  ? Alignment.centerLeft
-                  : Alignment.centerRight,
-              margin: EdgeInsets.all(global.width(context) * 0.02),
-              padding: thresholdReached
-                  ? EdgeInsets.only(
-                      left: max(
-                          ((1 - thresholdProgress) *
-                                  (global.containerWidthFactor) *
-                                  global.width(context)) +
-                              global.width(context) * 0.05,
-                          (global.width(context) * 0.1)))
-                  : EdgeInsets.only(right: global.width(context) * 0.1),
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.error,
-                borderRadius:
-                    BorderRadius.circular(global.width(context) * 0.08),
-              ),
-              child: Text(
-                'delete',
-                style: TextStyle(
-                  color: Theme.of(context).focusColor,
-                  fontSize: global.width(context) * 0.035,
+                key: const ValueKey(Alignment),
+                duration: const Duration(milliseconds: 150),
+                alignment: thresholdReached
+                    ? Alignment.centerLeft
+                    : Alignment.centerRight,
+                margin: EdgeInsets.all(global.width(context) * 0.02),
+                padding: thresholdReached
+                    ? EdgeInsets.only(
+                        left: max(
+                            ((1 - thresholdProgress) *
+                                    (global.containerWidthFactor) *
+                                    global.width(context)) +
+                                global.width(context) * 0.05,
+                            (global.width(context) * 0.1)))
+                    : EdgeInsets.only(right: global.width(context) * 0.1),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.error,
+                  borderRadius:
+                      BorderRadius.circular(global.width(context) * 0.08),
                 ),
-              ),
-            ),
+                child: Icon(
+                  CupertinoIcons.trash,
+                  color: Colors.white,
+                  size: global.height(context) * .02,
+                )),
             confirmDismiss: (diracion) async {
               bool returnValue = false;
               await showDialog(
@@ -202,7 +200,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                         returnValue = false;
                         Navigator.pop(context);
                       },
-                      child: const Text('cancel'),
+                      child: const Text('Cancel'),
                     ),
                     TextButton(
                       onPressed: () async {
@@ -212,7 +210,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                         // ignore: use_build_context_synchronously
                         Navigator.pop(context);
                       },
-                      child: const Text('delete'),
+                      child: const Text('Delete'),
                     ),
                   ],
                 ),
@@ -236,7 +234,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                 width: global.width(context) * global.containerWidthFactor,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(global.borderRadius - 5),
-                  color: Theme.of(context).colorScheme.background,
+                  color: global.darkGrey,
                   boxShadow: [global.darkShadow(context)],
                 ),
                 child: Row(
@@ -263,12 +261,15 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                               padding: EdgeInsets.only(
                                 bottom: global.height(context) * 0.009,
                               ),
-                              child: Text(
-                                'kg',
-                                style: TextStyle(
-                                  color: Theme.of(context).colorScheme.primary,
-                                  fontSize: global.width(context) * 0.04,
-                                  fontWeight: FontWeight.bold,
+                              child: global.gradient(
+                                Text(
+                                  'kg',
+                                  style: TextStyle(
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                    fontSize: global.width(context) * 0.04,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
                             ),

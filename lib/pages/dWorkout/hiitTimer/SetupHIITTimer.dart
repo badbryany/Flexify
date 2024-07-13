@@ -82,7 +82,7 @@ class _SetupHIITTimerrState extends State<SetupHIITTimer> {
               titleSize: global.width(context) * .075,
             ),
             SizedBox(
-              height: global.height(context) * .75,
+              height: global.height(context) * .7,
               width: global.containerWidth(context),
               child: Stack(
                 children: [
@@ -165,7 +165,6 @@ class _SetupHIITTimerrState extends State<SetupHIITTimer> {
                     child: Container(
                       width: global.height(context) * .08,
                       height: global.height(context) * .08,
-                      padding: EdgeInsets.all(global.width(context) * .05),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         color: global.darkGrey,
@@ -192,7 +191,6 @@ class _SetupHIITTimerrState extends State<SetupHIITTimer> {
                           height: global.height(context) * .08,
                           padding: EdgeInsets.symmetric(
                             horizontal: global.width(context) * .025,
-                            vertical: global.height(context) * .025,
                           ),
                           decoration: BoxDecoration(
                             color: global.darkGrey,
@@ -202,11 +200,15 @@ class _SetupHIITTimerrState extends State<SetupHIITTimer> {
                           ),
                           child: global.gradient(
                             Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(
-                                  CupertinoIcons.play,
-                                  size: global.width(context) * .06,
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 3),
+                                  child: Icon(
+                                    CupertinoIcons.play,
+                                    size: global.width(context) * .05,
+                                  ),
                                 ),
                                 SizedBox(width: global.width(context) * .025),
                                 Text(
@@ -226,7 +228,7 @@ class _SetupHIITTimerrState extends State<SetupHIITTimer> {
               ),
             ),
             SizedBox(
-              height: global.width(context) * .025,
+              height: global.width(context) * .02,
             )
           ],
         ),

@@ -136,14 +136,10 @@ class _LockerNumberPageState extends State<LockerNumberPage> {
           Flexible(
             flex: 1,
             child: BounceElement(
-<<<<<<< HEAD
               onTap: () {
                 widget.setLockerNumber(int.parse(lockerNumber));
                 Navigator.pop(context);
               },
-=======
-              onTap: deleteDigit,
->>>>>>> 93dd280d22fd4d1653d53687bc256486fc095797
               child: Container(
                 height: double.infinity,
                 width: double.infinity,
@@ -155,7 +151,7 @@ class _LockerNumberPageState extends State<LockerNumberPage> {
                 ),
                 child: global.gradient(
                   Icon(
-                    CupertinoIcons.delete_left,
+                    CupertinoIcons.checkmark_alt,
                     size: global.width(context) * .1,
                   ),
                 ),
@@ -175,7 +171,7 @@ class _LockerNumberPageState extends State<LockerNumberPage> {
           Flexible(
             flex: 1,
             child: BounceElement(
-              onTap: () => Navigator.pop(context),
+              onTap: () => deleteDigit(),
               child: Container(
                 height: double.infinity,
                 width: double.infinity,
@@ -187,7 +183,7 @@ class _LockerNumberPageState extends State<LockerNumberPage> {
                 ),
                 child: global.gradient(
                   Icon(
-                    CupertinoIcons.checkmark_alt,
+                    CupertinoIcons.delete_left,
                     size: global.width(context) * .1,
                   ),
                 ),

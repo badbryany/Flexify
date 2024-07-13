@@ -250,7 +250,7 @@ class _UserInfoState extends State<UserInfo> {
                         : Container(
                             alignment: Alignment.center,
                             margin: EdgeInsets.only(
-                              top: containerHeight * .3,
+                              top: containerHeight * .25,
                               left: global.width(context) * .1,
                             ),
                             child: Column(
@@ -261,7 +261,7 @@ class _UserInfoState extends State<UserInfo> {
                                     username.isNotEmpty ? username : '---',
                                     style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: global.height(context) * .03,
+                                      fontSize: global.width(context) * .05 + 5,
                                       letterSpacing: -1,
                                     ),
                                   ),
@@ -275,7 +275,7 @@ class _UserInfoState extends State<UserInfo> {
                                       : '---',
                                   style: TextStyle(
                                     color: Colors.white.withOpacity(.75),
-                                    fontSize: global.height(context) * .02,
+                                    fontSize: global.width(context) * .03 + 5,
                                     letterSpacing: -1,
                                   ),
                                 ),
@@ -337,26 +337,19 @@ class _UserInfoState extends State<UserInfo> {
                             duration: global.standardAnimationDuration,
                             opacity: editing ? 1 : 0,
                             child: Container(
-                              alignment: Alignment.bottomRight,
+                              alignment: Alignment.center,
                               child: Container(
-                                margin: EdgeInsets.only(
-                                  bottom: global.width(context) * .035,
-                                  right: global.width(context) * .035,
-                                ),
-                                padding: const EdgeInsets.all(5),
+                                padding: const EdgeInsets.all(10),
                                 decoration: BoxDecoration(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .background
-                                      .withOpacity(.9),
-                                  borderRadius: BorderRadius.circular(8),
+                                  color: global.lightGrey.withOpacity(.7),
+                                  borderRadius: BorderRadius.circular(100),
                                 ),
                                 child: Icon(
-                                  Icons.edit,
+                                  CupertinoIcons.camera,
                                   color: Theme.of(context)
                                       .colorScheme
                                       .onBackground,
-                                  size: global.width(context) * .04,
+                                  size: global.width(context) * .05,
                                 ),
                               ),
                             ),
@@ -373,7 +366,7 @@ class _UserInfoState extends State<UserInfo> {
                   child: Container(
                     alignment: Alignment.bottomCenter,
                     margin: EdgeInsets.only(
-                      bottom: global.height(context) * .0125,
+                      bottom: global.width(context) * .05,
                       left: global.width(context) * .05,
                       right: global.width(context) * .05,
                     ),
@@ -418,7 +411,7 @@ class _UserInfoState extends State<UserInfo> {
                       child: Container(
                         padding: EdgeInsets.all(global.width(context) * .025),
                         decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(.5),
+                          color: global.lightGrey,
                           borderRadius: BorderRadius.circular(12.5),
                         ),
                         key: ValueKey(editing),
@@ -453,7 +446,7 @@ class _UserInfoState extends State<UserInfo> {
                         : Container(
                             alignment: Alignment.bottomCenter,
                             margin: EdgeInsets.only(
-                              bottom: global.height(context) * .0125,
+                              bottom: global.width(context) * .05,
                               left: global.width(context) * .05,
                               right: global.width(context) * .05,
                             ),
@@ -508,19 +501,7 @@ class UserInfoButton extends StatelessWidget {
               vertical: global.height(context) * .005),
           decoration: BoxDecoration(
               color: global.lightGrey,
-              gradient: highlight == true
-                  ? LinearGradient(
-                      begin: Alignment.bottomLeft,
-                      end: Alignment.centerRight,
-                      colors: [
-                        Theme.of(context).colorScheme.primary.withOpacity(.75),
-                        Theme.of(context)
-                            .colorScheme
-                            .onPrimary
-                            .withOpacity(.75),
-                      ],
-                    )
-                  : null,
+              gradient: highlight == true ? global.linearGradient : null,
               boxShadow: [global.darkShadow(context)],
               borderRadius: BorderRadius.circular(30)),
           child: Row(
