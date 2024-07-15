@@ -1,5 +1,60 @@
-Shop
-    LATE. Search reccomendations
-SetsPage
-    - Choose stastistic: minHeap
-    - 
+PRE-RELEASE CHECKLIST TILL MON 22.
+
+DWorkout
+    - DashboardWorkoutStats
+        - Add min bar height 
+    - SetsPage
+        Navbar Alignment
+        Dismissable Size
+        WormEffect global.gradient()
+        Rest-Timer 
+            Alignment
+        ExerciseStats 
+            side titles
+            Choose stastistic: minHeap
+    - AddEditSetPage
+        Navbar Alignment 
+        Shadow + Padding
+        Only numbersa AddEditSetPage
+        Duration SetInput 
+            +- 5s 
+            onTap keyboard
+            fontSize smaller
+    - Setup HIIT Timer 
+        - Standard Rest Time 15s
+        - Alignment Rounds + AddRoundBUtton
+        - Duration SetInput 
+    - Locker
+        - Padding Bottom 
+    - AllExercises
+        - SearchBar Alignment 
+        - AddExercise Tester vs Non-Tester 
+
+DProfile
+    - UserInfo
+        - Different Icon for editing profile
+        - Redesign Friendslist Manual
+        - Remove Manual Option from QR ModalBottomSheet
+        - Increase Opacity Remove Friend Button 
+        - Hitbox add friends manually 
+        - Sensible user fields 
+DShop 
+    ShopSearch
+        - Checkout Funnel (Shopify)
+        - Remove Order Tracking (Prelim)
+        - Reduce IconSize 
+        - Text Size etc.
+DStats 
+    - PR Widget shorter text + bigger fontSize 
+    
+SettingsPage
+    - Copy Privacy Policy & Terms of Use 
+        - (DuoLingo, Heavy, MCI, etc.)
+    - Notifications 
+        - Research, wtf is that even?!
+    - Edit Profile 
+        - Do we even need this ? 
+        - AnimatedContainer
+    
+
+

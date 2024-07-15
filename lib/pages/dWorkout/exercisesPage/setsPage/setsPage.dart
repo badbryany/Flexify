@@ -246,23 +246,23 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                         setList[i].isBodyweight
                             ? Text('Bodyweight + ')
                             : SizedBox(),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text(
-                              '${setList[i].weight}',
-                              style: TextStyle(
-                                color: Theme.of(context).colorScheme.primary,
-                                fontSize: global.width(context) * 0.08,
-                                fontWeight: FontWeight.bold,
+                        global.gradient(
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text(
+                                '${setList[i].weight}',
+                                style: TextStyle(
+                                  color: Theme.of(context).colorScheme.primary,
+                                  fontSize: global.width(context) * 0.08,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                bottom: global.height(context) * 0.009,
-                              ),
-                              child: global.gradient(
-                                Text(
+                              Padding(
+                                padding: EdgeInsets.only(
+                                  bottom: global.height(context) * 0.009,
+                                ),
+                                child: Text(
                                   'kg',
                                   style: TextStyle(
                                     color:
@@ -272,8 +272,8 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ],
                     ),

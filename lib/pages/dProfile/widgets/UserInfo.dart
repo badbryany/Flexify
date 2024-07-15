@@ -227,7 +227,7 @@ class _UserInfoState extends State<UserInfo> {
                     child: editing
                         ? Container(
                             margin: EdgeInsets.only(
-                                top: global.height(context) * .1),
+                                top: global.height(context) * .075),
                             alignment: Alignment.center,
                             child: SingleChildScrollView(
                               physics: const NeverScrollableScrollPhysics(),
