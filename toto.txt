@@ -54,7 +54,11 @@ SettingsPage
         - Research, wtf is that even?!
     - Edit Profile 
         - Do we even need this ? 
-        - AnimatedContainer
+        - Redesign
+    - Website
+        - Update Pictures
+        - Update Colours
+
     
 
 
