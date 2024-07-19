@@ -64,7 +64,7 @@ class _ExerciseStatsState extends State<ExerciseStats> {
           case 'Moved weight':
             y = widget.sets[i].weight * widget.sets[i].reps;
             break;
-          case 'Moved weight':
+          case 'Duration':
             y = widget.sets[i].weight * widget.sets[i].reps;
             break;
         }
@@ -122,8 +122,8 @@ class _ExerciseStatsState extends State<ExerciseStats> {
   }
 
   datePicker(BuildContext context, bool start) {
-    DateTime? _startDate = null;
-    DateTime? _endDate = null;
+    DateTime? startDate;
+    DateTime? endDate;
 
     showDialog(
       context: context,
@@ -144,11 +144,9 @@ class _ExerciseStatsState extends State<ExerciseStats> {
             ),
             TextButton(
               onPressed: () {
-                if (_startDate != null && _endDate != null) {
-                  firstDate = _startDate!;
-                  lastDate = _endDate!;
-
-                  print(lastDate);
+                if (startDate != null && endDate != null) {
+                  firstDate = startDate!;
+                  lastDate = endDate!;
                   setState(() {});
                 }
                 Navigator.pop(context);
@@ -161,11 +159,8 @@ class _ExerciseStatsState extends State<ExerciseStats> {
             width: global.height(context) * .4,
             child: SfDateRangePicker(
               onSelectionChanged: (DateRangePickerSelectionChangedArgs args) {
-                _startDate = (args.value as PickerDateRange).startDate;
-                _endDate = (args.value as PickerDateRange).endDate;
-
-                print(_startDate);
-                print(_endDate);
+                startDate = (args.value as PickerDateRange).startDate;
+                endDate = (args.value as PickerDateRange).endDate;
               },
               selectionMode: DateRangePickerSelectionMode.range,
               initialSelectedDate: DateTime.now(),
