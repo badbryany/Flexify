@@ -64,10 +64,6 @@ class _SetTimeBigState extends State<SetTimeBig> {
             decoration: BoxDecoration(
               color: global.darkGrey,
               borderRadius: BorderRadius.circular(100),
-              border: Border.all(
-                width: 2,
-                color: Theme.of(context).colorScheme.primary,
-              ),
             ),
             child: Text(
               text,
@@ -116,7 +112,9 @@ class _SetTimeBigState extends State<SetTimeBig> {
               ),
             ),
           ),
-          SizedBox(height: global.height(context) * .02,),
+          SizedBox(
+            height: global.height(context) * .02,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,

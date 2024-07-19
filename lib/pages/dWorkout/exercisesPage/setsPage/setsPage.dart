@@ -238,14 +238,14 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                   boxShadow: [global.darkShadow(context)],
                 ),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     // WEIGHT
                     Column(
                       children: [
                         setList[i].isBodyweight
-                            ? Text('Bodyweight + ')
-                            : SizedBox(),
+                            ? const Text('Bodyweight + ')
+                            : const SizedBox(),
                         global.gradient(
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.end,
@@ -279,36 +279,47 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                     ),
 
                     // DATE
-                    Text(
-                      '${global.zeroBefore(setList[i].date.hour)}:${global.zeroBefore(sets[i].date.minute)}',
-                      style: TextStyle(
-                        color: Theme.of(context)
-                            .colorScheme
-                            .onBackground
-                            .withOpacity(0.6),
-                        fontSize: global.width(context) * 0.04,
+                    Container(
+                      alignment: Alignment.center,
+                      width: global.width(context) * .33,
+                      child: Text(
+                        '${global.zeroBefore(setList[i].date.hour)}:${global.zeroBefore(sets[i].date.minute)}',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onBackground
+                              .withOpacity(0.6),
+                          fontSize: global.width(context) * 0.04,
+                        ),
                       ),
                     ),
 
                     //REPS
-                    sets[i].durationInSeconds != null &&
-                            sets[i].durationInSeconds != 0
-                        ? Text(
-                            global.durationString(sets[i].getDuration()),
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.onBackground,
-                              fontSize: global.width(context) * 0.06,
-                              fontWeight: FontWeight.bold,
+                    SizedBox(
+                      width: global.width(context) * .19,
+                      child: sets[i].isDuration
+                          ? Text(
+                              global.durationString(sets[i].getDuration()),
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                color:
+                                    Theme.of(context).colorScheme.onBackground,
+                                fontSize: global.width(context) * 0.06,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            )
+                          : Text(
+                              textAlign: TextAlign.right,
+                              'x${setList[i].reps}',
+                              style: TextStyle(
+                                color:
+                                    Theme.of(context).colorScheme.onBackground,
+                                fontSize: global.width(context) * 0.06,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          )
-                        : Text(
-                            'x${setList[i].reps}',
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.onBackground,
-                              fontSize: global.width(context) * 0.06,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+                    )
                   ],
                 ),
               ),
@@ -350,7 +361,6 @@ class _ExerciseSetsState extends State<ExerciseSets> {
     return PopScope(
       onPopInvoked: (foo) => widget.refresh(),
       child: Scaffold(
-        // appBar: AppBar(),
         body: ListView(
           physics: const BouncingScrollPhysics(),
           children: [
@@ -444,9 +454,9 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                                   onPageChanged: (index, reason) =>
                                       setState(() => pageIndex = index),
                                   viewportFraction: 1,
-                                  height: global.height(context) * .5,
+                                  height: global.height(context) * .4,
                                   enlargeCenterPage: true,
-                                  enlargeFactor: .25,
+                                  enlargeFactor: .125,
                                   initialPage: pageIndex,
                                   padEnds: true,
                                   enableInfiniteScroll: false,

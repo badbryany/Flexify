@@ -65,6 +65,8 @@ class _ExercisesPageState extends State<ExercisesPage> {
                 reps: 0,
                 weight: 0,
                 isBodyweight: false,
+                isDuration: false,
+                durationInSeconds: 0,
                 setID: -10,
               )
             ]);
@@ -166,6 +168,8 @@ class _ExercisesPageState extends State<ExercisesPage> {
                   weight: 0,
                   setID: -10,
                   isBodyweight: false,
+                  isDuration: false,
+                  durationInSeconds: 0,
                 )
               ]);
     }

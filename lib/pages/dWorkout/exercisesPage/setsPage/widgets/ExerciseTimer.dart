@@ -19,6 +19,8 @@ class ExerciseTimer extends StatefulWidget {
 }
 
 class _ExerciseTimerState extends State<ExerciseTimer> {
+  bool isDispiosed = false;
+
   getNewTime() {
     if (widget.sets.isEmpty) {
       minutes = 0;
@@ -51,6 +53,10 @@ class _ExerciseTimerState extends State<ExerciseTimer> {
   void initState() {
     super.initState();
     Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (isDispiosed) {
+        timer.cancel();
+        return;
+      }
       getNewTime();
 
       int num = seconds % 10;
@@ -85,6 +91,12 @@ class _ExerciseTimerState extends State<ExerciseTimer> {
     });
   }
 
+  @override
+  void dispose() {
+    isDispiosed = true;
+    super.dispose();
+  }
+
   ScrollController listController1 = ScrollController();
   ScrollController listController2 = ScrollController();
   ScrollController listController3 = ScrollController();
@@ -92,7 +104,7 @@ class _ExerciseTimerState extends State<ExerciseTimer> {
   double digitHeight(BuildContext context) => global.height(context) * .08;
 
   double blockHeightFactor = .175;
-  double blockWidthFactor = .12;
+  double blockWidthFactor = .1;
   double listHeightFactor = 3;
 
   Widget digit(String digit) => SizedBox(
@@ -119,7 +131,7 @@ class _ExerciseTimerState extends State<ExerciseTimer> {
       padding: const EdgeInsets.only(bottom: 8.0),
       child: SizedBox(
         child: Container(
-          width: global.width(context) * global.containerWidthFactor,
+          width: global.containerWidth(context),
           margin: EdgeInsets.symmetric(
             horizontal: 10,
             vertical: global.height(context) * .07,
@@ -137,141 +149,160 @@ class _ExerciseTimerState extends State<ExerciseTimer> {
           child: Stack(
             children: [
               // TIMER
-              IgnorePointer(
-                ignoring: true,
-                child: global.gradient(
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        height: global.height(context) * blockHeightFactor,
-                        width: global.width(context) * blockWidthFactor,
-                        child: Row(
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(
-                                top: digitHeight(context) * .8,
-                              ),
-                              alignment: Alignment.center,
-                              width: global.width(context) * blockWidthFactor,
-                              height: digitHeight(context) * listHeightFactor,
-                              child: digit('0'),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: global.height(context) * blockHeightFactor,
-                        width: global.width(context) * blockWidthFactor,
-                        child: Row(
-                          children: [
-                            Container(
-                              alignment: Alignment.center,
-                              width: global.width(context) * blockWidthFactor,
-                              height: digitHeight(context) * listHeightFactor,
-                              child: ListView(
-                                controller: listController3,
-                                children: [
-                                  digit(''),
-                                  ...List.generate(10, (index) => index)
-                                      .map((e) {
-                                    bool visible = minutes % 10 == e;
+              ScrollConfiguration(
+                behavior:
+                    ScrollConfiguration.of(context).copyWith(scrollbars: false),
+                child: IgnorePointer(
+                  ignoring: true,
+                  child: global.gradient(
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: global.height(context) * blockHeightFactor,
+                          width: global.width(context) * blockWidthFactor,
+                          child: Row(
+                            children: [
+                              Container(
+                                alignment: Alignment.center,
+                                width: global.width(context) * blockWidthFactor,
+                                height: digitHeight(context) * listHeightFactor,
+                                child: ListView(
+                                  controller: listController3,
+                                  children: [
+                                    digit(''),
+                                    ...List.generate(10, (index) => index)
+                                        .map((e) {
+                                      bool visible = minutes % 10 == e;
 
-                                    return AnimatedOpacity(
-                                      duration:
-                                          global.standardAnimationDuration,
-                                      opacity: visible ? 1 : 0,
-                                      child: digit('$e'),
-                                    );
-                                  }),
-                                  digit(''),
-                                ],
+                                      return AnimatedOpacity(
+                                        duration:
+                                            global.standardAnimationDuration,
+                                        opacity: visible ? 1 : 0,
+                                        child: digit('0'),
+                                      );
+                                    }),
+                                    digit(''),
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: global.height(context) * blockHeightFactor,
-                        width: global.width(context) * blockWidthFactor,
-                        child: Container(
-                          margin: EdgeInsets.only(
-                            top: digitHeight(context),
-                          ),
-                          alignment: Alignment.center,
-                          width: global.width(context) * .04,
-                          height: digitHeight(context),
-                          child: Text(
-                            ':',
-                            textAlign: TextAlign.center,
-                            style: digitTextStyle(context),
+                            ],
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        height: global.height(context) * blockHeightFactor,
-                        width: global.width(context) * blockWidthFactor,
-                        child: Row(
-                          children: [
-                            Container(
-                              alignment: Alignment.center,
-                              width: global.width(context) * blockWidthFactor,
-                              height: digitHeight(context) * listHeightFactor,
-                              child: ListView(
-                                controller: listController2,
-                                children: [
-                                  digit(' '),
-                                  ...List.generate(10, (index) => index)
-                                      .map((e) {
-                                    bool visible =
-                                        ((seconds - (seconds % 10)) / 10) == e;
+                        SizedBox(
+                          height: global.height(context) * blockHeightFactor,
+                          width: global.width(context) * blockWidthFactor,
+                          child: Row(
+                            children: [
+                              Container(
+                                alignment: Alignment.center,
+                                width: global.width(context) * blockWidthFactor,
+                                height: digitHeight(context) * listHeightFactor,
+                                child: ListView(
+                                  controller: listController3,
+                                  children: [
+                                    digit(''),
+                                    ...List.generate(10, (index) => index)
+                                        .map((e) {
+                                      bool visible = minutes % 10 == e;
 
-                                    return AnimatedOpacity(
-                                      duration:
-                                          global.standardAnimationDuration,
-                                      opacity: visible ? 1 : 0,
-                                      child: digit('$e'),
-                                    );
-                                  }),
-                                  digit(' '),
-                                ],
+                                      return AnimatedOpacity(
+                                        duration:
+                                            global.standardAnimationDuration,
+                                        opacity: visible ? 1 : 0,
+                                        child: digit('$e'),
+                                      );
+                                    }),
+                                    digit(''),
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        height: global.height(context) * blockHeightFactor,
-                        width: global.width(context) * blockWidthFactor,
-                        child: Row(
-                          children: [
-                            SizedBox(
-                              width: global.width(context) * blockWidthFactor,
-                              height: digitHeight(context) * listHeightFactor,
-                              child: ListView(
-                                controller: listController1,
-                                children: [
-                                  digit(' '),
-                                  ...List.generate(10, (index) => index)
-                                      .map((e) {
-                                    bool visible = (seconds % 10) == e;
+                        SizedBox(
+                          height: global.height(context) * blockHeightFactor,
+                          width: global.width(context) * blockWidthFactor,
+                          child: Container(
+                            margin: EdgeInsets.only(
+                              top: digitHeight(context),
+                            ),
+                            alignment: Alignment.center,
+                            width: global.width(context) * .04,
+                            height: digitHeight(context),
+                            child: Text(
+                              ':',
+                              textAlign: TextAlign.center,
+                              style: digitTextStyle(context),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: global.height(context) * blockHeightFactor,
+                          width: global.width(context) * blockWidthFactor,
+                          child: Row(
+                            children: [
+                              Container(
+                                alignment: Alignment.center,
+                                width: global.width(context) * blockWidthFactor,
+                                height: digitHeight(context) * listHeightFactor,
+                                child: ListView(
+                                  controller: listController2,
+                                  children: [
+                                    digit(' '),
+                                    ...List.generate(10, (index) => index)
+                                        .map((e) {
+                                      bool visible =
+                                          ((seconds - (seconds % 10)) / 10) ==
+                                              e;
 
-                                    return AnimatedOpacity(
-                                      duration:
-                                          global.standardAnimationDuration,
-                                      opacity: visible ? 1 : 0,
-                                      child: digit('$e'),
-                                    );
-                                  }),
-                                  digit(' '),
-                                ],
+                                      return AnimatedOpacity(
+                                        duration:
+                                            global.standardAnimationDuration,
+                                        opacity: visible ? 1 : 0,
+                                        child: digit('$e'),
+                                      );
+                                    }),
+                                    digit(' '),
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                        SizedBox(
+                          height: global.height(context) * blockHeightFactor,
+                          width: global.width(context) * blockWidthFactor,
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                width: global.width(context) * blockWidthFactor,
+                                height: digitHeight(context) * listHeightFactor,
+                                child: ListView(
+                                  controller: listController1,
+                                  children: [
+                                    digit(' '),
+                                    ...List.generate(10, (index) => index)
+                                        .map((e) {
+                                      bool visible = (seconds % 10) == e;
+
+                                      return AnimatedOpacity(
+                                        duration:
+                                            global.standardAnimationDuration,
+                                        opacity: visible ? 1 : 0,
+                                        child: digit('$e'),
+                                      );
+                                    }),
+                                    digit(' '),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

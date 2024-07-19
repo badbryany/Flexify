@@ -377,6 +377,7 @@ syncData() async {
     Uri.parse('$url?jwt=${prefs.getString('jwt')}'),
   );
   print(res.body);
+  print('fixme!!!!!');
   List notParsedSets = jsonDecode(res.body);
   for (int i = 0; i < notParsedSets.length; i++) {
     print(notParsedSets[i][4]);
@@ -387,7 +388,9 @@ syncData() async {
         reps: notParsedSets[i][2],
         weight: double.parse(notParsedSets[i][3].toString()),
         date: DateTime.parse(notParsedSets[i][4]),
+        durationInSeconds: 0, // ! FIXME
         isBodyweight: false, // ! FIXME
+        isDuration: false, // ! FIXME
         synced: 1,
       ),
       notParsedSets[i][0],
