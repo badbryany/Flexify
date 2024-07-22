@@ -45,16 +45,19 @@ class ShopNavbar extends StatelessWidget {
               ),
             ),
           ),
-          Text(
-            title,
-            style: TextStyle(
-              color: Theme.of(context).focusColor,
-              fontSize: titleSize ?? global.width(context) * .06,
+          Container(
+            width: global.width(context) * .6,
+            alignment: Alignment.center,
+            child: Text(
+              title,
+              style: TextStyle(
+                  color: Theme.of(context).focusColor,
+                  fontSize: global.width(context) * .08 - title.length),
             ),
           ),
           actionButton != null
               ? actionButton!
-              : SizedBox(width: alignmentWidth ?? global.width(context) * .155),
+              : SizedBox(width: alignmentWidth ?? global.width(context) * .15),
         ],
       ),
     );

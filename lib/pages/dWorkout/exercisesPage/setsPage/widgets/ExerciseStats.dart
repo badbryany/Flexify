@@ -80,7 +80,7 @@ class _ExerciseStatsState extends State<ExerciseStats> {
       }
     }
 
-    maxX = spots.length.toDouble();
+    maxX = spots.length.toDouble() - 1;
     maxY *= 1.35;
 
     if (maxX == 0 && maxY == 0) {
@@ -184,14 +184,12 @@ class _ExerciseStatsState extends State<ExerciseStats> {
         clipBehavior: Clip.none,
         children: [
           Container(
-            height: global.width(context) * .4 + global.height(context) * .4 - 200,
+            height:
+                global.width(context) * .4 + global.height(context) * .4 - 200,
             width: global.containerWidth(context),
             margin: const EdgeInsets.all(10),
-            padding: const EdgeInsets.only(
-              top: 20,
-              right: 20,
-              left: 20,
-              bottom: 5,
+            padding: EdgeInsets.all(
+              global.width(context) * .05,
             ),
             alignment: Alignment.center,
             decoration: BoxDecoration(
@@ -323,50 +321,61 @@ class _ExerciseStatsState extends State<ExerciseStats> {
                             spots: spots,
                             tag: statsValueTag,
                           ))),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Text(
-                      'Choose Metric:',
-                      style: TextStyle(
-                          color: Theme.of(context).colorScheme.onBackground,
-                          fontSize: global.width(context) * .03),
-                    ),
-                    const SizedBox(),
-                    Theme(
-                      data: Theme.of(context).copyWith(
-                          canvasColor: Theme.of(context).colorScheme.background,
-                          focusColor: Colors.transparent),
-                      child: DropdownButton(
-                        value: statsValueTag,
-                        items: [
-                          ...statsValueTags.map(
-                            (e) => DropdownMenuItem(
-                              value: e,
-                              child: Text(
-                                e,
-                                style: TextStyle(
-                                    fontFamily: 'KronaOne',
-                                    color: Colors.white,
-                                    fontSize: global.width(context) * .03),
-                              ),
-                            ),
-                          )
-                        ],
-                        iconDisabledColor: Colors.white,
-                        iconEnabledColor: Colors.white,
-                        autofocus: true,
-                        borderRadius: BorderRadius.circular(30),
-                        underline: const SizedBox(),
-                        onChanged: (String? value) {
-                          if (value is String) {
-                            statsValueTag = value;
-                            setState(() {});
-                          }
-                        },
+                SizedBox(
+                  height: global.height(context) * .02,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                      color: global.lightGrey,
+                      borderRadius: BorderRadius.circular(30)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text(
+                        'Choose Metric:',
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.onBackground,
+                            fontSize: global.width(context) * .03),
                       ),
-                    )
-                  ],
+                      const SizedBox(),
+                      Theme(
+                        data: Theme.of(context).copyWith(
+                            canvasColor:
+                                Theme.of(context).colorScheme.background,
+                            focusColor: Colors.transparent),
+                        child: DropdownButton(
+                          value: statsValueTag,
+                          items: [
+                            ...statsValueTags.map(
+                              (e) => DropdownMenuItem(
+                                value: e,
+                                child: Text(
+                                  e,
+                                  style: TextStyle(
+                                      fontFamily: 'KronaOne',
+                                      color: Colors.white,
+                                      fontSize: global.width(context) * .03),
+                                ),
+                              ),
+                            )
+                          ],
+                          iconDisabledColor: Colors.white,
+                          iconEnabledColor: Colors.white,
+                          autofocus: true,
+                          borderRadius: BorderRadius.circular(30),
+                          underline: const SizedBox(),
+                          onChanged: (String? value) {
+                            if (value is String) {
+                              statsValueTag = value;
+                              statsValueTags.remove(value);
+                              statsValueTags.insert(0, value);
+                              setState(() {});
+                            }
+                          },
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -515,60 +524,141 @@ class Statistics extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      padding: EdgeInsets.all(global.width(context) * .1),
       height: global.height(context) * 0.225,
+      clipBehavior: Clip.hardEdge,
+      decoration: BoxDecoration(
+          color: global.lightGrey,
+          borderRadius: BorderRadius.circular(30),
+          boxShadow: [global.darkShadow(context)]),
       child: LineChart(
         LineChartData(
-          baselineX: maxX,
-          baselineY: maxY,
-          gridData: const FlGridData(show: false),
-          lineTouchData: const LineTouchData(
-            enabled: false,
-          ),
-          borderData: FlBorderData(show: false),
+          minX: 0,
+          maxX: maxX,
+          minY: 0,
+          maxY: maxY,
           titlesData: FlTitlesData(
-            show: true,
-            rightTitles: const AxisTitles(
-              sideTitles: SideTitles(showTitles: false),
-            ),
-            topTitles: const AxisTitles(
-              sideTitles: SideTitles(showTitles: false),
-            ),
-            leftTitles: const AxisTitles(
+            leftTitles: AxisTitles(
               sideTitles: SideTitles(
                 showTitles: false,
+                getTitlesWidget: (value, meta) {
+                  return value != 0
+                      ? Text(value.round().toString(),
+                          style: const TextStyle(fontSize: 10))
+                      : const SizedBox();
+                },
               ),
             ),
             bottomTitles: AxisTitles(
               sideTitles: SideTitles(
                 showTitles: false,
-                getTitlesWidget: (value, meta) => Text(
-                  '${value.round()}',
-                  style: TextStyle(
-                    fontSize: 10,
-                    color: Theme.of(context).colorScheme.onBackground,
-                  ),
+                getTitlesWidget: (value, meta) {
+                  return value != 0
+                      ? Text(value.round().toString(),
+                          style: const TextStyle(fontSize: 10))
+                      : const SizedBox();
+                },
+              ),
+            ),
+            topTitles: const AxisTitles(
+              sideTitles: SideTitles(showTitles: false),
+            ),
+            rightTitles: const AxisTitles(
+              sideTitles: SideTitles(showTitles: false),
+            ),
+          ),
+          lineTouchData: LineTouchData(
+            enabled: true,
+            getTouchedSpotIndicator:
+                (LineChartBarData barData, List<int> indicators) {
+              return indicators.map(
+                (int index) {
+                  const line = FlLine(
+                    color: Colors.white,
+                    strokeWidth: 2,
+                    dashArray: [2, 4],
+                  );
+                  return const TouchedSpotIndicatorData(
+                    line,
+                    FlDotData(show: false),
+                  );
+                },
+              ).toList();
+            },
+            getTouchLineEnd: (_, __) => double.infinity,
+            touchTooltipData: LineTouchTooltipData(
+              tooltipBorder: const BorderSide(
+                color: Colors.white,
+                width: 1,
+              ),
+              getTooltipColor: (touchedSpot) => global.darkGrey,
+              tooltipRoundedRadius: 15,
+              tooltipPadding: EdgeInsets.symmetric(
+                  horizontal: global.width(context) * .025,
+                  vertical: global.height(context) * .01),
+              fitInsideHorizontally: true,
+              fitInsideVertically: true,
+              getTooltipItems: (touchedSpots) {
+                return touchedSpots.map(
+                  (LineBarSpot touchedSpot) {
+                    return LineTooltipItem(
+                      "${spots[touchedSpot.spotIndex].y.round()}${global.isKg ? "kg" : "oz"}",
+                      TextStyle(
+                        fontSize: global.width(context) * .0225,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                      ),
+                    );
+                  },
+                ).toList();
+              },
+            ),
+          ),
+          gridData: FlGridData(
+            show: true,
+            getDrawingHorizontalLine: (value) {
+              return FlLine(
+                color: Colors.white.withOpacity(.2),
+                strokeWidth: 1,
+              );
+            },
+            drawVerticalLine: true,
+            getDrawingVerticalLine: (value) {
+              return FlLine(
+                color: Colors.white.withOpacity(.2),
+                strokeWidth: 1,
+              );
+            },
+          ),
+          borderData: FlBorderData(
+            show: false,
+            border: const Border(
+              left: BorderSide(color: Colors.white, width: 2),
+              bottom: BorderSide(color: Colors.white, width: 2),
+              top: BorderSide(color: Colors.transparent),
+              right: BorderSide(color: Colors.transparent),
+            ),
+          ),
+          lineBarsData: [
+            LineChartBarData(
+              spots: spots,
+              isCurved: true,
+              gradient: global.linearGradient,
+              barWidth: 1,
+              dotData: const FlDotData(show: false),
+              belowBarData: BarAreaData(
+                show: true,
+                gradient: LinearGradient(
+                  begin: Alignment.bottomLeft,
+                  end: Alignment.centerRight,
+                  colors: [
+                    const Color(0xffa4fba4).withOpacity(.8),
+                    const Color(0xfff2f58d).withOpacity(.8),
+                  ],
                 ),
               ),
             ),
-          ),
-          maxX: maxX,
-          maxY: maxY,
-          minY: 0,
-          minX: 0,
-          lineBarsData: [
-            LineChartBarData(
-              dotData: spots.length == 1
-                  ? const FlDotData(show: true)
-                  : const FlDotData(show: false),
-              color: Theme.of(context).colorScheme.onBackground,
-              spots: spots,
-              isCurved: true,
-            ),
           ],
         ),
-        duration: global.standardAnimationDuration,
-        curve: Curves.linear,
       ),
     );
   }

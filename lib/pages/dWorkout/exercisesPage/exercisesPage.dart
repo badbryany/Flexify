@@ -242,7 +242,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
               children: [
                 Container(
                   width: global.width(context),
-                  height: global.height(context) * (1 - 0.88),
+                  height: global.height(context) * .15,
                   padding: _searchBarOpen == 1
                       ? EdgeInsets.only(
                           right: global.width(context) * 0.04,
@@ -254,42 +254,37 @@ class _ExercisesPageState extends State<ExercisesPage> {
                     children: [
                       Visibility(
                         visible: _searchBarOpen == 0,
-                        child: AnimatedContainer(
-                          duration: global.standardAnimationDuration,
-                          alignment: Alignment.center,
-                          padding:
-                              EdgeInsets.all(global.width(context) * 0.005),
-                          width: global.width(context) * 0.15,
-                          height: global.width(context) * 0.15,
-                          decoration: BoxDecoration(
-                            color: global.darkGrey,
-                            borderRadius: BorderRadius.circular(100),
-                            boxShadow: [global.darkShadow(context)],
-                          ),
-                          child: IconButton(
-                            splashColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onPressed: () {
-                              widget.reload();
-                              Navigator.pop(context);
-                            },
-                            color: Theme.of(context).colorScheme.onBackground,
-                            icon: const Icon(Icons.arrow_back_rounded),
-                            iconSize: global.width(context) * 0.05,
+                        child: BounceElement(
+                          onTap: () => Navigator.pop(context),
+                          child: Container(
+                            alignment: Alignment.center,
+                            padding:
+                                EdgeInsets.all(global.height(context) * 0.0025),
+                            width: global.width(context) * 0.15,
+                            height: global.width(context) * 0.15,
+                            decoration: BoxDecoration(
+                              color: global.darkGrey,
+                              borderRadius: BorderRadius.circular(100),
+                              boxShadow: global.shadow(context),
+                            ),
+                            child: Icon(
+                              Icons.arrow_back_rounded,
+                              size: global.width(context) * 0.05,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),
                       AnimatedContainer(
                         duration: global.standardAnimationDuration,
                         width: global.width(context) *
-                            0.4 *
+                            0.5 *
                             (_searchBarOpen == 0 ? 1 : 0),
                         child: AnimatedOpacity(
                           duration: global.standardAnimationDuration,
                           opacity: _searchBarOpen == 0 ? 1 : 0,
                           child: Text(
-                            'All exercises',
+                            'All Exercises',
                             textAlign: TextAlign.center,
                             maxLines: 1,
                             style: TextStyle(
@@ -301,10 +296,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(7.5),
-                        child: animSearchBar,
-                      ),
+                      animSearchBar,
                     ],
                   ),
                 ),

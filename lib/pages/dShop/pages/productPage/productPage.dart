@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flexify/pages/dShop/data/shopData.dart';
 import 'package:flexify/pages/dShop/pages/productPage/reviewsPage.dart';
+import 'package:flexify/pages/dShop/pages/widgets/ShopNavbar.dart';
 import 'package:flexify/widgets/BounceElement.dart';
 import 'package:flexify/widgets/ModalBottomSheet.dart';
 import 'package:flutter/cupertino.dart';
@@ -48,14 +49,23 @@ class _ProductPageState extends State<ProductPage> {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(
-            global.width(context) * .025,
+          padding: EdgeInsets.symmetric(
+            horizontal: global.width(context) * .025,
           ),
           child: ListView(
             scrollDirection: Axis.vertical,
             children: [
-              ProductNavbar(
-                item: widget.item,
+              ShopNavbar(
+                title: widget.item.itemName,
+                actionButton: ActionButton(
+                  iconData: widget.item.itemSaved
+                      ? CupertinoIcons.bookmark_fill
+                      : CupertinoIcons.bookmark,
+                  action: () {
+                    widget.item.itemSaved = !widget.item.itemSaved;
+                    setState(() {});
+                  },
+                ),
               ),
               global.mediumHeight(context),
               Container(
@@ -143,9 +153,11 @@ class _ProductPageState extends State<ProductPage> {
                             height: global.height(context) * .9,
                             submitButtonText: "Enter",
                             content: Container(
-                              padding: EdgeInsets.only(top: global.height(context) * .04),
+                              padding: EdgeInsets.only(
+                                  top: global.height(context) * .04),
                               width: global.width(context) * .9,
-                              height: global.height(context) * .275 + global.width(context) * .4,
+                              height: global.height(context) * .275 +
+                                  global.width(context) * .4,
                               child: const ShippingTiles(),
                             ),
                           ),
@@ -248,7 +260,8 @@ class _ProductNavbarState extends State<ProductNavbar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: global.width(context) * .05),
+      height: global.height(context) * .15,
+      padding: EdgeInsets.all(global.height(context) * .025),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -276,8 +289,7 @@ class _ProductNavbarState extends State<ProductNavbar> {
             ),
           ),
           BounceElement(
-            onTap: () {
-            },
+            onTap: () {},
             child: Container(
               alignment: Alignment.center,
               padding: EdgeInsets.all(global.width(context) * 0.005),

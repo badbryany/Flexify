@@ -33,7 +33,6 @@ class Round {
           Container(
             // height: global.height(context) * .15,
             margin: EdgeInsets.symmetric(
-              horizontal: global.width(context) * .03,
               vertical: global.height(context) * .005,
             ),
             padding: EdgeInsets.symmetric(
@@ -120,7 +119,7 @@ class Round {
                   titleSize: global.width(context) * .06,
                   onPop: () => Navigator.pop(context),
                   height: global.height(context) * .4,
-                  submitButtonText: 'done',
+                  submitButtonText: 'Done',
                   content: StatefulBuilder(builder: (context, innerSetState) {
                     return Padding(
                       padding: EdgeInsets.all(global.height(context) * .05),
@@ -138,7 +137,6 @@ class Round {
                             if (restDuration == const Duration(seconds: 5)) {
                               return;
                             }
-
                             restDuration -= subDuration;
                             innerSetState(() {});
                             setState(() {});

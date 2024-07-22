@@ -59,7 +59,7 @@ class _AddFriendsState extends State<AddFriends> {
           margin: const EdgeInsets.symmetric(vertical: 7.5, horizontal: 10),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(global.borderRadius),
-            color: Theme.of(context).colorScheme.background,
+            color: global.darkGrey
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -69,14 +69,6 @@ class _AddFriendsState extends State<AddFriends> {
                 height: global.width(context) * .15,
                 child: Stack(
                   children: [
-                    Center(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.background,
-                          borderRadius: BorderRadius.circular(1000),
-                        ),
-                      ),
-                    ),
                     Center(
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(1000),
@@ -98,7 +90,7 @@ class _AddFriendsState extends State<AddFriends> {
                       ),
                     ),
                     Center(
-                      child: ClipRRect(
+                      child: ClipRRect( 
                         borderRadius: BorderRadius.circular(1000),
                         child: Stack(
                           children: [
@@ -115,7 +107,6 @@ class _AddFriendsState extends State<AddFriends> {
                 ),
               ),
               Container(
-                width: global.width(context) * .45,
                 padding: EdgeInsets.only(left: global.width(context) * .05),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -147,8 +138,8 @@ class _AddFriendsState extends State<AddFriends> {
                 onPressed: () => removeFriend(friends[i][0], friends[i][2]),
                 icon: Icon(
                   Icons.clear,
-                  color: Theme.of(context).colorScheme.error.withOpacity(.25),
-                  size: global.width(context) * .05,
+                  color: Colors.red,
+                  size: global.width(context) * .075, 
                 ),
               ),
             ],

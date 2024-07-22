@@ -100,6 +100,7 @@ class _DashboardState extends State<Dashboard> {
     return PopScope(
       canPop: false,
       child: Scaffold(
+        appBar: AppBar(),
         body: SafeArea(
           child: SizedBox(
             width: global.width(context),

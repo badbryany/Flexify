@@ -407,6 +407,16 @@ class ChartBody extends StatelessWidget {
     (DateTime(2024, 1, 7), 4)
   ];
 
+  final List<(DateTime, double)> points2 = [
+    (DateTime(2024, 1, 1), 4),
+    (DateTime(2024, 1, 2), 2),
+    (DateTime(2024, 1, 3), 7),
+    (DateTime(2024, 1, 4), 3.5),
+    (DateTime(2024, 1, 5), 1),
+    (DateTime(2024, 1, 6), 2),
+    (DateTime(2024, 1, 7), 5)
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -507,6 +517,32 @@ class ChartBody extends StatelessWidget {
                   FlSpot(8, 4),
                   FlSpot(9.5, 3),
                   FlSpot(11, 4),
+                ],
+                isCurved: true,
+                gradient: global.linearGradient,
+                barWidth: 1,
+                dotData: const FlDotData(show: false),
+                belowBarData: BarAreaData(
+                  show: true,
+                  gradient: LinearGradient(
+                    begin: Alignment.bottomLeft,
+                    end: Alignment.centerRight,
+                    colors: [
+                      const Color(0xffa4fba4).withOpacity(.8),
+                      const Color(0xfff2f58d).withOpacity(.8),
+                    ],
+                  ),
+                ),
+              ),
+              LineChartBarData(
+                spots: const [
+                  FlSpot(0, 1),
+                  FlSpot(2.6, 5),
+                  FlSpot(4.9, 3),
+                  FlSpot(6.8, 3.5),
+                  FlSpot(8, 1),
+                  FlSpot(9.5, 2),
+                  FlSpot(11, 5),
                 ],
                 isCurved: true,
                 gradient: global.linearGradient,
@@ -915,10 +951,10 @@ class PRWidget extends StatelessWidget {
                     height: global.height(context) * .01,
                   ),
                   Text(
-                    'Personal Records are gained whenever you exceed your previous best rep count for a given weight and exercise',
+                    'Exceed your previous best rep count for a given weight and exercise!',
                     style: TextStyle(
                         color: Colors.white.withOpacity(.3),
-                        fontSize: global.width(context) * .01 + 5),
+                        fontSize: global.width(context) * .01 + 7),
                   )
                 ],
               ),

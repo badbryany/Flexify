@@ -217,7 +217,13 @@ class _NineDurationState extends State<NineDuration> {
                                 ),
                               ),
                             ),
-                            const Text("h"),
+                            Text(
+                              "h",
+                              style: TextStyle(
+                                  color: Theme.of(context).focusColor,
+                                  fontSize: global.height(context) * 0.005 +
+                                      global.width(context) * 0.035),
+                            ),
                             SizedBox(
                               width: global.width(context) * .05,
                             ),
@@ -241,7 +247,14 @@ class _NineDurationState extends State<NineDuration> {
                                 ),
                               ),
                             ),
-                            const Text("m"),
+                            Text(
+                              "m",
+                              style: TextStyle(
+                                color: Theme.of(context).focusColor,
+                                fontSize: global.height(context) * 0.005 +
+                                    global.width(context) * 0.035,
+                              ),
+                            ),
                             SizedBox(
                               width: global.width(context) * .05,
                             )

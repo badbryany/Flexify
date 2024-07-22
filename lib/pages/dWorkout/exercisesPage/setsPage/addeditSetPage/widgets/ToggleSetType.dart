@@ -33,7 +33,7 @@ class _ToggleSetTypeState extends State<ToggleSetType> {
         GestureDetector(
           onTap: () => toggleIndex(i),
           child: SizedBox(
-            width: (global.containerWidth(context) / widget.types.length),
+            width: ((global.containerWidth(context) - 20) / widget.types.length),
             height: global.height(context) * .055,
             child: Container(
               color: Colors.transparent,
@@ -75,32 +75,37 @@ class _ToggleSetTypeState extends State<ToggleSetType> {
     activeIndex = widget.activeIndex;
     return Container(
       width: global.containerWidth(context),
-      height: global.height(context) * .055,
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
+        color: global.darkGrey,
         borderRadius: BorderRadius.circular(100),
-        color: Theme.of(context).colorScheme.background,
+        boxShadow: [global.darkShadow(context)],
       ),
-      child: Stack(
-        children: [
-          AnimatedPositioned(
-            curve: Curves.easeInOutCirc,
-            left: (global.containerWidth(context) / widget.types.length) *
-                activeIndex,
-            duration: global.standardAnimationDuration,
-            child: Container(
-              width: (global.containerWidth(context) / widget.types.length),
-              height: global.height(context) * .055,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(100),
-                gradient: global.linearGradient
+      child: Container(
+        width: global.containerWidth(context) - 20,
+        height: global.height(context) * .055,
+        child: Stack(
+          children: [
+            AnimatedPositioned(
+              curve: Curves.easeInOutCirc,
+              left: ((global.containerWidth(context) - 20) / widget.types.length) *
+                  activeIndex,
+              duration: global.standardAnimationDuration,
+              child: Container(
+                width: ((global.containerWidth(context) - 10) / widget.types.length),
+                height: global.height(context) * .055,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(100),
+                  gradient: global.linearGradient
+                ),
               ),
             ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: typeWidgets(),
-          ),
-        ],
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: typeWidgets(),
+            ),
+          ],
+        ),
       ),
     );
   }

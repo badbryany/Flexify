@@ -1,3 +1,4 @@
+import 'package:flexify/pages/intro/9_duration.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
 
@@ -97,25 +98,6 @@ class Timeinput extends StatelessWidget {
             ],
           ),
         ],
-      ),
-    );
-  }
-}
-
-class MinuteTile extends StatelessWidget {
-  final int minutes;
-
-  const MinuteTile({super.key, required this.minutes});
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        minutes.toString(),
-        style: TextStyle(
-            color: Colors.white,
-            fontSize:
-                global.height(context) * 0.01 + global.width(context) * 0.035),
       ),
     );
   }

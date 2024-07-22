@@ -1,5 +1,6 @@
 import 'package:flexify/widgets/BounceElement.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
+import 'package:flexify/widgets/ModalBottomSheet.dart';
 import 'package:flutter/material.dart';
 
 class SetTime extends StatefulWidget {
@@ -82,6 +83,11 @@ class _SetTimeState extends State<SetTime> {
 
   @override
   Widget build(BuildContext context) {
+    FixedExtentScrollController secondController =
+        FixedExtentScrollController(initialItem: 0);
+    FixedExtentScrollController minuteController =
+        FixedExtentScrollController(initialItem: 0);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -92,28 +98,178 @@ class _SetTimeState extends State<SetTime> {
           children: [
             setButton(
               context,
-              () => widget.sub(const Duration(seconds: 1)),
+              () => widget.sub(const Duration(seconds: 5)),
               '-',
             ),
-            SizedBox(
-              width: global.width(context) * .21,
-              child: Text(
-                durationString(widget.duration),
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: global.width(context) * .06,
-                  color: Theme.of(context).colorScheme.onBackground,
+            BounceElement(
+              onTap: () {
+                showCustomModalBottomSheet(
+                  context,
+                  ModalBottomSheet(
+                    title: widget.title,
+                    titleSize: global.width(context) * .1,
+                    height: global.height(context) * .5,
+                    content: Container(
+                      height: global.height(context) * .175,
+                      padding: EdgeInsets.only(
+                        bottom: global.height(context) * .05,
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Container(
+                            width: global.width(context) * .8,
+                            height: global.height(context) * .06,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.white,
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(
+                                global.width(context) * 0.2,
+                              ),
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    width: global.width(context) * 0.1,
+                                    child: ListWheelScrollView.useDelegate(
+                                      controller: minuteController,
+                                      onSelectedItemChanged: (index) {
+                                        widget.add(Duration(minutes: minuteController.selectedItem + 1, seconds: secondController.selectedItem) - widget.duration);
+                                        setState(() {});
+                                      },
+                                      itemExtent: 50,
+                                      perspective: 0.005,
+                                      diameterRatio: 3.5,
+                                      physics: const FixedExtentScrollPhysics(),
+                                      childDelegate:
+                                          ListWheelChildBuilderDelegate(
+                                        childCount: 60,
+                                        builder: (context, index) {
+                                          return MinuteTile(minutes: index);
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                  Text(
+                                    "m",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize:
+                                            global.height(context) * 0.005 +
+                                                global.width(context) * 0.035),
+                                  ),
+                                  SizedBox(
+                                    width: global.width(context) * .12,
+                                  ),
+                                  SizedBox(
+                                    width: global.width(context) * 0.1,
+                                    child: ListWheelScrollView.useDelegate(
+                                      controller: secondController,
+                                      onSelectedItemChanged: (index) {
+                                        widget.add(Duration(minutes: minuteController.selectedItem + 1, seconds: secondController.selectedItem) - widget.duration);
+                                        setState(() {});
+                                      },
+                                      itemExtent: 50,
+                                      perspective: 0.005,
+                                      diameterRatio: 3.5,
+                                      physics: const FixedExtentScrollPhysics(),
+                                      childDelegate:
+                                          ListWheelChildBuilderDelegate(
+                                        childCount: 60,
+                                        builder: (context, index) {
+                                          return SecondTile(seconds: index);
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                  Text(
+                                    "s",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: global.height(context) * 0.005 +
+                                          global.width(context) * 0.035,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    bigTitle: true,
+                    submitButtonText: 'Enter',
+                  ),
+                );
+              },
+              child: SizedBox(
+                width: global.width(context) * .21,
+                child: Text(
+                  durationString(widget.duration),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: global.width(context) * .06,
+                    color: Theme.of(context).colorScheme.onBackground,
+                  ),
                 ),
               ),
             ),
             setButton(
               context,
-              () => widget.add(const Duration(seconds: 1)),
+              () => widget.add(const Duration(seconds: 5)),
               '+',
             ),
           ],
         ),
       ],
+    );
+  }
+}
+
+class SecondTile extends StatelessWidget {
+  final int seconds;
+
+  const SecondTile({super.key, required this.seconds});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        seconds.toString(),
+        style: TextStyle(
+            color: Colors.white,
+            fontSize:
+                global.height(context) * 0.01 + global.width(context) * 0.035),
+      ),
+    );
+  }
+}
+
+class MinuteTile extends StatelessWidget {
+  final int minutes;
+
+  const MinuteTile({super.key, required this.minutes});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        (minutes + 1).toString(),
+        style: TextStyle(
+            color: Colors.white,
+            fontSize:
+                global.height(context) * 0.01 + global.width(context) * 0.035),
+      ),
     );
   }
 }

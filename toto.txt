@@ -1,34 +1,8 @@
 PRE-RELEASE CHECKLIST TILL MON 22.
 
 DWorkout
-    - DashboardWorkoutStats
-        - Add min bar height 
-    - SetsPage
-        Navbar Alignment
-        Dismissable Size
-        WormEffect global.gradient()
-        Rest-Timer 
-            Alignment
-        ExerciseStats 
-            side titles
-            Choose stastistic: minHeap
-    - AddEditSetPage
-        Navbar Alignment 
-        Shadow + Padding
-        Only numbersa AddEditSetPage
-        Duration SetInput 
-            +- 5s 
-            onTap keyboard
-            fontSize smaller
-    - Setup HIIT Timer 
-        - Standard Rest Time 15s
-        - Alignment Rounds + AddRoundBUtton
-        - Duration SetInput 
-    - Locker
-        - Padding Bottom 
     - AllExercises
         - SearchBar Alignment 
-        - AddExercise Tester vs Non-Tester 
 
 DProfile
     - UserInfo
@@ -44,8 +18,6 @@ DShop
         - Remove Order Tracking (Prelim)
         - Reduce IconSize 
         - Text Size etc.
-DStats 
-    - PR Widget shorter text + bigger fontSize 
     
 SettingsPage
     - Copy Privacy Policy & Terms of Use 
@@ -58,7 +30,12 @@ SettingsPage
     - Website
         - Update Pictures
         - Update Colours
+    - Data 
+        - Fix Colours
 
+General
+    - showDialog
+    - WormEffect global.gradient()
     
 
 
