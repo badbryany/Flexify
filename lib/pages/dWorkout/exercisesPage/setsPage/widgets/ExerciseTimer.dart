@@ -19,6 +19,8 @@ class ExerciseTimer extends StatefulWidget {
 }
 
 class _ExerciseTimerState extends State<ExerciseTimer> {
+  bool isDispiosed = false;
+
   getNewTime() {
     if (widget.sets.isEmpty) {
       minutes = 0;
@@ -51,6 +53,10 @@ class _ExerciseTimerState extends State<ExerciseTimer> {
   void initState() {
     super.initState();
     Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (isDispiosed) {
+        timer.cancel();
+        return;
+      }
       getNewTime();
 
       int num = seconds % 10;
@@ -85,6 +91,12 @@ class _ExerciseTimerState extends State<ExerciseTimer> {
     });
   }
 
+  @override
+  void dispose() {
+    isDispiosed = true;
+    super.dispose();
+  }
+
   ScrollController listController1 = ScrollController();
   ScrollController listController2 = ScrollController();
   ScrollController listController3 = ScrollController();
@@ -92,7 +104,7 @@ class _ExerciseTimerState extends State<ExerciseTimer> {
   double digitHeight(BuildContext context) => global.height(context) * .08;
 
   double blockHeightFactor = .175;
-  double blockWidthFactor = .15;
+  double blockWidthFactor = .1;
   double listHeightFactor = 3;
 
   Widget digit(String digit) => Center(
@@ -112,101 +124,188 @@ class _ExerciseTimerState extends State<ExerciseTimer> {
   Widget build(BuildContext context) {
     double sliderWidth = global.width(context) * .7;
 
-    return Container(
-      width: global.width(context) * global.containerWidthFactor,
-      margin: EdgeInsets.symmetric(
-        horizontal: 10,
-        vertical: global.height(context) * .07,
-      ),
-      padding: EdgeInsets.symmetric(
-        horizontal: global.width(context) * .05,
-        vertical: global.height(context) * .05,
-      ),
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        color: global.darkGrey,
-        borderRadius: BorderRadius.circular(global.width(context) * 0.1),
-        boxShadow: [global.darkShadow(context)],
-      ),
-      child: Column(
-        children: [
-          Flexible(
-            flex: 1,
-            child: SizedBox(
-              height: double.infinity,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(
-                    'Rest-Timer',
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.onBackground,
-                      fontWeight: FontWeight.bold,
-                      fontSize: global.width(context) * .08,
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: () => showCustomModalBottomSheet(
-                      context,
-                      ModalBottomSheet(
-                        title: 'The "Rest-Timer"',
-                        titleSize: 28,
-                        height: global.height(context) * .425,
-                        content: Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: global.width(context) * .1,
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8.0),
+      child: SizedBox(
+        child: Container(
+          width: global.containerWidth(context),
+          margin: EdgeInsets.symmetric(
+            horizontal: 10,
+            vertical: global.height(context) * .07,
+          ),
+          padding: EdgeInsets.symmetric(
+            horizontal: global.width(context) * .05,
+            vertical: global.height(context) * .05,
+          ),
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: global.darkGrey,
+            borderRadius: BorderRadius.circular(global.width(context) * 0.1),
+            boxShadow: [global.darkShadow(context)],
+          ),
+          child: Stack(
+            children: [
+              // TIMER
+              ScrollConfiguration(
+                behavior:
+                    ScrollConfiguration.of(context).copyWith(scrollbars: false),
+                child: IgnorePointer(
+                  ignoring: true,
+                  child: global.gradient(
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: global.height(context) * blockHeightFactor,
+                          width: global.width(context) * blockWidthFactor,
+                          child: Row(
+                            children: [
+                              Container(
+                                alignment: Alignment.center,
+                                width: global.width(context) * blockWidthFactor,
+                                height: digitHeight(context) * listHeightFactor,
+                                child: ListView(
+                                  controller: listController3,
+                                  children: [
+                                    digit(''),
+                                    ...List.generate(10, (index) => index)
+                                        .map((e) {
+                                      bool visible = minutes % 10 == e;
+
+                                      return AnimatedOpacity(
+                                        duration:
+                                            global.standardAnimationDuration,
+                                        opacity: visible ? 1 : 0,
+                                        child: digit('0'),
+                                      );
+                                    }),
+                                    digit(''),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
-                          child: Text(
-                            'The "Rest-Timer" starts after you enter a set. It will automaticly stop after 6 minutes. Optimal rest depends on muscle size, the bigger the muscle the longer the rest. Studies tend to say 2-4m is optimal!',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.onBackground,
-                              fontSize: global.width(context) * .04,
+                        ),
+                        SizedBox(
+                          height: global.height(context) * blockHeightFactor,
+                          width: global.width(context) * blockWidthFactor,
+                          child: Row(
+                            children: [
+                              Container(
+                                alignment: Alignment.center,
+                                width: global.width(context) * blockWidthFactor,
+                                height: digitHeight(context) * listHeightFactor,
+                                child: ListView(
+                                  controller: listController3,
+                                  children: [
+                                    digit(''),
+                                    ...List.generate(10, (index) => index)
+                                        .map((e) {
+                                      bool visible = minutes % 10 == e;
+
+                                      return AnimatedOpacity(
+                                        duration:
+                                            global.standardAnimationDuration,
+                                        opacity: visible ? 1 : 0,
+                                        child: digit('$e'),
+                                      );
+                                    }),
+                                    digit(''),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: global.height(context) * blockHeightFactor,
+                          width: global.width(context) * blockWidthFactor,
+                          child: Container(
+                            margin: EdgeInsets.only(
+                              top: digitHeight(context),
+                            ),
+                            alignment: Alignment.center,
+                            width: global.width(context) * .04,
+                            height: digitHeight(context),
+                            child: Text(
+                              ':',
+                              textAlign: TextAlign.center,
+                              style: digitTextStyle(context),
                             ),
                           ),
                         ),
-                        submitButtonText: 'Got it!',
-                      ),
-                    ),
-                    icon: Icon(
-                      CupertinoIcons.info_circle,
-                      color: Theme.of(context).colorScheme.onBackground,
-                      size: global.width(context) * .075,
+                        SizedBox(
+                          height: global.height(context) * blockHeightFactor,
+                          width: global.width(context) * blockWidthFactor,
+                          child: Row(
+                            children: [
+                              Container(
+                                alignment: Alignment.center,
+                                width: global.width(context) * blockWidthFactor,
+                                height: digitHeight(context) * listHeightFactor,
+                                child: ListView(
+                                  controller: listController2,
+                                  children: [
+                                    digit(' '),
+                                    ...List.generate(10, (index) => index)
+                                        .map((e) {
+                                      bool visible =
+                                          ((seconds - (seconds % 10)) / 10) ==
+                                              e;
+
+                                      return AnimatedOpacity(
+                                        duration:
+                                            global.standardAnimationDuration,
+                                        opacity: visible ? 1 : 0,
+                                        child: digit('$e'),
+                                      );
+                                    }),
+                                    digit(' '),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: global.height(context) * blockHeightFactor,
+                          width: global.width(context) * blockWidthFactor,
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                width: global.width(context) * blockWidthFactor,
+                                height: digitHeight(context) * listHeightFactor,
+                                child: ListView(
+                                  controller: listController1,
+                                  children: [
+                                    digit(' '),
+                                    ...List.generate(10, (index) => index)
+                                        .map((e) {
+                                      bool visible = (seconds % 10) == e;
+
+                                      return AnimatedOpacity(
+                                        duration:
+                                            global.standardAnimationDuration,
+                                        opacity: visible ? 1 : 0,
+                                        child: digit('$e'),
+                                      );
+                                    }),
+                                    digit(' '),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              ),
-            ),
-          ),
-          Flexible(
-            flex: 2,
-            child: global.gradient(
-              SizedBox(
-                height: double.infinity,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    digit("0"),
-                    digit(minutes.toString()),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 8.0),
-                      child: Text(
-                        ":",
-                        style: digitTextStyle(context),
-                      ),
-                    ),
-                    digit("0"),
-                    digit("0"),
-                  ],
                 ),
               ),
-            ),
-          ),
-          Flexible(
-            flex: 1,
-            child: global.gradient(
-              SizedBox(
-                height: double.infinity,
+              Container(
+                margin: EdgeInsets.only(top: global.height(context) * .2),
+                width: double.infinity,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,

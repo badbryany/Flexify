@@ -53,15 +53,15 @@ class _AddEditSetState extends State<AddEditSet> {
         repsController.text = sets[i].reps.toString();
         weightController.text = sets[i].weight.toString();
         bodyweight = sets[i].isBodyweight;
-        durTime = Duration(seconds: sets[i].durationInSeconds ?? 0);
 
-        if (durTime != Duration.zero) {
+        if (sets[i].isDuration) {
           activeTypeIndex = 1;
           typeInputController.animateTo(
             global.width(context) * activeTypeIndex,
             duration: global.standardAnimationDuration,
             curve: Curves.easeInOutCirc,
           );
+          durTime = sets[i].getDuration();
         }
 
         setState(() {});
@@ -76,15 +76,15 @@ class _AddEditSetState extends State<AddEditSet> {
     repsController.text = widget.set!.reps.toString();
     weightController.text = widget.set!.weight.toString();
     bodyweight = widget.set!.isBodyweight;
-    durTime = Duration(seconds: widget.set!.durationInSeconds ?? 0);
 
-    if (durTime != Duration.zero) {
+    if (widget.set!.isDuration) {
       activeTypeIndex = 1;
       typeInputController.animateTo(
         global.width(context) * activeTypeIndex,
         duration: global.standardAnimationDuration,
         curve: Curves.easeInOutCirc,
       );
+      durTime = widget.set!.getDuration();
     }
 
     setState(() {});
@@ -211,6 +211,7 @@ class _AddEditSetState extends State<AddEditSet> {
                           weight: double.tryParse(
                             weightController.text.replaceAll(',', '.'),
                           )!,
+                          isDuration: activeTypeIndex == 1,
                         ),
                         null,
                       );
@@ -224,6 +225,7 @@ class _AddEditSetState extends State<AddEditSet> {
                           reps: newReps,
                           weight: newWeight,
                           durationInSeconds: durTime.inSeconds,
+                          isDuration: activeTypeIndex == 1,
                         ),
                       );
                     }

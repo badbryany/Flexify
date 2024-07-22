@@ -37,6 +37,8 @@ class _ExerciseButtonState extends State<ExerciseButton> {
         isBodyweight: false,
         reps: 0,
         weight: 0,
+        durationInSeconds: 0,
+        isDuration: false,
       );
     }
 
@@ -113,6 +115,8 @@ class _ExerciseButtonState extends State<ExerciseButton> {
             reps: 0,
             weight: 0,
             isBodyweight: false,
+            isDuration: false,
+            durationInSeconds: 0,
             setID: -10,
           ),
           empty: true,
@@ -278,9 +282,12 @@ class _ExerciseButtonState extends State<ExerciseButton> {
           alignment: Alignment.center,
           duration: global.standardAnimationDuration,
           width: global.width(context) * global.containerWidthFactor,
-          height: isExpanded ? global.height(context) * .48 : global.height(context) * .125 + global.width(context) * .05 ,
+          height: isExpanded
+              ? global.height(context) * .48
+              : global.height(context) * .125 + global.width(context) * .05,
           margin: EdgeInsets.all(global.width(context) * 0.02),
-          padding: EdgeInsets.symmetric(horizontal: global.width(context) * 0.05),
+          padding:
+              EdgeInsets.symmetric(horizontal: global.width(context) * 0.05),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(global.borderRadius),
             color: global.darkGrey,

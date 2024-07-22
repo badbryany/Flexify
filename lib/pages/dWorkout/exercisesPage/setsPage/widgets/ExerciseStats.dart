@@ -1,8 +1,8 @@
-import 'package:flexify/widgets/ModalBottomSheet.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
 import 'package:flexify/data/exerciseModels.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class ExerciseStats extends StatefulWidget {
   const ExerciseStats({
@@ -21,26 +21,18 @@ class ExerciseStats extends StatefulWidget {
 class _ExerciseStatsState extends State<ExerciseStats> {
   DateTime firstDate = DateTime.now();
   DateTime lastDate = DateTime.now();
+
   String statsValueTag = 'Weight';
   List<String> statsValueTags = [
     'Weight',
     'Repetitions',
     'Weight per repetition',
-    'Moved weight'
+    'Moved weight',
+    'Duration'
   ];
   List<FlSpot> spots = [];
   double maxX = 0;
   double maxY = 0;
-
-  late FixedExtentScrollController _dayController;
-  int dayIdx = 0;
-  bool daySelected = false;
-  late FixedExtentScrollController _monthController;
-  int monthIdx = 0;
-  bool monthSelected = false;
-  late FixedExtentScrollController _yearController;
-  int yearIdx = 0;
-  bool yearSelected = false;
 
   getData() {
     lastDate = widget.sets.last.date;
@@ -70,6 +62,9 @@ class _ExerciseStatsState extends State<ExerciseStats> {
             y = widget.sets[i].weight / widget.sets[i].reps;
             break;
           case 'Moved weight':
+            y = widget.sets[i].weight * widget.sets[i].reps;
+            break;
+          case 'Duration':
             y = widget.sets[i].weight * widget.sets[i].reps;
             break;
         }
@@ -122,56 +117,75 @@ class _ExerciseStatsState extends State<ExerciseStats> {
   void initState() {
     firstDate = widget.sets.first.date;
     lastDate = widget.sets.last.date;
-    _dayController = FixedExtentScrollController(initialItem: dayIdx);
-    _monthController = FixedExtentScrollController(initialItem: monthIdx);
-    _yearController = FixedExtentScrollController(initialItem: yearIdx);
+
     super.initState();
   }
 
-  pickNewDate(bool first) async {
-    DateTime? newDate = await showDatePicker(
+  datePicker(BuildContext context, bool start) {
+    DateTime? startDate;
+    DateTime? endDate;
+
+    showDialog(
       context: context,
-      builder: (context, child) => Theme(
-        data: ThemeData(
-          fontFamily: 'KronaOne',
-          brightness: Brightness.dark,
-          colorScheme: ColorScheme(
-            brightness: Brightness.dark,
-            primary: Colors.transparent,
-            onPrimary: Theme.of(context).colorScheme.primary,
-            secondary: Colors.red,
-            onSecondary: Colors.red,
-            error: Colors.red,
-            onError: Colors.red,
-            background: Colors.green,
-            onBackground: Colors.transparent,
-            surface: Theme.of(context).colorScheme.background,
-            onSurface: Theme.of(context).focusColor,
-          ),
-          textButtonTheme: TextButtonThemeData(
-            style: TextButton.styleFrom(
-              foregroundColor: Theme.of(context).colorScheme.primary,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            'Choose a Range',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onBackground,
+              fontSize: global.width(context) * .075,
             ),
           ),
-        ),
-        child: child!,
-      ),
-      firstDate: widget.sets.first.date,
-      lastDate: widget.sets.last.date,
-      initialDate: first ? firstDate : lastDate,
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('cancle'),
+            ),
+            TextButton(
+              onPressed: () {
+                if (startDate != null && endDate != null) {
+                  firstDate = startDate!;
+                  lastDate = endDate!;
+                  setState(() {});
+                }
+                Navigator.pop(context);
+              },
+              child: const Text('Save'),
+            ),
+          ],
+          content: SizedBox(
+            height: global.height(context) * .4,
+            width: global.height(context) * .4,
+            child: SfDateRangePicker(
+              onSelectionChanged: (DateRangePickerSelectionChangedArgs args) {
+                startDate = (args.value as PickerDateRange).startDate;
+                endDate = (args.value as PickerDateRange).endDate;
+              },
+              selectionMode: DateRangePickerSelectionMode.range,
+              initialSelectedDate: DateTime.now(),
+              todayHighlightColor: Theme.of(context).colorScheme.primary,
+              selectionColor: Theme.of(context).colorScheme.onPrimary,
+              backgroundColor: Theme.of(context).colorScheme.background,
+              headerStyle: DateRangePickerHeaderStyle(
+                textAlign: TextAlign.center,
+                backgroundColor: Theme.of(context).colorScheme.background,
+                textStyle: TextStyle(
+                  color: Theme.of(context).colorScheme.onBackground,
+                  fontSize: 18,
+                ),
+              ),
+              monthViewSettings: const DateRangePickerMonthViewSettings(
+                firstDayOfWeek: 1,
+              ),
+              selectionTextStyle: const TextStyle(color: Colors.black),
+              maxDate: widget.sets.last.date,
+              minDate: widget.sets.first.date,
+            ),
+          ),
+        );
+      },
     );
-
-    if (newDate == null) return;
-
-    if (first) {
-      firstDate = newDate;
-      if (firstDate.isAfter(lastDate)) {
-        lastDate = firstDate;
-      }
-    } else {
-      lastDate = newDate;
-    }
-    setState(() {});
   }
 
   @override
@@ -231,10 +245,12 @@ class _ExerciseStatsState extends State<ExerciseStats> {
                       ),
                       Center(
                         child: GestureDetector(
-                          onTap: () => setState(() {
-                            firstDate = widget.sets.first.date;
-                            lastDate = widget.sets.last.date;
-                          }),
+                          // onTap: () => setState(
+                          //   () {
+                          //     firstDate = widget.sets.first.date;
+                          //     lastDate = widget.sets.last.date;
+                          //   },
+                          // ),
                           child: Container(
                             alignment: Alignment.center,
                             width: global.width(context) * 0.1,
@@ -381,126 +397,6 @@ class _ExerciseStatsState extends State<ExerciseStats> {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  datePicker(BuildContext context, bool start) {
-    showCustomModalBottomSheet(
-      context,
-      ModalBottomSheet(
-        title: start ? 'Starting Date' : 'Ending Date',
-        titleSize: global.width(context) * .1,
-        height: global.height(context) * .5,
-        content: Container(
-          height: global.height(context) * .175,
-          padding: EdgeInsets.only(
-            bottom: global.height(context) * .05,
-          ),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              Container(
-                width: global.width(context) * .8,
-                height: global.height(context) * .06,
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.white,
-                    width: 2,
-                  ),
-                  borderRadius: BorderRadius.circular(
-                    global.width(context) * 0.2,
-                  ),
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: global.width(context) * 0.1,
-                        child: ListWheelScrollView.useDelegate(
-                          controller: _dayController,
-                          onSelectedItemChanged: (index) {
-                            daySelected = true;
-                            setState(() {});
-                          },
-                          itemExtent: 50,
-                          perspective: 0.005,
-                          diameterRatio: 3.5,
-                          physics: const FixedExtentScrollPhysics(),
-                          childDelegate: ListWheelChildBuilderDelegate(
-                            childCount: 31,
-                            // childCount: global.daysInMonth(
-                            //   _monthController.selectedItem,
-                            //   _yearController.selectedItem,
-                            // ),
-                            builder: (context, index) {
-                              return DayTile(day: index);
-                            },
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: global.width(context) * .12,
-                      ),
-                      SizedBox(
-                        width: global.width(context) * 0.1,
-                        child: ListWheelScrollView.useDelegate(
-                          controller: _monthController,
-                          onSelectedItemChanged: (index) {
-                            monthSelected = true;
-                            setState(() {});
-                          },
-                          itemExtent: 50,
-                          perspective: 0.005,
-                          diameterRatio: 3.5,
-                          physics: const FixedExtentScrollPhysics(),
-                          childDelegate: ListWheelChildBuilderDelegate(
-                            childCount: 12,
-                            builder: (context, index) {
-                              return MonthTile(month: index);
-                            },
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: global.width(context) * .11,
-                      ),
-                      SizedBox(
-                        width: global.width(context) * 0.15,
-                        child: ListWheelScrollView.useDelegate(
-                          controller: _yearController,
-                          onSelectedItemChanged: (index) {
-                            yearSelected = true;
-                            setState(() {});
-                          },
-                          itemExtent: 50,
-                          perspective: 0.005,
-                          diameterRatio: 3.5,
-                          physics: const FixedExtentScrollPhysics(),
-                          childDelegate: ListWheelChildBuilderDelegate(
-                            childCount: global.yearsSinceRelease,
-                            builder: (context, index) {
-                              return YearTile(year: index);
-                            },
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-        bigTitle: true,
-        submitButtonText: 'Enter',
       ),
     );
   }
