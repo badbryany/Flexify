@@ -1,8 +1,8 @@
+import 'package:flexify/widgets/ModalBottomSheet.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
 import 'package:flexify/data/exerciseModels.dart';
-import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class ExerciseStats extends StatefulWidget {
   const ExerciseStats({
@@ -21,18 +21,26 @@ class ExerciseStats extends StatefulWidget {
 class _ExerciseStatsState extends State<ExerciseStats> {
   DateTime firstDate = DateTime.now();
   DateTime lastDate = DateTime.now();
-
   String statsValueTag = 'Weight';
   List<String> statsValueTags = [
     'Weight',
     'Repetitions',
     'Weight per repetition',
-    'Moved weight',
-    'Duration'
+    'Moved weight'
   ];
   List<FlSpot> spots = [];
   double maxX = 0;
   double maxY = 0;
+
+  late FixedExtentScrollController _dayController;
+  int dayIdx = 0;
+  bool daySelected = false;
+  late FixedExtentScrollController _monthController;
+  int monthIdx = 0;
+  bool monthSelected = false;
+  late FixedExtentScrollController _yearController;
+  int yearIdx = 0;
+  bool yearSelected = false;
 
   getData() {
     lastDate = widget.sets.last.date;
@@ -64,9 +72,6 @@ class _ExerciseStatsState extends State<ExerciseStats> {
           case 'Moved weight':
             y = widget.sets[i].weight * widget.sets[i].reps;
             break;
-          case 'Duration':
-            y = widget.sets[i].weight * widget.sets[i].reps;
-            break;
         }
 
         spots.add(FlSpot(i.toDouble() - offset, y));
@@ -75,7 +80,7 @@ class _ExerciseStatsState extends State<ExerciseStats> {
       }
     }
 
-    maxX = spots.length.toDouble() - 1;
+    maxX = spots.length.toDouble();
     maxY *= 1.35;
 
     if (maxX == 0 && maxY == 0) {
@@ -117,75 +122,56 @@ class _ExerciseStatsState extends State<ExerciseStats> {
   void initState() {
     firstDate = widget.sets.first.date;
     lastDate = widget.sets.last.date;
-
+    _dayController = FixedExtentScrollController(initialItem: dayIdx);
+    _monthController = FixedExtentScrollController(initialItem: monthIdx);
+    _yearController = FixedExtentScrollController(initialItem: yearIdx);
     super.initState();
   }
 
-  datePicker(BuildContext context, bool start) {
-    DateTime? startDate;
-    DateTime? endDate;
-
-    showDialog(
+  pickNewDate(bool first) async {
+    DateTime? newDate = await showDatePicker(
       context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(
-            'Choose a Range',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.onBackground,
-              fontSize: global.width(context) * .075,
+      builder: (context, child) => Theme(
+        data: ThemeData(
+          fontFamily: 'KronaOne',
+          brightness: Brightness.dark,
+          colorScheme: ColorScheme(
+            brightness: Brightness.dark,
+            primary: Colors.transparent,
+            onPrimary: Theme.of(context).colorScheme.primary,
+            secondary: Colors.red,
+            onSecondary: Colors.red,
+            error: Colors.red,
+            onError: Colors.red,
+            background: Colors.green,
+            onBackground: Colors.transparent,
+            surface: Theme.of(context).colorScheme.background,
+            onSurface: Theme.of(context).focusColor,
+          ),
+          textButtonTheme: TextButtonThemeData(
+            style: TextButton.styleFrom(
+              foregroundColor: Theme.of(context).colorScheme.primary,
             ),
           ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text('cancle'),
-            ),
-            TextButton(
-              onPressed: () {
-                if (startDate != null && endDate != null) {
-                  firstDate = startDate!;
-                  lastDate = endDate!;
-                  setState(() {});
-                }
-                Navigator.pop(context);
-              },
-              child: const Text('Save'),
-            ),
-          ],
-          content: SizedBox(
-            height: global.height(context) * .4,
-            width: global.height(context) * .4,
-            child: SfDateRangePicker(
-              onSelectionChanged: (DateRangePickerSelectionChangedArgs args) {
-                startDate = (args.value as PickerDateRange).startDate;
-                endDate = (args.value as PickerDateRange).endDate;
-              },
-              selectionMode: DateRangePickerSelectionMode.range,
-              initialSelectedDate: DateTime.now(),
-              todayHighlightColor: Theme.of(context).colorScheme.primary,
-              selectionColor: Theme.of(context).colorScheme.onPrimary,
-              backgroundColor: Theme.of(context).colorScheme.background,
-              headerStyle: DateRangePickerHeaderStyle(
-                textAlign: TextAlign.center,
-                backgroundColor: Theme.of(context).colorScheme.background,
-                textStyle: TextStyle(
-                  color: Theme.of(context).colorScheme.onBackground,
-                  fontSize: 18,
-                ),
-              ),
-              monthViewSettings: const DateRangePickerMonthViewSettings(
-                firstDayOfWeek: 1,
-              ),
-              selectionTextStyle: const TextStyle(color: Colors.black),
-              maxDate: widget.sets.last.date,
-              minDate: widget.sets.first.date,
-            ),
-          ),
-        );
-      },
+        ),
+        child: child!,
+      ),
+      firstDate: widget.sets.first.date,
+      lastDate: widget.sets.last.date,
+      initialDate: first ? firstDate : lastDate,
     );
+
+    if (newDate == null) return;
+
+    if (first) {
+      firstDate = newDate;
+      if (firstDate.isAfter(lastDate)) {
+        lastDate = firstDate;
+      }
+    } else {
+      lastDate = newDate;
+    }
+    setState(() {});
   }
 
   @override
@@ -202,8 +188,11 @@ class _ExerciseStatsState extends State<ExerciseStats> {
                 global.width(context) * .4 + global.height(context) * .4 - 200,
             width: global.containerWidth(context),
             margin: const EdgeInsets.all(10),
-            padding: EdgeInsets.all(
-              global.width(context) * .05,
+            padding: const EdgeInsets.only(
+              top: 20,
+              right: 20,
+              left: 20,
+              bottom: 5,
             ),
             alignment: Alignment.center,
             decoration: BoxDecoration(
@@ -245,12 +234,10 @@ class _ExerciseStatsState extends State<ExerciseStats> {
                       ),
                       Center(
                         child: GestureDetector(
-                          // onTap: () => setState(
-                          //   () {
-                          //     firstDate = widget.sets.first.date;
-                          //     lastDate = widget.sets.last.date;
-                          //   },
-                          // ),
+                          onTap: () => setState(() {
+                            firstDate = widget.sets.first.date;
+                            lastDate = widget.sets.last.date;
+                          }),
                           child: Container(
                             alignment: Alignment.center,
                             width: global.width(context) * 0.1,
@@ -337,66 +324,175 @@ class _ExerciseStatsState extends State<ExerciseStats> {
                             spots: spots,
                             tag: statsValueTag,
                           ))),
-                SizedBox(
-                  height: global.height(context) * .02,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                      color: global.lightGrey,
-                      borderRadius: BorderRadius.circular(30)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Text(
-                        'Choose Metric:',
-                        style: TextStyle(
-                            color: Theme.of(context).colorScheme.onBackground,
-                            fontSize: global.width(context) * .03),
-                      ),
-                      const SizedBox(),
-                      Theme(
-                        data: Theme.of(context).copyWith(
-                            canvasColor:
-                                Theme.of(context).colorScheme.background,
-                            focusColor: Colors.transparent),
-                        child: DropdownButton(
-                          value: statsValueTag,
-                          items: [
-                            ...statsValueTags.map(
-                              (e) => DropdownMenuItem(
-                                value: e,
-                                child: Text(
-                                  e,
-                                  style: TextStyle(
-                                      fontFamily: 'KronaOne',
-                                      color: Colors.white,
-                                      fontSize: global.width(context) * .03),
-                                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text(
+                      'Choose Metric:',
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.onBackground,
+                          fontSize: global.width(context) * .03),
+                    ),
+                    const SizedBox(),
+                    Theme(
+                      data: Theme.of(context).copyWith(
+                          canvasColor: Theme.of(context).colorScheme.background,
+                          focusColor: Colors.transparent),
+                      child: DropdownButton(
+                        value: statsValueTag,
+                        items: [
+                          ...statsValueTags.map(
+                            (e) => DropdownMenuItem(
+                              value: e,
+                              child: Text(
+                                e,
+                                style: TextStyle(
+                                    fontFamily: 'KronaOne',
+                                    color: Colors.white,
+                                    fontSize: global.width(context) * .03),
                               ),
-                            )
-                          ],
-                          iconDisabledColor: Colors.white,
-                          iconEnabledColor: Colors.white,
-                          autofocus: true,
-                          borderRadius: BorderRadius.circular(30),
-                          underline: const SizedBox(),
-                          onChanged: (String? value) {
-                            if (value is String) {
-                              statsValueTag = value;
-                              statsValueTags.remove(value);
-                              statsValueTags.insert(0, value);
-                              setState(() {});
-                            }
-                          },
-                        ),
-                      )
-                    ],
-                  ),
+                            ),
+                          )
+                        ],
+                        iconDisabledColor: Colors.white,
+                        iconEnabledColor: Colors.white,
+                        autofocus: true,
+                        borderRadius: BorderRadius.circular(30),
+                        underline: const SizedBox(),
+                        onChanged: (String? value) {
+                          if (value is String) {
+                            statsValueTag = value;
+                            setState(() {});
+                          }
+                        },
+                      ),
+                    )
+                  ],
                 ),
               ],
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  datePicker(BuildContext context, bool start) {
+    showCustomModalBottomSheet(
+      context,
+      ModalBottomSheet(
+        title: start ? 'Starting Date' : 'Ending Date',
+        titleSize: global.width(context) * .1,
+        height: global.height(context) * .5,
+        content: Container(
+          height: global.height(context) * .175,
+          padding: EdgeInsets.only(
+            bottom: global.height(context) * .05,
+          ),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Container(
+                width: global.width(context) * .8,
+                height: global.height(context) * .06,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.white,
+                    width: 2,
+                  ),
+                  borderRadius: BorderRadius.circular(
+                    global.width(context) * 0.2,
+                  ),
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: global.width(context) * 0.1,
+                        child: ListWheelScrollView.useDelegate(
+                          controller: _dayController,
+                          onSelectedItemChanged: (index) {
+                            daySelected = true;
+                            setState(() {});
+                          },
+                          itemExtent: 50,
+                          perspective: 0.005,
+                          diameterRatio: 3.5,
+                          physics: const FixedExtentScrollPhysics(),
+                          childDelegate: ListWheelChildBuilderDelegate(
+                            childCount: 31,
+                            // childCount: global.daysInMonth(
+                            //   _monthController.selectedItem,
+                            //   _yearController.selectedItem,
+                            // ),
+                            builder: (context, index) {
+                              return DayTile(day: index);
+                            },
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: global.width(context) * .12,
+                      ),
+                      SizedBox(
+                        width: global.width(context) * 0.1,
+                        child: ListWheelScrollView.useDelegate(
+                          controller: _monthController,
+                          onSelectedItemChanged: (index) {
+                            monthSelected = true;
+                            setState(() {});
+                          },
+                          itemExtent: 50,
+                          perspective: 0.005,
+                          diameterRatio: 3.5,
+                          physics: const FixedExtentScrollPhysics(),
+                          childDelegate: ListWheelChildBuilderDelegate(
+                            childCount: 12,
+                            builder: (context, index) {
+                              return MonthTile(month: index);
+                            },
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: global.width(context) * .11,
+                      ),
+                      SizedBox(
+                        width: global.width(context) * 0.15,
+                        child: ListWheelScrollView.useDelegate(
+                          controller: _yearController,
+                          onSelectedItemChanged: (index) {
+                            yearSelected = true;
+                            setState(() {});
+                          },
+                          itemExtent: 50,
+                          perspective: 0.005,
+                          diameterRatio: 3.5,
+                          physics: const FixedExtentScrollPhysics(),
+                          childDelegate: ListWheelChildBuilderDelegate(
+                            childCount: global.yearsSinceRelease,
+                            builder: (context, index) {
+                              return YearTile(year: index);
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        bigTitle: true,
+        submitButtonText: 'Enter',
       ),
     );
   }
@@ -420,141 +516,60 @@ class Statistics extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
+      padding: EdgeInsets.all(global.width(context) * .1),
       height: global.height(context) * 0.225,
-      clipBehavior: Clip.hardEdge,
-      decoration: BoxDecoration(
-          color: global.lightGrey,
-          borderRadius: BorderRadius.circular(30),
-          boxShadow: [global.darkShadow(context)]),
       child: LineChart(
         LineChartData(
-          minX: 0,
-          maxX: maxX,
-          minY: 0,
-          maxY: maxY,
+          baselineX: maxX,
+          baselineY: maxY,
+          gridData: const FlGridData(show: false),
+          lineTouchData: const LineTouchData(
+            enabled: false,
+          ),
+          borderData: FlBorderData(show: false),
           titlesData: FlTitlesData(
-            leftTitles: AxisTitles(
+            show: true,
+            rightTitles: const AxisTitles(
+              sideTitles: SideTitles(showTitles: false),
+            ),
+            topTitles: const AxisTitles(
+              sideTitles: SideTitles(showTitles: false),
+            ),
+            leftTitles: const AxisTitles(
               sideTitles: SideTitles(
                 showTitles: false,
-                getTitlesWidget: (value, meta) {
-                  return value != 0
-                      ? Text(value.round().toString(),
-                          style: const TextStyle(fontSize: 10))
-                      : const SizedBox();
-                },
               ),
             ),
             bottomTitles: AxisTitles(
               sideTitles: SideTitles(
                 showTitles: false,
-                getTitlesWidget: (value, meta) {
-                  return value != 0
-                      ? Text(value.round().toString(),
-                          style: const TextStyle(fontSize: 10))
-                      : const SizedBox();
-                },
-              ),
-            ),
-            topTitles: const AxisTitles(
-              sideTitles: SideTitles(showTitles: false),
-            ),
-            rightTitles: const AxisTitles(
-              sideTitles: SideTitles(showTitles: false),
-            ),
-          ),
-          lineTouchData: LineTouchData(
-            enabled: true,
-            getTouchedSpotIndicator:
-                (LineChartBarData barData, List<int> indicators) {
-              return indicators.map(
-                (int index) {
-                  const line = FlLine(
-                    color: Colors.white,
-                    strokeWidth: 2,
-                    dashArray: [2, 4],
-                  );
-                  return const TouchedSpotIndicatorData(
-                    line,
-                    FlDotData(show: false),
-                  );
-                },
-              ).toList();
-            },
-            getTouchLineEnd: (_, __) => double.infinity,
-            touchTooltipData: LineTouchTooltipData(
-              tooltipBorder: const BorderSide(
-                color: Colors.white,
-                width: 1,
-              ),
-              getTooltipColor: (touchedSpot) => global.darkGrey,
-              tooltipRoundedRadius: 15,
-              tooltipPadding: EdgeInsets.symmetric(
-                  horizontal: global.width(context) * .025,
-                  vertical: global.height(context) * .01),
-              fitInsideHorizontally: true,
-              fitInsideVertically: true,
-              getTooltipItems: (touchedSpots) {
-                return touchedSpots.map(
-                  (LineBarSpot touchedSpot) {
-                    return LineTooltipItem(
-                      "${spots[touchedSpot.spotIndex].y.round()}${global.isKg ? "kg" : "oz"}",
-                      TextStyle(
-                        fontSize: global.width(context) * .0225,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                      ),
-                    );
-                  },
-                ).toList();
-              },
-            ),
-          ),
-          gridData: FlGridData(
-            show: true,
-            getDrawingHorizontalLine: (value) {
-              return FlLine(
-                color: Colors.white.withOpacity(.2),
-                strokeWidth: 1,
-              );
-            },
-            drawVerticalLine: true,
-            getDrawingVerticalLine: (value) {
-              return FlLine(
-                color: Colors.white.withOpacity(.2),
-                strokeWidth: 1,
-              );
-            },
-          ),
-          borderData: FlBorderData(
-            show: false,
-            border: const Border(
-              left: BorderSide(color: Colors.white, width: 2),
-              bottom: BorderSide(color: Colors.white, width: 2),
-              top: BorderSide(color: Colors.transparent),
-              right: BorderSide(color: Colors.transparent),
-            ),
-          ),
-          lineBarsData: [
-            LineChartBarData(
-              spots: spots,
-              isCurved: true,
-              gradient: global.linearGradient,
-              barWidth: 1,
-              dotData: const FlDotData(show: false),
-              belowBarData: BarAreaData(
-                show: true,
-                gradient: LinearGradient(
-                  begin: Alignment.bottomLeft,
-                  end: Alignment.centerRight,
-                  colors: [
-                    const Color(0xffa4fba4).withOpacity(.8),
-                    const Color(0xfff2f58d).withOpacity(.8),
-                  ],
+                getTitlesWidget: (value, meta) => Text(
+                  '${value.round()}',
+                  style: TextStyle(
+                    fontSize: 10,
+                    color: Theme.of(context).colorScheme.onBackground,
+                  ),
                 ),
               ),
             ),
+          ),
+          maxX: maxX,
+          maxY: maxY,
+          minY: 0,
+          minX: 0,
+          lineBarsData: [
+            LineChartBarData(
+              dotData: spots.length == 1
+                  ? const FlDotData(show: true)
+                  : const FlDotData(show: false),
+              color: Theme.of(context).colorScheme.onBackground,
+              spots: spots,
+              isCurved: true,
+            ),
           ],
         ),
+        duration: global.standardAnimationDuration,
+        curve: Curves.linear,
       ),
     );
   }

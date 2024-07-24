@@ -446,6 +446,7 @@ class PageButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: global.height(context) * .1,
+      width: global.containerWidth(context),
       padding: EdgeInsets.symmetric(
         horizontal: global.width(context) * .05,
       ),
@@ -466,7 +467,7 @@ class PageButton extends StatelessWidget {
                 Icon(
                   icon,
                   color: Colors.white,
-                  size: global.width(context) * .1,
+                  size: global.width(context) * .05,
                 ),
               ),
               SizedBox(
@@ -485,7 +486,7 @@ class PageButton extends StatelessWidget {
             Icon(
               Icons.arrow_forward_rounded,
               color: Colors.white,
-              size: global.width(context) * .075,
+              size: global.width(context) * .05,
             ),
           )
         ],

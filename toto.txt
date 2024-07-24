@@ -1,23 +1,22 @@
-PRE-RELEASE CHECKLIST TILL MON 22.
-
-DWorkout
-    - AllExercises
-        - SearchBar Alignment 
-
 DProfile
     - UserInfo
-        - Different Icon for editing profile
-        - Redesign Friendslist Manual
-        - Remove Manual Option from QR ModalBottomSheet
-        - Increase Opacity Remove Friend Button 
-        - Hitbox add friends manually 
-        - Sensible user fields 
+        - Fix Alignment
+        - Stack -> Column + Row
+        - Container -> AnimatedContainer
+    - Redesign Friendslist Manual
+        - Look for Inspiration (Dribble, Figma Community)
+    - Remove Manual Option from QR ModalBottomSheet
+    - Hitbox add friends manually 
+    - Sensible user fields 
+
 DShop 
     ShopSearch
         - Checkout Funnel (Shopify)
-        - Remove Order Tracking (Prelim)
-        - Reduce IconSize 
-        - Text Size etc.
+        - Add Payment Methods
+            -> Apple Pay 
+            -> Samsung Pay 
+            -> Google Pay 
+            -> Paypal
     
 SettingsPage
     - Copy Privacy Policy & Terms of Use 

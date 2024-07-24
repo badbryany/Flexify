@@ -1,10 +1,11 @@
 import 'package:collection/collection.dart';
 import 'package:flexify/pages/dShop/pages/3_addressPage.dart';
-import 'package:flexify/pages/dShop/pages/1_ordersPage.dart';
+// import 'package:flexify/pages/dShop/pages/1_ordersPage.dart';
 import 'package:flexify/pages/dShop/pages/4_walletPage.dart';
 import 'package:flexify/pages/dShop/pages/cartPage.dart';
 import 'package:flexify/pages/dShop/pages/productPage/productPage.dart';
 import 'package:flexify/pages/dShop/pages/2_savedPage.dart';
+import 'package:flexify/widgets/BounceElement.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
@@ -27,13 +28,13 @@ class _ShopSearchState extends State<ShopSearch>
   bool expanded = false;
 
   List<List> sections = [
-    [
-      'Orders',
-      OrdersPage(
-        orders: shopData.dummyOrders,
-      ),
-      Icons.list_alt_rounded
-    ],
+    // [
+    //   'Orders',
+    //   OrdersPage(
+    //     orders: shopData.dummyOrders,
+    //   ),
+    //   Icons.list_alt_rounded
+    // ],
     [
       'Saved',
       SavedPage(
@@ -87,7 +88,7 @@ class _ShopSearchState extends State<ShopSearch>
             top: global.height(context) * .02,
           ),
           height: expanded
-              ? global.height(context) * .475
+              ? global.height(context) * .475 * (3/4)
               : global.height(context) * .15,
           width: global.containerWidth(context),
           decoration: global.boxDecoration(context),
@@ -126,7 +127,7 @@ class _ShopSearchState extends State<ShopSearch>
                   child: Icon(
                     Icons.shopping_bag_rounded,
                     color: Colors.white,
-                    size: global.height(context) * .035,
+                    size: global.height(context) * .03,
                   ),
                 ),
               ],
@@ -134,36 +135,38 @@ class _ShopSearchState extends State<ShopSearch>
           ),
         ),
         Positioned(
-          top: global.height(context) * .075,
+          top: global.height(context) * .055,
           child: AnimatedOpacity(
             duration: global.standardAnimationDuration * .5,
             opacity: expanded ? 1 : 0,
             child: Column(
               children: [
-                SizedBox(
-                  height: global.height(context) * .4,
-                  width: global.containerWidth(context),
-                  child: Column(
-                    children: sections.mapIndexed(
-                      (idx, e) {
-                        return GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return sections[idx][1];
-                                },
-                              ),
-                            );
-                          },
-                          child: PageButton(
-                              icon: sections[idx][2],
-                              title: sections[idx][0],
-                              border: idx != 3 ? true : false),
-                        );
-                      },
-                    ).toList(),
+                GestureDetector(
+                  child: SizedBox(
+                    height: global.height(context) * .4,
+                    width: global.containerWidth(context),
+                    child: Column(
+                      children: sections.mapIndexed(
+                        (idx, e) {
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return sections[idx][1];
+                                  },
+                                ),
+                              );
+                            },
+                            child: PageButton(
+                                icon: sections[idx][2],
+                                title: sections[idx][0],
+                                border: idx != 3 ? true : false),
+                          );
+                        },
+                      ).toList(),
+                    ),
                   ),
                 ),
               ],
@@ -181,28 +184,43 @@ class _ShopSearchState extends State<ShopSearch>
             child: Stack(
               alignment: Alignment.center,
               children: [
-                AnimatedContainer(
-                  duration: isShopSearchFilled()
-                      ? const Duration(seconds: 0)
-                      : global.standardAnimationDuration * 2,
-                  curve: const _ReLUCurve._(),
-                  height: global.height(context) * .05,
-                  width: (global.containerWidth(context) -
-                      global.width(context) * .1),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: const Radius.circular(30),
-                      topRight: const Radius.circular(30),
-                      bottomLeft: isShopSearchFilled()
-                          ? Radius.zero
-                          : const Radius.circular(30),
-                      bottomRight: isShopSearchFilled()
-                          ? Radius.zero
-                          : const Radius.circular(30),
-                    ),
-                    border: Border.all(
-                      color: Colors.black,
+                BounceElement(
+                  onTap: () {
+                    if (expanded) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return sections[0][1];
+                          },
+                        ),
+                      );
+                    }
+                  },
+                  child: AnimatedContainer(
+                    padding: EdgeInsets.symmetric(horizontal: global.width(context) * .025),
+                    duration: isShopSearchFilled()
+                        ? const Duration(seconds: 0)
+                        : global.standardAnimationDuration * 2,
+                    curve: const _ReLUCurve._(),
+                    height: global.height(context) * .05,
+                    width: (global.containerWidth(context) -
+                        global.width(context) * .1),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: const Radius.circular(30),
+                        topRight: const Radius.circular(30),
+                        bottomLeft: isShopSearchFilled()
+                            ? Radius.zero
+                            : const Radius.circular(30),
+                        bottomRight: isShopSearchFilled()
+                            ? Radius.zero
+                            : const Radius.circular(30),
+                      ),
+                      border: Border.all(
+                        color: Colors.black,
+                      ),
                     ),
                   ),
                 ),

@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:flexify/pages/dWorkout/exercisesPage/createNewExercisePage.dart';
 import 'package:flexify/widgets/BounceElement.dart';
 import 'package:flexify/pages/dWorkout/exercisesPage/widgets/exerciseButton.dart';
-import 'package:flexify/widgets/SearchBar.dart';
+// import 'package:flexify/widgets/ButtonLibrary/AnimatedIconButton.dart';
+import 'package:flexify/widgets/AnimatedSearchBar.dart';
+// import 'package:flexify/widgets/SearchBar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/exerciseModels.dart';
@@ -33,7 +35,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
 
   bool loadingDone = false;
   bool connectedToInternet = true;
-  int _searchBarOpen = 0;
+  int _searchBarOpen = 1;
   Duration loadingSpeed = Duration.zero;
 
   StreamSubscription<http.Response>? searchStream;
@@ -202,32 +204,6 @@ class _ExercisesPageState extends State<ExercisesPage> {
 
   @override
   Widget build(BuildContext context) {
-    Widget animSearchBar = AnimSearchBar(
-      color: global.darkGrey,
-      textFieldColor: global.darkGrey,
-      textColor: Colors.white,
-      helpText: 'Add exercise',
-      width: global.width(context) * global.containerWidthFactor * 0.95,
-      textController: _controller,
-      suffixIcon: Icon(
-        Icons.clear,
-        color: Theme.of(context).focusColor,
-      ),
-      open: _searchBarOpen == 1,
-      onSuffixTap: () async {
-        await getData();
-        _controller.clear();
-      },
-      onToggle: (int open) {
-        setState(() => _searchBarOpen = open);
-        if (open == 1) {
-          searchForExercises();
-        }
-      },
-      closeSearchOnSuffixTap: true,
-      autoFocus: true,
-    );
-
     return Scaffold(
       body: SafeArea(
         child: PopScope(
@@ -244,20 +220,16 @@ class _ExercisesPageState extends State<ExercisesPage> {
             child: ListView(
               physics: const BouncingScrollPhysics(),
               children: [
-                Container(
-                  width: global.width(context),
-                  height: global.height(context) * .15,
-                  padding: _searchBarOpen == 1
-                      ? EdgeInsets.only(
-                          right: global.width(context) * 0.04,
-                        )
-                      : const EdgeInsets.all(0),
+                Padding(
+                  padding: EdgeInsets.all(global.height(context) * .025),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: _searchBarOpen == 1
+                        ? MainAxisAlignment.spaceBetween
+                        : MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Visibility(
-                        visible: _searchBarOpen == 0,
+                        visible: _searchBarOpen == 1,
                         child: BounceElement(
                           onTap: () => Navigator.pop(context),
                           child: Container(
@@ -279,32 +251,45 @@ class _ExercisesPageState extends State<ExercisesPage> {
                           ),
                         ),
                       ),
-                      AnimatedContainer(
-                        duration: global.standardAnimationDuration,
-                        width: global.width(context) *
-                            0.5 *
-                            (_searchBarOpen == 0 ? 1 : 0),
-                        child: AnimatedOpacity(
-                          duration: global.standardAnimationDuration,
-                          opacity: _searchBarOpen == 0 ? 1 : 0,
-                          child: Text(
-                            'All Exercises',
-                            textAlign: TextAlign.center,
-                            maxLines: 1,
-                            style: TextStyle(
-                              color: Theme.of(context).focusColor,
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: -1,
-                              fontSize: global.width(context) * .075,
-                            ),
+                      Visibility(
+                        visible: _searchBarOpen == 1,
+                        child: Text(
+                          'All Exercises',
+                          textAlign: TextAlign.center,
+                          maxLines: 1,
+                          style: TextStyle(
+                            color: Theme.of(context).focusColor,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: -1,
+                            fontSize: global.width(context) * .075,
                           ),
                         ),
                       ),
-                      animSearchBar,
+                      AnimatedSearchBar(
+                        isOpen: _searchBarOpen == 0,
+                        radius: global.width(context) * 0.075,
+                        searchBarWidth: Tuple(
+                          global.containerWidth(context) - global.width(context) * .1,
+                          global.width(context) * 0.15,
+                        ),
+                        backgroundColor: global.darkGrey,
+                        searchController: _controller,
+                        duration: const Duration(milliseconds: 0),
+                        iconSize: global.width(context) * 0.055,
+                        onTap: () {
+                          _searchBarOpen == 0
+                              ? _searchBarOpen = 1
+                              : _searchBarOpen = 0;
+                          setState(() {});
+                        },
+                        openIcon: Icons.close,
+                        closedIcon: Icons.search,
+                        fadeDuration: const Duration(milliseconds: 500),
+                      ),
                     ],
                   ),
                 ),
-                _searchBarOpen == 0
+                _searchBarOpen == 1
                     ? Column(
                         key: ValueKey(_searchBarOpen),
                         children: [
