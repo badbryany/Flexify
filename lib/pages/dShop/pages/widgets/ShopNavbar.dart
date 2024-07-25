@@ -46,7 +46,7 @@ class ShopNavbar extends StatelessWidget {
             ),
           ),
           Container(
-            width: global.width(context) * .6,
+            width: global.width(context) * .5,
             alignment: Alignment.center,
             child: Text(
               title,

@@ -271,9 +271,7 @@ class OrderItemWidget extends StatelessWidget {
         clipBehavior: Clip.hardEdge,
         height: global.height(context) * .1,
         decoration: BoxDecoration(
-          border: Border.all(
-            color: Colors.white.withOpacity(.8),
-          ),
+          color: global.lightGrey,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Row(

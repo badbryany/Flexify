@@ -283,7 +283,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
                           setState(() {});
                         },
                         openIcon: Icons.close,
-                        closedIcon: Icons.search,
+                        closedIcon: Icons.add,
                         fadeDuration: const Duration(milliseconds: 500),
                       ),
                     ],

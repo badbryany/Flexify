@@ -35,7 +35,7 @@ class _DashboardShopState extends State<DashboardShop> {
   List<Widget> elements(BuildContext context) => [
         Positioned(
           top: expanded
-              ? global.height(context) * .475
+              ? global.height(context) * .475 * (3/4)
               : global.height(context) * .15,
           child: const ShopBody(),
         ),

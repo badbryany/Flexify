@@ -1,3 +1,4 @@
+Oskar_____________________________________________
 DProfile
     - UserInfo
         - Fix Alignment
@@ -8,16 +9,12 @@ DProfile
     - Remove Manual Option from QR ModalBottomSheet
     - Hitbox add friends manually 
     - Sensible user fields 
+    - Website
+        - Update Pictures
+        - Update Colours
+__________________________________________________
 
-DShop 
-    ShopSearch
-        - Checkout Funnel (Shopify)
-        - Add Payment Methods
-            -> Apple Pay 
-            -> Samsung Pay 
-            -> Google Pay 
-            -> Paypal
-    
+Kian_______________________________________________
 SettingsPage
     - Copy Privacy Policy & Terms of Use 
         - (DuoLingo, Heavy, MCI, etc.)
@@ -26,15 +23,30 @@ SettingsPage
     - Edit Profile 
         - Do we even need this ? 
         - Redesign
-    - Website
-        - Update Pictures
-        - Update Colours
     - Data 
         - Fix Colours
+DShop 
+    - Keyboard Glitch
 
 General
     - showDialog
     - WormEffect global.gradient()
-    
+__________________________________________________
 
 
+Post-Release
+__________________________________________________
+Tech-Tree 
+    - Push
+        - Triceps
+        - Pectorals
+    - Pull
+        - Biceps
+        - Lats
+        - Rhomboids
+    - Core
+        - Abdominals
+        - etc.
+    - Legs
+        - etc.
+__________________________________________________

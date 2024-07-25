@@ -26,10 +26,10 @@ class _WalletPageState extends State<WalletPage> {
               title: 'Wallet',
               titleSize: global.width(context) * .09,
             ),
-            const AddCardWidget(),
+            const AddPaymentMethod(),
             global.mediumHeight(context),
             SizedBox(
-              height: global.height(context) * .65,
+              height: global.height(context) * .725,
               width: global.containerWidth(context),
               child: ListView(
                 children:
@@ -39,6 +39,93 @@ class _WalletPageState extends State<WalletPage> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class AddPaymentMethod extends StatefulWidget {
+  const AddPaymentMethod({super.key});
+
+  @override
+  State<AddPaymentMethod> createState() => _AddPaymentMethodState();
+}
+
+class _AddPaymentMethodState extends State<AddPaymentMethod> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        AnimatedContainer(
+          duration: global.standardAnimationDuration,
+          height: global.height(context) * .15,
+          width: global.containerWidth(context),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30),
+            color: global.darkGrey,
+            boxShadow: global.shadow(context),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Flexible(
+                flex: 2,
+                child: Container(
+                  alignment: Alignment.bottomCenter,
+                  height: double.infinity,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.add,
+                        size: global.width(context) * .06,
+                        color: Colors.white,
+                      ),
+                      SizedBox(
+                        width: global.width(context) * .02,
+                      ),
+                      Text(
+                        'Add Payment Method',
+                        style: TextStyle(fontSize: global.width(context) * .04),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Flexible(
+                flex: 5,
+                child: SizedBox(
+                  width: global.containerWidth(context),
+                  height: double.infinity,
+                  child: const Row(
+                    children: [
+                      Flexible(
+                        flex: 1,
+                        child: SizedBox(width: double.infinity),
+                      ),
+                      Flexible(flex: 8, child: AddCard()),
+                      Flexible(
+                        flex: 1,
+                        child: SizedBox(width: double.infinity),
+                      ),
+                      Flexible(flex: 8, child: AddGooglePay()),
+                      Flexible(
+                        flex: 1,
+                        child: SizedBox(width: double.infinity),
+                      ),
+                      Flexible(flex: 8, child: AddPayPal()),
+                      Flexible(
+                        flex: 1,
+                        child: SizedBox(width: double.infinity),
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
@@ -56,7 +143,7 @@ class CardWidget extends StatelessWidget {
           padding: EdgeInsets.symmetric(
             horizontal: global.width(context) * .05,
           ),
-          height: global.height(context) * .23,
+          height: global.width(context) * .275 + 125,
           width: global.containerWidth(context),
           decoration: BoxDecoration(
               color: global.darkGrey,
@@ -234,8 +321,64 @@ class CardChip extends StatelessWidget {
   }
 }
 
-class AddCardWidget extends StatelessWidget {
-  const AddCardWidget({
+class AddPayPal extends StatelessWidget {
+  const AddPayPal({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {},
+      child: Container(
+        height: global.height(context) * .075,
+        decoration: BoxDecoration(
+            color: global.lightGrey,
+            borderRadius: BorderRadius.circular(30),
+            boxShadow: [global.darkShadow(context)]),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/icon/paypal.png',
+              height: global.width(context) * .05 + 30,
+              width: global.width(context) * .05 + 30,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class AddGooglePay extends StatelessWidget {
+  const AddGooglePay({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {},
+      child: Container(
+        height: global.height(context) * .075,
+        decoration: BoxDecoration(
+            color: global.lightGrey,
+            borderRadius: BorderRadius.circular(30),
+            boxShadow: [global.darkShadow(context)]),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/icon/google.png',
+              height: global.width(context) * .03 + 15,
+              width: global.width(context) * .03 + 15,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class AddCard extends StatelessWidget {
+  const AddCard({
     super.key,
   });
 
@@ -252,26 +395,17 @@ class AddCardWidget extends StatelessWidget {
       },
       child: Container(
         height: global.height(context) * .075,
-        width: global.containerWidth(context),
         decoration: BoxDecoration(
-            color: global.darkGrey,
+            color: global.lightGrey,
             borderRadius: BorderRadius.circular(30),
             boxShadow: [global.darkShadow(context)]),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
-              Icons.add_rounded,
-              size: global.width(context) * .075,
+              Icons.credit_card_rounded,
               color: Colors.white,
-            ),
-            SizedBox(
-              width: global.width(context) * .02,
-            ),
-            Text(
-              'Add new card',
-              style: TextStyle(
-                  color: Colors.white, fontSize: global.width(context) * .05),
+              size: global.width(context) * .05 + 10,
             ),
           ],
         ),
@@ -319,9 +453,9 @@ class CardForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(
-          horizontal: global.width(context) * .05,
-          vertical: global.height(context) * .02,
-          ),
+        horizontal: global.width(context) * .05,
+        vertical: global.height(context) * .02,
+      ),
       height: global.height(context) * .45,
       width: global.containerWidth(context),
       decoration: global.boxDecoration(context),

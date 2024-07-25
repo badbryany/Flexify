@@ -72,8 +72,157 @@ class _ShopSearchState extends State<ShopSearch>
     });
   }
 
+  FocusNode searchFocusNode = FocusNode();
+
   @override
   Widget build(BuildContext context) {
+    var searchBar = AnimatedOpacity(
+      duration: expanded
+          ? global.standardAnimationDuration * .3
+          : global.standardAnimationDuration * 2,
+      curve: Curves.easeInOutCubicEmphasized,
+      opacity: expanded ? 0 : 1,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          BounceElement(
+            onTap: () {
+              if (expanded) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return sections[0][1];
+                    },
+                  ),
+                );
+                closeKeyboard(context);
+              } else {
+                openKeyboard(context);
+              }
+            },
+            child: AnimatedContainer(
+              padding: EdgeInsets.symmetric(
+                  horizontal: global.width(context) * .025),
+              duration: isShopSearchFilled()
+                  ? const Duration(seconds: 0)
+                  : global.standardAnimationDuration * 2,
+              curve: const _ReLUCurve._(),
+              height: global.height(context) * .05,
+              width:
+                  (global.containerWidth(context) - global.width(context) * .1),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: const Radius.circular(30),
+                  topRight: const Radius.circular(30),
+                  bottomLeft: isShopSearchFilled()
+                      ? Radius.zero
+                      : const Radius.circular(30),
+                  bottomRight: isShopSearchFilled()
+                      ? Radius.zero
+                      : const Radius.circular(30),
+                ),
+                border: Border.all(
+                  color: Colors.black,
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+              left: global.width(context) * .03,
+              right: global.width(context) * .02,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    BounceElement(
+                      onTap: () {
+                        if (!expanded) {
+                          openKeyboard(context);
+                        } else {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return sections[0][1];
+                              },
+                            ),
+                          );
+                          closeKeyboard(context);
+                        }
+                      },
+                      child: Icon(
+                        Icons.search,
+                        color: Colors.black,
+                        size: global.height(context) * .02,
+                      ),
+                    ),
+                    SizedBox(
+                      width: global.width(context) * .02,
+                    ),
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      width: global.width(context) * .7 -
+                          global.height(context) * .04,
+                      height: global.height(context) * .05,
+                      child: TextField(
+                        onTap: () {
+                          if (!expanded) {
+                            openKeyboard(context);
+                          } else {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return sections[0][1];
+                                },
+                              ),
+                            );
+                            closeKeyboard(context);
+                          }
+                        },
+                        focusNode: searchFocusNode,
+                        textAlignVertical: TextAlignVertical.top,
+                        controller: widget.shopSearchController,
+                        autofocus: false,
+                        decoration: const InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'Search',
+                          hintStyle: TextStyle(color: Colors.black),
+                          isCollapsed: true,
+                        ),
+                        style: const TextStyle(
+                          color: Colors.black,
+                        ),
+                        cursorColor: Colors.black.withOpacity(.7),
+                        cursorOpacityAnimates: true,
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+                  ],
+                ),
+                IconButton(
+                  highlightColor: Colors.transparent,
+                  icon: Icon(
+                    Icons.clear_rounded,
+                    color: Colors.black,
+                    size: global.height(context) * .02,
+                  ),
+                  onPressed: () {
+                    clearSuffixOnTap(context);
+                  },
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -88,7 +237,7 @@ class _ShopSearchState extends State<ShopSearch>
             top: global.height(context) * .02,
           ),
           height: expanded
-              ? global.height(context) * .475 * (3/4)
+              ? global.height(context) * .475 * (3 / 4)
               : global.height(context) * .15,
           width: global.containerWidth(context),
           decoration: global.boxDecoration(context),
@@ -110,6 +259,7 @@ class _ShopSearchState extends State<ShopSearch>
                     expanded = !expanded;
                     widget.shopSearchController.clear();
                     widget.callback();
+                    closeKeyboard(context);
                     selected = false;
                     setState(() {});
                   },
@@ -148,21 +298,24 @@ class _ShopSearchState extends State<ShopSearch>
                     child: Column(
                       children: sections.mapIndexed(
                         (idx, e) {
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return sections[idx][1];
-                                  },
-                                ),
-                              );
-                            },
-                            child: PageButton(
+                          return AbsorbPointer(
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return sections[idx][1];
+                                    },
+                                  ),
+                                );
+                              },
+                              child: PageButton(
                                 icon: sections[idx][2],
                                 title: sections[idx][0],
-                                border: idx != 3 ? true : false),
+                                border: idx != sections.length - 1 ? true : false,
+                              ),
+                            ),
                           );
                         },
                       ).toList(),
@@ -175,124 +328,28 @@ class _ShopSearchState extends State<ShopSearch>
         ),
         Positioned(
           top: global.height(context) * .075,
-          child: AnimatedOpacity(
-            duration: expanded
-                ? global.standardAnimationDuration * .3
-                : global.standardAnimationDuration * 2,
-            curve: Curves.easeInOutCubicEmphasized,
-            opacity: expanded ? 0 : 1,
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                BounceElement(
-                  onTap: () {
-                    if (expanded) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return sections[0][1];
-                          },
-                        ),
-                      );
-                    }
-                  },
-                  child: AnimatedContainer(
-                    padding: EdgeInsets.symmetric(horizontal: global.width(context) * .025),
-                    duration: isShopSearchFilled()
-                        ? const Duration(seconds: 0)
-                        : global.standardAnimationDuration * 2,
-                    curve: const _ReLUCurve._(),
-                    height: global.height(context) * .05,
-                    width: (global.containerWidth(context) -
-                        global.width(context) * .1),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        topLeft: const Radius.circular(30),
-                        topRight: const Radius.circular(30),
-                        bottomLeft: isShopSearchFilled()
-                            ? Radius.zero
-                            : const Radius.circular(30),
-                        bottomRight: isShopSearchFilled()
-                            ? Radius.zero
-                            : const Radius.circular(30),
-                      ),
-                      border: Border.all(
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(
-                    left: global.width(context) * .03,
-                    right: global.width(context) * .02,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.search,
-                            color: Colors.black,
-                            size: global.height(context) * .02,
-                          ),
-                          SizedBox(
-                            width: global.width(context) * .02,
-                          ),
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            width: global.width(context) * .7 -
-                                global.height(context) * .04,
-                            height: global.height(context) * .05,
-                            child: TextField(
-                              textAlignVertical: TextAlignVertical.top,
-                              controller: widget.shopSearchController,
-                              autofocus: false,
-                              decoration: const InputDecoration(
-                                border: InputBorder.none,
-                                hintText: 'Search',
-                                hintStyle: TextStyle(color: Colors.black),
-                                isCollapsed: true,
-                              ),
-                              style: const TextStyle(
-                                color: Colors.black,
-                              ),
-                              cursorColor: Colors.black.withOpacity(.7),
-                              cursorOpacityAnimates: true,
-                              textAlign: TextAlign.left,
-                            ),
-                          ),
-                        ],
-                      ),
-                      IconButton(
-                        highlightColor: Colors.transparent,
-                        icon: Icon(
-                          Icons.clear_rounded,
-                          color: Colors.black,
-                          size: global.height(context) * .02,
-                        ),
-                        onPressed: () {
-                          clearSuffixOnTap(context);
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
+          child: searchBar,
         ),
       ],
     );
   }
 
+  void closeKeyboard(BuildContext context) {
+    setState(() {
+      FocusScope.of(context).unfocus();
+    });
+  }
+
+  void openKeyboard(BuildContext context) {
+    setState(() {
+      FocusScope.of(context).requestFocus(searchFocusNode);
+    });
+  }
+
   void clearSuffixOnTap(BuildContext context) {
     setState(() {
+      closeKeyboard(context);
       widget.shopSearchController.clear();
-      FocusScope.of(context).unfocus();
     });
   }
 

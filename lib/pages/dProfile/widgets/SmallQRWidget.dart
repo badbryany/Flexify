@@ -20,7 +20,7 @@ class SmallQRWidget extends StatelessWidget {
       ),
       child: PrettyQr(
         data: data,
-        size: global.width(context) * .6,
+        size: global.width(context) * .525,
         // roundEdges: true,
         elementColor: Theme.of(context).colorScheme.onBackground,
         image: const AssetImage('assets/logo/darklogo.png'),
