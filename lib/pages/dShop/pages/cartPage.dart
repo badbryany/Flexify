@@ -1,5 +1,6 @@
 import 'package:flexify/pages/dShop/data/shopData.dart' as shopData;
 import 'package:flexify/pages/dShop/pages/1_ordersPage.dart';
+import 'package:flexify/pages/dShop/pages/4_walletPage.dart';
 import 'package:flexify/pages/dShop/pages/widgets/EntryWidget.dart';
 import 'package:flexify/pages/dShop/pages/widgets/ShopNavbar.dart';
 import 'package:flexify/pages/dShop/pages/widgets/SubmitButton.dart';
@@ -36,6 +37,8 @@ class _CartPageState extends State<CartPage> {
                 child: ListView(
                   physics: const BouncingScrollPhysics(),
                   children: [
+                    const AddPaymentMethod(),
+                    global.mediumHeight(context),
                     SizedBox(
                       width: global.containerWidth(context),
                       child: Column(

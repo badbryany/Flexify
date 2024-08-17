@@ -158,7 +158,10 @@ class _AddEditSetState extends State<AddEditSet> {
                     key: ValueKey(bodyweight),
                     child: bodyweight
                         ? global.gradient(const Icon(CupertinoIcons.checkmark))
-                        : const Icon(CupertinoIcons.add),
+                        : const Icon(
+                            CupertinoIcons.add,
+                            color: Colors.white,
+                          ),
                   ),
                 ),
               ],

@@ -71,7 +71,7 @@ class _SavedItemWidgetState extends State<SavedItemWidget> {
         openSavedItemPage(context);
       },
       child: Container(
-        height: global.height(context) * .15,
+        height: global.width(context) * .25 + 50,
         decoration: global.boxDecoration(context),
         child: Stack(
           alignment: Alignment.topRight,

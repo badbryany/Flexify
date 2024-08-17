@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flexify/SignInSignUp/signIn.dart';
-import 'package:flexify/data/exerciseModels.dart';
 import 'package:flexify/themeProvider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,16 +11,13 @@ import 'package:http/http.dart' as http;
 import 'package:flexify/data/globalVariables.dart' as global;
 import 'package:provider/provider.dart';
 
-checkLogin() async {
+Future<bool> checkLogin() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
 
-  if (prefs.getString('username') == null ||
+  return !(prefs.getString('username') == null ||
       prefs.getString('username') == '' ||
       prefs.getString('password') == null ||
-      prefs.getString('password') == '') {
-    return false;
-  }
-  return true;
+      prefs.getString('password') == '');
 }
 
 Future<bool> login() async {
@@ -58,62 +54,36 @@ Future<ThemeMode> getThemeMode() async {
 }
 
 void main() async {
-  runApp(MyApp(
-    startWidget: Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Image.asset(
-              'assets/logo/darklogo.png',
-              height: 100,
-            ),
-            const SizedBox(height: 25),
-            const Text(
-              'loading Flexify...',
-              style: TextStyle(
-                color: Colors.white,
-              ),
-            ),
-            const SizedBox(height: 50),
-            const CupertinoActivityIndicator(),
-          ],
-        ),
+  WidgetsFlutterBinding.ensureInitialized();
+  ThemeProvider themeProvider = ThemeProvider();
+  bool isLoggedIn = await checkLogin();
+
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => themeProvider,
+      child: MyApp(
+        startWidget: isLoggedIn ? const Dashboard() : const SignIn(),
       ),
     ),
-    themeMode: ThemeMode.dark,
-  ));
-
-  if (await checkLogin()) {
-    login().then((value) => Save.syncData());
-    runApp(MyApp(
-      startWidget: const Dashboard(),
-      themeMode: await getThemeMode(),
-    ));
-  } else {
-    runApp(MyApp(
-      startWidget: const SignIn(),
-      themeMode: await getThemeMode(),
-    ));
-  }
+  );
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({
     super.key,
     required this.startWidget,
-    required this.themeMode,
   });
 
   final Widget startWidget;
-  final ThemeMode themeMode;
+
+  Future<bool> _initializeApp() async {
+    return await checkLogin();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => ThemeProvider(),
-      builder: (context, child) {
+    return Consumer<ThemeProvider>(
+      builder: (context, themeProvier, child) {
         return MaterialApp(
           builder: (BuildContext context, Widget? child) {
             return MediaQuery(
@@ -124,14 +94,14 @@ class MyApp extends StatelessWidget {
             );
           },
           debugShowCheckedModeBanner: false,
-          themeMode: Provider.of<ThemeProvider>(context).themeMode,
+          themeMode: themeProvier.themeMode,
           theme: ThemeData(
             fontFamily: 'KronaOne',
             focusColor: Colors.black,
             scaffoldBackgroundColor: Colors.white,
             appBarTheme: const AppBarTheme(
               systemOverlayStyle: SystemUiOverlayStyle.dark,
-              backgroundColor: Colors.white,
+              backgroundColor: Colors.transparent,
               elevation: 0,
               toolbarHeight: 0,
             ),
@@ -183,7 +153,21 @@ class MyApp extends StatelessWidget {
               shadow: Color.fromARGB(255, 170, 170, 170),
             ),
           ),
-          home: startWidget,
+          home: FutureBuilder(
+            future: _initializeApp(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Scaffold(
+                  body: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              } else {
+                bool isLoggedIn = snapshot.data as bool;
+                return isLoggedIn ? const Dashboard() : const SignIn();
+              }
+            },
+          ),
         );
       },
     );

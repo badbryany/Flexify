@@ -61,7 +61,7 @@ class AddressWidget extends StatelessWidget {
           padding: EdgeInsets.all(
             global.width(context) * .055,
           ),
-          height: global.height(context) * .175,
+          height: global.width(context) * .275 + 50,
           width: global.containerWidth(context),
           decoration: global.boxDecoration(context),
           child: Column(
@@ -176,7 +176,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
               title: 'Add Address',
             ),
             SizedBox(
-              height: global.height(context) * .7,
+              height: global.height(context) * .8,
               width: global.containerWidth(context),
               child: ListView(
                 children: [
@@ -210,7 +210,7 @@ class _AddressFormState extends State<AddressForm> {
           horizontal: global.width(context) * .05,
           vertical: global.height(context) * .02,
           ),
-      height: global.height(context) * .55,
+      height: global.height(context) * .55 + global.width(context) * .1,
       width: global.containerWidth(context),
       decoration: global.boxDecoration(context),
       child: Column(

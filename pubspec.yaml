@@ -37,7 +37,6 @@ dependencies:
   keep_screen_on: ^3.0.0
   url_launcher: ^6.3.0
   pretty_qr_code: ^3.3.0
-  syncfusion_flutter_datepicker: ^26.1.42
 
 dev_dependencies:
   flutter_test:

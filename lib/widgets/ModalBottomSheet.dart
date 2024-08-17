@@ -104,7 +104,7 @@ class _ModalBottomSheetState extends State<ModalBottomSheet> {
                           ? widget.onPop!()
                           : Navigator.pop(context),
                       child: Container(
-                        width: global.width(context) * .3,
+                        width: global.width(context) * .6,
                         padding: const EdgeInsets.all(15),
                         decoration: BoxDecoration(
                             borderRadius: const BorderRadius.all(
@@ -115,7 +115,7 @@ class _ModalBottomSheetState extends State<ModalBottomSheet> {
                           child: Text(
                             widget.submitButtonText!,
                             style: TextStyle(
-                              fontSize: global.width(context) * .04,
+                              fontSize: global.width(context) * .05,
                               color: Colors.black,
                               fontWeight: FontWeight.w600,
                             ),

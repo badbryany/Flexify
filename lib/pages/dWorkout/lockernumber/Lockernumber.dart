@@ -238,6 +238,9 @@ class _LockerNumberPageState extends State<LockerNumberPage> {
               height: global.height(context) * .025,
             ),
             Flexible(flex: 1, child: bottomRow),
+            SizedBox(
+              height: global.height(context) * .025,
+            ),
           ],
         ),
       ),

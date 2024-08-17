@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:flexify/pages/dPlan/dashboardPlan.dart';
+// import 'package:flexify/pages/dPlan/dashboardPlan.dart';
 import 'package:flexify/pages/dShop/dashboardShop.dart';
 import 'package:flexify/pages/dStats/dashboardStats.dart';
 import 'package:flexify/pages/dProfile/dashboardProfile.dart';
@@ -34,11 +34,11 @@ class _DashboardState extends State<Dashboard> {
       'widget': const DashboardShop(),
       'icon': Icons.shopping_bag_outlined,
     },
-    {
-      'title': 'Plan',
-      'widget': const DashboardPlan(),
-      'icon': Icons.event_note_rounded
-    },
+    // {
+    //   'title': 'Plan',
+    //   'widget': const DashboardPlan(),
+    //   'icon': Icons.event_note_rounded
+    // },
     {
       'title': 'Workout',
       'widget': const DashboardWorkout(),
@@ -100,6 +100,7 @@ class _DashboardState extends State<Dashboard> {
     return PopScope(
       canPop: false,
       child: Scaffold(
+        appBar: AppBar(),
         body: SafeArea(
           child: SizedBox(
             width: global.width(context),

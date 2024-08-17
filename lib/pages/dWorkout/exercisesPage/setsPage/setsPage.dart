@@ -1,3 +1,4 @@
+import 'package:flexify/pages/dShop/pages/widgets/ShopNavbar.dart';
 import 'package:flexify/pages/dWorkout/exercisesPage/setsPage/widgets/ExerciseTimer.dart';
 import 'package:flexify/pages/dWorkout/exercisesPage/widgets/Heading.dart';
 import 'package:flexify/widgets/DeleteAlertDialog.dart';
@@ -10,7 +11,6 @@ import 'package:flexify/pages/dWorkout/exercisesPage/setsPage/addeditSetPage/add
 import 'package:flexify/data/globalVariables.dart' as global;
 import 'package:collection/collection.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'dart:math';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -152,6 +152,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
               'Date:  ${dateString(setList.first.date)}                     Total Sets:  ${setList.length}',
         ),
       );
+
       for (int i = setList.length - 1; i >= 0; i--) {
         returnList.add(SizedBox(
           height: global.width(context) * 0.01,
@@ -165,23 +166,12 @@ class _ExerciseSetsState extends State<ExerciseSets> {
             background: AnimatedContainer(
                 key: const ValueKey(Alignment),
                 duration: const Duration(milliseconds: 150),
-                alignment: thresholdReached
-                    ? Alignment.centerLeft
-                    : Alignment.centerRight,
-                margin: EdgeInsets.all(global.width(context) * 0.02),
-                padding: thresholdReached
-                    ? EdgeInsets.only(
-                        left: max(
-                            ((1 - thresholdProgress) *
-                                    (global.containerWidthFactor) *
-                                    global.width(context)) +
-                                global.width(context) * 0.05,
-                            (global.width(context) * 0.1)))
-                    : EdgeInsets.only(right: global.width(context) * 0.1),
+                alignment: Alignment.centerRight,
+                padding: EdgeInsets.only(right: global.width(context) * 0.1),
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.error,
                   borderRadius:
-                      BorderRadius.circular(global.width(context) * 0.08),
+                      BorderRadius.circular(15),
                 ),
                 child: Icon(
                   CupertinoIcons.trash,
@@ -193,7 +183,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
               await showDialog(
                 context: context,
                 builder: (BuildContext context) => DeleteAlertDialog(
-                  title: 'Do you want to delete this set?',
+                  title: 'Delete this Set?',
                   actions: [
                     TextButton(
                       onPressed: () {
@@ -364,80 +354,21 @@ class _ExerciseSetsState extends State<ExerciseSets> {
         body: ListView(
           physics: const BouncingScrollPhysics(),
           children: [
-            Container(
-              height: global.height(context) * (1 - 0.88),
-              margin: const EdgeInsets.only(left: 10, right: 10),
-              alignment: Alignment.center,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    alignment: Alignment.center,
-                    padding: EdgeInsets.all(global.width(context) * 0.005),
-                    width: global.width(context) * 0.14,
-                    height: global.width(context) * 0.14,
-                    decoration: BoxDecoration(
-                      boxShadow: ([global.darkShadow(context)]),
-                      color: global.darkGrey,
-                      borderRadius: BorderRadius.circular(1000),
+            ShopNavbar(
+              title: exerciseName,
+              actionButton: ActionButton(
+                iconData: Icons.add,
+                action: () => Navigator.push(
+                  context,
+                  PageTransition(
+                    child: AddEditSet(
+                      add: true,
+                      set: null,
+                      exerciseName: widget.name,
                     ),
-                    child: IconButton(
-                      splashColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      onPressed: () => Navigator.pop(context),
-                      color: Theme.of(context).colorScheme.onBackground,
-                      icon: const Icon(Icons.arrow_back_rounded),
-                      iconSize: global.width(context) * 0.05,
-                    ),
+                    type: PageTransitionType.fade,
                   ),
-                  GestureDetector(
-                    onTap: setEditName,
-                    child: SizedBox(
-                      width: global.width(context) * 0.65,
-                      child: Text(
-                        exerciseName,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Theme.of(context).focusColor,
-                          fontSize: global.width(context) * 0.06,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    padding: EdgeInsets.all(global.width(context) * 0.005),
-                    width: global.width(context) * 0.14,
-                    height: global.width(context) * 0.14,
-                    decoration: BoxDecoration(
-                      boxShadow: [global.darkShadow(context)],
-                      color: global.darkGrey,
-                      borderRadius: BorderRadius.circular(1000),
-                    ),
-                    child: IconButton(
-                      splashColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      onPressed: () => Navigator.push(
-                        context,
-                        PageTransition(
-                          child: AddEditSet(
-                            add: true,
-                            set: null,
-                            exerciseName: widget.name,
-                          ),
-                          type: PageTransitionType.fade,
-                        ),
-                      ).then((value) => getData()),
-                      color: Theme.of(context).colorScheme.onBackground,
-                      icon: const Icon(Icons.add),
-                      iconSize: global.width(context) * 0.05,
-                    ),
-                  ),
-                ],
+                ).then((value) => getData()),
               ),
             ),
             SizedBox(

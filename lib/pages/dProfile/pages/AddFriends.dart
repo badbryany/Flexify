@@ -4,9 +4,9 @@ import 'dart:ui';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
+import 'package:flexify/widgets/AnimatedSearchBar.dart';
 import 'package:flexify/widgets/DeleteAlertDialog.dart';
 import 'package:flexify/widgets/LoadingImage.dart';
-import 'package:flexify/widgets/SearchBar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -58,9 +58,8 @@ class _AddFriendsState extends State<AddFriends> {
           padding: EdgeInsets.all(global.containerPadding - 10),
           margin: const EdgeInsets.symmetric(vertical: 7.5, horizontal: 10),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(global.borderRadius),
-            color: Theme.of(context).colorScheme.background,
-          ),
+              borderRadius: BorderRadius.circular(global.borderRadius),
+              color: global.darkGrey),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -69,14 +68,6 @@ class _AddFriendsState extends State<AddFriends> {
                 height: global.width(context) * .15,
                 child: Stack(
                   children: [
-                    Center(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.background,
-                          borderRadius: BorderRadius.circular(1000),
-                        ),
-                      ),
-                    ),
                     Center(
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(1000),
@@ -115,7 +106,6 @@ class _AddFriendsState extends State<AddFriends> {
                 ),
               ),
               Container(
-                width: global.width(context) * .45,
                 padding: EdgeInsets.only(left: global.width(context) * .05),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -147,8 +137,8 @@ class _AddFriendsState extends State<AddFriends> {
                 onPressed: () => removeFriend(friends[i][0], friends[i][2]),
                 icon: Icon(
                   Icons.clear,
-                  color: Theme.of(context).colorScheme.error.withOpacity(.25),
-                  size: global.width(context) * .05,
+                  color: Colors.red,
+                  size: global.width(context) * .075,
                 ),
               ),
             ],
@@ -438,32 +428,6 @@ class _AddFriendsState extends State<AddFriends> {
 
   @override
   Widget build(BuildContext context) {
-    Widget animSearchBar = AnimSearchBar(
-      color: Theme.of(context).colorScheme.background,
-      prefixIconColor: Theme.of(context).focusColor,
-      hintTextColor: Theme.of(context).focusColor.withOpacity(0.6),
-      textFieldColor: Theme.of(context).colorScheme.background,
-      textColor: Theme.of(context).focusColor,
-      helpText: 'Search for users',
-      width: global.width(context) * global.containerWidthFactor * 0.95,
-      textController: _controller,
-      suffixIcon: Icon(
-        Icons.clear,
-        color: Theme.of(context).focusColor,
-      ),
-      open: _searchBarOpen == 1,
-      onSuffixTap: () async {
-        await getData();
-        _controller.clear();
-      },
-      onToggle: (int open) {
-        setState(() => _searchBarOpen = open);
-        if (open == 1) {}
-      },
-      closeSearchOnSuffixTap: true,
-      autoFocus: true,
-    );
-
     return Scaffold(
       body: SafeArea(
         child: Stack(
@@ -471,16 +435,12 @@ class _AddFriendsState extends State<AddFriends> {
             ListView(
               physics: const BouncingScrollPhysics(),
               children: [
-                Container(
-                  width: global.width(context),
-                  height: global.height(context) * (1 - 0.88),
-                  padding: _searchBarOpen == 1
-                      ? EdgeInsets.only(
-                          right: global.width(context) * 0.04,
-                        )
-                      : const EdgeInsets.all(0),
+                Padding(
+                  padding: EdgeInsets.all(global.height(context) * .025),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: _searchBarOpen == 0
+                        ? MainAxisAlignment.spaceBetween
+                        : MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Visibility(
@@ -488,8 +448,9 @@ class _AddFriendsState extends State<AddFriends> {
                         child: AnimatedContainer(
                           duration: global.standardAnimationDuration,
                           alignment: Alignment.center,
-                          padding:
-                              EdgeInsets.all(global.width(context) * 0.005),
+                          padding: EdgeInsets.all(
+                            global.width(context) * 0.005,
+                          ),
                           width: global.width(context) * 0.15,
                           height: global.width(context) * 0.15,
                           decoration: BoxDecoration(
@@ -510,30 +471,40 @@ class _AddFriendsState extends State<AddFriends> {
                           ),
                         ),
                       ),
-                      AnimatedContainer(
-                        duration: global.standardAnimationDuration,
-                        width: global.width(context) *
-                            0.475 *
-                            (_searchBarOpen == 0 ? 1 : 0),
-                        child: AnimatedOpacity(
-                          duration: global.standardAnimationDuration,
-                          opacity: _searchBarOpen == 0 ? 1 : 0,
-                          child: Text(
-                            'Friendslist',
-                            textAlign: TextAlign.center,
-                            maxLines: 1,
-                            style: TextStyle(
-                              color: Theme.of(context).focusColor,
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: -1,
-                              fontSize: global.width(context) * 0.09,
-                            ),
+                      Visibility(
+                        visible: _searchBarOpen == 0,
+                        child: Text(
+                          'Friendslist',
+                          textAlign: TextAlign.center,
+                          maxLines: 1,
+                          style: TextStyle(
+                            color: Theme.of(context).focusColor,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: -1,
+                            fontSize: global.width(context) * 0.09,
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(7.5),
-                        child: animSearchBar,
+                      AnimatedSearchBar(
+                        isOpen: _searchBarOpen == 1,
+                        radius: global.width(context) * 0.075,
+                        searchBarWidth: Tuple(
+                          global.containerWidth(context) - global.width(context) * .1,
+                          global.width(context) * 0.075 * 2,
+                        ),
+                        backgroundColor: global.darkGrey,
+                        searchController: _controller,
+                        duration: const Duration(milliseconds: 0),
+                        iconSize: global.width(context) * 0.055,
+                        onTap: () {
+                          _searchBarOpen == 0
+                              ? _searchBarOpen = 1
+                              : _searchBarOpen = 0;
+                          setState(() {});
+                        },
+                        openIcon: Icons.close,
+                        closedIcon: Icons.search,
+                        fadeDuration: const Duration(milliseconds: 500),
                       ),
                     ],
                   ),

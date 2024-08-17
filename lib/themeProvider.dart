@@ -3,28 +3,24 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class ThemeProvider with ChangeNotifier {
   static const String _themeModeKey = 'themeMode';
-
   ThemeMode _themeMode = ThemeMode.system;
 
   ThemeProvider() {
-    _loadTheme(); // Load initial theme on instantiation
+    _loadTheme();
   }
 
   ThemeMode get themeMode => _themeMode;
 
   set themeMode(ThemeMode themeMode) {
     _themeMode = themeMode;
+    _saveTheme(themeMode);
     notifyListeners();
   }
 
-  _loadTheme() async {
+  Future<void> _loadTheme() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (prefs.getString(_themeModeKey) == null ||
-        prefs.getString(_themeModeKey) == '') {
-      prefs.setString(_themeModeKey, 'system');
-    }
-
-    switch (prefs.getString('themeMode')) {
+    String? theme = prefs.getString(_themeModeKey);
+    switch (theme) {
       case 'dark':
         _themeMode = ThemeMode.dark;
         break;
@@ -38,8 +34,12 @@ class ThemeProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  toggleTheme(ThemeMode themeMode) {
-    _themeMode = themeMode;
-    notifyListeners();
+  Future<void> _saveTheme(ThemeMode themeMode) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString(_themeModeKey, themeMode.toString().split('.').last);
+  }
+
+  void toggleTheme(ThemeMode themeMode) {
+    this.themeMode = themeMode;
   }
 }

@@ -1,3 +1,4 @@
+import 'package:flexify/pages/dShop/pages/widgets/ShopNavbar.dart';
 import 'package:flexify/pages/intro/10_split.dart';
 import 'package:flexify/pages/intro/11_targetMuscles.dart';
 import 'package:flexify/pages/intro/12_location.dart';
@@ -118,43 +119,8 @@ class _BiometricPageState extends State<BiometricPage> {
       body: SafeArea(
         child: Column(
           children: [
-            SizedBox(
-              height: global.height(context) * 0.03,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                SizedBox(
-                  width: global.width(context) * 0.11,
-                ),
-                IconButton(
-                  highlightColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  splashColor: Colors.transparent,
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(
-                    Icons.arrow_back_rounded,
-                    size: global.width(context) * 0.06,
-                  ),
-                ),
-                SizedBox(
-                  width: global.width(context) * 0.13,
-                ),
-                Text(
-                  "Biometrics",
-                  style: TextStyle(
-                    color: Theme.of(context).focusColor,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: -1,
-                    fontSize: global.width(context) * 0.07,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: global.height(context) * 0.04,
+            const ShopNavbar(
+              title: 'Biometrics',
             ),
             SizedBox(
               height: global.height(context) * 0.8,

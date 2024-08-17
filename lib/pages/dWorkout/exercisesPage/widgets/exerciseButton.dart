@@ -227,7 +227,7 @@ class _ExerciseButtonState extends State<ExerciseButton> {
           borderRadius: BorderRadius.circular(global.width(context) * 0.08),
         ),
         child: Text(
-          'delete',
+          'Delete',
           style: TextStyle(
             color: Theme.of(context).colorScheme.onBackground,
             fontSize: global.width(context) * 0.035,
