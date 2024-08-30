@@ -43,16 +43,6 @@ class _UserInfoState extends State<UserInfo> {
       ),
     },
     {
-      'title': 'Nickname',
-      'controller': TextEditingController(),
-      'textInputType': TextInputType.text,
-      'password': false,
-      'icon': const Icon(
-        Icons.person_2,
-        size: 20,
-      ),
-    },
-    {
       'title': 'E-Mail',
       'controller': TextEditingController(),
       'textInputType': TextInputType.emailAddress,

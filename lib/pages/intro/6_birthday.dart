@@ -291,7 +291,7 @@ class _SixBirthdayState extends State<SixBirthday> {
                       boxShadow: [global.darkShadow(context)],
                       color: selected != 0
                           ? Theme.of(context).colorScheme.primary
-                          : Theme.of(context).colorScheme.surface,
+                          : Theme.of(context).colorScheme.background,
                       borderRadius: BorderRadius.circular(1000),
                     ),
                     child: Row(
@@ -302,7 +302,7 @@ class _SixBirthdayState extends State<SixBirthday> {
                           style: TextStyle(
                               color: selected != 0
                                   ? Colors.black
-                                  : Theme.of(context).focusColor,
+                                  : Colors.white,
                               fontSize: global.height(context) * 0.025),
                         ),
                       ],

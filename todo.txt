@@ -6,9 +6,7 @@ DProfile
         - Container -> AnimatedContainer
     - Redesign Friendslist Manual
         - Look for Inspiration (Dribble, Figma Community)
-    - Remove Manual Option from QR ModalBottomSheet
     - Hitbox add friends manually 
-    - Sensible user fields 
     - Website
         - Update Pictures
         - Update Colours
@@ -16,15 +14,8 @@ __________________________________________________
 
 Kian_______________________________________________
 SettingsPage
-    - Copy Privacy Policy & Terms of Use 
-        - (DuoLingo, Heavy, MCI, etc.)
     - Notifications 
         - Research, wtf is that even?!
-    - Edit Profile 
-        - Do we even need this ? 
-        - Redesign
-    - Data 
-        - Fix Colours
 DShop 
     - Keyboard Glitch
 
@@ -32,7 +23,6 @@ General
     - showDialog
     - WormEffect global.gradient()
 __________________________________________________
-
 
 Post-Release
 __________________________________________________
@@ -43,10 +33,17 @@ Tech-Tree
     - Pull
         - Biceps
         - Lats
-        - Rhomboids
+        - Rhomboidsj
     - Core
         - Abdominals
         - etc.
     - Legs
         - etc.
+Plan 
+    3d Models 
+        - ExerciseSelection
+        - Targeted Muscles
+        - Fatigued Muscles
+    Split Selection
+    Workout Calendar
 __________________________________________________

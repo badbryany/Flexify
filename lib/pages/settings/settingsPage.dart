@@ -1,6 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:flexify/SignInSignUp/signIn.dart';
-import 'package:flexify/pages/dProfile/pages/EditProfile.dart';
+// import 'package:flexify/pages/dProfile/pages/EditProfile.dart';
 import 'package:flexify/pages/settings/widgets/biometricPage.dart';
 
 import 'package:flexify/pages/settings/widgets/notificationsPage.dart';
@@ -60,11 +60,11 @@ class SettingsPage extends StatelessWidget {
         'icon': CupertinoIcons.heart,
         'link': const BiometricPage(),
       },
-      {
-        'title': 'Edit Profile',
-        'icon': Icons.edit,
-        'link': const EditProfile(),
-      },
+      // {
+      //   'title': 'Edit Profile',
+      //   'icon': Icons.edit,
+      //   'link': const EditProfile(),
+      // },
       {
         'title': 'Notifications',
         'icon': Icons.notifications_active_outlined,

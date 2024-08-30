@@ -188,7 +188,7 @@ class _TwelveLocationState extends State<TwelveLocation> {
                                     style: TextStyle(
                                         color: selected == 1
                                             ? Colors.black
-                                            : Theme.of(context).focusColor,
+                                            : Colors.white,
                                         fontSize:
                                             global.height(context) * 0.02 +
                                                 global.width(context) * 0.02),
@@ -205,7 +205,7 @@ class _TwelveLocationState extends State<TwelveLocation> {
                                     style: TextStyle(
                                         color: selected == 1
                                             ? Colors.black
-                                            : Theme.of(context).focusColor,
+                                            : Colors.white,
                                         fontSize:
                                             global.height(context) * 0.015 +
                                                 global.width(context) * 0.001),
@@ -219,7 +219,7 @@ class _TwelveLocationState extends State<TwelveLocation> {
                                     style: TextStyle(
                                         color: selected == 1
                                             ? Colors.black
-                                            : Theme.of(context).focusColor,
+                                            : Colors.white,
                                         fontSize:
                                             global.height(context) * 0.015 +
                                                 global.width(context) * 0.001),
@@ -266,7 +266,7 @@ class _TwelveLocationState extends State<TwelveLocation> {
                                     style: TextStyle(
                                         color: selected == 2
                                             ? Colors.black
-                                            : Theme.of(context).focusColor,
+                                            : Colors.white,
                                         fontSize:
                                             global.height(context) * 0.02 +
                                                 global.width(context) * 0.02),
@@ -283,7 +283,7 @@ class _TwelveLocationState extends State<TwelveLocation> {
                                     style: TextStyle(
                                         color: selected == 2
                                             ? Colors.black
-                                            : Theme.of(context).focusColor,
+                                            : Colors.white,
                                         fontSize:
                                             global.height(context) * 0.015 +
                                                 global.width(context) * 0.001),
@@ -297,7 +297,7 @@ class _TwelveLocationState extends State<TwelveLocation> {
                                     style: TextStyle(
                                         color: selected == 2
                                             ? Colors.black
-                                            : Theme.of(context).focusColor,
+                                            : Colors.white,
                                         fontSize:
                                             global.height(context) * 0.015 +
                                                 global.width(context) * 0.001),
@@ -344,7 +344,7 @@ class _TwelveLocationState extends State<TwelveLocation> {
                                     style: TextStyle(
                                         color: selected == 3
                                             ? Colors.black
-                                            : Theme.of(context).focusColor,
+                                            : Colors.white,
                                         fontSize:
                                             global.height(context) * 0.02 +
                                                 global.width(context) * 0.02),
@@ -361,7 +361,7 @@ class _TwelveLocationState extends State<TwelveLocation> {
                                     style: TextStyle(
                                         color: selected == 3
                                             ? Colors.black
-                                            : Theme.of(context).focusColor,
+                                            : Colors.white,
                                         fontSize:
                                             global.height(context) * 0.015 +
                                                 global.width(context) * 0.001),
@@ -408,7 +408,7 @@ class _TwelveLocationState extends State<TwelveLocation> {
                                     style: TextStyle(
                                         color: selected == 4
                                             ? Colors.black
-                                            : Theme.of(context).focusColor,
+                                            : Colors.white,
                                         fontSize:
                                             global.height(context) * 0.02 +
                                                 global.width(context) * 0.02),
@@ -425,7 +425,7 @@ class _TwelveLocationState extends State<TwelveLocation> {
                                     style: TextStyle(
                                         color: selected == 4
                                             ? Colors.black
-                                            : Theme.of(context).focusColor,
+                                            : Colors.white,
                                         fontSize:
                                             global.height(context) * 0.015 +
                                                 global.width(context) * 0.001),
@@ -439,7 +439,7 @@ class _TwelveLocationState extends State<TwelveLocation> {
                                     style: TextStyle(
                                         color: selected == 4
                                             ? Colors.black
-                                            : Theme.of(context).focusColor,
+                                            : Colors.white,
                                         fontSize:
                                             global.height(context) * 0.015 +
                                                 global.width(context) * 0.001),
@@ -478,7 +478,7 @@ class _TwelveLocationState extends State<TwelveLocation> {
                       boxShadow: [global.darkShadow(context)],
                       color: selected != 0
                           ? Theme.of(context).colorScheme.primary
-                          : Theme.of(context).colorScheme.surface,
+                          : Theme.of(context).colorScheme.background,
                       borderRadius: BorderRadius.circular(1000),
                     ),
                     child: Row(
@@ -489,7 +489,7 @@ class _TwelveLocationState extends State<TwelveLocation> {
                           style: TextStyle(
                               color: selected != 0
                                   ? Colors.black
-                                  : Theme.of(context).focusColor,
+                                  : Colors.white,
                               fontSize: global.height(context) * 0.025),
                         ),
                       ],

@@ -104,6 +104,9 @@ class _ThirteenEquipmentState extends State<ThirteenEquipment> {
               children: [
                 Row(
                   children: [
+                    SizedBox(
+                      height: global.height(context) * 0.175,
+                    ),
                     const IntroNavBarIcon(),
                     widget.isSettings
                         ? Padding(
@@ -113,7 +116,7 @@ class _ThirteenEquipmentState extends State<ThirteenEquipment> {
                             child: Text(
                               "Equipment",
                               style: TextStyle(
-                                  color: Theme.of(context).focusColor,
+                                  color: Colors.white,
                                   fontSize: global.width(context) * 0.06),
                             ),
                           )
@@ -141,7 +144,7 @@ class _ThirteenEquipmentState extends State<ThirteenEquipment> {
                             child: Text(
                               'Skip',
                               style: TextStyle(
-                                  color: Theme.of(context).focusColor,
+                                  color: Colors.white,
                                   fontSize: global.width(context) * 0.035),
                             ),
                           ),
@@ -164,7 +167,7 @@ class _ThirteenEquipmentState extends State<ThirteenEquipment> {
                             decoration: BoxDecoration(
                               color: Theme.of(context).colorScheme.background,
                               border: Border.all(
-                                  color: Theme.of(context).focusColor,
+                                  color: Colors.white,
                                   width: 2,
                                   style: BorderStyle.solid),
                               borderRadius: BorderRadius.circular(1000),
@@ -269,7 +272,7 @@ class _ThirteenEquipmentState extends State<ThirteenEquipment> {
                                         style: TextStyle(
                                             color: selectedType == index
                                                 ? Colors.black
-                                                : Theme.of(context).focusColor,
+                                                : Colors.white,
                                             fontSize: MediaQuery.of(context)
                                                     .size
                                                     .width *
@@ -358,8 +361,7 @@ class _ThirteenEquipmentState extends State<ThirteenEquipment> {
                                                               index] ==
                                                           true
                                                       ? Colors.black
-                                                      : Theme.of(context)
-                                                          .focusColor,
+                                                      : Colors.white,
                                                   fontSize:
                                                       MediaQuery.of(context)
                                                                   .size
@@ -384,8 +386,7 @@ class _ThirteenEquipmentState extends State<ThirteenEquipment> {
                                                   )
                                                 : Icon(
                                                     CupertinoIcons.add,
-                                                    color: Theme.of(context)
-                                                        .focusColor,
+                                                    color: Colors.white,
                                                     size: MediaQuery.of(context)
                                                             .size
                                                             .width *

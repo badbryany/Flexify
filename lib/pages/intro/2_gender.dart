@@ -282,47 +282,63 @@ class _TwoGenderState extends State<TwoGender> {
                     ],
                   ),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    if (selected != 0 && widget.isSettings == false) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const ThreeHeight(
-                            isSettings: false,
-                          ),
-                        ),
-                      );
-                    } else {
-                      Navigator.pop(context);
-                    }
-                  },
-                  child: Container(
-                    height: global.height(context) * 0.05,
-                    width: global.width(context) * 0.8,
-                    decoration: BoxDecoration(
-                      boxShadow: [global.darkShadow(context)],
-                      color: selected != 0
-                          ? Theme.of(context).colorScheme.primary
-                          : Theme.of(context).colorScheme.surface,
-                      borderRadius: BorderRadius.circular(1000),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          widget.isSettings ? "Enter" : 'Next',
-                          style: TextStyle(
-                              color: selected != 0
-                                  ? Colors.black
-                                  : Theme.of(context).focusColor,
-                              fontSize: global.height(context) * 0.025),
-                        ),
-                      ],
-                    ),
-                  ),
-                )
+                SubmitData(selected: selected, widget: widget)
               ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class SubmitData extends StatelessWidget {
+  const SubmitData({
+    super.key,
+    required this.selected,
+    required this.widget,
+  });
+
+  final int selected;
+  final TwoGender widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        if (selected != 0 && widget.isSettings == false) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const ThreeHeight(
+                isSettings: false,
+              ),
+            ),
+          );
+        } else {
+          Navigator.pop(context);
+        }
+      },
+      child: Container(
+        height: global.height(context) * 0.05,
+        width: global.width(context) * 0.8,
+        decoration: BoxDecoration(
+          boxShadow: global.shadow(context),
+          color: selected != 0
+              ? Theme.of(context).colorScheme.primary
+              : Theme.of(context).colorScheme.background,
+          borderRadius: BorderRadius.circular(1000),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              widget.isSettings ? "Enter" : 'Next',
+              style: TextStyle(
+                  color: selected != 0
+                      ? Colors.black
+                      : Colors.white,
+                  fontSize: global.height(context) * 0.025),
             ),
           ],
         ),

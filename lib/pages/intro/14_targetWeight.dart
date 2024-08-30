@@ -64,6 +64,9 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
               children: [
                 Row(
                   children: [
+                    SizedBox(
+                      height: global.height(context) * 0.15,
+                    ),
                     const IntroNavBarIcon(),
                     widget.isSettings
                         ? Padding(
@@ -217,7 +220,7 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                                   Text(
                                     '-',
                                     style: TextStyle(
-                                        color: Theme.of(context).focusColor,
+                                        color: Colors.white,
                                         fontSize: global.width(context) * 0.1),
                                   ),
                                 ],
@@ -490,7 +493,7 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                       boxShadow: [global.darkShadow(context)],
                       color: botSelected && topSelected
                           ? Theme.of(context).colorScheme.primary
-                          : Theme.of(context).colorScheme.surface,
+                          : Theme.of(context).colorScheme.background,
                       borderRadius: BorderRadius.circular(1000),
                     ),
                     child: Row(
@@ -501,7 +504,7 @@ class _FourteenTargetWeightState extends State<FourteenTargetWeight> {
                           style: TextStyle(
                               color: botSelected && topSelected
                                   ? Colors.black
-                                  : Theme.of(context).focusColor,
+                                  : Colors.white,
                               fontSize: global.height(context) * 0.025),
                         ),
                       ],

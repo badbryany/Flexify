@@ -8,14 +8,14 @@ class TermsPage extends StatelessWidget {
 
   final List<Map<String, String>> content = [
     {
-      'title': 'Last Updated: 09 Juli 2024',
+      'title': 'Effective Date: 09 Juli 2024',
       'text':
-          'Welcome to Flexify! These Terms of Use ("Terms") govern your access to and use of our application and services ("Services"). By using our Services, you agree to be bound by these Terms. If you do not agree to these Terms, please do not use our Services.',
+          'Welcome to Flexify! These Terms of Use ("Terms") govern your access to and use of our application and services ("Services"). By using our Services, you agree to be bound by these Terms. If you do not agree to these Terms, please do not use our Services.\n\t',
     },
     {
       'title': 'Acceptance of Terms',
       'text':
-          'By accessing or using the Services, you agree to comply with and be bound by these Terms and all applicable laws and regulations. If you do not agree with any part of these Terms, you must discontinue use of the Services immediately.',
+          'By accessing or using the Services, you agree to comply with and be bound by these Terms and all applicable laws and regulations. If you do not agree with any part of these Terms, you must discontinue use of the Services immediately.\n\t',
     },
     {
       'title': 'User Registration',
@@ -24,7 +24,7 @@ class TermsPage extends StatelessWidget {
           \n\t - Provide accurate, current, and complete information during the registration process.
           \n\t - Maintain and promptly update your account information to keep it accurate, current, and complete.
           \n\t - Keep your password secure and not share it with others.
-          \n\t - Notify us immediately of any unauthorized use of your account.''',
+          \n\t - Notify us immediately of any unauthorized use of your account.\n\t''',
     },
     {
       'title': 'Personal Data Collection',
@@ -37,7 +37,7 @@ class TermsPage extends StatelessWidget {
           \n\t - Card information
           \n\t - Sport data
           \nFor more information on how we handle your personal data, please refer to our Privacy Policy.
-          ''',
+          \n\t''',
     },
     {
       'title': 'Use of Services',
@@ -46,22 +46,23 @@ class TermsPage extends StatelessWidget {
       \n\t - Use the Services in any manner that could disable, overburden, damage, or impair the Services.
       \n\t - Use any robot, spider, or other automatic device, process, or means to access the Services.
       \n\t - Use the Services for any unauthorized or illegal activities.
+      \n\t
 ''',
     },
     {
       'title': 'Payment and Subscription',
       'text':
-          'If you choose to purchase a subscription or make a payment through the Services, you agree to provide a valid payment method. All payments are subject to our billing and payment policies.',
+          'If you choose to purchase a subscription or make a payment through the Services, you agree to provide a valid payment method. All payments are subject to our billing and payment policies.\n\t',
     },
     {
       'title': 'Termination',
       'text':
-          'We reserve the right to terminate or suspend your account and access to the Services at our sole discretion, without notice and liability, for conduct that we believe violates these Terms or is harmful to other users of the Services, us, or third parties.',
+          'We reserve the right to terminate or suspend your account and access to the Services at our sole discretion, without notice and liability, for conduct that we believe violates these Terms or is harmful to other users of the Services, us, or third parties.\n\t',
     },
     {
       'title': 'Intellectual Property',
       'text':
-          'All content, features, and functionality of the Services, including but not limited to text, graphics, logos, and software, are the exclusive property of Flexify and are protected by copyright, trademark, and other intellectual property laws.',
+          'All content, features, and functionality of the Services, including but not limited to text, graphics, logos, and software, are the exclusive property of Flexify and are protected by copyright, trademark, and other intellectual property laws.\n\t',
     },
     {
       'title': 'Limitation of Liability',
@@ -71,24 +72,30 @@ class TermsPage extends StatelessWidget {
       \n\t - Your use or inability to use the Services.
       \n\t - Any unauthorized access to or use of our servers and/or any personal information stored therein.
       \n\t - Any interruption or cessation of transmission to or from the Services.
-      \n\t - Any bugs, viruses, trojan horses, or the like that may be transmitted to or through the Services by any third party.
+      \n\t - Any bugs, viruses, trojan horses, or the like that may be transmitted to or through the Services by any third party.\n\t
       ''',
     },
     {
       'title': 'Governing Law',
       'text':
-          'These Terms shall be governed and construed in accordance with the laws of [Your Country/State], without regard to its conflict of law provisions.',
+          'These Terms shall be governed and construed in accordance with the laws of [Your Country/State], without regard to its conflict of law provisions.\n\t',
     },
     {
       'title': 'Changes to Terms',
       'text':
-          'We reserve the right to modify or replace these Terms at any time. If a revision is material, we will provide at least 30 days\' notice prior to any new terms taking effect. What constitutes a material change will be determined at our sole discretion.',
+          'We reserve the right to modify or replace these Terms at any time. If a revision is material, we will provide at least 30 days\' notice prior to any new terms taking effect. What constitutes a material change will be determined at our sole discretion.\n\t',
     },
     {
       'title': 'Contact Us',
-      'text':
-          '''If you have any questions about these Terms, please contact us at flexify.20.oskarkel@spamgourmet.com.
-          By using our Services, you acknowledge that you have read, understood, and agree to be bound by these Terms. Thank you for using Flexify!''',
+      'text': '''
+9. Contact Us
+If you have any questions or concerns about this Privacy Policy, please contact us at:
+
+\n\t[Company Name]
+\n\t[Telephone]
+\n\t[Address]
+\n\t[Email]
+'''
     },
   ];
 
@@ -107,7 +114,7 @@ class TermsPage extends StatelessWidget {
             ...content.mapIndexed(
               (index, e) => Padding(
                 padding: EdgeInsets.symmetric(
-                  vertical: global.height(context) * .0125,
+                  horizontal: global.containerPadding
                 ),
                 child: Center(
                   child: SizedBox(

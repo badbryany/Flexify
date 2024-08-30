@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 ModalBottomSheet modalBottomSheet(BuildContext context, String data) =>
     ModalBottomSheet(
       title: 'Connect',
-      titleSize: global.width(context) * .09,
-      height: global.height(context) * .525,
+      titleSize: global.width(context) * .08,
+      height: global.height(context) * .55,
       content: SmallQRWidget(data: data),
       submitButtonText: 'Scan',
       onPop: () => Navigator.push(

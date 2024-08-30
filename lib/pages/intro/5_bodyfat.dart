@@ -296,7 +296,7 @@ class _FiveBodyFatState extends State<FiveBodyFat> {
                       boxShadow: [global.darkShadow(context)],
                       color: selected != 0
                           ? Theme.of(context).colorScheme.primary
-                          : Theme.of(context).colorScheme.surface,
+                          : Theme.of(context).colorScheme.background,
                       borderRadius: BorderRadius.circular(1000),
                     ),
                     child: Row(
@@ -306,8 +306,7 @@ class _FiveBodyFatState extends State<FiveBodyFat> {
                           widget.isSettings ? "Enter" : 'Next',
                           style: TextStyle(
                               color: selected != 0
-                                  ? Colors.black
-                                  : Theme.of(context).focusColor,
+                                  ? Colors.black : Colors.white,
                               fontSize: global.height(context) * 0.025),
                         ),
                       ],

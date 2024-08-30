@@ -57,7 +57,7 @@ class _AddPaymentMethodState extends State<AddPaymentMethod> {
       children: [
         AnimatedContainer(
           duration: global.standardAnimationDuration,
-          height: global.height(context) * .15,
+          height: global.width(context) * .225+ 50,
           width: global.containerWidth(context),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),

@@ -57,8 +57,9 @@ class _EntryWidgetState extends State<EntryWidget> {
         ),
         Container(
           alignment: Alignment.centerLeft,
-          padding:
-              EdgeInsets.symmetric(horizontal: global.width(context) * .05),
+          padding: EdgeInsets.symmetric(
+            horizontal: global.width(context) * .05,
+          ),
           height: global.height(context) * .08,
           width: widget.width ?? widget.width,
           decoration: BoxDecoration(

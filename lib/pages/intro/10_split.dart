@@ -1,4 +1,5 @@
 import 'package:flexify/pages/intro/11_targetMuscles.dart';
+import 'package:flexify/pages/intro/12_location.dart';
 import 'package:flexify/pages/intro/widgets/IntroNavbarIcon.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
@@ -545,7 +546,7 @@ class _TenSplitState extends State<TenSplit> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const ElevenTargetMuscles(
+                          builder: (context) => const TwelveLocation(
                             isSettings: false,
                           ),
                         ),
@@ -561,7 +562,7 @@ class _TenSplitState extends State<TenSplit> {
                       boxShadow: [global.darkShadow(context)],
                       color: selected != 0
                           ? Theme.of(context).colorScheme.primary
-                          : Theme.of(context).colorScheme.surface,
+                          : Theme.of(context).colorScheme.background,
                       borderRadius: BorderRadius.circular(1000),
                     ),
                     child: Row(
@@ -572,7 +573,7 @@ class _TenSplitState extends State<TenSplit> {
                           style: TextStyle(
                               color: selected != 0
                                   ? Colors.black
-                                  : Theme.of(context).focusColor,
+                                  : Colors.white,
                               fontSize: global.height(context) * 0.025),
                         ),
                       ],

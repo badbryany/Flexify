@@ -655,10 +655,10 @@ class _LeftButtonState extends State<LeftButton> {
                 color: widget.daysPerWeek
                     ? (widget.daysPerWeekIdx == widget.index
                         ? Colors.black
-                        : Theme.of(context).focusColor)
+                        : Colors.white)
                     : (widget.whichDays[widget.index - 1]
                         ? Colors.black
-                        : Theme.of(context).focusColor),
+                        : Colors.white),
                 fontSize: widget.daysPerWeek
                     ? global.height(context) * 0.02
                     : global.height(context) * 0.013),
@@ -725,10 +725,10 @@ class _RightButtonState extends State<RightButton> {
                 color: widget.daysPerWeek
                     ? (widget.daysPerWeekIdx == widget.index
                         ? Colors.black
-                        : Theme.of(context).colorScheme.background)
+                        : Colors.white)
                     : (widget.whichDays[widget.index - 1]
                         ? Colors.black
-                        : Theme.of(context).colorScheme.background),
+                        : Colors.white),
                 fontSize: global.height(context) * 0.015),
           ),
         ),

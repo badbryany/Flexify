@@ -1,6 +1,6 @@
 import 'package:flexify/pages/dShop/pages/widgets/ShopNavbar.dart';
 import 'package:flexify/pages/intro/10_split.dart';
-import 'package:flexify/pages/intro/11_targetMuscles.dart';
+// import 'package:flexify/pages/intro/11_targetMuscles.dart';
 import 'package:flexify/pages/intro/12_location.dart';
 import 'package:flexify/pages/intro/13_equipment.dart';
 import 'package:flexify/pages/intro/14_targetWeight.dart';
@@ -34,7 +34,7 @@ class _BiometricPageState extends State<BiometricPage> {
     "Schedule",
     "Duration",
     "Split",
-    "Target Muscles",
+    // "Target Muscles",
     "Location",
     "Equipment",
     "Weight Goal"
@@ -60,7 +60,7 @@ class _BiometricPageState extends State<BiometricPage> {
     // Split
     CupertinoIcons.chart_pie,
     // Target Muscles
-    Icons.fact_check_outlined,
+    // Icons.fact_check_outlined,
     // Location
     CupertinoIcons.house_fill,
     // Equipment
@@ -98,9 +98,9 @@ class _BiometricPageState extends State<BiometricPage> {
     const TenSplit(
       isSettings: true,
     ),
-    const ElevenTargetMuscles(
-      isSettings: true,
-    ),
+    // const ElevenTargetMuscles(
+    //   isSettings: true,
+    // ),
     const TwelveLocation(
       isSettings: true,
     ),
@@ -127,11 +127,11 @@ class _BiometricPageState extends State<BiometricPage> {
               width: global.width(context) * global.containerWidthFactor,
               child: ListView.builder(
                 physics: const BouncingScrollPhysics(),
-                itemCount: 13,
+                itemCount: sections.length,
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () {
-                      if (index != 13) {
+                      if (index != sections.length - 2) {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -154,13 +154,13 @@ class _BiometricPageState extends State<BiometricPage> {
                                 topLeft: Radius.circular(30),
                                 topRight: Radius.circular(30),
                               )
-                            : index == 12
+                            : index == sections.length - 1
                                 ? const BorderRadius.only(
                                     bottomLeft: Radius.circular(30),
                                     bottomRight: Radius.circular(30),
                                   )
                                 : BorderRadius.circular(0),
-                        border: index != 13
+                        border: index != sections.length
                             ? Border(
                                 bottom: BorderSide(
                                     width: 1,

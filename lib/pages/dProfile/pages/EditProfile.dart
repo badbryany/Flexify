@@ -27,21 +27,15 @@ class _EditProfileState extends State<EditProfile> {
 
   List<Map<String, dynamic>> controllers = [
     {
-      'title': 'username',
+      'title': 'Username',
       'controller': TextEditingController(),
       'inputType': TextInputType.name,
       'password': false,
     },
     {
-      'title': 'email',
+      'title': 'Email',
       'controller': TextEditingController(),
       'inputType': TextInputType.emailAddress,
-      'password': false,
-    },
-    {
-      'title': 'firsname',
-      'controller': TextEditingController(),
-      'inputType': TextInputType.name,
       'password': false,
     },
   ];
@@ -49,13 +43,11 @@ class _EditProfileState extends State<EditProfile> {
   getData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    username = prefs.getString('username')!;
-    firstname = prefs.getString('firstname')!;
-    email = prefs.getString('email')!;
+    username = prefs.getString('Username')!;
+    email = prefs.getString('Email')!;
 
     controllers[0]['controller'].text = username;
     controllers[1]['controller'].text = email;
-    controllers[2]['controller'].text = firstname;
 
     setState(() {});
   }
@@ -133,12 +125,12 @@ class _EditProfileState extends State<EditProfile> {
     http.Response res =
         await http.post(Uri.parse('${global.host}/editAccount'), body: {
       'jwt': prefs.getString('jwt'),
-      'username': (controllers[0]['controller'] as TextEditingController).text,
+      'Username': (controllers[0]['controller'] as TextEditingController).text,
       'firstname': (controllers[1]['controller'] as TextEditingController).text,
       'email': (controllers[2]['controller'] as TextEditingController).text,
     });
 
-    if (res.body == 'username already taken') {
+    if (res.body == 'Username already taken') {
       await showDialog(
         context: context,
         builder: (context) => DeleteAlertDialog(
@@ -283,7 +275,7 @@ class _EditProfileState extends State<EditProfile> {
                                         size: global.width(context) * .04,
                                       ),
                                       Text(
-                                        'edit',
+                                        'Edit',
                                         style: TextStyle(
                                           fontSize:
                                               global.width(context) * .035,
@@ -324,9 +316,9 @@ class _EditProfileState extends State<EditProfile> {
                         )),
                     global.mediumHeight(context),
                     GestureDetector(
-                      onTap: () => print('forgot password'),
+                      onTap: () => print('Forgot Password'),
                       child: Text(
-                        'forgot password?',
+                        'Forgot Password?',
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.onBackground,
                           decoration: TextDecoration.underline,
@@ -342,7 +334,7 @@ class _EditProfileState extends State<EditProfile> {
             ),
             Button(
               onTap: saveData,
-              title: 'save',
+              title: 'Save',
               loading: loading,
             ),
           ],
