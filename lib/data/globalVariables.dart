@@ -192,6 +192,10 @@ SizedBox smallHeight(context) => SizedBox(height: height(context) * .01);
 SizedBox mediumHeight(context) => SizedBox(height: height(context) * .02);
 SizedBox largeHeight(context) => SizedBox(height: height(context) * .03);
 
+SizedBox smallWidth(context) => SizedBox(width: height(context) * .01);
+SizedBox mediumWidth(context) => SizedBox(width: height(context) * .02);
+SizedBox largeWidth(context) => SizedBox(width: height(context) * .03);
+
 String durationString(Duration dur, {bool? hours}) {
   double microseconds = dur.inMicroseconds.toDouble();
 
