@@ -170,8 +170,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                 padding: EdgeInsets.only(right: global.width(context) * 0.1),
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.error,
-                  borderRadius:
-                      BorderRadius.circular(15),
+                  borderRadius: BorderRadius.circular(15),
                 ),
                 child: Icon(
                   CupertinoIcons.trash,
@@ -333,7 +332,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
   }
 
   PageController pageController = PageController();
-  CarouselController carouselController = CarouselController();
+  CarouselSliderController carouselController = CarouselSliderController();
   int pageIndex = 0;
 
   @override

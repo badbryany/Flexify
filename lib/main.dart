@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flexify/SignInSignUp/signIn.dart';
 import 'package:flexify/themeProvider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/pages/dashboard.dart';
 import 'package:flutter/services.dart';
