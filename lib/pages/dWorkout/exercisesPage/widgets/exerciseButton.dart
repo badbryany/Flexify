@@ -89,7 +89,7 @@ class _ExerciseButtonState extends State<ExerciseButton> {
 
   String getPRSet() {
     if (widget.sets.isEmpty) {
-      return '0kg x 0';
+      return '--kg x --';
     }
     double max = widget.sets[0].weight;
     int reps = widget.sets[0].reps;
@@ -198,8 +198,9 @@ class _ExerciseButtonState extends State<ExerciseButton> {
     }
 
     String name = widget.exercise.name;
-    if (name.length > 29) {
-      name = '${name.substring(0, 26).trim()}...';
+    int nameLength = 26;
+    if (name.length > nameLength) {
+      name = '${name.substring(0, nameLength - 3).trim()}...';
     }
 
     return Dismissible(
@@ -207,6 +208,7 @@ class _ExerciseButtonState extends State<ExerciseButton> {
       dismissThresholds: const {DismissDirection.endToStart: 0.7},
       direction: DismissDirection.horizontal,
       background: AnimatedContainer(
+        curve: Curves.easeInOut,
         key: const ValueKey(Alignment),
         duration: const Duration(milliseconds: 150),
         alignment:
@@ -277,15 +279,17 @@ class _ExerciseButtonState extends State<ExerciseButton> {
           ),
         ).then((value) => widget.reload),
         child: AnimatedContainer(
+          curve: Curves.easeInOut,
           alignment: Alignment.center,
           duration: global.standardAnimationDuration,
-          width: global.width(context) * global.containerWidthFactor,
+          width: global.containerWidth(context),
           height: isExpanded
-              ? global.height(context) * .48
+              ? global.height(context) * .425
               : global.height(context) * .125 + global.width(context) * .05,
           margin: EdgeInsets.all(global.width(context) * 0.02),
-          padding:
-              EdgeInsets.symmetric(horizontal: global.width(context) * 0.05),
+          padding: EdgeInsets.symmetric(
+            horizontal: global.width(context) * 0.05,
+          ),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(global.borderRadius),
             color: global.darkGrey,
@@ -299,8 +303,7 @@ class _ExerciseButtonState extends State<ExerciseButton> {
                 children: [
                   Container(
                     alignment: Alignment.centerLeft,
-                    width: global.width(context) *
-                        (global.containerWidthFactor - 0.25),
+                    width: global.width(context) * .675,
                     margin: const EdgeInsets.only(left: 10),
                     child: AnimatedScale(
                       scale: 1,
@@ -317,17 +320,17 @@ class _ExerciseButtonState extends State<ExerciseButton> {
                       ),
                     ),
                   ),
-                  IconButton(
-                    onPressed: () => setState(() {
-                      isExpanded = !isExpanded;
-                    }),
-                    icon: Icon(
-                      key: ValueKey(isExpanded),
-                      isExpanded
-                          ? Icons.expand_less_rounded
-                          : Icons.expand_more_rounded,
+                  AnimatedRotation(
+                    duration: global.standardAnimationDuration,
+                    curve: Curves.easeInOut,
+                    turns: isExpanded ? 0 : .5,
+                    child: IconButton(
+                      onPressed: () => setState(() {
+                        isExpanded = !isExpanded;
+                      }),
+                      icon: const Icon(Icons.expand_less_rounded),
+                      color: Theme.of(context).colorScheme.onBackground,
                     ),
-                    color: Theme.of(context).colorScheme.onBackground,
                   ),
                 ],
               ),
@@ -335,6 +338,7 @@ class _ExerciseButtonState extends State<ExerciseButton> {
                 duration: global.standardAnimationDuration,
                 opacity: isExpanded ? 0 : 1,
                 child: AnimatedContainer(
+                  curve: Curves.easeInOut,
                   duration: global.standardAnimationDuration,
                   alignment: Alignment.centerLeft,
                   padding: EdgeInsets.only(
@@ -349,7 +353,7 @@ class _ExerciseButtonState extends State<ExerciseButton> {
                       Text(
                         widget.sets.isNotEmpty
                             ? '${global.zeroBefore(widget.sets.last.date.day)}.${global.zeroBefore(widget.sets.last.date.month)}. ${global.zeroBefore(widget.sets.last.date.hour)}:${global.zeroBefore(widget.sets.last.date.minute)}'
-                            : '',
+                            : '--.-- --:--',
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           color: Theme.of(context)
@@ -374,8 +378,9 @@ class _ExerciseButtonState extends State<ExerciseButton> {
                 ),
               ),
               AnimatedContainer(
+                curve: Curves.easeInOut,
                 duration: global.standardAnimationDuration,
-                height: isExpanded ? global.height(context) * 0.32 : 0,
+                height: isExpanded ? global.height(context) * 0.3 : 0,
                 child: ListView(
                   physics: const NeverScrollableScrollPhysics(),
                   children: [
