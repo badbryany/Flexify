@@ -3,9 +3,7 @@ import 'dart:async';
 import 'package:flexify/pages/dWorkout/exercisesPage/createNewExercisePage.dart';
 import 'package:flexify/widgets/BounceElement.dart';
 import 'package:flexify/pages/dWorkout/exercisesPage/widgets/exerciseButton.dart';
-// import 'package:flexify/widgets/ButtonLibrary/AnimatedIconButton.dart';
 import 'package:flexify/widgets/AnimatedSearchBar.dart';
-// import 'package:flexify/widgets/SearchBar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/exerciseModels.dart';
@@ -120,8 +118,6 @@ class _ExercisesPageState extends State<ExercisesPage> {
         .get(Uri.parse('$url?q=$searchString'))
         .asStream()
         .listen((http.Response res) {
-      loadingSpeed = DateTime.now().difference(start);
-
       List<dynamic> stringExercises = jsonDecode(res.body);
 
       searchExercises = [];
@@ -153,6 +149,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
           ),
         });
       }
+      loadingSpeed = DateTime.now().difference(start);
       loadingDone = true;
       setState(() {});
     });
@@ -207,7 +204,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
     return Scaffold(
       body: SafeArea(
         child: PopScope(
-          canPop: _searchBarOpen == 0,
+          canPop: _searchBarOpen == 1,
           onPopInvoked: (foo) {
             if (!foo) {
               _searchBarOpen = 0;
@@ -222,69 +219,87 @@ class _ExercisesPageState extends State<ExercisesPage> {
               children: [
                 Padding(
                   padding: EdgeInsets.all(global.height(context) * .025),
-                  child: Row(
-                    mainAxisAlignment: _searchBarOpen == 1
-                        ? MainAxisAlignment.spaceBetween
-                        : MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                  child: Stack(
                     children: [
-                      Visibility(
-                        visible: _searchBarOpen == 1,
-                        child: BounceElement(
-                          onTap: () => Navigator.pop(context),
-                          child: Container(
-                            alignment: Alignment.center,
-                            padding:
-                                EdgeInsets.all(global.height(context) * 0.0025),
-                            width: global.width(context) * 0.15,
-                            height: global.width(context) * 0.15,
-                            decoration: BoxDecoration(
-                              color: global.darkGrey,
-                              borderRadius: BorderRadius.circular(100),
-                              boxShadow: global.shadow(context),
+                      SizedBox(
+                        width: global.width(context) * .66,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            AnimatedOpacity(
+                              duration: global.standardAnimationDuration,
+                              opacity: _searchBarOpen.toDouble(),
+                              child: BounceElement(
+                                onTap: () => Navigator.pop(context),
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  padding: EdgeInsets.all(
+                                      global.height(context) * 0.0025),
+                                  width: global.width(context) * 0.15,
+                                  height: global.width(context) * 0.15,
+                                  decoration: BoxDecoration(
+                                    color: global.darkGrey,
+                                    borderRadius: BorderRadius.circular(100),
+                                    boxShadow: global.shadow(context),
+                                  ),
+                                  child: Icon(
+                                    Icons.arrow_back_rounded,
+                                    size: global.width(context) * 0.05,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
                             ),
-                            child: Icon(
-                              Icons.arrow_back_rounded,
-                              size: global.width(context) * 0.05,
-                              color: Colors.white,
+                            AnimatedOpacity(
+                              duration: global.standardAnimationDuration,
+                              opacity: _searchBarOpen.toDouble(),
+                              child: Text(
+                                'All Exercises',
+                                textAlign: TextAlign.center,
+                                maxLines: 1,
+                                style: TextStyle(
+                                  color: Theme.of(context).focusColor,
+                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: -1,
+                                  fontSize: global.width(context) * .075,
+                                ),
+                              ),
                             ),
-                          ),
+                          ],
                         ),
                       ),
-                      Visibility(
-                        visible: _searchBarOpen == 1,
-                        child: Text(
-                          'All Exercises',
-                          textAlign: TextAlign.center,
-                          maxLines: 1,
-                          style: TextStyle(
-                            color: Theme.of(context).focusColor,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: -1,
-                            fontSize: global.width(context) * .075,
+                      Positioned(
+                        top: 0,
+                        bottom: 0,
+                        right: 0,
+                        child: SizedBox(
+                          width: _searchBarOpen == 0
+                              ? null
+                              : global.width(context) * .15,
+                          child: AnimatedSearchBar(
+                            isOpen: _searchBarOpen == 0,
+                            radius: global.width(context) * 0.075,
+                            searchBarWidth: Tuple(
+                              global.containerWidth(context) -
+                                  global.width(context) * .1,
+                              global.width(context) * 0.15,
+                            ),
+                            backgroundColor: global.darkGrey,
+                            searchController: _controller,
+                            duration: const Duration(milliseconds: 0),
+                            iconSize: global.width(context) * 0.055,
+                            onTap: () {
+                              _searchBarOpen == 0
+                                  ? _searchBarOpen = 1
+                                  : _searchBarOpen = 0;
+                              setState(() {});
+                            },
+                            openIcon: Icons.close,
+                            closedIcon: Icons.add,
+                            fadeDuration: const Duration(milliseconds: 500),
                           ),
                         ),
-                      ),
-                      AnimatedSearchBar(
-                        isOpen: _searchBarOpen == 0,
-                        radius: global.width(context) * 0.075,
-                        searchBarWidth: Tuple(
-                          global.containerWidth(context) - global.width(context) * .1,
-                          global.width(context) * 0.15,
-                        ),
-                        backgroundColor: global.darkGrey,
-                        searchController: _controller,
-                        duration: const Duration(milliseconds: 0),
-                        iconSize: global.width(context) * 0.055,
-                        onTap: () {
-                          _searchBarOpen == 0
-                              ? _searchBarOpen = 1
-                              : _searchBarOpen = 0;
-                          setState(() {});
-                        },
-                        openIcon: Icons.close,
-                        closedIcon: Icons.add,
-                        fadeDuration: const Duration(milliseconds: 500),
                       ),
                     ],
                   ),
@@ -375,7 +390,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
                                               const BouncingScrollPhysics(),
                                           children: [
                                             Text(
-                                              '${searchExercises.length} Ergebniss(e) (0.${loadingSpeed.inMilliseconds.toString().substring(1)[0]} Sekunden)',
+                                              '${searchExercises.length} Ergebniss(e) (0.${loadingSpeed != Duration.zero ? loadingSpeed.inMilliseconds.toString().substring(1)[0] : '0'} Sekunden)',
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                 color: Theme.of(context)

@@ -4,7 +4,6 @@ import 'package:flexify/SignInSignUp/signIn.dart';
 import 'package:flexify/SignInSignUp/widgets/LoadingButton.dart';
 import 'package:flexify/data/exerciseModels.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
-import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -224,9 +223,11 @@ class _SignUpState extends State<SignUp> {
                           setState(() {});
 
                           Navigator.of(context).push(
-                            PageTransition(
-                              child: const UploadProfilePicture(),
-                              type: PageTransitionType.rightToLeft,
+                            MaterialPageRoute(
+                              builder: (context) => const PopScope(
+                                canPop: false,
+                                child: UploadProfilePicture(),
+                              ),
                             ),
                           );
                           return;
@@ -338,9 +339,11 @@ class _SignUpState extends State<SignUp> {
                         TextButton(
                           onPressed: () => Navigator.push(
                             context,
-                            PageTransition(
-                              child: const SignIn(),
-                              type: PageTransitionType.fade,
+                            MaterialPageRoute(
+                              builder: (context) => const PopScope(
+                                canPop: false,
+                                child: SignIn(),
+                              ),
                             ),
                           ),
                           child: Text(

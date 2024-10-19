@@ -5,7 +5,6 @@ import 'package:flexify/widgets/Button.dart';
 import 'package:flexify/widgets/LoadingImage.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
-import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image/image.dart' as img;
@@ -201,9 +200,11 @@ class UploadStateProfilePicture extends State<UploadProfilePicture> {
                   Button(
                     onTap: () => Navigator.push(
                       context,
-                      PageTransition(
-                        child: const Dashboard(),
-                        type: PageTransitionType.fade,
+                      MaterialPageRoute(
+                        builder: (context) => const PopScope(
+                          canPop: false,
+                          child: Dashboard(),
+                        ),
                       ),
                     ),
                     title: 'done',

@@ -5,7 +5,6 @@ import 'package:flexify/pages/dWorkout/exercisesPage/setsPage/setsPage.dart';
 import 'package:flexify/widgets/BounceElement.dart';
 import 'package:flexify/widgets/DeleteAlertDialog.dart';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:flexify/data/exerciseModels.dart';
 import 'package:flexify/pages/dWorkout/exercisesPage/widgets/muscleCooldown.dart';
 import 'dart:math';
@@ -270,12 +269,11 @@ class _ExerciseButtonState extends State<ExerciseButton> {
       child: BounceElement(
         onTap: () => Navigator.push(
           context,
-          PageTransition(
-            child: ExerciseSets(
+          MaterialPageRoute(
+            builder: (context) => ExerciseSets(
               name: widget.exercise.name,
               refresh: widget.reload,
             ),
-            type: PageTransitionType.rightToLeft,
           ),
         ).then((value) => widget.reload),
         child: AnimatedContainer(
@@ -417,13 +415,12 @@ class _ExerciseButtonState extends State<ExerciseButton> {
                               IconButton(
                                 onPressed: () => Navigator.push(
                                   context,
-                                  PageTransition(
-                                    child: AddEditSet(
+                                  MaterialPageRoute(
+                                    builder: (copntext) => AddEditSet(
                                       add: true,
                                       set: null,
                                       exerciseName: widget.exercise.name,
                                     ),
-                                    type: PageTransitionType.fade,
                                   ),
                                 ).then((value) => widget.reload()),
                                 icon: Container(

@@ -1,6 +1,6 @@
-import 'package:flexify/pages/dShop/pages/widgets/ShopNavbar.dart';
 import 'package:flexify/pages/dWorkout/hiitTimer/HIITTimer.dart';
 import 'package:flexify/widgets/BounceElement.dart';
+import 'package:flexify/widgets/Navbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
@@ -77,12 +77,11 @@ class _SetupHIITTimerrState extends State<SetupHIITTimer> {
       body: SafeArea(
         child: Column(
           children: [
-            ShopNavbar(
+            const Navbar(
               title: 'HIIT Timer',
-              titleSize: global.width(context) * .075,
             ),
             SizedBox(
-              height: global.height(context) * .7,
+              height: global.height(context) * .69,
               width: global.containerWidth(context),
               child: Stack(
                 children: [
@@ -92,7 +91,7 @@ class _SetupHIITTimerrState extends State<SetupHIITTimer> {
                       duration: global.standardAnimationDuration,
                       child: SizedBox(
                         height: global.height(context) * .85 -
-                            global.width(context) * .175,
+                            global.width(context) * .2,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -164,7 +163,7 @@ class _SetupHIITTimerrState extends State<SetupHIITTimer> {
                     onTap: addRound,
                     child: Container(
                       width: global.height(context) * .08,
-                      height: global.height(context) * .08,
+                      height: global.height(context) * .075,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         color: global.darkGrey,
@@ -188,7 +187,7 @@ class _SetupHIITTimerrState extends State<SetupHIITTimer> {
                         onTap: () => rounds.isEmpty ? null : startTimer(),
                         child: Container(
                           alignment: Alignment.center,
-                          height: global.height(context) * .08,
+                          height: global.height(context) * .075,
                           padding: EdgeInsets.symmetric(
                             horizontal: global.width(context) * .025,
                           ),

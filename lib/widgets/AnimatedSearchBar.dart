@@ -63,9 +63,10 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar>
               parent: _controller,
               curve: Interval(
                 0.0,
-                widget.fadeDuration!.inMilliseconds /
-                    widget.duration.inMilliseconds,
-                curve: Curves.linear,
+                (widget.fadeDuration!.inMilliseconds /
+                        widget.duration.inMilliseconds)
+                    .clamp(0.0, 1.0),
+                curve: Curves.easeInOut,
               ),
             ),
           )
@@ -94,7 +95,7 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar>
     super.didUpdateWidget(oldWidget);
     if (widget.isOpen != oldWidget.isOpen) {
       if (widget.isOpen) {
-        _controller.animateTo(0, duration: const Duration(milliseconds: 500));
+        _controller.animateTo(0, duration: global.standardAnimationDuration);
       } else {
         _controller.forward();
       }
@@ -140,36 +141,40 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar>
                 return animatedChild;
               },
               child: widget.isOpen
-                  ? Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: global.width(context) * .05,
-                          ),
-                          width: global.width(context) * .6,
-                          child: TextField(
-                            textAlignVertical: TextAlignVertical.center,
-                            autofocus: true,
-                            controller: widget.searchController,
-                            decoration: InputDecoration(
-                              isCollapsed: true,
-                              hintText: 'Search',
-                              border: InputBorder.none,
-                              hintStyle: TextStyle(
-                                color: Colors.white.withOpacity(.5),
-                                fontSize: global.width(context) * .03,
-                              ),
+                  ? SingleChildScrollView(
+                      physics: const NeverScrollableScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: global.width(context) * .05,
                             ),
-                            cursorColor: Colors.white,
+                            width: global.width(context) * .6,
+                            child: TextField(
+                              textAlignVertical: TextAlignVertical.center,
+                              autofocus: true,
+                              controller: widget.searchController,
+                              decoration: InputDecoration(
+                                isCollapsed: true,
+                                hintText: 'Search',
+                                border: InputBorder.none,
+                                hintStyle: TextStyle(
+                                  color: Colors.white.withOpacity(.5),
+                                  fontSize: global.width(context) * .03,
+                                ),
+                              ),
+                              cursorColor: Colors.white,
+                            ),
                           ),
-                        ),
-                        Icon(
-                          widget.openIcon,
-                          size: widget.iconSize,
-                          color: widget.iconColor,
-                        )
-                      ],
+                          Icon(
+                            widget.openIcon,
+                            size: widget.iconSize,
+                            color: widget.iconColor,
+                          )
+                        ],
+                      ),
                     )
                   : Icon(
                       widget.closedIcon,

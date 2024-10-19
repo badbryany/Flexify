@@ -23,7 +23,7 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  int _selectedIndex = 2;
+  int _selectedIndex = 1;
   bool gotRequests = false;
 
   bool _isDesposed = false;
@@ -100,7 +100,6 @@ class _DashboardState extends State<Dashboard> {
     return PopScope(
       canPop: false,
       child: Scaffold(
-        appBar: AppBar(),
         body: SafeArea(
           child: SizedBox(
             width: global.width(context),
@@ -189,8 +188,10 @@ class _DashboardState extends State<Dashboard> {
 
         // SPACING
         bottomNavigationBar: Container(
-          padding:
-              EdgeInsets.symmetric(vertical: global.height(context) * 0.025),
+          padding: EdgeInsets.only(
+            top: global.width(context) * 0.06,
+            bottom: global.width(context) * 0.075,
+          ),
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.background,
             borderRadius: const BorderRadius.only(

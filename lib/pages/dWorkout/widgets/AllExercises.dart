@@ -10,7 +10,6 @@ import 'package:flexify/data/AnalyseWorkoutData/WorkoutDay.dart';
 
 import 'package:flexify/data/exerciseModels.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
-import 'package:page_transition/page_transition.dart';
 
 class AllExercises extends StatefulWidget {
   const AllExercises({
@@ -74,9 +73,8 @@ class _AllExercisesState extends State<AllExercises> {
     return BounceElement(
       onTap: () => Navigator.push(
         context,
-        PageTransition(
-          child: ExercisesPage(reload: widget.reload),
-          type: PageTransitionType.rightToLeft,
+        MaterialPageRoute(
+          builder: (context) => ExercisesPage(reload: widget.reload),
         ),
       ).then((value) => widget.reload()),
       child: Container(

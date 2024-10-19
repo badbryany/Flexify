@@ -6,7 +6,6 @@ import 'package:flexify/widgets/DeleteAlertDialog.dart';
 import 'package:flexify/widgets/LoadingImage.dart';
 import 'package:flexify/widgets/ModalBottomSheet.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -61,9 +60,7 @@ class _UserInfoState extends State<UserInfo> {
     email = prefs.getString('email')!;
 
     (controllers[0]['controller'] as TextEditingController).text = username;
-    (controllers[1]['controller'] as TextEditingController).text =
-        prefs.getString('firstname')!;
-    (controllers[2]['controller'] as TextEditingController).text = email;
+    (controllers[1]['controller'] as TextEditingController).text = email;
 
     setState(() {});
   }
@@ -367,9 +364,8 @@ class _UserInfoState extends State<UserInfo> {
                           icon: Icons.person_add_rounded,
                           onTap: () => Navigator.push(
                             context,
-                            PageTransition(
-                              child: const AddFriends(),
-                              type: PageTransitionType.rightToLeft,
+                            MaterialPageRoute(
+                              builder: (context) => const AddFriends(),
                             ),
                           ),
                         ),

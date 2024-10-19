@@ -4,7 +4,6 @@ import 'package:flexify/pages/dWorkout/exercisesPage/widgets/Heading.dart';
 import 'package:flexify/widgets/DeleteAlertDialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:flexify/pages/dWorkout/exercisesPage/setsPage/widgets/ExerciseStats.dart';
 import 'package:flexify/data/exerciseModels.dart';
 import 'package:flexify/pages/dWorkout/exercisesPage/setsPage/addeditSetPage/addeditSetPage.dart';
@@ -209,13 +208,12 @@ class _ExerciseSetsState extends State<ExerciseSets> {
             child: GestureDetector(
               onTap: () => Navigator.push(
                 context,
-                PageTransition(
-                  child: AddEditSet(
+                MaterialPageRoute(
+                  builder: (context) => AddEditSet(
                     add: false,
                     set: setList[i],
                     exerciseName: widget.name,
                   ),
-                  type: PageTransitionType.fade,
                 ),
               ).then((value) => getData()),
               child: Container(
@@ -359,13 +357,12 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                 iconData: Icons.add,
                 action: () => Navigator.push(
                   context,
-                  PageTransition(
-                    child: AddEditSet(
+                  MaterialPageRoute(
+                    builder: (context) => AddEditSet(
                       add: true,
                       set: null,
                       exerciseName: widget.name,
                     ),
-                    type: PageTransitionType.fade,
                   ),
                 ).then((value) => getData()),
               ),
