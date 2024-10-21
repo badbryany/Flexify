@@ -24,14 +24,25 @@ class UserInfo extends StatefulWidget {
 class _UserInfoState extends State<UserInfo> {
   String username = '';
   String email = '';
+  String firstname = '';
 
   bool editing = false;
   bool loading = false;
 
   XFile? image;
 
-  List<Map<String, dynamic>> controllers = [
-    {
+  Map<String, Map<String, dynamic>> controllers = {
+    'firstname': {
+      'title': 'Firstname',
+      'controller': TextEditingController(),
+      'textInputType': TextInputType.name,
+      'password': false,
+      'icon': const Icon(
+        Icons.person_2,
+        size: 20,
+      ),
+    },
+    'username': {
       'title': 'Username',
       'controller': TextEditingController(),
       'textInputType': TextInputType.text,
@@ -41,7 +52,7 @@ class _UserInfoState extends State<UserInfo> {
         size: 20,
       ),
     },
-    {
+    'email': {
       'title': 'E-Mail',
       'controller': TextEditingController(),
       'textInputType': TextInputType.emailAddress,
@@ -51,16 +62,21 @@ class _UserInfoState extends State<UserInfo> {
         size: 20,
       ),
     },
-  ];
+  };
 
   getData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     username = prefs.getString('username')!;
     email = prefs.getString('email')!;
+    firstname = prefs.getString('firstname')!;
 
-    (controllers[0]['controller'] as TextEditingController).text = username;
-    (controllers[1]['controller'] as TextEditingController).text = email;
+    ((controllers['username'] as Map)['controller'] as TextEditingController)
+        .text = username;
+    ((controllers['email'] as Map)['controller'] as TextEditingController)
+        .text = email;
+    ((controllers['firstname'] as Map)['controller'] as TextEditingController)
+        .text = firstname;
 
     setState(() {});
   }
@@ -125,11 +141,13 @@ class _UserInfoState extends State<UserInfo> {
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    if ((controllers[0]['controller'] as TextEditingController).text ==
+    if (((controllers['username'] as Map)['controller']
+                    as TextEditingController)
+                .text ==
             username &&
-        (controllers[1]['controller'] as TextEditingController).text ==
-            prefs.getString('firstname') &&
-        (controllers[2]['controller'] as TextEditingController).text == email) {
+        ((controllers['email'] as Map)['controller'] as TextEditingController)
+                .text ==
+            email) {
       editing = false;
       loading = false;
       setState(() {});
@@ -139,9 +157,15 @@ class _UserInfoState extends State<UserInfo> {
     http.Response res =
         await http.post(Uri.parse('${global.host}/editAccount'), body: {
       'jwt': prefs.getString('jwt'),
-      'username': (controllers[0]['controller'] as TextEditingController).text,
-      'firstname': (controllers[1]['controller'] as TextEditingController).text,
-      'email': (controllers[2]['controller'] as TextEditingController).text,
+      'username': ((controllers['username'] as Map)['controller']
+              as TextEditingController)
+          .text,
+      'firstname': ((controllers['firstname'] as Map)['controller']
+              as TextEditingController)
+          .text,
+      'email':
+          ((controllers['email'] as Map)['controller'] as TextEditingController)
+              .text,
     });
 
     if (res.body == 'username already taken') {
@@ -157,19 +181,32 @@ class _UserInfoState extends State<UserInfo> {
           title: 'The username is already taken!',
         ),
       );
-      (controllers[0]['controller'] as TextEditingController).text = username;
+      ((controllers['username'] as Map)['controller'] as TextEditingController)
+          .text = username;
     }
 
     if (res.body == 'done') {
-      prefs.setString('username',
-          (controllers[0]['controller'] as TextEditingController).text);
-      prefs.setString('firstname',
-          (controllers[1]['controller'] as TextEditingController).text);
-      prefs.setString('email',
-          (controllers[2]['controller'] as TextEditingController).text);
+      prefs.setString(
+          'username',
+          ((controllers['username'] as Map)['controller']
+                  as TextEditingController)
+              .text);
+      prefs.setString(
+          'firstname',
+          ((controllers['firstname'] as Map)['controller']
+                  as TextEditingController)
+              .text);
+      prefs.setString(
+          'email',
+          ((controllers['email'] as Map)['controller'] as TextEditingController)
+              .text);
 
-      username = (controllers[0]['controller'] as TextEditingController).text;
-      email = (controllers[2]['controller'] as TextEditingController).text;
+      username = ((controllers['username'] as Map)['controller']
+              as TextEditingController)
+          .text;
+      email =
+          ((controllers['email'] as Map)['controller'] as TextEditingController)
+              .text;
 
       editing = false;
     }
@@ -220,14 +257,15 @@ class _UserInfoState extends State<UserInfo> {
                               physics: const NeverScrollableScrollPhysics(),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                children: controllers
+                                children: controllers.entries
+                                    .toList()
                                     .map(
                                       (e) => Input(
-                                        hintText: e['title'],
-                                        textInputType: e['textInputType'],
-                                        controller: e['controller'],
-                                        password: e['password'],
-                                        icon: e['icon'],
+                                        hintText: e.value['title'],
+                                        textInputType: e.value['textInputType'],
+                                        controller: e.value['controller'],
+                                        password: e.value['password'],
+                                        icon: e.value['icon'],
                                       ),
                                     )
                                     .toList(),
