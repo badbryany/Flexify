@@ -258,7 +258,7 @@ class _UserStatsState extends State<UserStats> {
                                               ),
                                               backDrawRodData:
                                                   BackgroundBarChartRodData(
-                                                show: true,
+                                                show: false,
                                                 toY: entry.key.toDouble(),
                                               ),
                                             ),

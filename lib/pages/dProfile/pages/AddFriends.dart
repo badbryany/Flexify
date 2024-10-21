@@ -645,14 +645,13 @@ class _UserWidgetState extends State<UserWidget> {
     setState(() {});
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    http.Response res = await http.post(
+    await http.post(
       Uri.parse('${global.host}/sendFriendshipRequest'),
       body: {
         'jwt': prefs.getString('jwt'),
         'username': widget.username,
       },
     );
-    print(res.body);
   }
 
   @override
@@ -667,7 +666,10 @@ class _UserWidgetState extends State<UserWidget> {
     }
 
     return Container(
-      padding: EdgeInsets.all(global.containerPadding - 10),
+      padding: EdgeInsets.symmetric(
+        horizontal: global.width(context) * .05,
+        vertical: global.width(context) * .04,
+      ),
       margin: const EdgeInsets.symmetric(vertical: 7.5, horizontal: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(global.borderRadius),
