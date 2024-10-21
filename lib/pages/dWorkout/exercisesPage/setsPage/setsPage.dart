@@ -1,7 +1,7 @@
-import 'package:flexify/pages/dShop/pages/widgets/ShopNavbar.dart';
 import 'package:flexify/pages/dWorkout/exercisesPage/setsPage/widgets/ExerciseTimer.dart';
 import 'package:flexify/pages/dWorkout/exercisesPage/widgets/Heading.dart';
 import 'package:flexify/widgets/DeleteAlertDialog.dart';
+import 'package:flexify/widgets/Navbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/pages/dWorkout/exercisesPage/setsPage/widgets/ExerciseStats.dart';
@@ -351,7 +351,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
         body: ListView(
           physics: const BouncingScrollPhysics(),
           children: [
-            ShopNavbar(
+            Navbar(
               title: exerciseName,
               actionButton: ActionButton(
                 iconData: Icons.add,
