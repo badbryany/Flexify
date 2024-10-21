@@ -33,10 +33,12 @@ class _ExercisesPageState extends State<ExercisesPage> {
 
   bool loadingDone = false;
   bool connectedToInternet = true;
-  int _searchBarOpen = 1;
+  bool searchBarOpen = false;
   Duration loadingSpeed = Duration.zero;
 
   StreamSubscription<http.Response>? searchStream;
+
+  ScrollController scrollController = ScrollController();
 
   String previosSearchText = '';
 
@@ -80,6 +82,17 @@ class _ExercisesPageState extends State<ExercisesPage> {
       setState(() {});
     }
     initialLoad = false;
+  }
+
+  toggleSearchBar() {
+    searchBarOpen = !searchBarOpen;
+
+    for (var i = 0; i < searchExercises.length; i++) {
+      searchExercises[i]['added'] = exerciseExistsAlready(
+        (searchExercises[i]['exercise'] as Exercise),
+      );
+    }
+    setState(() {});
   }
 
   bool exerciseExistsAlready(Exercise newExercise) {
@@ -196,6 +209,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
         searchForExercises();
       }
     });
+    searchForExercises();
     getData();
   }
 
@@ -204,11 +218,10 @@ class _ExercisesPageState extends State<ExercisesPage> {
     return Scaffold(
       body: SafeArea(
         child: PopScope(
-          canPop: _searchBarOpen == 1,
+          canPop: searchBarOpen,
           onPopInvoked: (foo) {
             if (!foo) {
-              _searchBarOpen = 0;
-              setState(() {});
+              toggleSearchBar();
             }
           },
           child: SizedBox(
@@ -229,7 +242,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
                           children: [
                             AnimatedOpacity(
                               duration: global.standardAnimationDuration,
-                              opacity: _searchBarOpen.toDouble(),
+                              opacity: searchBarOpen ? 0 : 1,
                               child: BounceElement(
                                 onTap: () => Navigator.pop(context),
                                 child: Container(
@@ -253,7 +266,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
                             ),
                             AnimatedOpacity(
                               duration: global.standardAnimationDuration,
-                              opacity: _searchBarOpen.toDouble(),
+                              opacity: searchBarOpen ? 0 : 1,
                               child: Text(
                                 'All Exercises',
                                 textAlign: TextAlign.center,
@@ -274,11 +287,11 @@ class _ExercisesPageState extends State<ExercisesPage> {
                         bottom: 0,
                         right: 0,
                         child: SizedBox(
-                          width: _searchBarOpen == 0
+                          width: searchBarOpen
                               ? null
                               : global.width(context) * .15,
                           child: AnimatedSearchBar(
-                            isOpen: _searchBarOpen == 0,
+                            isOpen: searchBarOpen,
                             radius: global.width(context) * 0.075,
                             searchBarWidth: Tuple(
                               global.containerWidth(context) -
@@ -289,12 +302,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
                             searchController: _controller,
                             duration: const Duration(milliseconds: 0),
                             iconSize: global.width(context) * 0.055,
-                            onTap: () {
-                              _searchBarOpen == 0
-                                  ? _searchBarOpen = 1
-                                  : _searchBarOpen = 0;
-                              setState(() {});
-                            },
+                            onTap: toggleSearchBar,
                             openIcon: Icons.close,
                             closedIcon: Icons.add,
                             fadeDuration: const Duration(milliseconds: 500),
@@ -304,9 +312,9 @@ class _ExercisesPageState extends State<ExercisesPage> {
                     ],
                   ),
                 ),
-                _searchBarOpen == 1
+                !searchBarOpen
                     ? Column(
-                        key: ValueKey(_searchBarOpen),
+                        key: ValueKey(searchBarOpen),
                         children: [
                           ...(exercises.isEmpty
                               ? [
@@ -349,7 +357,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
                         ],
                       )
                     : Column(
-                        key: ValueKey(_searchBarOpen),
+                        key: ValueKey(searchBarOpen),
                         children: [
                           SizedBox(
                             width: global.width(context) *
@@ -384,13 +392,15 @@ class _ExercisesPageState extends State<ExercisesPage> {
                                       )
                                     : Scrollbar(
                                         radius: const Radius.circular(100),
+                                        controller: scrollController,
                                         child: ListView(
+                                          controller: scrollController,
                                           shrinkWrap: true,
                                           physics:
                                               const BouncingScrollPhysics(),
                                           children: [
                                             Text(
-                                              '${searchExercises.length} Ergebniss(e) (0.${loadingSpeed != Duration.zero ? loadingSpeed.inMilliseconds.toString().substring(1)[0] : '0'} Sekunden)',
+                                              'loaded ${searchExercises.length} exercise(s) (0.${loadingSpeed != Duration.zero ? loadingSpeed.inMilliseconds.toString().substring(1)[0] : '0'} Sekunden)',
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                 color: Theme.of(context)
@@ -398,112 +408,126 @@ class _ExercisesPageState extends State<ExercisesPage> {
                                                     .withOpacity(0.3),
                                               ),
                                             ),
-                                            ...searchExercises
-                                                .map((e) => BounceElement(
-                                                      onTap: () {
-                                                        e['new']
-                                                            ? Navigator.push(
-                                                                context,
-                                                                MaterialPageRoute(
-                                                                  builder: (context) => CreateNewExercise(
-                                                                      exercise: e[
-                                                                          'exercise'],
-                                                                      reload:
-                                                                          getData),
-                                                                ),
-                                                              )
-                                                            : Save.saveExercise(
-                                                                e['exercise']);
-                                                        getData();
-                                                        setState(() =>
-                                                            _searchBarOpen = 0);
-                                                        _controller.text = '';
-                                                        FocusScope.of(context)
-                                                            .unfocus();
-                                                      },
-                                                      child: Container(
-                                                        padding: EdgeInsets.all(
-                                                            global
-                                                                .containerPadding),
-                                                        margin: const EdgeInsets
-                                                            .all(7.5),
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          borderRadius: BorderRadius
-                                                              .circular(global
-                                                                  .borderRadius),
-                                                          color:
-                                                              Theme.of(context)
-                                                                  .colorScheme
-                                                                  .background,
-                                                        ),
-                                                        child: Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceBetween,
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .center,
-                                                              children: [
-                                                                SizedBox(
-                                                                  width: MediaQuery.of(
-                                                                              context)
-                                                                          .size
-                                                                          .width *
-                                                                      0.65,
-                                                                  child: Text(
-                                                                    e['exercise']
-                                                                        .name,
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: Theme.of(
-                                                                              context)
-                                                                          .colorScheme
-                                                                          .onBackground,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      fontSize:
-                                                                          global.width(context) *
-                                                                              0.045,
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                Icon(
-                                                                  CupertinoIcons
-                                                                      .add,
-                                                                  color: Theme.of(
-                                                                          context)
-                                                                      .colorScheme
-                                                                      .onBackground,
-                                                                  size: global.width(
-                                                                          context) *
-                                                                      .06,
-                                                                )
-                                                              ],
-                                                            ),
-                                                            e['new']
-                                                                ? Text(
-                                                                    'create this exercise',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: Theme.of(
-                                                                              context)
-                                                                          .colorScheme
-                                                                          .onBackground,
-                                                                    ),
-                                                                  )
-                                                                : const SizedBox(),
-                                                          ],
-                                                        ),
+                                            ...searchExercises.map(
+                                              (e) => BounceElement(
+                                                onTap: () {
+                                                  if (e['new']) {
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            CreateNewExercise(
+                                                                exercise: e[
+                                                                    'exercise'],
+                                                                reload:
+                                                                    getData),
                                                       ),
-                                                    ))
-                                                .toList()
+                                                    );
+                                                  } else {
+                                                    Save.saveExercise(
+                                                      e['exercise'],
+                                                    );
+                                                    setState(() =>
+                                                        e['added'] = true);
+                                                    toggleSearchBar();
+                                                  }
+                                                  getData();
+                                                  _controller.text = '';
+                                                  FocusScope.of(context)
+                                                      .unfocus();
+                                                },
+                                                child: Container(
+                                                  padding: EdgeInsets.all(
+                                                      global.containerPadding),
+                                                  margin:
+                                                      const EdgeInsets.all(7.5),
+                                                  decoration: BoxDecoration(
+                                                    border: e['added']
+                                                        ? Border.all(
+                                                            color: Theme.of(
+                                                                    context)
+                                                                .colorScheme
+                                                                .primary,
+                                                            width: 1,
+                                                          )
+                                                        : null,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            global
+                                                                .borderRadius),
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .background,
+                                                  ),
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          SizedBox(
+                                                            width: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width *
+                                                                0.65,
+                                                            child: Text(
+                                                              e['exercise']
+                                                                  .name,
+                                                              style: TextStyle(
+                                                                color: Theme.of(
+                                                                        context)
+                                                                    .colorScheme
+                                                                    .onBackground,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize: global
+                                                                        .width(
+                                                                            context) *
+                                                                    0.045,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          Icon(
+                                                            e['added']
+                                                                ? CupertinoIcons
+                                                                    .check_mark
+                                                                : CupertinoIcons
+                                                                    .add,
+                                                            color: Theme.of(
+                                                                    context)
+                                                                .colorScheme
+                                                                .onBackground,
+                                                            size: global.width(
+                                                                    context) *
+                                                                .06,
+                                                          )
+                                                        ],
+                                                      ),
+                                                      e['new']
+                                                          ? Text(
+                                                              'create this exercise',
+                                                              style: TextStyle(
+                                                                color: Theme.of(
+                                                                        context)
+                                                                    .colorScheme
+                                                                    .onBackground,
+                                                              ),
+                                                            )
+                                                          : const SizedBox(),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            )
                                           ],
                                         ),
                                       ),
