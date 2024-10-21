@@ -162,6 +162,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
           ),
         });
       }
+
       loadingSpeed = DateTime.now().difference(start);
       loadingDone = true;
       setState(() {});
@@ -215,10 +216,11 @@ class _ExercisesPageState extends State<ExercisesPage> {
 
   @override
   Widget build(BuildContext context) {
+    // loadingDone = false;
     return Scaffold(
       body: SafeArea(
         child: PopScope(
-          canPop: searchBarOpen,
+          canPop: !searchBarOpen,
           onPopInvoked: (foo) {
             if (!foo) {
               toggleSearchBar();

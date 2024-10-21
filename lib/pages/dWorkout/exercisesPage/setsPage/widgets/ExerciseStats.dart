@@ -184,20 +184,17 @@ class _ExerciseStatsState extends State<ExerciseStats> {
         clipBehavior: Clip.none,
         children: [
           Container(
-            height:
-                global.width(context) * .4 + global.height(context) * .4 - 200,
             width: global.containerWidth(context),
             margin: const EdgeInsets.all(10),
             padding: const EdgeInsets.only(
-              top: 20,
+              top: 15,
               right: 20,
               left: 20,
-              bottom: 5,
             ),
             alignment: Alignment.center,
             decoration: BoxDecoration(
               color: global.darkGrey,
-              borderRadius: BorderRadius.circular(global.width(context) * 0.1),
+              borderRadius: BorderRadius.circular(global.width(context) * 0.09),
               boxShadow: [global.darkShadow(context)],
             ),
             child: Column(

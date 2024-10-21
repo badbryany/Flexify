@@ -34,36 +34,34 @@ class _ToggleSetTypeState extends State<ToggleSetType> {
       returnWidgets.add(
         GestureDetector(
           onTap: () => toggleIndex(i),
-          child: SizedBox(
+          child: Container(
             width: ((global.containerWidth(context) * elementWidth) /
                 widget.types.length),
             height: global.height(context) * .055,
-            child: Container(
-              color: Colors.transparent,
-              padding: EdgeInsets.symmetric(
-                horizontal: global.width(context) * .075,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Icon(
-                    widget.types[i]['icon'],
-                    size: global.width(context) * .05,
+            color: Colors.transparent,
+            padding: EdgeInsets.symmetric(
+              horizontal: global.width(context) * .075,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Icon(
+                  widget.types[i]['icon'],
+                  size: global.width(context) * .05,
+                  color: activeIndex == i
+                      ? Colors.black
+                      : Colors.white.withOpacity(.5),
+                ),
+                Text(
+                  widget.types[i]['title'],
+                  style: TextStyle(
+                    fontSize: global.width(context) * .0375,
                     color: activeIndex == i
                         ? Colors.black
                         : Colors.white.withOpacity(.5),
                   ),
-                  Text(
-                    widget.types[i]['title'],
-                    style: TextStyle(
-                      fontSize: global.width(context) * .0375,
-                      color: activeIndex == i
-                          ? Colors.black
-                          : Colors.white.withOpacity(.5),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
@@ -88,7 +86,9 @@ class _ToggleSetTypeState extends State<ToggleSetType> {
         children: [
           AnimatedPositioned(
             curve: Curves.easeInOutCirc,
-            left: ((global.containerWidth(context)) / widget.types.length) *
+            left: ((global.containerWidth(context) * elementWidth +
+                        global.width(context) * .0825) /
+                    widget.types.length) *
                 activeIndex,
             duration: global.standardAnimationDuration,
             child: Container(
@@ -102,7 +102,7 @@ class _ToggleSetTypeState extends State<ToggleSetType> {
             ),
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: typeWidgets(),
           ),
         ],
