@@ -345,6 +345,11 @@ class _ExerciseSetsState extends State<ExerciseSets> {
       ),
     ];
 
+    int nameLength = 18;
+    if (exerciseName.length > nameLength) {
+      exerciseName = '${exerciseName.substring(0, nameLength - 3).trim()}...';
+    }
+
     return PopScope(
       onPopInvoked: (foo) => widget.refresh(),
       child: Scaffold(
