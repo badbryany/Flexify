@@ -131,7 +131,7 @@ class Save {
     return openDatabase(
       path,
       version: 1,
-      onCreate: (Database db, int version) async {
+      onOpen: (Database db) async {
         await db.execute(
           'CREATE TABLE IF NOT EXISTS "exercises" ("name"	TEXT NOT NULL, "type" TEXT, "affectedMuscle" TEXT, "equipment" TEXT, "synced" INTEGER NOT NULL, PRIMARY KEY("name"));',
         );

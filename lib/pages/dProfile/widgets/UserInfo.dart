@@ -303,10 +303,6 @@ class _UserInfoState extends State<UserInfo> {
                         children: [
                           Container(
                             padding: const EdgeInsets.all(1.5),
-                            decoration: BoxDecoration(
-                              gradient: global.linearGradient,
-                              borderRadius: BorderRadius.circular(100),
-                            ),
                             child: Container(
                               padding: const EdgeInsets.all(4),
                               decoration: BoxDecoration(

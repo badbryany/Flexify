@@ -306,16 +306,19 @@ class _AddFriendsState extends State<AddFriends> {
     searchStream = http
         .get(Uri.parse('${global.host}/searchUsers?q=$searchString'))
         .asStream()
-        .listen((http.Response res) {
+        .listen((http.Response res) async {
       if (res.body == 'bad request') {
         searchUsers = [];
       }
 
-      searchUsers = (jsonDecode(res.body) as List)
-          .map(
-            (e) => [(e)[0] as String, (e)[1] as String],
-          )
-          .toList();
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      for (var i = 0; i < jsonDecode(res.body).length; i++) {
+        var e = jsonDecode(res.body)[i];
+
+        if (prefs.getString('username') == e[0]) break;
+
+        searchUsers.add([(e)[0] as String, (e)[1] as String]);
+      }
 
       loadingDone = true;
       setState(() {});
@@ -489,7 +492,8 @@ class _AddFriendsState extends State<AddFriends> {
                         isOpen: _searchBarOpen == 1,
                         radius: global.width(context) * 0.075,
                         searchBarWidth: Tuple(
-                          global.containerWidth(context) - global.width(context) * .1,
+                          global.containerWidth(context) -
+                              global.width(context) * .1,
                           global.width(context) * 0.075 * 2,
                         ),
                         backgroundColor: global.darkGrey,
