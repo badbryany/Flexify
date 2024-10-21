@@ -131,7 +131,7 @@ class Save {
     return openDatabase(
       path,
       version: 1,
-      onOpen: (Database db) async {
+      onCreate: (Database db, int version) async {
         await db.execute(
           'CREATE TABLE IF NOT EXISTS "exercises" ("name"	TEXT NOT NULL, "type" TEXT, "affectedMuscle" TEXT, "equipment" TEXT, "synced" INTEGER NOT NULL, PRIMARY KEY("name"));',
         );
@@ -306,6 +306,9 @@ class Save {
           'reps': sets[i]['reps'].toString(),
           'weight': sets[i]['weight'].toString(),
           'date': sets[i]['date'],
+          'duration': sets[i]['duration'].toString(),
+          'isBodyWeight': sets[i]['isBodyWeight'].toString(),
+          'isDuration': sets[i]['isDuration'].toString(),
         },
       );
       if (res.body != 'done') {
@@ -359,7 +362,7 @@ class Save {
 
   static Future<void> clearData() async {
     Database db = await getDatabase();
-    await db.execute('DROP TABLE IF EXISTS exercises;');
-    await db.execute('DROP TABLE IF EXISTS sets;');
+    await db.execute('DELETE FROM exercises;');
+    await db.execute('DELETE FROM sets;');
   }
 }

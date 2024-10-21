@@ -65,25 +65,12 @@ class _SignInState extends State<SignIn> {
                     height: global.height(context) * .8,
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.only(top: global.height(context) * 0.05),
-                  width: global.width(context),
-                  child: Text(
-                    'SIGN IN',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: global.width(context) * 0.1,
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.onBackground,
-                    ),
-                  ),
-                )
               ],
             ),
             Center(
               child: Container(
                 width: global.width(context) * global.containerWidthFactor,
-                height: global.height(context) * 0.65,
+                height: global.height(context) * 0.5,
                 decoration: BoxDecoration(
                     color: global.isDarkMode(context)
                         ? Theme.of(context)
@@ -156,6 +143,7 @@ class _SignInState extends State<SignIn> {
                       title: 'SIGN IN',
                       loading: loading,
                       onTap: () async {
+                        FocusScope.of(context).unfocus();
                         if (loading) return;
 
                         errorText = '';
@@ -166,142 +154,53 @@ class _SignInState extends State<SignIn> {
                         String password = inputs[1]['controller'].text;
                         SharedPreferences prefs =
                             await SharedPreferences.getInstance();
-                        if (username != '' && password != '') {
-                          http.Response res = await http.post(
-                            Uri.parse(url),
-                            body: {
-                              'username': username,
-                              'password': password,
-                            },
-                          );
 
-                          print(res.body);
-
-                          if (res.body == 'Username or password is incorrect') {
-                            errorText = res.body;
-                            loading = false;
-                            loading = false;
-
-                            setState(() {});
-                            return;
-                          }
-
-                          dynamic body = jsonDecode(res.body);
-
-                          prefs.setString('username', username);
-                          prefs.setString('password', password);
-                          prefs.setString('jwt', body['jwt']);
-                          prefs.setString('email', body['email']);
-                          prefs.setString('firstname', body['firstname']);
-
-                          await syncData();
-
+                        if (username == '' && password == '') {
+                          errorText = 'Some of the inputs are empty.';
                           loading = false;
                           setState(() {});
-
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => const PopScope(
-                                canPop: false,
-                                child: Dashboard(),
-                              ),
-                            ),
-                          );
                           return;
                         }
-                        errorText = 'Some of the inputs are empty.';
+                        http.Response res = await http.post(
+                          Uri.parse(url),
+                          body: {
+                            'username': username,
+                            'password': password,
+                          },
+                        );
+
+                        if (res.body == 'username or password is wrong') {
+                          errorText = res.body;
+                          loading = false;
+                          setState(() {});
+                          return;
+                        }
+
+                        dynamic body = jsonDecode(res.body);
+
+                        prefs.setString('username', username);
+                        prefs.setString('password', password);
+                        prefs.setString('jwt', body['jwt']);
+                        prefs.setString('email', body['email']);
+                        prefs.setString('firstname', body['firstname']);
+
+                        await syncData();
+
                         loading = false;
                         setState(() {});
+
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const PopScope(
+                              canPop: false,
+                              child: Dashboard(),
+                            ),
+                          ),
+                        );
+                        return;
                       },
                     ),
                     SizedBox(height: global.height(context) * 0.04),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: global.width(context) * 0.1,
-                          height: 1,
-                          color: Theme.of(context).focusColor,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: global.width(context) * 0.025,
-                            vertical: 0,
-                          ),
-                          child: Text(
-                            'or continue with',
-                            style: TextStyle(
-                              color: Theme.of(context).focusColor,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          width: global.width(context) * 0.1,
-                          height: 1,
-                          color: Theme.of(context).focusColor,
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: global.height(context) * 0.0425,
-                    ),
-                    ...[
-                      {
-                        'title': 'Continue with Apple',
-                        'icon': Transform.scale(
-                          scale: 1.1,
-                          child: Image.asset(
-                            'assets/icon/apple.png',
-                            color: Theme.of(context).scaffoldBackgroundColor,
-                          ),
-                        ),
-                      },
-                      {
-                        'title': 'Continue with Google',
-                        'icon': Image.asset(
-                          'assets/icon/google.png',
-                          // scale: 27,
-                        ),
-                      },
-                    ].map(
-                      (e) => Container(
-                        margin: const EdgeInsets.only(top: 5, bottom: 5),
-                        alignment: Alignment.center,
-                        width: global.width(context) * .8,
-                        height: global.height(context) * 0.05,
-                        decoration: BoxDecoration(
-                            color:
-                                Theme.of(context).focusColor.withOpacity(0.8),
-                            borderRadius: BorderRadius.circular(1000),
-                            boxShadow: [global.lightShadow(context)]),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            e['title'] == 'Continue with Google'
-                                ? SizedBox(
-                                    width: global.width(context) * 0.012,
-                                  )
-                                : const SizedBox(),
-                            SizedBox(
-                              width: global.width(context) * .05,
-                              child: e['icon'] as Widget,
-                            ),
-                            Text(
-                              e['title'] as String,
-                              style: TextStyle(
-                                letterSpacing: -0.5,
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor,
-                                fontSize: global.width(context) * 0.03,
-                              ),
-                            ),
-                            const SizedBox(),
-                            const SizedBox(),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: global.height(context) * 0.01),
                     TextButton(
                       onPressed: () {},
                       child: Text(
@@ -348,6 +247,29 @@ class _SignInState extends State<SignIn> {
                 ),
               ),
             ),
+            Container(
+              padding: EdgeInsets.only(top: global.height(context) * 0.05),
+              width: global.width(context),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'assets/logo/darklogo.png',
+                    width: global.width(context) * .175,
+                  ),
+                  global.mediumHeight(context),
+                  Text(
+                    'SIGN IN',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: global.width(context) * 0.1,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.onBackground,
+                    ),
+                  ),
+                ],
+              ),
+            )
           ],
         ),
       ),
@@ -365,12 +287,13 @@ syncData() async {
   );
 
   List notParsedExercises = jsonDecode(res.body);
+
   for (int i = 0; i < notParsedExercises.length; i++) {
     Save.saveExercise(Exercise(
-      name: notParsedExercises[i][1],
-      type: notParsedExercises[i][2],
-      affectedMuscle: notParsedExercises[i][3],
-      equipment: notParsedExercises[i][4],
+      name: notParsedExercises[i][0],
+      type: notParsedExercises[i][1],
+      affectedMuscle: notParsedExercises[i][2],
+      equipment: notParsedExercises[i][3],
       synced: 1,
     ));
   }
@@ -379,11 +302,9 @@ syncData() async {
   res = await http.get(
     Uri.parse('$url?jwt=${prefs.getString('jwt')}'),
   );
-  print(res.body);
-  print('fixme!!!!!');
   List notParsedSets = jsonDecode(res.body);
+
   for (int i = 0; i < notParsedSets.length; i++) {
-    print(notParsedSets[i][4]);
     Save.saveSet(
       Set(
         setID: notParsedSets[i][0],
@@ -391,9 +312,9 @@ syncData() async {
         reps: notParsedSets[i][2],
         weight: double.parse(notParsedSets[i][3].toString()),
         date: DateTime.parse(notParsedSets[i][4]),
-        durationInSeconds: 0, // ! FIXME
-        isBodyweight: false, // ! FIXME
-        isDuration: false, // ! FIXME
+        durationInSeconds: notParsedSets[i][5],
+        isBodyweight: notParsedSets[i][6] == 1,
+        isDuration: notParsedSets[i][7] == 1,
         synced: 1,
       ),
       notParsedSets[i][0],
