@@ -17,7 +17,11 @@ class DashboardWorkout extends StatefulWidget {
 class _DashboardWorkoutState extends State<DashboardWorkout> {
   List<Set> sets = [];
 
+  bool disposed = false;
+
   getData() async {
+    if (disposed) return;
+
     sets = await Save.getSetList();
     setState(() {});
   }
@@ -26,6 +30,12 @@ class _DashboardWorkoutState extends State<DashboardWorkout> {
   void initState() {
     super.initState();
     getData();
+  }
+
+  @override
+  void dispose() {
+    disposed = true;
+    super.dispose();
   }
 
   List<Widget> elements(BuildContext context) => [
