@@ -346,8 +346,10 @@ class _ExerciseSetsState extends State<ExerciseSets> {
     ];
 
     int nameLength = 18;
+    String newExerciseName = exerciseName;
     if (exerciseName.length > nameLength) {
-      exerciseName = '${exerciseName.substring(0, nameLength - 3).trim()}...';
+      newExerciseName =
+          '${exerciseName.substring(0, nameLength - 3).trim()}...';
     }
 
     return PopScope(
@@ -357,7 +359,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
           physics: const BouncingScrollPhysics(),
           children: [
             Navbar(
-              title: exerciseName,
+              title: newExerciseName,
               actionButton: ActionButton(
                 iconData: Icons.add,
                 action: () => Navigator.push(
