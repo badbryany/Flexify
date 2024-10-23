@@ -26,7 +26,8 @@ class _ExerciseStatsState extends State<ExerciseStats> {
     'Weight',
     'Repetitions',
     'Weight per repetition',
-    'Moved weight'
+    'Moved weight',
+    'Duration'
   ];
   List<FlSpot> spots = [];
   double maxX = 0;
@@ -71,6 +72,9 @@ class _ExerciseStatsState extends State<ExerciseStats> {
             break;
           case 'Moved weight':
             y = widget.sets[i].weight * widget.sets[i].reps;
+            break;
+          case 'Duration':
+            y = widget.sets[i].getDuration().inSeconds.toDouble();
             break;
         }
 

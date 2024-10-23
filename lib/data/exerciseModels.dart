@@ -116,7 +116,7 @@ class Set {
     ''';
   }
 
-  getDuration() {
+  Duration getDuration() {
     return Duration(seconds: durationInSeconds);
   }
 }
