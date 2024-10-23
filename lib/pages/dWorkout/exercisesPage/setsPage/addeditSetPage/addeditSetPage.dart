@@ -45,31 +45,6 @@ class _AddEditSetState extends State<AddEditSet> {
   int newReps = 0;
   double newWeight = 0;
 
-  getData() async {
-    List<Set> sets = await Save.getSetList();
-
-    for (int i = sets.length - 1; i >= 0; i--) {
-      if (sets[i].exerciseName == widget.exerciseName) {
-        repsController.text = sets[i].reps.toString();
-        weightController.text = sets[i].weight.toString();
-        bodyweight = sets[i].isBodyweight;
-
-        if (sets[i].isDuration) {
-          activeTypeIndex = 1;
-          typeInputController.animateTo(
-            global.width(context) * activeTypeIndex,
-            duration: global.standardAnimationDuration,
-            curve: Curves.easeInOutCirc,
-          );
-          durTime = sets[i].getDuration();
-        }
-
-        setState(() {});
-        break;
-      }
-    }
-  }
-
   editSetInit() {
     newReps = widget.set!.reps;
     newWeight = widget.set!.weight;
@@ -177,10 +152,33 @@ class _AddEditSetState extends State<AddEditSet> {
         ),
       ];
 
+  getData() {
+    if (widget.set != null) {
+      activeTypeIndex = widget.set!.isDuration ? 1 : 0;
+
+      repsController.text = widget.set!.reps.toString();
+      weightController.text = widget.set!.weight.toString();
+      bodyweight = widget.set!.isBodyweight;
+      durTime = widget.set!.getDuration();
+
+      setState(() {});
+    }
+  }
+
   @override
   void initState() {
+    if (widget.add) {
+      getData();
+    } else {
+      editSetInit();
+    }
+
     super.initState();
-    Future.delayed(Duration.zero, widget.add ? getData : editSetInit);
+
+    Future.delayed(
+      Duration.zero,
+      () => typeInputController.jumpTo(global.width(context) * activeTypeIndex),
+    );
   }
 
   @override
