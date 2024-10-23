@@ -15,7 +15,7 @@ showCustomModalBottomSheet(
 
 class ModalBottomSheet extends StatefulWidget {
   const ModalBottomSheet({
-    Key? key,
+    super.key,
     required this.title,
     required this.titleSize,
     required this.content,
@@ -26,7 +26,7 @@ class ModalBottomSheet extends StatefulWidget {
     this.topPadding,
     this.extraButtonTitle,
     this.extraButtonOnTap,
-  }) : super(key: key);
+  });
 
   final String title;
   final double titleSize;
@@ -113,7 +113,9 @@ class _ModalBottomSheetState extends State<ModalBottomSheet> {
                             gradient: global.linearGradient),
                         child: Center(
                           child: Text(
-                            widget.submitButtonText!,
+                            widget.submitButtonText != null
+                                ? widget.submitButtonText!
+                                : 'Enter',
                             style: TextStyle(
                               fontSize: global.width(context) * .05,
                               color: Colors.black,

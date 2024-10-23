@@ -367,7 +367,7 @@ class _ExerciseSetsState extends State<ExerciseSets> {
                   MaterialPageRoute(
                     builder: (context) => AddEditSet(
                       add: true,
-                      set: sets.isNotEmpty ? sets.last : null,
+                      set: null,
                       exerciseName: widget.name,
                     ),
                   ),
