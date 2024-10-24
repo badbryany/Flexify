@@ -121,19 +121,14 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      // Image.asset(
-                      //   global.isDarkMode(context)
-                      //       ? 'assets/logo/darklogo.png'
-                      //       : 'assets/logo/lightlogo.png',
-                      //   width: global.width(context) * 0.11,
-                      //   height: global.width(context) * 0.11,
-                      // ),
                       GestureDetector(
                         onTap: () => animationController
                           ..reset()
                           ..forward(),
                         child: Lottie.asset(
-                          'assets/animations/flexify_easteregg.json',
+                          global.isDarkMode(context)
+                              ? 'assets/animations/flexify_easteregg_darkmode.json'
+                              : 'assets/animations/flexify_easteregg_whitemode.json',
                           width: global.width(context) * 0.11,
                           height: global.width(context) * 0.11,
                           controller: animationController,

@@ -99,4 +99,5 @@ flutter:
     - assets/sounds/beep.mp3
     - assets/sounds/boxing-bell.mp3
 
-    - assets/animations/flexify_easteregg.json
+    - assets/animations/flexify_easteregg_darkmode.json
+    - assets/animations/flexify_easteregg_whitemode.json
