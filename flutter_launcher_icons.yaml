@@ -1,0 +1,7 @@
+flutter_launcher_icons:
+  image_path: "assets/logo/appicon.png" # Path to your new icon image
+  android: true # Enables Android icon generation
+  ios: true # Enables iOS icon generation
+  background_color_ios: "#000000" # Sets the background color to black for iOS
+  remove_alpha_channel_ios: true # Removes any transparency in the iOS icon
+  image_path_ios: "assets/logo/darklogoBG.png"
