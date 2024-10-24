@@ -136,7 +136,7 @@ class _UserInfoState extends State<UserInfo> {
     setState(() {});
 
     if (image != null) {
-      await uploadImage(image!);
+      print((await uploadImage(image!)).body);
     }
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -147,7 +147,11 @@ class _UserInfoState extends State<UserInfo> {
             username &&
         ((controllers['email'] as Map)['controller'] as TextEditingController)
                 .text ==
-            email) {
+            email &&
+        ((controllers['firstname'] as Map)['controller']
+                    as TextEditingController)
+                .text ==
+            firstname) {
       editing = false;
       loading = false;
       setState(() {});
