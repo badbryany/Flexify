@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-// import 'package:flexify/pages/dPlan/dashboardPlan.dart';
+import 'package:lottie/lottie.dart';
 import 'package:flexify/pages/dShop/dashboardShop.dart';
 import 'package:flexify/pages/dStats/dashboardStats.dart';
 import 'package:flexify/pages/dProfile/dashboardProfile.dart';
@@ -22,7 +22,8 @@ class Dashboard extends StatefulWidget {
   State<Dashboard> createState() => _DashboardState();
 }
 
-class _DashboardState extends State<Dashboard> {
+class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
+  late AnimationController animationController;
   int _selectedIndex = 1;
   bool gotRequests = false;
 
@@ -77,12 +78,14 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   void initState() {
+    animationController = AnimationController(vsync: this);
     _isDesposed = false;
     super.initState();
   }
 
   @override
   void dispose() {
+    animationController.dispose();
     _isDesposed = true;
     super.dispose();
   }
@@ -118,12 +121,27 @@ class _DashboardState extends State<Dashboard> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Image.asset(
-                        global.isDarkMode(context)
-                            ? 'assets/logo/darklogo.png'
-                            : 'assets/logo/lightlogo.png',
-                        width: global.width(context) * 0.11,
-                        height: global.width(context) * 0.11,
+                      // Image.asset(
+                      //   global.isDarkMode(context)
+                      //       ? 'assets/logo/darklogo.png'
+                      //       : 'assets/logo/lightlogo.png',
+                      //   width: global.width(context) * 0.11,
+                      //   height: global.width(context) * 0.11,
+                      // ),
+                      GestureDetector(
+                        onTap: () => animationController
+                          ..reset()
+                          ..forward(),
+                        child: Lottie.asset(
+                          'assets/animations/flexify_easteregg.json',
+                          width: global.width(context) * 0.11,
+                          height: global.width(context) * 0.11,
+                          controller: animationController,
+                          onLoaded: (composition) {
+                            animationController.duration =
+                                const Duration(seconds: 2, milliseconds: 00);
+                          },
+                        ),
                       ),
                       Container(
                         width: global.width(context) * .5,
