@@ -288,26 +288,31 @@ class _ExercisesPageState extends State<ExercisesPage> {
                         top: 0,
                         bottom: 0,
                         right: 0,
-                        child: SizedBox(
-                          width: searchBarOpen
-                              ? null
-                              : global.width(context) * .15,
-                          child: AnimatedSearchBar(
-                            isOpen: searchBarOpen,
-                            radius: global.width(context) * 0.075,
-                            searchBarWidth: Tuple(
-                              global.containerWidth(context) -
-                                  global.width(context) * .1,
-                              global.width(context) * 0.15,
+                        child: Center(
+                          child: AnimatedContainer(
+                            curve: Curves.easeInOut,
+                            duration: global.standardAnimationDuration,
+                            width: searchBarOpen
+                                ? global.width(context) * .895
+                                : global.width(context) * .15,
+                            child: AnimatedSearchBar(
+                              isOpen: searchBarOpen,
+                              radius: global.width(context) * 0.075,
+                              hintText: 'Search (eg. "Bench Pre...")',
+                              searchBarWidth: Tuple(
+                                global.containerWidth(context) -
+                                    global.width(context) * .1,
+                                global.width(context) * 0.15,
+                              ),
+                              backgroundColor: global.darkGrey,
+                              searchController: _controller,
+                              duration: const Duration(milliseconds: 0),
+                              iconSize: global.width(context) * 0.055,
+                              onTap: toggleSearchBar,
+                              openIcon: Icons.close,
+                              closedIcon: Icons.add,
+                              fadeDuration: global.standardAnimationDuration,
                             ),
-                            backgroundColor: global.darkGrey,
-                            searchController: _controller,
-                            duration: const Duration(milliseconds: 0),
-                            iconSize: global.width(context) * 0.055,
-                            onTap: toggleSearchBar,
-                            openIcon: Icons.close,
-                            closedIcon: Icons.add,
-                            fadeDuration: const Duration(milliseconds: 500),
                           ),
                         ),
                       ),

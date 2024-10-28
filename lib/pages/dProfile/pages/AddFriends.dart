@@ -5,6 +5,7 @@ import 'dart:ui';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flexify/data/globalVariables.dart' as global;
 import 'package:flexify/widgets/AnimatedSearchBar.dart';
+import 'package:flexify/widgets/BounceElement.dart';
 import 'package:flexify/widgets/DeleteAlertDialog.dart';
 import 'package:flexify/widgets/LoadingImage.dart';
 import 'package:flutter/cupertino.dart';
@@ -22,7 +23,7 @@ class AddFriends extends StatefulWidget {
 class _AddFriendsState extends State<AddFriends> {
   final TextEditingController friendsNameController = TextEditingController();
 
-  int _searchBarOpen = 0;
+  bool searchBarOpen = false;
   StreamSubscription<http.Response>? searchStream;
 
   bool loadingDone = true;
@@ -440,82 +441,95 @@ class _AddFriendsState extends State<AddFriends> {
               children: [
                 Padding(
                   padding: EdgeInsets.all(global.height(context) * .025),
-                  child: Row(
-                    mainAxisAlignment: _searchBarOpen == 0
-                        ? MainAxisAlignment.spaceBetween
-                        : MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                  child: Stack(
                     children: [
-                      Visibility(
-                        visible: _searchBarOpen == 0,
-                        child: AnimatedContainer(
-                          duration: global.standardAnimationDuration,
-                          alignment: Alignment.center,
-                          padding: EdgeInsets.all(
-                            global.width(context) * 0.005,
-                          ),
-                          width: global.width(context) * 0.15,
-                          height: global.width(context) * 0.15,
-                          decoration: BoxDecoration(
-                            boxShadow: [global.darkShadow(context)],
-                            color: Theme.of(context).colorScheme.background,
-                            borderRadius: BorderRadius.circular(100),
-                          ),
-                          child: IconButton(
-                            splashColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            color: Theme.of(context).colorScheme.onBackground,
-                            icon: const Icon(Icons.arrow_back_rounded),
-                            iconSize: global.width(context) * 0.05,
-                          ),
+                      SizedBox(
+                        width: global.width(context) * .66,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            AnimatedOpacity(
+                              duration: global.standardAnimationDuration,
+                              opacity: searchBarOpen ? 0 : 1,
+                              child: BounceElement(
+                                onTap: () => Navigator.pop(context),
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  padding: EdgeInsets.all(
+                                      global.height(context) * 0.0025),
+                                  width: global.width(context) * 0.15,
+                                  height: global.width(context) * 0.15,
+                                  decoration: BoxDecoration(
+                                    color: global.darkGrey,
+                                    borderRadius: BorderRadius.circular(100),
+                                    boxShadow: global.shadow(context),
+                                  ),
+                                  child: Icon(
+                                    Icons.arrow_back_rounded,
+                                    size: global.width(context) * 0.05,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            AnimatedOpacity(
+                              duration: global.standardAnimationDuration,
+                              opacity: searchBarOpen ? 0 : 1,
+                              child: Text(
+                                'Friendslist',
+                                textAlign: TextAlign.center,
+                                maxLines: 1,
+                                style: TextStyle(
+                                  color: Theme.of(context).focusColor,
+                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: -1,
+                                  fontSize: global.width(context) * .075,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      Visibility(
-                        visible: _searchBarOpen == 0,
-                        child: Text(
-                          'Friendslist',
-                          textAlign: TextAlign.center,
-                          maxLines: 1,
-                          style: TextStyle(
-                            color: Theme.of(context).focusColor,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: -1,
-                            fontSize: global.width(context) * 0.09,
+                      Positioned(
+                        top: 0,
+                        bottom: 0,
+                        right: 0,
+                        child: Center(
+                          child: AnimatedContainer(
+                            curve: Curves.easeInOut,
+                            duration: global.standardAnimationDuration,
+                            width: searchBarOpen
+                                ? global.width(context) * .895
+                                : global.width(context) * .15,
+                            child: AnimatedSearchBar(
+                              hintText: 'Search (eg. Peter Pa...)',
+                              isOpen: searchBarOpen,
+                              radius: global.width(context) * 0.075,
+                              searchBarWidth: Tuple(
+                                global.containerWidth(context) -
+                                    global.width(context) * .1,
+                                global.width(context) * 0.15,
+                              ),
+                              backgroundColor: global.darkGrey,
+                              searchController: _controller,
+                              duration: const Duration(milliseconds: 0),
+                              iconSize: global.width(context) * 0.055,
+                              onTap: () => setState(
+                                  () => searchBarOpen = !searchBarOpen),
+                              openIcon: Icons.close,
+                              closedIcon: Icons.search,
+                              fadeDuration: global.standardAnimationDuration,
+                            ),
                           ),
                         ),
-                      ),
-                      AnimatedSearchBar(
-                        isOpen: _searchBarOpen == 1,
-                        radius: global.width(context) * 0.075,
-                        searchBarWidth: Tuple(
-                          global.containerWidth(context) -
-                              global.width(context) * .1,
-                          global.width(context) * 0.075 * 2,
-                        ),
-                        backgroundColor: global.darkGrey,
-                        searchController: _controller,
-                        duration: const Duration(milliseconds: 0),
-                        iconSize: global.width(context) * 0.055,
-                        onTap: () {
-                          _searchBarOpen == 0
-                              ? _searchBarOpen = 1
-                              : _searchBarOpen = 0;
-                          setState(() {});
-                        },
-                        openIcon: Icons.close,
-                        closedIcon: Icons.search,
-                        fadeDuration: const Duration(milliseconds: 500),
                       ),
                     ],
                   ),
                 ),
 
                 // FRIENDS WIDGETS
-                ..._searchBarOpen == 1
+                ...searchBarOpen
                     ? [
                         ...(connectedToInternet
                             ? (!loadingDone

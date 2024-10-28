@@ -21,6 +21,7 @@ class AnimatedSearchBar extends StatefulWidget {
   final Duration? fadeDuration;
   final Tuple<double, double> searchBarWidth;
   final TextEditingController searchController;
+  final String hintText;
 
   const AnimatedSearchBar({
     super.key,
@@ -36,6 +37,7 @@ class AnimatedSearchBar extends StatefulWidget {
     this.radius = 75.0,
     this.fadeDuration,
     required this.searchBarWidth,
+    required this.hintText,
   });
 
   @override
@@ -97,7 +99,7 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar>
       if (widget.isOpen) {
         _controller.animateTo(0, duration: global.standardAnimationDuration);
       } else {
-        _controller.forward();
+        _controller.animateTo(300, duration: global.standardAnimationDuration);
       }
     }
   }
@@ -140,29 +142,25 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar>
                 }
                 return animatedChild;
               },
-              child: widget.isOpen
-                  ? SingleChildScrollView(
-                      physics: const NeverScrollableScrollPhysics(),
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
+              child: SingleChildScrollView(
+                physics: const NeverScrollableScrollPhysics(),
+                scrollDirection: Axis.horizontal,
+                child: widget.isOpen
+                    ? Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: global.width(context) * .05,
-                            ),
-                            width: global.width(context) * .6,
+                          SizedBox(
+                            width: global.width(context) * .7,
                             child: TextField(
-                              textAlignVertical: TextAlignVertical.center,
+                              textAlign: TextAlign.left,
                               autofocus: true,
                               controller: widget.searchController,
                               decoration: InputDecoration(
-                                isCollapsed: true,
-                                hintText: 'Search',
+                                hintText: widget.hintText,
                                 border: InputBorder.none,
                                 hintStyle: TextStyle(
                                   color: Colors.white.withOpacity(.5),
-                                  fontSize: global.width(context) * .03,
+                                  fontSize: global.width(context) * .035,
                                 ),
                               ),
                               cursorColor: Colors.white,
@@ -174,13 +172,13 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar>
                             color: widget.iconColor,
                           )
                         ],
+                      )
+                    : Icon(
+                        widget.closedIcon,
+                        size: widget.iconSize,
+                        color: widget.iconColor,
                       ),
-                    )
-                  : Icon(
-                      widget.closedIcon,
-                      size: widget.iconSize,
-                      color: widget.iconColor,
-                    ),
+              ),
             ),
           );
         },
